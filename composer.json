@@ -1,36 +1,36 @@
 {
-	"name" : "ekyna/user-bundle",
-	"description" : "User management",
-	"type" : "symfony-bundle",
-	"authors" : [{
-			"name" : "Etienne Dauvergne",
-			"homepage" : "http://ekyna.com"
-		}
-	],
-	"keywords" : [
-		"symfony2",
-		"user",
-		"bundle"
-	],
-	"homepage" : "https://github.com/ekyna/UserBundle",
-	"license" : [
-		"MIT"
-	],
-	"require" : {
-		"php" : ">=5.3.3",
-		"symfony/framework-bundle" : "~2.3",
+    "name" : "ekyna/user-bundle",
+    "description" : "User management",
+    "type" : "symfony-bundle",
+    "authors" : [{
+            "name" : "Etienne Dauvergne",
+            "homepage" : "http://ekyna.com"
+        }
+    ],
+    "keywords" : [
+        "symfony2",
+        "user",
+        "bundle"
+    ],
+    "homepage" : "https://github.com/ekyna/UserBundle",
+    "license" : [
+        "MIT"
+    ],
+    "require" : {
+        "php" : ">=5.3.3",
+        "symfony/framework-bundle" : "~2.3",
         "friendsofsymfony/user-bundle" : "2.0.*@dev"
-	},
-	"autoload" : {
-		"psr-0" : {
-			"Ekyna\\Bundle\\UserBundle" : ""
-		}
-	},
-	"target-dir" : "Ekyna/Bundle/UserBundle",
-	"minimum-stability" : "dev",
-	"extra" : {
-		"branch-alias" : {
-			"dev-master" : "0.1.x-dev"
-		}
-	}
+    },
+    "autoload" : {
+        "psr-0" : {
+            "Ekyna\\Bundle\\UserBundle" : ""
+        }
+    },
+    "target-dir" : "Ekyna/Bundle/UserBundle",
+    "minimum-stability" : "dev",
+    "extra" : {
+        "branch-alias" : {
+            "dev-master" : "0.1.x-dev"
+        }
+    }
 }
