@@ -25,8 +25,9 @@ class Group extends BaseGroup implements GroupInterface
     /**
      * Constructor
      */
-    public function __construct()
+    public function __construct($name, array $roles = array())
     {
+        parent::__construct($name, $roles);
         $this->default = false;
         $this->users = new ArrayCollection();
     }
