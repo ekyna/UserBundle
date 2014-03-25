@@ -19,7 +19,8 @@
     "require" : {
         "php" : ">=5.3.3",
         "symfony/framework-bundle" : "~2.3",
-        "friendsofsymfony/user-bundle" : "2.0.*@dev"
+        "friendsofsymfony/user-bundle" : "2.0.*@dev",
+        "ekyna/table-bundle" : "0.1.*@dev"
     },
     "autoload" : {
         "psr-0" : {
