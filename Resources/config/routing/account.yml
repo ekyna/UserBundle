@@ -1,0 +1,25 @@
+ekyna_user_account_home:
+    pattern: /
+    defaults:
+        _controller: EkynaUserBundle:Account:home
+        _cms:
+            name: Espace client
+            menu: false
+            position: 99
+    requirements:
+        _method: GET
+
+fos_user_security:
+    resource: "security.yml"
+
+fos_user_register:
+    resource: "registration.yml"
+    prefix: /register
+
+fos_user_resetting:
+    resource: "resetting.yml"
+    prefix: /resetting
+
+fos_user_profile:
+    resource: "profile.yml"
+    prefix: /profile

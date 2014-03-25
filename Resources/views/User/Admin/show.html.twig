@@ -1,0 +1,34 @@
+{% extends "EkynaAdminBundle:Entity:sided.html.twig" %}
+
+{% block title %}
+<h1>{{ 'ekyna.user.header.show'|trans({'%name%': user.email})|raw }}</h1>
+{% endblock %}
+
+{% block actions %}
+{{ ui_link(path('ekyna_user_admin_list'), 'ekyna.admin.button.back_to_list', 'default', 'sm', 'list') }}
+{{ ui_link(path('ekyna_user_admin_new'), 'ekyna.user.button.new', 'primary', 'sm', 'plus') }}
+{% endblock %}
+
+{% block main %}
+<div class="actions">
+    {{ ui_link(path('ekyna_user_admin_edit', {'userId': user.id}), 'ekyna.admin.button.edit', 'warning', 'sm', 'pencil') }}
+    {{ ui_link(path('ekyna_user_admin_remove', {'userId': user.id}), 'ekyna.admin.button.remove', 'danger', 'sm', 'trash') }}
+</div>
+<div class="show show-with-tabs">
+    <ul class="nav nav-tabs">
+	    <li class="active"><a href="#general" data-toggle="tab">Général</a></li>
+	</ul>
+	<div class="show-body">
+	    <div class="tab-content">
+		    <div class="tab-pane active" id="general">
+				<dl class="dl-horizontal">
+					<dt>Email</dt><dd>{{ user.email }}</dd>
+				</dl>
+		    </div>
+	    </div>
+	</div>
+</div>
+{% endblock %}
+
+{% block side %}
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "EkynaAdminBundle:Entity:sided.html.twig" %}
+
+{% block title %}
+<h1>{{ 'ekyna.user.header.remove'|trans({'%name%': user.email})|raw }}</h1>
+{% endblock %}
+
+{% block actions %}
+{{ ui_link(path('ekyna_user_admin_list'), 'ekyna.admin.button.back_to_list', 'default', 'sm', 'list') }}
+{{ ui_link(path('ekyna_user_admin_new'), 'ekyna.user.button.new', 'primary', 'sm', 'plus') }}
+{% endblock %}
+
+{% block main %}
+<form action="{{ path('ekyna_user_admin_remove', {'userId': user.id}) }}" method="post" class="form-horizontal">
+    <div class="form-body">
+	    {{ bootstrap_set_style('horizontal') }}
+		{{ form_widget(form) }}
+    </div>
+    {{ ui_form_footer(path('ekyna_user_admin_show', {'userId': user.id}), 'ekyna.admin.button.remove', 'danger') }}
+</form>
+{% endblock %}
+
+{% block side %}
+{% endblock %}

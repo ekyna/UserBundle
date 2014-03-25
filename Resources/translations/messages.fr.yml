@@ -1,0 +1,37 @@
+ekyna:
+    user:
+        label:
+            singular: Utilisateur
+            plural: Utilisateurs
+        header:
+            list: Utilisateurs <small>Liste des utilisateurs</small>
+            show: Detail de l'utilisateur <small>%name%</small>
+            new: Créer un nouvel utilisateur
+            edit: Modifier l'utilisateur <small>%name%</small>
+            remove: Supprimer l'utilisateur <small>%name%</small>
+        button:
+            list: Liste des utilisateurs
+            show: Detail de l'utilisateur
+            new: Nouvel utilisateur
+            edit: Modifier l'utilisateur
+        alert:
+            no_user: Aucun utilisateur configuré
+    group:
+        label:
+            singular: Groupe
+            plural: Groupes
+        header:
+            list: Groupes <small>Liste des groupes</small>
+            show: Detail du groupe <small>%name%</small>
+            new: Créer un nouveau groupe
+            edit: Modifier le groupe <small>%name%</small>
+            edit_permissions: Modifier les permissions du groupe <small>%name%</small>
+            remove: Supprimer le groupe <small>%name%</small>
+        button:
+            list: Liste des groupes
+            show: Detail du groupe
+            new: Nouveau groupe
+            edit: Modifier le groupe
+            edit_permissions: Modifier les permissions
+        alert:
+            no_group: Aucun groupe configuré

@@ -1,0 +1,22 @@
+fos_user_security_login:
+    pattern: /login
+    defaults:
+        _controller: FOSUserBundle:Security:login
+        _cms:
+            name: "Connexion"
+            parent: ekyna_user_account_home
+            menu: false
+    requirements:
+        _method: GET
+
+fos_user_security_check:
+    pattern: /login-check
+    defaults:
+        _controller: FOSUserBundle:Security:check
+    requirements:
+        _method: POST
+
+fos_user_security_logout:
+    pattern: /logout
+    defaults:
+        _controller: FOSUserBundle:Security:logout

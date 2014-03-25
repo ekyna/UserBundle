@@ -1,0 +1,11 @@
+ekyna_user_account:
+    resource: "routing/account.yml"
+    prefix:   /account
+
+ekyna_user_admin:
+    resource: "routing/admin/user.yml"
+    prefix:   /admin/users
+
+ekyna_group_admin:
+    resource: "routing/admin/group.yml"
+    prefix:   /admin/groups

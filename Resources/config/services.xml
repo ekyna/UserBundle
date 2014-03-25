@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="ekyna_user.user_manager.class">Ekyna\Bundle\UserBundle\Doctrine\UserManager</parameter>
+        <parameter key="ekyna_user.menu_builder.class">Ekyna\Bundle\UserBundle\Menu\MenuBuilder</parameter>
+    </parameters>
+
+    <services>
+        <!--  User Manager -->
+        <service id="ekyna_user.user_manager" class="%ekyna_user.user_manager.class%" public="false">
+            <argument type="service" id="security.encoder_factory" />
+            <argument type="service" id="fos_user.util.username_canonicalizer" />
+            <argument type="service" id="fos_user.util.email_canonicalizer" />
+            <argument type="service" id="fos_user.entity_manager" />
+            <argument>%fos_user.model.user.class%</argument>
+            <argument>%fos_user.model.group.class%</argument>
+        </service>
+
+        <!-- Account Menu -->
+        <service id="ekyna_user.menu_builder" class="%ekyna_user.menu_builder.class%">
+            <argument type="service" id="knp_menu.factory" />
+        </service>
+        <service id="ekyna_user.menu.account"
+            class="Knp\Menu\MenuItem"
+            factory-service="ekyna_user.menu_builder"
+            factory-method="createAccountMenu"
+            scope="request">
+            <argument type="service" id="request" />
+            <tag name="knp_menu.menu" alias="account" />
+        </service>
+    </services>
+
+</container>
