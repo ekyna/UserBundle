@@ -1,0 +1,11 @@
+{% extends "EkynaUserBundle::layout.html.twig" %}
+
+{% block account %}
+<h3>Supprimer une adresse</h3>
+<hr>
+<form action="{{ path('ekyna_user_address_remove', {'addressId': address.id}) }}" method="post" class="form-horizontal">
+    {{ bootstrap_set_style('horizontal') }}
+    {{ form_widget(form) }}
+    {{ ui_form_footer(path('ekyna_user_address_list'), 'Supprimer', 'danger', 'trash') }}
+</form>
+{% endblock %}

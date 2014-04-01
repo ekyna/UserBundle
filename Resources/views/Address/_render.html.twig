@@ -1,0 +1,17 @@
+{% if address.lastname != '' and address.firstname != '' -%}
+<strong>{{ address.gender }} {{ address.lastname }} {{ address.firstname }}</strong><br>
+{%- endif %}
+{% if address.company != '' -%}
+<strong><em>{{ address.company }}</em></strong><br>
+{%- endif %}
+{{ address.street }}<br>
+{% if address.supplement != '' -%}
+{{ address.supplement }}<br>
+{%- endif %}
+{{ address.postalCode }} {{ address.city }}<br>
+{% if address.phone != '' -%}
+<abbr title="Téléphone">T:</abbr> {{ address.phone }}<br>
+{%- endif %}
+{% if address.mobile != '' -%}
+<abbr title="Mobile">M:</abbr> {{ address.mobile }}<br>
+{%- endif %}

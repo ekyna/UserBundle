@@ -36,6 +36,7 @@ class MenuBuilder
 
         $menu->addChild('Mon profil', array('route' => 'fos_user_profile_show'));
         $menu->addChild('Changer mon mot de passe', array('route' => 'fos_user_change_password'));
+        $menu->addChild('Mes adresses', array('route' => 'ekyna_user_address_list'));
 
         return $menu;
     }

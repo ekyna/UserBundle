@@ -23,3 +23,7 @@ fos_user_resetting:
 fos_user_profile:
     resource: "profile.yml"
     prefix: /profile
+
+ekyna_user_address:
+    resource: "address.yml"
+    prefix: /address

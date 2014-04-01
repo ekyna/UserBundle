@@ -18,7 +18,7 @@ class Group extends BaseGroup implements GroupInterface
     protected $default = false;
 
     /**
-     * @var \Doctrine\Common\Collections\ArrayCollection
+     * @var ArrayCollection
      */
     protected $users;
 
@@ -36,7 +36,7 @@ class Group extends BaseGroup implements GroupInterface
      * Set whether the group is the default one
      *  
      * @param boolean $default
-     * @return \Ekyna\Bundle\UserBundle\Entity\Group
+     * @return Group
      */
     public function setDefault($default)
     {
@@ -57,7 +57,7 @@ class Group extends BaseGroup implements GroupInterface
     /**
      * Add users
      *
-     * @param \Ekyna\Bundle\UserBundle\Entity\User $user
+     * @param User $user
      * @return Group
      */
     public function addUser(User $user)
@@ -72,7 +72,7 @@ class Group extends BaseGroup implements GroupInterface
     /**
      * Remove users
      *
-     * @param \Ekyna\Bundle\UserBundle\Entity\User $user
+     * @param User $user
      */
     public function removeUser(User $user)
     {
@@ -82,7 +82,7 @@ class Group extends BaseGroup implements GroupInterface
     /**
      * Returns true whether the group has given user
      *
-     * @param \Ekyna\Bundle\UserBundle\Entity\User $user
+     * @param User $user
      * @return boolean
      */
     public function hasUser(User $user)
@@ -93,7 +93,7 @@ class Group extends BaseGroup implements GroupInterface
     /**
      * Get users
      *
-     * @return \Doctrine\Common\Collections\ArrayCollection
+     * @return ArrayCollection
      */
     public function getUsers()
     {

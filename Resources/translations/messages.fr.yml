@@ -35,3 +35,20 @@ ekyna:
             edit_permissions: Modifier les permissions
         alert:
             no_group: Aucun groupe configuré
+    address:
+        label:
+            singular: Adresse
+            plural: Adresses
+        header:
+            list: Adresses <small>Liste des adresses</small>
+            show: Detail de l'adresse
+            new: Créer une nouvelle adresse
+            edit: Modifier l'adresse
+            remove: Supprimer l'adresse
+        button:
+            list: Liste des adresses
+            show: Detail de l'adresse
+            new: Nouvelle adresse
+            edit: Modifier l'adresse
+        alert:
+            no_address: Aucune adresse configuré

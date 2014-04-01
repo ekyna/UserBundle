@@ -1,0 +1,34 @@
+{% extends "EkynaUserBundle::layout.html.twig" %}
+
+{% block account %}
+<h3>Votre carnet d'adresses</h3>
+<hr>
+{% set opened = false %}
+{% for address in addresses %}
+{%- if loop.index0 % 2 == 0 %}
+    {% set opened = true %}
+    <div class="row">
+{%- endif %}
+        <div class="col-md-6">
+            <div class="panel panel-default">
+				<div class="panel-body">
+		            {{ render_address(address) }}
+				</div>
+				<div class="panel-footer">
+				    <a href="{{ path('ekyna_user_address_edit', {'addressId': address.id}) }}" class="btn btn-xs btn-default">Modifier</a>
+				    <a href="{{ path('ekyna_user_address_remove', {'addressId': address.id}) }}" class="btn btn-xs btn-default pull-right">Supprimer</a>
+				</div>
+			</div>
+        </div>
+{%- if loop.index0 % 2 == 1 %}
+    {% set opened = false %}
+    </div>
+{%- endif %}
+{% endfor %}
+{%- if opened %}
+    </div>
+{%- endif %}
+    <p>
+        <a href="{{ path('ekyna_user_address_new') }}" class="btn btn-sm btn-default">Ajouter une adresse</a>
+    </p>
+{% endblock account %}

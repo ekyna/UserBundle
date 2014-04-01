@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <doctrine-mapping 
     xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -7,7 +6,10 @@
     xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                         http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="Ekyna\Bundle\UserBundle\Entity\User" table="user_user">
+    <entity
+        name="Ekyna\Bundle\UserBundle\Entity\User"
+        table="user_user">
+
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO" />
         </id>
@@ -15,6 +17,12 @@
         <many-to-one field="group" target-entity="Ekyna\Bundle\UserBundle\Entity\Group" inversed-by="users" fetch="EAGER">
 	        <join-column name="group_id" referenced-column-name="id" />
 	    </many-to-one>
+
+        <one-to-many field="addresses" target-entity="Ekyna\Bundle\UserBundle\Entity\Address" mapped-by="user">
+            <cascade>
+                <cascade-all />
+            </cascade>
+        </one-to-many>
 
         <field name="createdAt" type="datetime" column="created_at">
             <gedmo:timestampable on="create"/>

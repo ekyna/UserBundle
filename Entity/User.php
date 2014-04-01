@@ -16,6 +16,11 @@ class User extends BaseUser implements UserInterface
     protected $group;
 
     /**
+     * @var ArrayCollection
+     */
+    protected $addresses;
+
+    /**
      * @var \Datetime
      */
     protected $createdAt;
@@ -28,8 +33,8 @@ class User extends BaseUser implements UserInterface
     /**
      * Set group
      *
-     * @param \Ekyna\Bundle\UserBundle\Entity\Group $group
-     * @return \Ekyna\Bundle\UserBundle\Entity\User
+     * @param Group $group
+     * @return User
      */
     public function setGroup(Group $group = null)
     {
@@ -41,7 +46,7 @@ class User extends BaseUser implements UserInterface
     /**
      * Get group
      *
-     * @return \Ekyna\Bundle\UserBundle\Entity\Group
+     * @return Group
      */
     public function getGroup()
     {
@@ -63,10 +68,56 @@ class User extends BaseUser implements UserInterface
     }
 
     /**
+     * Add addresses
+     *
+     * @param Address $address
+     * @return Group
+     */
+    public function addAddress(Address $address)
+    {
+        if(!$this->hasAddress($address)) {
+            $address->setGroup($this);
+            $this->addresses->add($address);
+        }
+        return $this;
+    }
+
+    /**
+     * Remove addresses
+     *
+     * @param Address $address
+     */
+    public function removeAddress(Address $address)
+    {
+        $this->addresses->removeElement($address);
+    }
+
+    /**
+     * Returns true whether the group has given address
+     *
+     * @param Address $address
+     * @return boolean
+     */
+    public function hasAddress(Address $address)
+    {
+        return $this->addresses->contains($address);
+    }
+
+    /**
+     * Get addresses
+     *
+     * @return ArrayCollection
+     */
+    public function getAddresses()
+    {
+        return $this->addresses;
+    }
+
+    /**
      * Set created at
      *
      * @param \Datetime $createdAt
-     * @return \Ekyna\Bundle\UserBundle\Entity\User
+     * @return User
      */
     public function setCreatedAt(\Datetime $createdAt)
     {
@@ -88,7 +139,7 @@ class User extends BaseUser implements UserInterface
      * Set update at
      *
      * @param \Datetime $updatedAt
-     * @return \Ekyna\Bundle\UserBundle\Entity\User
+     * @return User
      */
     public function setUpdatedAt(\Datetime $updatedAt)
     {

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping 
+    xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:gedmo="http://gediminasm.org/schemas/orm/doctrine-extensions-mapping"
+    xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                        http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity
+        name="Ekyna\Bundle\UserBundle\Entity\Address"
+        table="user_address">
+
+        <id name="id" type="integer" column="id">
+            <generator strategy="AUTO" />
+        </id>
+
+        <field name="company" type="string" column="company" length="64" nullable="true" />
+        <field name="gender" type="string" column="gender" length="8" />
+        <field name="firstname" type="string" column="firstname" length="32" />
+        <field name="lastname" type="string" column="lastname" length="32" />
+        <field name="street" type="string" column="street" length="255" />
+        <field name="supplement" type="string" column="supplement" length="255" nullable="true" />
+        <field name="postalCode" type="text" column="postal_code" length="8" />
+        <field name="city" type="text" column="city" length="255" />
+        <field name="phone" type="text" column="phone" length="16" nullable="true" />
+        <field name="mobile" type="text" column="mobile" length="16" nullable="true" />
+
+        <many-to-one field="user" target-entity="Ekyna\Bundle\UserBundle\Entity\User" inversed-by="addresses">
+	        <join-column name="user_id" referenced-column-name="id" />
+	    </many-to-one>
+
+        <field name="createdAt" type="datetime" column="created_at">
+            <gedmo:timestampable on="create"/>
+        </field>
+        <field name="updatedAt" type="datetime" column="updated_at">
+            <gedmo:timestampable on="update"/>
+        </field>
+
+    </entity>
+
+</doctrine-mapping>

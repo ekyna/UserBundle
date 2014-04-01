@@ -6,9 +6,9 @@ use Ekyna\Component\Table\TableBuilderInterface;
 use Ekyna\Component\Table\AbstractTableType;
 
 /**
- * UserType
+ * AddressType
  */
-class UserType extends AbstractTableType
+class AddressType extends AbstractTableType
 {
     protected $entityClass;
 
@@ -26,52 +26,45 @@ class UserType extends AbstractTableType
             ->addColumn('id', 'number', array(
                 'sortable' => true,
             ))
-            ->addColumn('email', 'anchor', array(
-                'label' => 'Email',
+            ->addColumn('street', 'anchor', array(
+                'label' => 'Rue',
                 'sortable' => true,
-                'route_name' => 'ekyna_user_admin_show',
+                'filterable' => true,
+                'route_name' => 'ekyna_address_admin_show',
                 'route_parameters_map' => array(
                     'userId' => 'id'
                 ),
             ))
-            ->addColumn('group', 'anchor', array(
-                'label' => 'Groupe',
-                'property_path' => 'group.name',
-                'sortable' => false,
-                'route_name' => 'ekyna_group_admin_show',
-                'route_parameters_map' => array(
-                    'groupId' => 'group.id'
-                ),
-            ))
-            ->addColumn('createdAt', 'datetime', array(
+            ->addColumn('postalCode', 'text', array(
                 'sortable' => true,
-                'label' => 'Date de création',
+            ))
+            ->addColumn('city', 'text', array(
+                'sortable' => true,
             ))
             ->addColumn('actions', 'actions', array(
                 'buttons' => array(
                     array(
                         'label' => 'Modifier',
                         'class' => 'warning',
-                        'route_name' => 'ekyna_user_admin_edit',
+                        'route_name' => 'ekyna_address_admin_edit',
                         'route_parameters_map' => array(
-                            'userId' => 'id'
+                            'addressId' => 'id'
                         ),
                     ),
                     array(
                         'label' => 'Supprimer',
                         'class' => 'danger',
-                        'route_name' => 'ekyna_user_admin_remove',
+                        'route_name' => 'ekyna_address_admin_remove',
                         'route_parameters_map' => array(
-                            'userId' => 'id'
+                            'addressId' => 'id'
                         ),
                     ),
                 ),
             ))
             ->addFilter('id', 'number')
-            ->addFilter('email')
-            ->addFilter('createdAt', 'datetime', array(
-                'label' => 'Date de création',
-            ))
+            ->addFilter('street')
+            ->addFilter('postalCode')
+            ->addFilter('city')
         ;
     }
 
@@ -88,6 +81,6 @@ class UserType extends AbstractTableType
      */
     public function getName()
     {
-        return 'ekyna_user';
+        return 'ekyna_address';
     }
 }
