@@ -66,6 +66,7 @@ class User extends BaseUser implements UserInterface
      */
     public function __construct()
     {
+        parent::__construct();
         $this->addresses = new ArrayCollection();
     }
 
