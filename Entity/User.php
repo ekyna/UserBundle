@@ -253,7 +253,7 @@ class User extends BaseUser implements UserInterface
     public function addAddress(Address $address)
     {
         if(!$this->hasAddress($address)) {
-            $address->setGroup($this);
+            $address->setUser($this);
             $this->addresses->add($address);
         }
         return $this;
