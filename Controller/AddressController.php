@@ -118,11 +118,7 @@ class AddressController extends Controller
 
             $this->get('session')->getFlashBag()->add('success', 'L\'addresse a été supprimée avec succès.');
 
-            return $this->redirect(
-                $this->generateUrl(
-                    $this->configuration->getRoute('list')
-                )
-            );
+            return $this->redirect($this->generateUrl('ekyna_user_address_list'));
         }
 
         return $this->render(
