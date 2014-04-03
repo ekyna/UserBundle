@@ -4,3 +4,10 @@
     <dt>{{ 'profile.show.username'|trans }}</dt><dd>{{ user.username }}</dd>
     <dt>{{ 'profile.show.email'|trans }}</dt><dd>{{ user.email }}</dd>
 </dl>
+<hr>
+<dl class="dl-horizontal">
+    <dt>Entreprise</dt><dd>{{ user.company }}</dd>
+    <dt>Identité</dt><dd>{{ user.gender }} {{ user.lastname }} {{ user.firstname }}</dd>
+    <dt>Téléphone</dt><dd>{{ user.phone }}</dd>
+    <dt>Mobile</dt><dd>{{ user.mobile }}</dd>
+</dl>

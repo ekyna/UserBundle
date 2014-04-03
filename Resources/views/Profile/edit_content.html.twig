@@ -2,13 +2,16 @@
 
 <form action="{{ path('fos_user_profile_edit') }}" {{ form_enctype(form) }} method="POST" class="form-horizontal">
     {{ bootstrap_set_style('horizontal') }}
-    {{ form_row(form.email, { 'label_col': 4, 'widget_col': 8 }) }}
-    {{ form_row(form.username, { 'label_col': 4, 'widget_col': 8 }) }}
-    {{ form_row(form.current_password, { 'label_col': 4, 'widget_col': 8 }) }}
+    {{ form_row(form.email, {'label_col': 4, 'widget_col': 8, 'label': 'Addresse e-mail'}) }}
+    {{ form_row(form.username, {'label_col': 4, 'widget_col': 8, 'label': 'Nom d\'utilisateur'}) }}
+    {{ form_row(form.current_password, {'label_col': 4, 'widget_col': 8, 'label': 'Mot de passe actuel'}) }}
+    <hr>
+    {{ form_row(form.company, {'label_col': 4, 'widget_col': 8}) }}
+    {{ form_row(form.gender, {'label_col': 4, 'widget_col': 8}) }}
+    {{ form_row(form.firstname, {'label_col': 4, 'widget_col': 8}) }}
+    {{ form_row(form.lastname, {'label_col': 4, 'widget_col': 8}) }}
+    {{ form_row(form.phone, {'label_col': 4, 'widget_col': 8}) }}
+    {{ form_row(form.mobile, {'label_col': 4, 'widget_col': 8}) }}
     {{ form_rest(form) }}
-    <div class="form-group">
-        <div class="col-sm-offset-4 col-sm-8">
-            <button type="submit" class="btn btn-primary">{{ 'profile.edit.submit'|trans }}</button>
-        </div>
-    </div>
+    {{ ui_form_footer(path('fos_user_profile_show')) }}
 </form>

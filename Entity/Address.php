@@ -386,5 +386,3 @@ class Address
         return $this->updatedAt;
     }
 }
-
-?>

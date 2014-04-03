@@ -2,14 +2,45 @@
 
 namespace Ekyna\Bundle\UserBundle\Entity;
 
-use FOS\UserBundle\Model\User as BaseUser;
+use Doctrine\Common\Collections\ArrayCollection;
 use Ekyna\Bundle\UserBundle\Model\UserInterface;
+use FOS\UserBundle\Model\User as BaseUser;
 
 /**
  * User
  */
 class User extends BaseUser implements UserInterface
 {
+    /**
+     * @var string
+     */
+    protected $company;
+
+    /**
+     * @var string
+     */
+    protected $gender;
+
+    /**
+     * @var string
+     */
+    protected $firstname;
+
+    /**
+     * @var string
+     */
+    protected $lastname;
+
+    /**
+     * @var string
+     */
+    protected $phone;
+
+    /**
+     * @var string
+     */
+    protected $mobile;
+
     /**
      * @var Group
      */
@@ -31,6 +62,152 @@ class User extends BaseUser implements UserInterface
     protected $updatedAt;
 
     /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->addresses = new ArrayCollection();
+    }
+
+    /**
+     * Set company
+     *
+     * @param string $company
+     * @return User
+     */
+    public function setCompany($company)
+    {
+        $this->company = $company;
+
+        return $this;
+    }
+
+    /**
+     * Get company
+     *
+     * @return string 
+     */
+    public function getCompany()
+    {
+        return $this->company;
+    }
+
+    /**
+     * Set gender
+     *
+     * @param string $gender
+     * @return User
+     */
+    public function setGender($gender)
+    {
+        $this->gender = $gender;
+
+        return $this;
+    }
+
+    /**
+     * Get gender
+     *
+     * @return string 
+     */
+    public function getGender()
+    {
+        return $this->gender;
+    }
+
+    /**
+     * Set firstname
+     *
+     * @param string $firstname
+     * @return User
+     */
+    public function setFirstname($firstname)
+    {
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    /**
+     * Get firstname
+     *
+     * @return string 
+     */
+    public function getFirstname()
+    {
+        return $this->firstname;
+    }
+
+    /**
+     * Set lastname
+     *
+     * @param string $lastname
+     * @return User
+     */
+    public function setLastname($lastname)
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    /**
+     * Get lastname
+     *
+     * @return string 
+     */
+    public function getLastname()
+    {
+        return $this->lastname;
+    }
+
+    /**
+     * Set phone
+     *
+     * @param string $phone
+     * @return User
+     */
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    /**
+     * Get phone
+     *
+     * @return string 
+     */
+    public function getPhone()
+    {
+        return $this->phone;
+    }
+
+    /**
+     * Set mobile
+     *
+     * @param string $mobile
+     * @return User
+     */
+    public function setMobile($mobile)
+    {
+        $this->mobile = $mobile;
+
+        return $this;
+    }
+
+    /**
+     * Get mobile
+     *
+     * @return string 
+     */
+    public function getMobile()
+    {
+        return $this->mobile;
+    }
+
+    /**
      * Set group
      *
      * @param Group $group
@@ -39,7 +216,6 @@ class User extends BaseUser implements UserInterface
     public function setGroup(Group $group = null)
     {
         $this->group = $group;
-    
         return $this;
     }
 
@@ -156,4 +332,5 @@ class User extends BaseUser implements UserInterface
     {
         return $this->updatedAt;
     }
+
 }

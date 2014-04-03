@@ -18,6 +18,13 @@
 	        <join-column name="group_id" referenced-column-name="id" />
 	    </many-to-one>
 
+        <field name="company" type="string" column="company" length="64" nullable="true" />
+        <field name="gender" type="string" column="gender" length="8" />
+        <field name="firstname" type="string" column="firstname" length="32" />
+        <field name="lastname" type="string" column="lastname" length="32" />
+        <field name="phone" type="text" column="phone" length="16" nullable="true" />
+        <field name="mobile" type="text" column="mobile" length="16" nullable="true" />
+
         <one-to-many field="addresses" target-entity="Ekyna\Bundle\UserBundle\Entity\Address" mapped-by="user">
             <cascade>
                 <cascade-all />

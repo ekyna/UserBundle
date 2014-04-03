@@ -25,14 +25,7 @@ class AddressType extends AbstractType
                 'label' => 'Entreprise',
                 'required' => false
             ))
-            ->add('gender', 'choice', array(
-                'label' => 'Civilité',
-                'choices' => array(
-            	   'Mr' => 'Monsieur',
-            	   'Mme' => 'Madame',
-            	   'Melle' => 'Mademoiselle',
-                ),
-            ))
+            ->add('gender', 'ekyna_gender')
             ->add('firstname', 'text', array(
                 'label' => 'Prénom',
             ))

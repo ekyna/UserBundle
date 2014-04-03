@@ -7,6 +7,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * MenuBuilder
+ *
+ * @author Étienne Dauvergne <contact@ekyna.com>
  */
 class MenuBuilder
 {
@@ -16,11 +18,41 @@ class MenuBuilder
     private $factory;
 
     /**
+     * @var array
+     */
+    private $entries;
+
+    /**
      * @param \Knp\Menu\FactoryInterface $factory
      */
     public function __construct(FactoryInterface $factory)
     {
         $this->factory = $factory;
+        $this->entries = array(
+        	'profil' => array(
+        	    'label' => 'Mon profil',
+        	    'route' => 'fos_user_profile_show',
+            ),
+        	'password' => array(
+        	    'label' => 'Changer mon mot de passe',
+        	    'route' => 'fos_user_change_password',
+            ),
+        	'addresses' => array(
+        	    'label' => 'Mes adresses',
+        	    'route' => 'ekyna_user_address_list',
+            ),
+        );
+    }
+
+    /**
+     * Adds a menu entry
+     * 
+     * @param unknown $name
+     * @param array $options
+     */
+    public function addEntry($name, array $options)
+    {
+        $this->entries[$name] = $options;
     }
 
     /**
@@ -34,9 +66,12 @@ class MenuBuilder
     {
         $menu = $this->factory->createItem('root');
 
-        $menu->addChild('Mon profil', array('route' => 'fos_user_profile_show'));
-        $menu->addChild('Changer mon mot de passe', array('route' => 'fos_user_change_password'));
-        $menu->addChild('Mes adresses', array('route' => 'ekyna_user_address_list'));
+        foreach($this->entries as $name => $options) {
+            $menu->addChild($name, $options);
+        }
+//         $menu->addChild('Mon profil', array('route' => 'fos_user_profile_show'));
+//         $menu->addChild('Changer mon mot de passe', array('route' => 'fos_user_change_password'));
+//         $menu->addChild('Mes adresses', array('route' => 'ekyna_user_address_list'));
 
         return $menu;
     }
