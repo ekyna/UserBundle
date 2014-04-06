@@ -21,9 +21,33 @@
 	<div class="show-body">
 	    <div class="tab-content">
 		    <div class="tab-pane active" id="general">
-				<dl class="dl-horizontal">
-					<dt>Email</dt><dd>{{ user.email }}</dd>
-				</dl>
+		        <div class="row">
+	                <div class="col-md-6">
+	                    {{ show_row(user.username, 'text', 'Nom d\'utilisateur', {'label_nb_col': 4}) }}
+	                </div>
+	                <div class="col-md-6">
+	                    {{ show_row(user.group, 'entity', 'Groupe', {'label_nb_col': 4, 'route': 'ekyna_group_admin_show', 'route_params_map': {'groupId': 'id'}, 'field': 'name'}) }}
+	                </div>
+	            </div>
+				{{ show_row(user.email, 'text', 'Email') }}
+				<hr>
+				{{ show_row(user.company, 'text', 'Entreprise') }}
+		        <div class="row">
+	                <div class="col-md-6">
+	                    {{ show_row(user.lastname, 'text', 'Nom', {'label_nb_col': 4}) }}
+	                </div>
+	                <div class="col-md-6">
+                        {{ show_row(user.firstname, 'text', 'Prénom', {'label_nb_col': 4}) }}
+	                </div>
+	            </div>
+		        <div class="row">
+	                <div class="col-md-6">
+	                    {{ show_row(user.phone, 'text', 'Téléphone', {'label_nb_col': 4}) }}
+	                </div>
+	                <div class="col-md-6">
+                        {{ show_row(user.mobile, 'text', 'Mobile', {'label_nb_col': 4}) }}
+	                </div>
+	            </div>
 		    </div>
 	    </div>
 	</div>
