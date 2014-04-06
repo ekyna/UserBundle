@@ -8,6 +8,7 @@
         <parameter key="ekyna_user.user_manager.class">Ekyna\Bundle\UserBundle\Doctrine\UserManager</parameter>
         <parameter key="ekyna_user.gender.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\GenderType</parameter>
         <parameter key="ekyna_user.profile.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\ProfileType</parameter>
+        <parameter key="ekyna_user.registration.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\RegistrationType</parameter>
         <parameter key="ekyna_user.menu_builder.class">Ekyna\Bundle\UserBundle\Menu\MenuBuilder</parameter>
         <parameter key="ekyna_address.twig_extension.class">Ekyna\Bundle\UserBundle\Twig\AddressExtension</parameter>
         <parameter key="ekyna_address.render_template">EkynaUserBundle:Address:_render.html.twig</parameter>
@@ -31,6 +32,10 @@
         <service id="ekyna_user.profile.form_type" class="%ekyna_user.profile.form_type.class%">
             <argument>%fos_user.model.user.class%</argument>
             <tag name="form.type" alias="ekyna_user_profile" />
+        </service>
+        <service id="ekyna_user.registration.form_type" class="%ekyna_user.registration.form_type.class%">
+            <argument>%fos_user.model.user.class%</argument>
+            <tag name="form.type" alias="ekyna_user_registration" />
         </service>
 
         <!-- Account Menu -->

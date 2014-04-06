@@ -4,7 +4,6 @@ ekyna_user_account_home:
         _controller: EkynaUserBundle:Account:home
         _cms:
             name: Espace client
-            menu: false
             footer: true
             position: 99
     requirements:

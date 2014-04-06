@@ -38,7 +38,7 @@ class UserType extends AbstractType
                 'label' => 'Entreprise',
                 'required' => false
             ))
-            ->add('gender', 'ekyna_gender')
+            ->add('gender', 'ekyna_gender', array('expanded' => false))
             ->add('firstname', 'text', array(
                 'label' => 'Prénom',
             ))

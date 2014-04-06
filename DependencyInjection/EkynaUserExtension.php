@@ -42,6 +42,11 @@ class EkynaUserExtension extends AbstractExtension implements PrependExtensionIn
             	    'type' => 'ekyna_user_profile',
                 ),
             ),
+            'registration' => array(
+            	'form' => array(
+            	    'type' => 'ekyna_user_registration',
+                ),
+            ),
         );
         if (true === isset($bundles['FOSUserBundle'])) {
             $this->configureFosUserBundle($container, $config);
