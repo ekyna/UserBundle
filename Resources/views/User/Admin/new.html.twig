@@ -5,13 +5,13 @@
 {% endblock %}
 
 {% block actions %}
-{{ ui_link(path('ekyna_user_admin_list'), 'ekyna.admin.button.back_to_list', 'default', 'sm', 'list') }}
+{{ ui_link(path('ekyna_user_user_admin_list'), 'ekyna.admin.button.back_to_list', 'default', 'sm', 'list') }}
 {% endblock %}
 
 {% block main %}
-<form action="{{ path('ekyna_user_admin_new') }}" {{ form_enctype(form) }} method="post" class="form-horizontal form-with-tabs">
+<form action="{{ path('ekyna_user_user_admin_new') }}" {{ form_enctype(form) }} method="post" class="form-horizontal form-with-tabs">
     {% include "EkynaUserBundle:User/Admin:_form.html.twig" %}
-    {{ ui_form_footer(path('ekyna_user_admin_list')) }}
+    {{ ui_form_footer(path('ekyna_user_user_admin_list')) }}
 </form>
 {% endblock %}
 

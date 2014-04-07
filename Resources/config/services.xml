@@ -5,18 +5,18 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="ekyna_user.user_manager.class">Ekyna\Bundle\UserBundle\Doctrine\UserManager</parameter>
+        <parameter key="ekyna_user.fos_user_manager.class">Ekyna\Bundle\UserBundle\Doctrine\UserManager</parameter>
         <parameter key="ekyna_user.gender.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\GenderType</parameter>
         <parameter key="ekyna_user.profile.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\ProfileType</parameter>
         <parameter key="ekyna_user.registration.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\RegistrationType</parameter>
+        <parameter key="ekyna_user.address.twig_extension.class">Ekyna\Bundle\UserBundle\Twig\AddressExtension</parameter>
+        <parameter key="ekyna_user.address.render_template">EkynaUserBundle:Address:_render.html.twig</parameter>
         <parameter key="ekyna_user.menu_builder.class">Ekyna\Bundle\UserBundle\Menu\MenuBuilder</parameter>
-        <parameter key="ekyna_address.twig_extension.class">Ekyna\Bundle\UserBundle\Twig\AddressExtension</parameter>
-        <parameter key="ekyna_address.render_template">EkynaUserBundle:Address:_render.html.twig</parameter>
     </parameters>
 
     <services>
-        <!--  User Manager -->
-        <service id="ekyna_user.user_manager" class="%ekyna_user.user_manager.class%" public="false">
+        <!-- FOS User Manager -->
+        <service id="ekyna_user.fos_user_manager" class="%ekyna_user.fos_user_manager.class%" public="false">
             <argument type="service" id="security.encoder_factory" />
             <argument type="service" id="fos_user.util.username_canonicalizer" />
             <argument type="service" id="fos_user.util.email_canonicalizer" />
@@ -27,7 +27,7 @@
 
         <!-- Form types -->
         <service id="ekyna_user.gender.form_type" class="%ekyna_user.gender.form_type.class%">
-            <tag name="form.type" alias="ekyna_gender" />
+            <tag name="form.type" alias="ekyna_user_gender" />
         </service>
         <service id="ekyna_user.profile.form_type" class="%ekyna_user.profile.form_type.class%">
             <argument>%fos_user.model.user.class%</argument>
@@ -51,10 +51,10 @@
             <tag name="knp_menu.menu" alias="account" />
         </service>
 
-	    <service id="ekyna_address.twig_extension" class="%ekyna_address.twig_extension.class%">
-	        <argument type="service" id="ekyna_address.repository" />
+	    <service id="ekyna_user.address.twig_extension" class="%ekyna_user.address.twig_extension.class%">
+	        <argument type="service" id="ekyna_user.address.repository" />
 	        <argument type="service" id="twig" />
-	        <argument>%ekyna_address.render_template%</argument>
+	        <argument>%ekyna_user.address.render_template%</argument>
 	        <tag name="twig.extension" />
 	    </service>
     </services>

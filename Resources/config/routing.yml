@@ -4,8 +4,8 @@ ekyna_user_account:
 
 ekyna_user_admin:
     resource: "routing/admin/user.yml"
-    prefix:   /admin/users
+    prefix:   /admin/user/users
 
 ekyna_group_admin:
     resource: "routing/admin/group.yml"
-    prefix:   /admin/groups
+    prefix:   /admin/user/groups

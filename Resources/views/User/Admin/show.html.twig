@@ -5,14 +5,14 @@
 {% endblock %}
 
 {% block actions %}
-{{ ui_link(path('ekyna_user_admin_list'), 'ekyna.admin.button.back_to_list', 'default', 'sm', 'list') }}
-{{ ui_link(path('ekyna_user_admin_new'), 'ekyna.user.button.new', 'primary', 'sm', 'plus') }}
+{{ ui_link(path('ekyna_user_user_admin_list'), 'ekyna.admin.button.back_to_list', 'default', 'sm', 'list') }}
+{{ ui_link(path('ekyna_user_user_admin_new'), 'ekyna.user.button.new', 'primary', 'sm', 'plus') }}
 {% endblock %}
 
 {% block main %}
 <div class="actions">
-    {{ ui_link(path('ekyna_user_admin_edit', {'userId': user.id}), 'ekyna.admin.button.edit', 'warning', 'sm', 'pencil') }}
-    {{ ui_link(path('ekyna_user_admin_remove', {'userId': user.id}), 'ekyna.admin.button.remove', 'danger', 'sm', 'trash') }}
+    {{ ui_link(path('ekyna_user_user_admin_edit', {'userId': user.id}), 'ekyna.admin.button.edit', 'warning', 'sm', 'pencil') }}
+    {{ ui_link(path('ekyna_user_user_admin_remove', {'userId': user.id}), 'ekyna.admin.button.remove', 'danger', 'sm', 'trash') }}
 </div>
 <div class="show show-with-tabs">
     <ul class="nav nav-tabs">
@@ -26,7 +26,7 @@
 	                    {{ show_row(user.username, 'text', 'Nom d\'utilisateur', {'label_nb_col': 4}) }}
 	                </div>
 	                <div class="col-md-6">
-	                    {{ show_row(user.group, 'entity', 'Groupe', {'label_nb_col': 4, 'route': 'ekyna_group_admin_show', 'route_params_map': {'groupId': 'id'}, 'field': 'name'}) }}
+	                    {{ show_row(user.group, 'entity', 'Groupe', {'label_nb_col': 4, 'route': 'ekyna_user_group_admin_show', 'route_params_map': {'groupId': 'id'}, 'field': 'name'}) }}
 	                </div>
 	            </div>
 				{{ show_row(user.email, 'text', 'Email') }}

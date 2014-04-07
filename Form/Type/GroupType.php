@@ -48,6 +48,6 @@ class GroupType extends AbstractType
      */
     public function getName()
     {
-    	return 'ekyna_group';
+    	return 'ekyna_user_group';
     }
 }

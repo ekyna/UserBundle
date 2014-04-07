@@ -21,7 +21,7 @@ class ProfileType extends ProfileFormType
                 'label' => 'Entreprise',
                 'required' => false
             ))
-            ->add('gender', 'ekyna_gender')
+            ->add('gender', 'ekyna_user_gender')
             ->add('firstname', 'text', array(
                 'label' => 'Prénom',
             ))

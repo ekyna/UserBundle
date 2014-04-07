@@ -30,7 +30,7 @@ class GroupType extends AbstractTableType
                 'label' => 'Nom',
                 'sortable' => true,
                 //'filterable' => true,
-                'route_name' => 'ekyna_group_admin_show',
+                'route_name' => 'ekyna_user_group_admin_show',
                 'route_parameters_map' => array(
                     'groupId' => 'id'
                 ),
@@ -40,7 +40,7 @@ class GroupType extends AbstractTableType
                     array(
                         'label' => 'Modifier',
                         'class' => 'warning',
-                        'route_name' => 'ekyna_group_admin_edit',
+                        'route_name' => 'ekyna_user_group_admin_edit',
                         'route_parameters_map' => array(
                             'groupId' => 'id'
                         ),
@@ -48,7 +48,7 @@ class GroupType extends AbstractTableType
                     array(
                         'label' => 'Supprimer',
                         'class' => 'danger',
-                        'route_name' => 'ekyna_group_admin_remove',
+                        'route_name' => 'ekyna_user_group_admin_remove',
                         'route_parameters_map' => array(
                             'groupId' => 'id'
                         ),
@@ -75,6 +75,6 @@ class GroupType extends AbstractTableType
      */
     public function getName()
     {
-        return 'ekyna_group';
+        return 'ekyna_user_group';
     }
 }

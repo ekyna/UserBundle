@@ -30,7 +30,7 @@ class AddressType extends AbstractTableType
                 'label' => 'Rue',
                 'sortable' => true,
                 'filterable' => true,
-                'route_name' => 'ekyna_address_admin_show',
+                'route_name' => 'ekyna_user_address_admin_show',
                 'route_parameters_map' => array(
                     'userId' => 'id'
                 ),
@@ -46,7 +46,7 @@ class AddressType extends AbstractTableType
                     array(
                         'label' => 'Modifier',
                         'class' => 'warning',
-                        'route_name' => 'ekyna_address_admin_edit',
+                        'route_name' => 'ekyna_user_address_admin_edit',
                         'route_parameters_map' => array(
                             'addressId' => 'id'
                         ),
@@ -54,7 +54,7 @@ class AddressType extends AbstractTableType
                     array(
                         'label' => 'Supprimer',
                         'class' => 'danger',
-                        'route_name' => 'ekyna_address_admin_remove',
+                        'route_name' => 'ekyna_user_address_admin_remove',
                         'route_parameters_map' => array(
                             'addressId' => 'id'
                         ),
@@ -81,6 +81,6 @@ class AddressType extends AbstractTableType
      */
     public function getName()
     {
-        return 'ekyna_address';
+        return 'ekyna_user_address';
     }
 }

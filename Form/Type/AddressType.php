@@ -25,7 +25,7 @@ class AddressType extends AbstractType
                 'label' => 'Entreprise',
                 'required' => false
             ))
-            ->add('gender', 'ekyna_gender')
+            ->add('gender', 'ekyna_user_gender')
             ->add('firstname', 'text', array(
                 'label' => 'Prénom',
             ))
@@ -68,6 +68,6 @@ class AddressType extends AbstractType
      */
     public function getName()
     {
-    	return 'ekyna_address';
+    	return 'ekyna_user_address';
     }
 }

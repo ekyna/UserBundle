@@ -18,7 +18,7 @@ class EkynaUserExtension extends AbstractExtension implements PrependExtensionIn
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        $this->configure($configs, new Configuration(), $container);
+        $this->configure($configs, 'ekyna_user', new Configuration(), $container);
     }
 
     /**
@@ -35,7 +35,7 @@ class EkynaUserExtension extends AbstractExtension implements PrependExtensionIn
                 'group_class' => 'Ekyna\Bundle\UserBundle\Entity\Group',
             ),
             'service' => array(
-        	    'user_manager' => 'ekyna_user.user_manager',
+        	    'user_manager' => 'ekyna_user.fos_user_manager',
             ),
             'profile' => array(
             	'form' => array(

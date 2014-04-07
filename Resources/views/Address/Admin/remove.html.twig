@@ -5,17 +5,17 @@
 {% endblock %}
 
 {% block actions %}
-{{ ui_link(path('ekyna_address_admin_list'), 'ekyna.admin.button.back_to_list', 'default', 'sm', 'list') }}
-{{ ui_link(path('ekyna_address_admin_new'), 'ekyna.address.button.new', 'primary', 'sm', 'plus') }}
+{{ ui_link(path('ekyna_user_address_admin_list'), 'ekyna.admin.button.back_to_list', 'default', 'sm', 'list') }}
+{{ ui_link(path('ekyna_user_address_admin_new'), 'ekyna.address.button.new', 'primary', 'sm', 'plus') }}
 {% endblock %}
 
 {% block main %}
-<form action="{{ path('ekyna_address_admin_remove', {'addressId': address.id}) }}" method="post" class="form-horizontal">
+<form action="{{ path('ekyna_user_address_admin_remove', {'addressId': address.id}) }}" method="post" class="form-horizontal">
     <div class="form-body">
 	    {{ bootstrap_set_style('horizontal') }}
 		{{ form_widget(form) }}
     </div>
-    {{ ui_form_footer(path('ekyna_address_admin_show', {'addressId': address.id}), 'ekyna.admin.button.remove', 'danger') }}
+    {{ ui_form_footer(path('ekyna_user_address_admin_show', {'addressId': address.id}), 'ekyna.admin.button.remove', 'danger') }}
 </form>
 {% endblock %}
 

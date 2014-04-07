@@ -41,6 +41,6 @@ class GenderType extends AbstractType
      */
     public function getName()
     {
-        return 'ekyna_gender';
+        return 'ekyna_user_gender';
     }
 }

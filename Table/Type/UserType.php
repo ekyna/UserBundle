@@ -29,7 +29,7 @@ class UserType extends AbstractTableType
             ->addColumn('email', 'anchor', array(
                 'label' => 'Email',
                 'sortable' => true,
-                'route_name' => 'ekyna_user_admin_show',
+                'route_name' => 'ekyna_user_user_admin_show',
                 'route_parameters_map' => array(
                     'userId' => 'id'
                 ),
@@ -38,7 +38,7 @@ class UserType extends AbstractTableType
                 'label' => 'Groupe',
                 'property_path' => 'group.name',
                 'sortable' => false,
-                'route_name' => 'ekyna_group_admin_show',
+                'route_name' => 'ekyna_user_group_admin_show',
                 'route_parameters_map' => array(
                     'groupId' => 'group.id'
                 ),
@@ -52,7 +52,7 @@ class UserType extends AbstractTableType
                     array(
                         'label' => 'Modifier',
                         'class' => 'warning',
-                        'route_name' => 'ekyna_user_admin_edit',
+                        'route_name' => 'ekyna_user_user_admin_edit',
                         'route_parameters_map' => array(
                             'userId' => 'id'
                         ),
@@ -60,7 +60,7 @@ class UserType extends AbstractTableType
                     array(
                         'label' => 'Supprimer',
                         'class' => 'danger',
-                        'route_name' => 'ekyna_user_admin_remove',
+                        'route_name' => 'ekyna_user_user_admin_remove',
                         'route_parameters_map' => array(
                             'userId' => 'id'
                         ),
@@ -88,6 +88,6 @@ class UserType extends AbstractTableType
      */
     public function getName()
     {
-        return 'ekyna_user';
+        return 'ekyna_user_user';
     }
 }
