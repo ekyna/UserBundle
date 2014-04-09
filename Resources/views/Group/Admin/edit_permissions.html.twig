@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block main %}
-<form action="{{ path('ekyna_user_group_admin_edit_permissions', identifiers|merge({'groupId': group.id})) }}" method="post" class="form-horizontal">
+<form action="{{ path('ekyna_user_group_admin_edit_permissions', identifiers|merge({'groupId': group.id})) }}" {{ form_enctype(form) }} method="post" class="form-horizontal">
     <div class="form-body">
 	    {{ bootstrap_set_style('horizontal') }}
         {{ form_widget(form) }}

@@ -3,7 +3,7 @@
 {% block account %}
 <h3>Ajouter une adresse</h3>
 <hr>
-<form action="{{ path('ekyna_user_address_new') }}" method="post" class="form-horizontal">
+<form action="{{ path('ekyna_user_address_new') }}" {{ form_enctype(form) }} method="post" class="form-horizontal">
     {% include "EkynaUserBundle:Address:_form.html.twig" %}
     {{ ui_form_footer(path('ekyna_user_address_list')) }}
 </form>
