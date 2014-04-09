@@ -71,6 +71,16 @@ class User extends BaseUser implements UserInterface
     }
 
     /**
+     * Returns a string representation
+     * 
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string) $this->getEmail();
+    }
+
+    /**
      * Set company
      *
      * @param string $company

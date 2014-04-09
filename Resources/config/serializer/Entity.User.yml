@@ -1,0 +1,9 @@
+Ekyna\Bundle\UserBundle\Entity\User:
+    exclusion_policy: ALL
+    properties:
+        id:
+            expose: true
+    virtual_properties:
+        username:
+            serialized_name: name
+            type: string

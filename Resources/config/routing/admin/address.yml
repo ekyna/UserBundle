@@ -1,0 +1,30 @@
+ekyna_user_address_admin_new:
+    path: /users/{userId}/addresses/new
+    defaults: { _controller: "ekyna_user.address.controller:newAction" }
+    requirements:
+        _method: GET|POST
+        userId: \d+
+
+ekyna_user_address_admin_show:
+    path: /users/{userId}/addresses/{addressId}/show
+    defaults: { _controller: "ekyna_user.address.controller:showAction" }
+    requirements:
+        _method: GET
+        userId: \d+
+        addressId: \d+
+
+ekyna_user_address_admin_edit:
+    path: /users/{userId}/addresses/{addressId}/edit
+    defaults: { _controller: "ekyna_user.address.controller:editAction" }
+    requirements:
+        _method: GET|POST
+        addressId:  \d+
+        userId: \d+
+
+ekyna_user_address_admin_remove:
+    path: /users/{userId}/addresses/{addressId}/remove
+    defaults: { _controller: "ekyna_user.address.controller:removeAction" }
+    requirements:
+        _method: GET|POST
+        addressId:  \d+
+        userId: \d+

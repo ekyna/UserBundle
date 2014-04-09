@@ -2,10 +2,14 @@ ekyna_user_account:
     resource: "routing/account.yml"
     prefix:   /account
 
-ekyna_user_admin:
-    resource: "routing/admin/user.yml"
-    prefix:   /admin/user/users
-
-ekyna_group_admin:
+ekyna_user_group_admin:
     resource: "routing/admin/group.yml"
-    prefix:   /admin/user/groups
+    prefix:   /admin/user
+
+ekyna_user_user_admin:
+    resource: "routing/admin/user.yml"
+    prefix:   /admin/user
+
+ekyna_user_address_admin:
+    resource: "routing/admin/address.yml"
+    prefix:   /admin/user

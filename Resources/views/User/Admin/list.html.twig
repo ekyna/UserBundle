@@ -1,11 +1,11 @@
 {% extends "EkynaAdminBundle:Entity:layout.html.twig" %}
 
 {% block title %}
-<h1>{{ 'ekyna.user.header.list'|trans|raw }}</h1>
+<h1>{{ 'ekyna_user.user.header.list'|trans|raw }}</h1>
 {% endblock %}
 
 {% block actions %}
-{{ ui_link(path('ekyna_user_user_admin_new'), 'ekyna.user.button.new', 'primary', 'sm', 'plus') }}
+{{ ui_link(path('ekyna_user_user_admin_new', identifiers), 'ekyna_user.user.button.new', 'primary', 'sm', 'plus') }}
 {% endblock %}
 
 {% block main %}

@@ -1,37 +1,37 @@
 ekyna_user_user_admin_home:
-    path: /
+    path: /users/
     defaults: { _controller: "ekyna_user.user.controller:homeAction" }
     requirements:
         _method: GET
 
 ekyna_user_user_admin_list:
-    path: /list
+    path: /users/list
     defaults: { _controller: "ekyna_user.user.controller:listAction" }
     requirements:
         _method: GET|POST
 
 ekyna_user_user_admin_new:
-    path: /new
+    path: /users/new
     defaults: { _controller: "ekyna_user.user.controller:newAction" }
     requirements:
         _method: GET|POST
 
 ekyna_user_user_admin_show:
-    path: /{userId}/show
+    path: /users/{userId}/show
     defaults: { _controller: "ekyna_user.user.controller:showAction" }
     requirements:
         _method: GET
         userId:  \d+
 
 ekyna_user_user_admin_edit:
-    path: /{userId}/edit
+    path: /users/{userId}/edit
     defaults: { _controller: "ekyna_user.user.controller:editAction" }
     requirements:
         _method: GET|POST
         userId:  \d+
 
 ekyna_user_user_admin_remove:
-    path: /{userId}/remove
+    path: /users/{userId}/remove
     defaults: { _controller: "ekyna_user.user.controller:removeAction" }
     requirements:
         _method: GET|POST

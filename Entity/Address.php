@@ -77,6 +77,17 @@ class Address
      */
     protected $updatedAt;
 
+
+    /**
+     * Returns a string representation
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return (string) $this->getStreet();
+    }
+
     /**
      * Get id
      *
