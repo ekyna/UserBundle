@@ -22,35 +22,35 @@ class AddressType extends AbstractType
     {    
         $builder
             ->add('company', 'text', array(
-                'label' => 'Entreprise',
+                'label' => 'ekyna_core.field.company',
                 'required' => false
             ))
             ->add('gender', 'ekyna_user_gender')
             ->add('firstname', 'text', array(
-                'label' => 'Prénom',
+                'label' => 'ekyna_core.field.firstname',
             ))
             ->add('lastname', 'text', array(
-                'label' => 'Nom',
+                'label' => 'ekyna_core.field.lastname',
             ))
             ->add('street', 'text', array(
-                'label' => 'N° et rue',
+                'label' => 'ekyna_core.field.street',
             ))
             ->add('supplement', 'text', array(
-                'label' => 'Complément',
+                'label' => 'ekyna_core.field.supplement',
                 'required' => false
             ))
             ->add('postalCode', 'text', array(
-                'label' => 'Code postal',
+                'label' => 'ekyna_core.field.postal_code',
             ))
             ->add('city', 'text', array(
-                'label' => 'Ville',
+                'label' => 'ekyna_core.field.city',
             ))
             ->add('phone', 'text', array(
-                'label' => 'Téléphone',
+                'label' => 'ekyna_core.field.phone',
                 'required' => false
             ))
             ->add('mobile', 'text', array(
-                'label' => 'Mobile',
+                'label' => 'ekyna_core.field.mobile',
                 'required' => false
             ))
         ;

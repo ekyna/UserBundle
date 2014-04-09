@@ -22,15 +22,15 @@ class GroupType extends AbstractType
     {    
         $builder
             ->add('name', null, array(
-                'label' => 'Nom'
+                'label' => 'ekyna_core.field.name'
             ))
             ->add('roles', 'choice', array(
-                'label' => 'Roles',
+                'label' => 'ekyna_core.field.roles',
                 'expanded' => true,
                 'multiple' => true,
                 'choices' => array(
-            	    'ROLE_ALLOWED_TO_SWITCH' => 'Authorisé à switcher',
-            	    'ROLE_ADMIN'             => 'Administrateur',
+            	    'ROLE_ALLOWED_TO_SWITCH' => 'ekyna_core.auth.allowed_to_switch',
+            	    'ROLE_ADMIN'             => 'ekyna_core.auth.admin',
                 )
             ))
         ;

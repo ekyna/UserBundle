@@ -18,12 +18,12 @@ class GenderType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'label' => 'Civilité',
+            'label' => 'ekyna_core.field.gender',
             'expanded' => true,
             'choices' => array(
-                'Mr' => 'Monsieur',
-                'Mme' => 'Madame',
-                'Melle' => 'Mademoiselle',
+                'mr' => 'ekyna_core.gender.mr',
+                'mrs' => 'ekyna_core.gender.mrs',
+                'miss' => 'ekyna_core.gender.miss',
             ),
         ));
     }

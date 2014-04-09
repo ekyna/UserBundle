@@ -27,9 +27,8 @@ class GroupType extends AbstractTableType
                 'sortable' => true,
             ))
             ->addColumn('name', 'anchor', array(
-                'label' => 'Nom',
+                'label' => 'ekyna_core.field.name',
                 'sortable' => true,
-                //'filterable' => true,
                 'route_name' => 'ekyna_user_group_admin_show',
                 'route_parameters_map' => array(
                     'groupId' => 'id'
@@ -38,7 +37,7 @@ class GroupType extends AbstractTableType
             ->addColumn('actions', 'actions', array(
                 'buttons' => array(
                     array(
-                        'label' => 'Modifier',
+                        'label' => 'ekyna_core.button.edit',
                         'class' => 'warning',
                         'route_name' => 'ekyna_user_group_admin_edit',
                         'route_parameters_map' => array(
@@ -46,7 +45,7 @@ class GroupType extends AbstractTableType
                         ),
                     ),
                     array(
-                        'label' => 'Supprimer',
+                        'label' => 'ekyna_core.button.remove',
                         'class' => 'danger',
                         'route_name' => 'ekyna_user_group_admin_remove',
                         'route_parameters_map' => array(
@@ -56,8 +55,8 @@ class GroupType extends AbstractTableType
                 ),
             ))
             ->addFilter('id', 'number')
-            ->addFilter('name', null, array(
-            	'label' => 'Nom'
+            ->addFilter('name', 'text', array(
+            	'label' => 'ekyna_core.field.name'
             ))
         ;
     }

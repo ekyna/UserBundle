@@ -27,7 +27,7 @@ class UserType extends AbstractTableType
                 'sortable' => true,
             ))
             ->addColumn('email', 'anchor', array(
-                'label' => 'Email',
+                'label' => 'ekyna_core.field.email',
                 'sortable' => true,
                 'route_name' => 'ekyna_user_user_admin_show',
                 'route_parameters_map' => array(
@@ -35,7 +35,7 @@ class UserType extends AbstractTableType
                 ),
             ))
             ->addColumn('group', 'anchor', array(
-                'label' => 'Groupe',
+                'label' => 'ekyna_core.field.group',
                 'property_path' => 'group.name',
                 'sortable' => false,
                 'route_name' => 'ekyna_user_group_admin_show',
@@ -44,8 +44,8 @@ class UserType extends AbstractTableType
                 ),
             ))
             ->addColumn('createdAt', 'datetime', array(
+                'label' => 'ekyna_core.field.add_date',
                 'sortable' => true,
-                'label' => 'Date de création',
             ))
             ->addColumn('actions', 'actions', array(
                 'buttons' => array(
@@ -68,9 +68,11 @@ class UserType extends AbstractTableType
                 ),
             ))
             ->addFilter('id', 'number')
-            ->addFilter('email')
+            ->addFilter('email', 'text', array(
+            	'label' => 'ekyna_core.field.email'
+            ))
             ->addFilter('createdAt', 'datetime', array(
-                'label' => 'Date de création',
+                'label' => 'ekyna_core.field.add_date',
             ))
         ;
     }

@@ -27,24 +27,25 @@ class AddressType extends AbstractTableType
                 'sortable' => true,
             ))
             ->addColumn('street', 'anchor', array(
-                'label' => 'Rue',
+                'label' => 'ekyna_core.field.street',
                 'sortable' => true,
-                'filterable' => true,
                 'route_name' => 'ekyna_user_address_admin_show',
                 'route_parameters_map' => array(
                     'userId' => 'id'
                 ),
             ))
             ->addColumn('postalCode', 'text', array(
+                'label' => 'ekyna_core.field.postal_code',
                 'sortable' => true,
             ))
             ->addColumn('city', 'text', array(
+                'label' => 'ekyna_core.field.city',
                 'sortable' => true,
             ))
             ->addColumn('actions', 'actions', array(
                 'buttons' => array(
                     array(
-                        'label' => 'Modifier',
+                        'label' => 'ekyna_core.button.edit',
                         'class' => 'warning',
                         'route_name' => 'ekyna_user_address_admin_edit',
                         'route_parameters_map' => array(
@@ -52,7 +53,7 @@ class AddressType extends AbstractTableType
                         ),
                     ),
                     array(
-                        'label' => 'Supprimer',
+                        'label' => 'ekyna_core.button.remove',
                         'class' => 'danger',
                         'route_name' => 'ekyna_user_address_admin_remove',
                         'route_parameters_map' => array(
@@ -62,9 +63,15 @@ class AddressType extends AbstractTableType
                 ),
             ))
             ->addFilter('id', 'number')
-            ->addFilter('street')
-            ->addFilter('postalCode')
-            ->addFilter('city')
+            ->addFilter('street', 'text', array(
+            	'label' => 'ekyna_core.field.street'
+            ))
+            ->addFilter('postalCode', array(
+            	'label' => 'ekyna_core.field.postal_code'
+            ))
+            ->addFilter('city', array(
+            	'label' => 'ekyna_core.field.city'
+            ))
         ;
     }
 

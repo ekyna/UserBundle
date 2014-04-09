@@ -22,35 +22,35 @@ class UserType extends AbstractType
     {    
         $builder
             ->add('group', 'entity', array(
-                'label' => 'Groupe',
+                'label' => 'ekyna_core.field.group',
                 'class' => 'Ekyna\Bundle\UserBundle\Entity\Group',
                 'property' => 'name',
             ))
             ->add('username', 'text', array(
-                'label' => 'Pseudo',
+                'label' => 'ekyna_core.field.username',
                 'required' => false,
             ))
             ->add('email', 'email', array(
-                'label' => 'Email',
+                'label' => 'ekyna_core.field.email',
                 //'disabled' => true,
             ))
             ->add('company', 'text', array(
-                'label' => 'Entreprise',
+                'label' => 'ekyna_core.field.company',
                 'required' => false
             ))
             ->add('gender', 'ekyna_user_gender', array('expanded' => false))
             ->add('firstname', 'text', array(
-                'label' => 'Prénom',
+                'label' => 'ekyna_core.field.firstname',
             ))
             ->add('lastname', 'text', array(
-                'label' => 'Nom',
+                'label' => 'ekyna_core.field.lastname',
             ))
             ->add('phone', 'text', array(
-                'label' => 'Téléphone',
+                'label' => 'ekyna_core.field.phone',
                 'required' => false
             ))
             ->add('mobile', 'text', array(
-                'label' => 'Mobile',
+                'label' => 'ekyna_core.field.mobile',
                 'required' => false
             ))
         ;
