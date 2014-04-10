@@ -1,6 +1,6 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
-<form action="{{ path('fos_user_security_check') }}" {{ form_enctype(form) }} method="post" class="form-horizontal" role="form">
+<form action="{{ path('fos_user_security_check') }}" method="post" class="form-horizontal" role="form">
     {% if error > 0 %}
     <div class="alert alert-danger">{{ error|trans  }}</div>
     {% endif %}
