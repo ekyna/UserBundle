@@ -1,19 +1,10 @@
 {% extends "EkynaUserBundle::layout.html.twig" %}
 
 {% block account %}
-<div class="row">
-    <div class="col-md-8 col-md-offset-2">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-			    <h3 style="margin:0">Mon profil</h3>
-            </div>
-            <div class="panel-body">
-	            {% include "EkynaUserBundle:Profile:show_content.html.twig" %}
-	            <p style="text-align:center">
-	               <a href="{{ path('fos_user_profile_edit') }}" class="btn btn-primary">Modifier mon profil</a>
-	            </p>
-		    </div>
-		</div>
-    </div>
-</div>
+<h3>{{ 'ekyna_user.account.profile.show'|trans }}</h3>
+<hr>
+{% include "EkynaUserBundle:Profile:show_content.html.twig" %}
+<p style="text-align:center">
+    <a href="{{ path('fos_user_profile_edit') }}" class="btn btn-primary">{{ 'ekyna_user.account.profile.edit'|trans }}</a>
+</p>
 {% endblock %}

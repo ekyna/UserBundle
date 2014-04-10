@@ -1,7 +1,7 @@
 {% extends "EkynaUserBundle::layout.html.twig" %}
 
 {% block account %}
-<h3>Modifier une adresse</h3>
+<h3>{{ 'ekyna_user.account.address.edit'|trans }}</h3>
 <hr>
 <form action="{{ path('ekyna_user_address_edit', {'addressId': address.id}) }}" {{ form_enctype(form) }} method="post" class="form-horizontal">
     <div class="form-body">

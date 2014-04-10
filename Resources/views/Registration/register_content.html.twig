@@ -1,12 +1,10 @@
-{% trans_default_domain 'FOSUserBundle' %}
-
 <form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="form-horizontal">
     <div class="form-body">
 	    {{ bootstrap_set_style('horizontal') }}
-	    {{ form_row(form.email, { 'label_col': 4, 'widget_col': 8 }) }}
-	    {{ form_row(form.username, { 'label_col': 4, 'widget_col': 8 }) }}
-	    {{ form_row(form.plainPassword.first, { 'label_col': 4, 'widget_col': 8 }) }}
-	    {{ form_row(form.plainPassword.second, { 'label_col': 4, 'widget_col': 8 }) }}
+	    {{ form_row(form.email, {'label_col': 4, 'widget_col': 8, 'label': 'ekyna_core.field.email'|trans}) }}
+	    {{ form_row(form.username, {'label_col': 4, 'widget_col': 8, 'label': 'ekyna_core.field.username'|trans}) }}
+	    {{ form_row(form.plainPassword.first, {'label_col': 4, 'widget_col': 8, 'label': 'ekyna_core.field.password'|trans}) }}
+	    {{ form_row(form.plainPassword.second, { 'label_col': 4, 'widget_col': 8, 'label': 'ekyna_core.field.verify'|trans}) }}
 	    <hr>
 	    {{ form_row(form.company, {'label_col': 4, 'widget_col': 8}) }}
 	    {{ form_row(form.gender, {'label_col': 4, 'widget_col': 8}) }}
@@ -16,11 +14,5 @@
 	    {{ form_row(form.mobile, {'label_col': 4, 'widget_col': 8}) }}
 	    {{ form_rest(form) }}
     </div>
-    <div class="form-footer">
-        <div class="form-group row">
-	        <div class="col-sm-offset-4 col-sm-8">
-	            <button type="submit" class="btn btn-primary">{{ 'registration.submit'|trans }}</button>
-	        </div>
-        </div>
-    </div>
+    {{ ui_form_footer(null, 'ekyna_core.button.save', 'primary', 'ok', false, 4) }}
 </form>

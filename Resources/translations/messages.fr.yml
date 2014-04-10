@@ -52,3 +52,30 @@ ekyna_user:
             edit: Modifier l'adresse
         alert:
             no_address: Aucune adresse configuré
+    account:
+        title: Espace client
+        menu:
+            profile: Mes informations
+            password: Changer mon mot de passe
+            address: Mes adresses
+        address:
+            list: Mon carnet d'adresses
+            new: Nouvelle adresse
+            edit: Modifier une adresse
+            remove: Supprimer une adresse
+        password:
+            title: Changer mon mot de passe
+            current: Mot de passe actuel
+            new: Nouveau mot de passe
+            confirm: Vérification
+            submit: Modifier mon mot de passe
+        profile:
+            show: Mes informations
+            edit: Modifier mes informations
+        registration:
+            email_check: Vérification par email
+            email_confirm: Confirmation par email
+            button: Inscription
+        resetting:
+            title: Réinitialisation du mot de passe
+            button: Réinitialiser le mot de passe

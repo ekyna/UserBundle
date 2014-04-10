@@ -30,15 +30,15 @@ class MenuBuilder
         $this->factory = $factory;
         $this->entries = array(
         	'profil' => array(
-        	    'label' => 'Mon profil',
+        	    'label' => 'ekyna_user.account.menu.profile',
         	    'route' => 'fos_user_profile_show',
             ),
         	'password' => array(
-        	    'label' => 'Changer mon mot de passe',
+        	    'label' => 'ekyna_user.account.menu.password',
         	    'route' => 'fos_user_change_password',
             ),
         	'addresses' => array(
-        	    'label' => 'Mes adresses',
+        	    'label' => 'ekyna_user.account.menu.address',
         	    'route' => 'ekyna_user_address_list',
             ),
         );
@@ -69,9 +69,6 @@ class MenuBuilder
         foreach($this->entries as $name => $options) {
             $menu->addChild($name, $options);
         }
-//         $menu->addChild('Mon profil', array('route' => 'fos_user_profile_show'));
-//         $menu->addChild('Changer mon mot de passe', array('route' => 'fos_user_change_password'));
-//         $menu->addChild('Mes adresses', array('route' => 'ekyna_user_address_list'));
 
         return $menu;
     }

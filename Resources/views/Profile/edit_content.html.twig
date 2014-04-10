@@ -1,13 +1,11 @@
-{% trans_default_domain 'FOSUserBundle' %}
-
 {{ bootstrap_set_style('horizontal') }}
-{{ form_row(form.email, {'label_col': 3, 'widget_col': 9, 'label': 'Addresse e-mail'}) }}
+{{ form_row(form.email, {'label_col': 3, 'widget_col': 9, 'label': 'ekyna_core.field.email'|trans}) }}
 <div class="row">
     <div class="col-md-6">
-        {{ form_row(form.username, {'label_col': 6, 'widget_col': 6, 'label': 'Nom d\'utilisateur'}) }}
+        {{ form_row(form.username, {'label_col': 6, 'widget_col': 6, 'label': 'ekyna_core.field.username'|trans}) }}
     </div>
     <div class="col-md-6">
-        {{ form_row(form.current_password, {'label_col': 6, 'widget_col': 6, 'label': 'Mot de passe actuel'}) }}
+        {{ form_row(form.current_password, {'label_col': 6, 'widget_col': 6, 'label': 'ekyna_user.account.password.current'|trans}) }}
     </div>
 </div>
 <hr>

@@ -1,12 +1,12 @@
 {% extends "EkynaUserBundle::layout.html.twig" %}
 
 {% block account %}
-<h3>Modifier votre profil</h3>
+<h3>{{ 'ekyna_user.account.profile.edit'|trans }}</h3>
 <hr>
 <form action="{{ path('fos_user_profile_edit') }}" {{ form_enctype(form) }} method="POST" class="form-horizontal">
     <div class="form-body">
         {% include "EkynaUserBundle:Profile:edit_content.html.twig" %}
     </div>
-    {{ ui_form_footer(path('fos_user_profile_show'), 'Enregistrer', 'primary', 'ok', false, 3) }}
+    {{ ui_form_footer(path('fos_user_profile_show'), 'ekyna_core.button.save', 'primary', 'ok', false, 3) }}
 </form>
 {% endblock %}

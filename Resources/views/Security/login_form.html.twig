@@ -1,26 +1,24 @@
-{% trans_default_domain 'FOSUserBundle' %}
-
 <form action="{{ path('fos_user_security_check') }}" method="post" class="form-horizontal" role="form">
     {% if error > 0 %}
-    <div class="alert alert-danger">{{ error|trans  }}</div>
+    <div class="alert alert-danger">{{ error|trans({}, 'FOSUserBundle')  }}</div>
     {% endif %}
     <div class="form-group">
-        <label for="username" class="col-sm-5 control-label">{{ 'security.login.username'|trans }}</label>
+        <label for="username" class="col-sm-5 control-label">{{ 'ekyna_core.field.username'|trans }}</label>
         <div class="col-sm-7">
-            <input type="text" class="form-control" id="email" name="_username" value="{{ last_username }}" placeholder="{{ 'security.login.username'|trans }}">
+            <input type="text" class="form-control" id="email" name="_username" value="{{ last_username }}" placeholder="{{ 'ekyna_core.field.username'|trans }}">
         </div>
     </div>
     <div class="form-group">
-        <label for="password" class="col-sm-5 control-label">{{ 'security.login.password'|trans }}</label>
+        <label for="password" class="col-sm-5 control-label">{{ 'ekyna_core.field.password'|trans }}</label>
         <div class="col-sm-7">
-            <input type="password" class="form-control" id="password" name="_password" placeholder="{{ 'security.login.password'|trans }}">
+            <input type="password" class="form-control" id="password" name="_password" placeholder="{{ 'ekyna_core.field.password'|trans }}">
         </div>
     </div>
     <div class="form-group">
         <div class="col-sm-offset-5 col-sm-7">
             <div class="checkbox">
                 <label for="remember_me">
-                    <input type="checkbox" id="remember_me" name="_remember_me" checked> {{ 'security.login.remember_me'|trans }}
+                    <input type="checkbox" id="remember_me" name="_remember_me" checked> {{ 'ekyna_core.field.remember_me'|trans }}
                 </label>
             </div>
         </div>
@@ -28,8 +26,8 @@
     <div class="form-group">
         <div class="col-sm-offset-5 col-sm-7">
             <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-            <button type="submit" class="btn btn-primary">{{ 'security.login.submit'|trans }}</button>&nbsp;
-            <a href="{{ path('fos_user_resetting_request') }}" class="btn btn-link">{{ 'resetting.request.submit'|trans }}</a>
+            <button type="submit" class="btn btn-primary">{{ 'ekyna_core.button.login'|trans }}</button>&nbsp;
+            <a href="{{ path('fos_user_resetting_request') }}" class="btn btn-link">{{ 'ekyna_user.account.resetting.button'|trans }}</a>
         </div>
     </div>
 </form>
