@@ -14,7 +14,7 @@ class AddressController extends Controller
     public function listAction()
     {
         $user = $this->getUser();
-        $repository = $this->get('ekyna_address.repository');
+        $repository = $this->get('ekyna_user.address.repository');
 
         $addresses = $repository->findByUser($user);
 
@@ -29,12 +29,12 @@ class AddressController extends Controller
     public function newAction()
     {
         $user = $this->getUser();
-        $repository = $this->get('ekyna_address.repository');
+        $repository = $this->get('ekyna_user.address.repository');
 
         $address = $repository->createNew($user);
         $address->setUser($user);
 
-        $form = $this->createForm('ekyna_address', $address);
+        $form = $this->createForm('ekyna_user_address', $address);
 
         $form->handleRequest($this->getRequest());
         if ($form->isValid()) {
@@ -58,7 +58,7 @@ class AddressController extends Controller
     public function editAction($addressId)
     {
         $user = $this->getUser();
-        $repository = $this->get('ekyna_address.repository');
+        $repository = $this->get('ekyna_user.address.repository');
 
         if(null === $address = $repository->find($addressId)) {
             throw new NotFoundHttpException('Adresse introuvable.');
@@ -67,7 +67,7 @@ class AddressController extends Controller
             throw new AccessDeniedHttpException('Vous n\'avez pas l\'autorisation pour acceder à cette resource.');
         }
 
-        $form = $this->createForm('ekyna_address', $address);
+        $form = $this->createForm('ekyna_user_address', $address);
 
         $form->handleRequest($this->getRequest());
         if ($form->isValid()) {
@@ -92,7 +92,7 @@ class AddressController extends Controller
     public function removeAction($addressId)
     {
         $user = $this->getUser();
-        $repository = $this->get('ekyna_address.repository');
+        $repository = $this->get('ekyna_user.address.repository');
 
         if(null === $address = $repository->find($addressId)) {
             throw new NotFoundHttpException('Adresse introuvable.');

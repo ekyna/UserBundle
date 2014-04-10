@@ -21,10 +21,13 @@ class GenderType extends AbstractType
             'label' => 'ekyna_core.field.gender',
             'expanded' => true,
             'choices' => array(
-                'mr' => 'ekyna_core.gender.mr',
-                'mrs' => 'ekyna_core.gender.mrs',
-                'miss' => 'ekyna_core.gender.miss',
+                'mr' => 'ekyna_core.gender.mr.long',
+                'mrs' => 'ekyna_core.gender.mrs.long',
+                'miss' => 'ekyna_core.gender.miss.long',
             ),
+            'attr' => array(
+            	'class' => 'inline'
+            )
         ));
     }
 

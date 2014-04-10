@@ -2,15 +2,10 @@
 
 {% block body %}
 <div class="row">
-    <div class="col-md-6 col-md-offset-3">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-			    <h3 style="margin:0">Réinitialisation du mot de passe</h3>
-            </div>
-            <div class="panel-body">
-		        {% include "EkynaUserBundle:Resetting:request_content.html.twig" %}
-		    </div>
-		</div>
+    <div class="col-md-8 col-md-offset-2">
+        <h3>Réinitialisation du mot de passe</h3>
+        <hr>
+        {% include "EkynaUserBundle:Resetting:request_content.html.twig" %}
     </div>
 </div>
 {% endblock %}

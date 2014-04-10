@@ -4,7 +4,9 @@
 <h3>Modifier une adresse</h3>
 <hr>
 <form action="{{ path('ekyna_user_address_edit', {'addressId': address.id}) }}" {{ form_enctype(form) }} method="post" class="form-horizontal">
-    {% include "EkynaUserBundle:Address:_form.html.twig" %}
+    <div class="form-body">
+        {% include "EkynaUserBundle:Address:_form.html.twig" %}
+    </div>
     {{ ui_form_footer(path('ekyna_user_address_list')) }}
 </form>
 {% endblock %}
