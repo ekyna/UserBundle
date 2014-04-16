@@ -9,6 +9,8 @@ use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 /**
  * UserManager
+ *
+ * @author Étienne Dauvergne <contact@ekyna.com>
  */
 class UserManager extends BaseManager
 {
@@ -47,5 +49,39 @@ class UserManager extends BaseManager
         $user->setGroup($defaultGroup);
 
         return $user;
+    }
+
+    /**
+     * Removes an object instance (ORM Object manager alias).
+     *
+     * @param object $object The object instance to remove.
+     *
+     * @return void
+     */
+    public function remove($user)
+    {
+        $this->objectManager->remove($user);
+    }
+
+    /**
+     * Makes an instance managed and persistent (ORM Object manager alias).
+     *
+     * @param object $object The instance to make managed and persistent.
+     *
+     * @return void
+     */
+    public function persist($user)
+    {
+        $this->objectManager->persist($user);
+    }
+
+    /**
+     * Flushes all changes to objects that have been queued up to now to the database (ORM Object manager alias).
+     *
+     * @return void
+     */
+    public function flush()
+    {
+        $this->objectManager->flush();
     }
 }
