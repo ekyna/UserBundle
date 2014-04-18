@@ -7,6 +7,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * AccountController
+ *
+ * @author Étienne Dauvergne <contact@ekyna.com>
  */
 class AccountController extends Controller
 {

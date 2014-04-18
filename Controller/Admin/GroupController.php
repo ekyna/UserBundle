@@ -7,6 +7,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * GroupController
+ *
+ * @author Étienne Dauvergne <contact@ekyna.com>
  */
 class GroupController extends ResourceController
 {

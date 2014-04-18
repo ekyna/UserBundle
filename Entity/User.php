@@ -8,9 +8,16 @@ use FOS\UserBundle\Model\User as BaseUser;
 
 /**
  * User
+ *
+ * @author Étienne Dauvergne <contact@ekyna.com>
  */
 class User extends BaseUser implements UserInterface
 {
+    public static function getGenders()
+    {
+        return array('mr', 'mrs', 'miss');
+    }
+
     /**
      * @var string
      */

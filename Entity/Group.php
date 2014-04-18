@@ -2,13 +2,15 @@
 
 namespace Ekyna\Bundle\UserBundle\Entity;
 
-use FOS\UserBundle\Model\Group as BaseGroup;
-use Ekyna\Bundle\UserBundle\Model\GroupInterface;
-use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
 use Doctrine\Common\Collections\ArrayCollection;
+use Ekyna\Bundle\UserBundle\Model\GroupInterface;
+use FOS\UserBundle\Model\Group as BaseGroup;
+use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
 
 /**
  * Group
+ *
+ * @author Étienne Dauvergne <contact@ekyna.com>
  */
 class Group extends BaseGroup implements GroupInterface
 {

@@ -7,6 +7,8 @@ use Ekyna\Component\Table\AbstractTableType;
 
 /**
  * AddressType
+ *
+ * @author Étienne Dauvergne <contact@ekyna.com>
  */
 class AddressType extends AbstractTableType
 {

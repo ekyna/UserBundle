@@ -7,6 +7,8 @@ use Ekyna\Component\Table\AbstractTableType;
 
 /**
  * GroupType
+ *
+ * @author Étienne Dauvergne <contact@ekyna.com>
  */
 class GroupType extends AbstractTableType
 {

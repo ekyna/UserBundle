@@ -7,6 +7,8 @@ use Ekyna\Bundle\UserBundle\Entity\Address;
 
 /**
  * AddressExtension
+ *
+ * @author Étienne Dauvergne <contact@ekyna.com>
  */
 class AddressExtension extends \Twig_Extension
 {

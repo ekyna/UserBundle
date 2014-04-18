@@ -10,6 +10,8 @@ use Ekyna\Bundle\AdminBundle\DependencyInjection\AbstractExtension;
 
 /**
  * EkynaUserExtension
+ *
+ * @author Étienne Dauvergne <contact@ekyna.com>
  */
 class EkynaUserExtension extends AbstractExtension implements PrependExtensionInterface
 {

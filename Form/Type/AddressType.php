@@ -8,6 +8,8 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * AddressType
+ *
+ * @author Étienne Dauvergne <contact@ekyna.com>
  */
 class AddressType extends AbstractType
 {

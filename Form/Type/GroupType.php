@@ -8,6 +8,8 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * GroupType
+ *
+ * @author Étienne Dauvergne <contact@ekyna.com>
  */
 class GroupType extends AbstractType
 {

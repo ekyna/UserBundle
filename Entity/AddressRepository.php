@@ -6,6 +6,8 @@ use Ekyna\Bundle\AdminBundle\Doctrine\ORM\ResourceRepository;
 
 /**
  * AddressRepository
+ *
+ * @author Étienne Dauvergne <contact@ekyna.com>
  */
 class AddressRepository extends ResourceRepository
 {

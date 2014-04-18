@@ -4,6 +4,8 @@ namespace Ekyna\Bundle\UserBundle\Entity;
 
 /**
  * Address
+ *
+ * @author Étienne Dauvergne <contact@ekyna.com>
  */
 class Address
 {

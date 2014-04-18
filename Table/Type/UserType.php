@@ -7,6 +7,8 @@ use Ekyna\Component\Table\AbstractTableType;
 
 /**
  * UserType
+ *
+ * @author Étienne Dauvergne <contact@ekyna.com>
  */
 class UserType extends AbstractTableType
 {

@@ -8,6 +8,8 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /**
  * AddressController
+ *
+ * @author Étienne Dauvergne <contact@ekyna.com>
  */
 class AddressController extends Controller
 {

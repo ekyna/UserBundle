@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<constraint-mapping
+    xmlns="http://symfony.com/schema/dic/constraint-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping
+                        http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+
+    <class name="Ekyna\Bundle\UserBundle\Entity\Address">
+        <property name="user">
+            <constraint name="NotNull" />
+        </property>
+
+	    <property name="gender">
+	        <constraint name="Choice">
+	            <option name="callback">
+	                <value>Ekyna\Bundle\UserBundle\Entity\User</value>
+	                <value>getGenders</value>
+	            </option>
+	        </constraint>
+	    </property>
+        <property name="firstname">
+            <constraint name="NotBlank" />
+            <constraint name="Length">
+                <option name="min">2</option>
+                <option name="max">32</option>
+            </constraint>
+        </property>
+        <property name="lastname">
+            <constraint name="NotBlank" />
+            <constraint name="Length">
+                <option name="min">2</option>
+                <option name="max">32</option>
+            </constraint>
+        </property>
+
+        <property name="street">
+            <constraint name="NotBlank" />
+            <constraint name="Length">
+                <option name="min">3</option>
+                <option name="max">255</option>
+            </constraint>
+        </property>
+        <property name="postalCode">
+            <constraint name="NotBlank" />
+            <constraint name="Length">
+                <option name="min">5</option>
+                <option name="max">5</option>
+            </constraint>
+        </property>
+        <property name="city">
+            <constraint name="NotBlank" />
+            <constraint name="Length">
+                <option name="min">3</option>
+                <option name="max">64</option>
+            </constraint>
+        </property>
+
+        <property name="phone">
+            <constraint name="Length">
+                <option name="min">2</option>
+                <option name="max">16</option>
+            </constraint>
+        </property>
+        <property name="mobile">
+            <constraint name="Length">
+                <option name="min">2</option>
+                <option name="max">16</option>
+            </constraint>
+        </property>
+    </class>
+
+    <class name="Ekyna\Bundle\UserBundle\Entity\User">
+	    <property name="gender">
+	        <constraint name="Choice">
+	            <option name="callback">getGenders</option>
+	        </constraint>
+	    </property>
+        <property name="firstname">
+            <constraint name="NotBlank" />
+            <constraint name="Length">
+                <option name="min">2</option>
+                <option name="max">32</option>
+            </constraint>
+        </property>
+        <property name="lastname">
+            <constraint name="NotBlank" />
+            <constraint name="Length">
+                <option name="min">2</option>
+                <option name="max">32</option>
+            </constraint>
+        </property>
+
+        <property name="phone">
+            <constraint name="Length">
+                <option name="min">2</option>
+                <option name="max">16</option>
+            </constraint>
+        </property>
+        <property name="mobile">
+            <constraint name="Length">
+                <option name="min">2</option>
+                <option name="max">16</option>
+            </constraint>
+        </property>
+
+        <property name="addresses">
+            <constraint name="Valid" />
+            <constraint name="All">
+                <constraint name="NotNull" />
+            </constraint>
+        </property>
+    </class>
+
+</constraint-mapping>

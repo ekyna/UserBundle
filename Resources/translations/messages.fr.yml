@@ -74,7 +74,7 @@ ekyna_user:
             edit: Modifier mes informations
         registration:
             email_check: Vérification par email
-            email_confirm: Confirmation par email
+            confirmed: Compte activé
             button: Inscription
         resetting:
             title: Réinitialisation du mot de passe
