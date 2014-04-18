@@ -13,6 +13,11 @@ use FOS\UserBundle\Model\User as BaseUser;
  */
 class User extends BaseUser implements UserInterface
 {
+    /**
+     * Returns valid gender choices
+     * 
+     * @return array
+     */
     public static function getGenders()
     {
         return array('mr', 'mrs', 'miss');
