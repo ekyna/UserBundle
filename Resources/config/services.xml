@@ -6,6 +6,7 @@
 
     <parameters>
         <parameter key="ekyna_user.fos_user_manager.class">Ekyna\Bundle\UserBundle\Doctrine\UserManager</parameter>
+        <parameter key="ekyna_user.security.login_handler.class">Ekyna\Bundle\UserBundle\Authentication\AuthenticationSuccessHandler</parameter>
         <parameter key="ekyna_user.gender.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\GenderType</parameter>
         <parameter key="ekyna_user.profile.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\ProfileType</parameter>
         <parameter key="ekyna_user.registration.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\RegistrationType</parameter>
@@ -23,6 +24,12 @@
             <argument type="service" id="fos_user.entity_manager" />
             <argument>%fos_user.model.user.class%</argument>
             <argument>%fos_user.model.group.class%</argument>
+        </service>
+
+        <!-- Login Success Handler -->
+        <service id="ekyna_user.security.login_handler" class="%ekyna_user.security.login_handler.class%" public="false">
+            <argument type="service" id="security.http_utils" />
+            <argument type="collection"></argument>
         </service>
 
         <!-- Form types -->

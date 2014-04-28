@@ -14,16 +14,17 @@
             <generator strategy="AUTO" />
         </id>
 
-        <field name="company" type="string" column="company" length="64" nullable="true" />
-        <field name="gender" type="string" column="gender" length="8" />
-        <field name="firstname" type="string" column="firstname" length="32" />
-        <field name="lastname" type="string" column="lastname" length="32" />
-        <field name="street" type="string" column="street" length="255" />
-        <field name="supplement" type="string" column="supplement" length="255" nullable="true" />
-        <field name="postalCode" type="text" column="postal_code" length="8" />
-        <field name="city" type="text" column="city" length="255" />
-        <field name="phone" type="text" column="phone" length="16" nullable="true" />
-        <field name="mobile" type="text" column="mobile" length="16" nullable="true" />
+        <field name="company" column="company" type="string" length="64" nullable="true" />
+        <field name="gender" column="gender" type="string" length="8" />
+        <field name="firstname" column="firstname" type="string" length="32" />
+        <field name="lastname" column="lastname" type="string" length="32" />
+        <field name="street" column="street" type="string" length="255" />
+        <field name="supplement" column="supplement" type="string" length="255" nullable="true" />
+        <field name="postalCode" column="postal_code" type="text" length="8" />
+        <field name="city" column="city" type="text" length="255" />
+        <field name="phone" column="phone" type="text" length="16" nullable="true" />
+        <field name="mobile" column="mobile" type="text" length="16" nullable="true" />
+        <field name="locked" column="locked" type="boolean" />
 
         <many-to-one field="user" target-entity="Ekyna\Bundle\UserBundle\Entity\User" inversed-by="addresses">
 	        <join-column name="user_id" referenced-column-name="id" />

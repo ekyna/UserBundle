@@ -2,12 +2,14 @@
 
 namespace Ekyna\Bundle\UserBundle\Entity;
 
+use Ekyna\Bundle\UserBundle\Model\AddressInterface;
+
 /**
- * Address
+ * Address.
  *
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
-class Address
+class Address implements AddressInterface
 {
     /**
      * @var integer
@@ -70,6 +72,11 @@ class Address
     protected $mobile;
 
     /**
+     * @var boolean
+     */
+    protected $locked;
+
+    /**
      * @var \DateTime
      */
     protected $createdAt;
@@ -79,6 +86,13 @@ class Address
      */
     protected $updatedAt;
 
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->locked = false;
+    }
 
     /**
      * Returns a string representation
@@ -87,7 +101,7 @@ class Address
      */
     public function __toString()
     {
-        return (string) $this->getStreet();
+        return sprintf('%s, %s', $this->getStreet(), $this->getCity());
     }
 
     /**
@@ -354,6 +368,29 @@ class Address
     }
 
     /**
+     * Set locked
+     *
+     * @param boolean $locked
+     * @return Address
+     */
+    public function setLocked($locked)
+    {
+        $this->locked = $locked;
+
+        return $this;
+    }
+
+    /**
+     * Get locked
+     *
+     * @return boolean 
+     */
+    public function getLocked()
+    {
+        return $this->locked;
+    }
+
+    /**
      * Set createdAt
      *
      * @param \DateTime $createdAt
@@ -362,10 +399,10 @@ class Address
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
-    
+
         return $this;
     }
-    
+
     /**
      * Get createdAt
      *
@@ -375,7 +412,7 @@ class Address
     {
         return $this->createdAt;
     }
-    
+
     /**
      * Set updatedAt
      *
@@ -385,10 +422,10 @@ class Address
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
-    
+
         return $this;
     }
-    
+
     /**
      * Get updatedAt
      *
