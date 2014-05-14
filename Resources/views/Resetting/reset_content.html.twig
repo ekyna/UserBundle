@@ -7,5 +7,6 @@
 	    {{ form_row(form.plainPassword.second, { 'label_col': 5, 'widget_col': 7 }) }}
 	    {{ form_rest(form) }}
     </div>
-    {{ ui_form_footer(null, 'resetting.reset.submit'|trans, 'primary', 'ok', false, 4) }}
+    {#{ ui_form_footer(null, 'resetting.reset.submit'|trans, 'primary', 'ok', false, 4) }#}
+    {{ ui_form_footer(form) }}
 </form>

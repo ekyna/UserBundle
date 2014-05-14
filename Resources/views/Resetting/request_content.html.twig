@@ -12,5 +12,6 @@
             </div>
         </div>
     </div>
-    {{ ui_form_footer(null, 'resetting.request.submit'|trans({}, 'FOSUserBundle'), 'primary', 'ok', false, 4) }}
+    {#{ ui_form_footer(null, 'resetting.request.submit'|trans({}, 'FOSUserBundle'), 'primary', 'ok', false, 4) }#}
+    {{ ui_form_footer(form) }}
 </form>

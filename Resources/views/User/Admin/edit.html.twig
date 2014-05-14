@@ -12,7 +12,7 @@
 {% block main %}
 <form action="{{ path('ekyna_user_user_admin_edit', identifiers|merge({'userId': user.id})) }}" {{ form_enctype(form) }} method="post" class="form-horizontal form-with-tabs">
     {% include "EkynaUserBundle:User/Admin:_form.html.twig" %}
-    {{ ui_form_footer(path('ekyna_user_user_admin_show', identifiers|merge({'userId': user.id}))) }}
+    {{ ui_form_footer(form) }}
 </form>
 {% endblock %}
 

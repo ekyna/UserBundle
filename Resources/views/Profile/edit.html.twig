@@ -7,6 +7,7 @@
     <div class="form-body">
         {% include "EkynaUserBundle:Profile:edit_content.html.twig" %}
     </div>
-    {{ ui_form_footer(path('fos_user_profile_show'), 'ekyna_core.button.save', 'primary', 'ok', false, 3) }}
+    {#{ ui_form_footer(path('fos_user_profile_show'), 'ekyna_core.button.save', 'primary', 'ok', false, 3) }#}
+    {{ ui_form_footer(form) }}
 </form>
 {% endblock %}

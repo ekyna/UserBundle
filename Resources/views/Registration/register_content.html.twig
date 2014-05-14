@@ -14,5 +14,6 @@
 	    {{ form_row(form.mobile, {'label_col': 4, 'widget_col': 8}) }}
 	    {{ form_rest(form) }}
     </div>
-    {{ ui_form_footer(null, 'ekyna_core.button.save', 'primary', 'ok', false, 4) }}
+    {#{ ui_form_footer(null, 'ekyna_core.button.save', 'primary', 'ok', false, 4) }#}
+    {{ ui_form_footer(form) }}
 </form>

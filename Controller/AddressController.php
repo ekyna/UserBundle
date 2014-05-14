@@ -36,7 +36,12 @@ class AddressController extends Controller
         $address = $repository->createNew($user);
         $address->setUser($user);
 
-        $form = $this->createForm('ekyna_user_address', $address);
+        $form = $this->createForm('ekyna_user_address', $address, array(
+            '_redirect_enabled' => true,
+            '_footer' => array(
+                'cancel_path' => $this->generateUrl('ekyna_user_address_list'),
+            ),
+        ));
 
         $form->handleRequest($this->getRequest());
         if ($form->isValid()) {
@@ -45,6 +50,10 @@ class AddressController extends Controller
             $em->flush();
 
             $this->get('session')->getFlashBag()->add('success', 'L\'adresse a été créée avec succès.');
+
+            if (null !== $redirectPath = $form->get('_redirect')->getData()) {
+                return $this->redirect($redirectPath);
+            }
 
             return $this->redirect($this->generateUrl('ekyna_user_address_list'));
         }
