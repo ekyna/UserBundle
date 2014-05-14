@@ -78,7 +78,12 @@ class AddressController extends Controller
             throw new AccessDeniedHttpException('Vous n\'avez pas l\'autorisation pour acceder à cette resource.');
         }
 
-        $form = $this->createForm('ekyna_user_address', $address);
+        $form = $this->createForm('ekyna_user_address', $address, array(
+            '_redirect_enabled' => true,
+            '_footer' => array(
+                'cancel_path' => $this->generateUrl('ekyna_user_address_list'),
+            ),
+        ));
 
         $form->handleRequest($this->getRequest());
         if ($form->isValid()) {
@@ -87,6 +92,10 @@ class AddressController extends Controller
             $em->flush();
 
             $this->get('session')->getFlashBag()->add('success', 'L\'adresse a été modifiée avec succès.');
+
+            if (null !== $redirectPath = $form->get('_redirect')->getData()) {
+                return $this->redirect($redirectPath);
+            }
 
             return $this->redirect($this->generateUrl('ekyna_user_address_list'));
         }
@@ -112,7 +121,12 @@ class AddressController extends Controller
             throw new AccessDeniedHttpException('Vous n\'avez pas l\'autorisation pour acceder à cette resource.');
         }
 
-        $form = $this->createFormBuilder()
+        $form = $this->createFormBuilder(null, array(
+                '_redirect_enabled' => true,
+                '_footer' => array(
+                    'cancel_path' => $this->generateUrl('ekyna_user_address_list'),
+                ),
+            ))
             ->add('confirm', 'checkbox', array(
                 'label' => 'Souhaitez-vous réellement supprimer cette adresse ?',
                 'attr' => array('align_with_widget' => true),
@@ -128,6 +142,10 @@ class AddressController extends Controller
             $em->flush();
 
             $this->get('session')->getFlashBag()->add('success', 'L\'addresse a été supprimée avec succès.');
+
+            if (null !== $redirectPath = $form->get('_redirect')->getData()) {
+                return $this->redirect($redirectPath);
+            }
 
             return $this->redirect($this->generateUrl('ekyna_user_address_list'));
         }

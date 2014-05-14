@@ -33,11 +33,14 @@ class GroupController extends ResourceController
         $context = $this->loadContext($request);
         $resourceName = $this->config->getResourceName();
         $resource = $context->getResource($resourceName);
-        
+
         $this->isGranted('EDIT', $resource);
 
         $aclManipulator = $this->get('ekyna_admin.acl_manipulator');
-        $form = $aclManipulator->createGroupForm($resource);
+        $form = $aclManipulator->createGroupForm($resource, $this->generateUrl(
+            $this->config->getRoute('show'),
+            $context->getIdentifiers(true)
+        ));
 
         $form->handleRequest($request);
         if ($form->isValid()) {
@@ -45,6 +48,10 @@ class GroupController extends ResourceController
                 $aclManipulator->updateGroup($resource, $form->getData());
 
                 $this->addFlash('Les permissions ont bien été modifiées.', 'success');
+
+                if (null !== $redirectPath = $form->get('_redirect')->getData()) {
+                    return $this->redirect($redirectPath);
+                }
 
                 return $this->redirect(
                     $this->generateUrl(
