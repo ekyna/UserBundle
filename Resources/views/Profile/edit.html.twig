@@ -7,7 +7,13 @@
     <div class="form-body">
         {% include "EkynaUserBundle:Profile:edit_content.html.twig" %}
     </div>
-    {#{ ui_form_footer(path('fos_user_profile_show'), 'ekyna_core.button.save', 'primary', 'ok', false, 3) }#}
-    {{ ui_form_footer(form) }}
+    <div class="form-footer">
+        <div class="form-group row">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" name="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> {{ 'ekyna_core.button.save'|trans }}</button>
+                <a href="{{ path('fos_user_profile_show') }}" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span> {{ 'ekyna_core.button.cancel'|trans }}</a>
+            </div>
+	    </div>
+	</div>
 </form>
 {% endblock %}
