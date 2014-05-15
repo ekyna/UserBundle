@@ -2,6 +2,7 @@
 
 namespace Ekyna\Bundle\UserBundle\Entity;
 
+use Ekyna\Bundle\CoreBundle\Model\AbstractAddress;
 use Ekyna\Bundle\UserBundle\Model\AddressInterface;
 
 /**
@@ -9,7 +10,7 @@ use Ekyna\Bundle\UserBundle\Model\AddressInterface;
  *
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
-class Address implements AddressInterface
+class Address extends AbstractAddress implements AddressInterface
 {
     /**
      * @var integer
@@ -40,26 +41,6 @@ class Address implements AddressInterface
      * @var string
      */
     protected $lastname;
-
-    /**
-     * @var string
-     */
-    protected $street;
-
-    /**
-     * @var string
-     */
-    protected $supplement;
-
-    /**
-     * @var string
-     */
-    protected $postalCode;
-
-    /**
-     * @var string
-     */
-    protected $city;
 
     /**
      * @var string
@@ -227,98 +208,6 @@ class Address implements AddressInterface
     public function getLastname()
     {
         return $this->lastname;
-    }
-
-    /**
-     * Set street
-     *
-     * @param string $street
-     * @return Address
-     */
-    public function setStreet($street)
-    {
-        $this->street = $street;
-    
-        return $this;
-    }
-
-    /**
-     * Get street
-     *
-     * @return string
-     */
-    public function getStreet()
-    {
-        return $this->street;
-    }
-
-    /**
-     * Set supplement
-     *
-     * @param string $supplement
-     * @return Address
-     */
-    public function setSupplement($supplement)
-    {
-        $this->supplement = $supplement;
-    
-        return $this;
-    }
-
-    /**
-     * Get supplement
-     *
-     * @return string
-     */
-    public function getSupplement()
-    {
-        return $this->supplement;
-    }
-
-    /**
-     * Set postalCode
-     *
-     * @param string $postalCode
-     * @return Address
-     */
-    public function setPostalCode($postalCode)
-    {
-        $this->postalCode = $postalCode;
-    
-        return $this;
-    }
-
-    /**
-     * Get postalCode
-     *
-     * @return string
-     */
-    public function getPostalCode()
-    {
-        return $this->postalCode;
-    }
-
-    /**
-     * Set city
-     *
-     * @param string $city
-     * @return Address
-     */
-    public function setCity($city)
-    {
-        $this->city = $city;
-    
-        return $this;
-    }
-
-    /**
-     * Get city
-     *
-     * @return string
-     */
-    public function getCity()
-    {
-        return $this->city;
     }
 
     /**

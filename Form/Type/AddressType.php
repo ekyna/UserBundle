@@ -2,16 +2,16 @@
 
 namespace Ekyna\Bundle\UserBundle\Form\Type;
 
-use Symfony\Component\Form\AbstractType;
+use Ekyna\Bundle\CoreBundle\Form\Type\AbstractAddressType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * AddressType
+ * AddressType.
  *
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
-class AddressType extends AbstractType
+class AddressType extends AbstractAddressType
 {
     protected $dataClass;
 
@@ -20,8 +20,13 @@ class AddressType extends AbstractType
         $this->dataClass = $class;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
-    {    
+    {
+        parent::buildForm($builder, $options);
+
         $builder
             ->add('company', 'text', array(
                 'label' => 'ekyna_core.field.company',
@@ -34,19 +39,6 @@ class AddressType extends AbstractType
             ->add('lastname', 'text', array(
                 'label' => 'ekyna_core.field.lastname',
             ))
-            ->add('street', 'text', array(
-                'label' => 'ekyna_core.field.street',
-            ))
-            ->add('supplement', 'text', array(
-                'label' => 'ekyna_core.field.supplement',
-                'required' => false
-            ))
-            ->add('postalCode', 'text', array(
-                'label' => 'ekyna_core.field.postal_code',
-            ))
-            ->add('city', 'text', array(
-                'label' => 'ekyna_core.field.city',
-            ))
             ->add('phone', 'text', array(
                 'label' => 'ekyna_core.field.phone',
                 'required' => false
@@ -58,6 +50,9 @@ class AddressType extends AbstractType
         ;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
