@@ -3,13 +3,11 @@
 namespace Ekyna\Bundle\UserBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-// use Symfony\Component\Config\FileLocator;
-// use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Ekyna\Bundle\AdminBundle\DependencyInjection\AbstractExtension;
 
 /**
- * EkynaUserExtension
+ * EkynaUserExtension.
  *
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
