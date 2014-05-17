@@ -5,14 +5,14 @@
 {% endblock %}
 
 {% block actions %}
-{{ ui_link(path('ekyna_user_user_admin_show', identifiers), 'ekyna_core.button.back', 'default', 'sm', 'list') }}
-{{ ui_link(path('ekyna_user_address_admin_new', identifiers), 'ekyna_user.address.button.new', 'primary', 'sm', 'plus') }}
+{{ admin_resource_btn(address.user, 'show', {'label': 'ekyna_core.button.back'}) }}
+{{ admin_resource_btn(address, 'new') }}
 {% endblock %}
 
 {% block main %}
 <div class="actions">
-    {{ ui_link(path('ekyna_user_address_admin_edit', identifiers|merge({'addressId': address.id})), 'ekyna_core.button.edit', 'warning', 'sm', 'pencil') }}
-    {{ ui_link(path('ekyna_user_address_admin_remove', identifiers|merge({'addressId': address.id})), 'ekyna_core.button.remove', 'danger', 'sm', 'trash') }}
+	{{ admin_resource_btn(address, 'edit') }}
+	{{ admin_resource_btn(address, 'remove') }}
 </div>
 <div class="show show-with-tabs">
     <ul class="nav nav-tabs">

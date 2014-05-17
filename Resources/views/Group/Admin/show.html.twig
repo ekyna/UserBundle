@@ -5,15 +5,15 @@
 {% endblock %}
 
 {% block actions %}
-{{ ui_link(path('ekyna_user_group_admin_list', identifiers), 'ekyna_core.button.back_to_list', 'default', 'sm', 'list') }}
-{{ ui_link(path('ekyna_user_group_admin_new', identifiers), 'ekyna_user.group.button.new', 'primary', 'sm', 'plus') }}
+{{ admin_resource_btn(group, 'list') }}
+{{ admin_resource_btn(group, 'new') }}
 {% endblock %}
 
 {% block main %}
 <div class="actions">
-    {{ ui_link(path('ekyna_user_group_admin_edit_permissions', identifiers|merge({'groupId': group.id})), 'ekyna_user.group.button.edit_permissions', 'warning', 'sm', 'pencil') }}
-    {{ ui_link(path('ekyna_user_group_admin_edit', identifiers|merge({'groupId': group.id})), 'ekyna_core.button.edit', 'warning', 'sm', 'pencil') }}
-    {{ ui_link(path('ekyna_user_group_admin_remove', identifiers|merge({'groupId': group.id})), 'ekyna_core.button.remove', 'danger', 'sm', 'trash') }}
+	{{ admin_resource_btn(group, 'edit', {'label': 'ekyna_user.group.button.edit_permissions', 'path': path('ekyna_user_group_admin_edit_permissions', identifiers|merge({'groupId': group.id}))}) }}
+	{{ admin_resource_btn(group, 'edit') }}
+	{{ admin_resource_btn(group, 'remove') }}
 </div>
 <div class="show show-with-tabs">
     <ul class="nav nav-tabs">

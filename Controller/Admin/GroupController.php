@@ -37,11 +37,22 @@ class GroupController extends ResourceController
         $this->isGranted('EDIT', $resource);
 
         $aclManipulator = $this->get('ekyna_admin.acl_manipulator');
-        $form = $aclManipulator->createGroupForm($resource, $this->generateUrl(
-            $this->config->getRoute('show'),
-            $context->getIdentifiers(true)
-        ));
+        $builder = $this->createFormBuilder(
+            $aclManipulator->generateGroupFormDatas($resource),
+            array(
+                'admin_mode' => true,
+                '_redirect_enabled' => true,
+                '_footer' => array(
+                    'cancel_path' => $this->generateUrl(
+                        $this->config->getRoute('show'),
+                        $context->getIdentifiers(true)
+                    ),
+                ),
+            )
+        );
+        $aclManipulator->buildGroupForm($builder);
 
+        $form = $builder->getForm();
         $form->handleRequest($request);
         if ($form->isValid()) {
             try {

@@ -5,8 +5,8 @@
 {% endblock %}
 
 {% block actions %}
-{{ ui_link(path('ekyna_user_user_admin_list', identifiers), 'ekyna_core.button.back_to_list', 'default', 'sm', 'list') }}
-{{ ui_link(path('ekyna_user_user_admin_new', identifiers), 'ekyna_user.user.button.new', 'primary', 'sm', 'plus') }}
+{{ admin_resource_btn(user, 'list') }}
+{{ admin_resource_btn(user, 'new') }}
 {% endblock %}
 
 {% block main %}

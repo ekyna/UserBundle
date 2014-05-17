@@ -14,6 +14,7 @@ ekyna_user:
             show: Detail de l'utilisateur
             new: Nouvel utilisateur
             edit: Modifier l'utilisateur
+            remove: Supprimer l'utilisateur
         alert:
             no_user: Aucun utilisateur configuré
     group:
@@ -33,6 +34,7 @@ ekyna_user:
             new: Nouveau groupe
             edit: Modifier le groupe
             edit_permissions: Modifier les permissions
+            remove: Supprimer le groupe
         alert:
             no_group: Aucun groupe configuré
     address:
@@ -50,6 +52,7 @@ ekyna_user:
             show: Detail de l'adresse
             new: Nouvelle adresse
             edit: Modifier l'adresse
+            remove: Supprimer l'adresse
         alert:
             no_address: Aucune adresse configuré
     account:

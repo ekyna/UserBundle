@@ -5,8 +5,9 @@
 {% endblock %}
 
 {% block actions %}
-{{ ui_link(path('ekyna_user_group_admin_list', identifiers), 'ekyna_core.button.back_to_list', 'default', 'sm', 'list') }}
-{{ ui_link(path('ekyna_user_group_admin_new', identifiers), 'ekyna_user.group.button.new', 'primary', 'sm', 'plus') }}
+{{ admin_resource_btn(group, 'show', {'label': 'ekyna_core.button.back', 'icon': 'arrow-left'}) }}
+{{ admin_resource_btn(group, 'list') }}
+{{ admin_resource_btn(group, 'new') }}
 {% endblock %}
 
 {% block main %}
