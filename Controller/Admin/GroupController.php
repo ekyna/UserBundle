@@ -20,7 +20,7 @@ class GroupController extends ResourceController
 
         $this->isGranted('VIEW', $resource);
 
-        $aclDatas = $this->get('ekyna_admin.acl_manipulator')->generateGroupViewDatas($resource);
+        $aclDatas = $this->get('ekyna_admin.acl_operator')->generateGroupViewDatas($resource);
 
         return $this->render(
             $this->config->getTemplate('show.html'),
@@ -36,9 +36,9 @@ class GroupController extends ResourceController
 
         $this->isGranted('EDIT', $resource);
 
-        $aclManipulator = $this->get('ekyna_admin.acl_manipulator');
+        $aclOperator = $this->get('ekyna_admin.acl_operator');
         $builder = $this->createFormBuilder(
-            $aclManipulator->generateGroupFormDatas($resource),
+            $aclOperator->generateGroupFormDatas($resource),
             array(
                 'admin_mode' => true,
                 '_redirect_enabled' => true,
@@ -50,13 +50,13 @@ class GroupController extends ResourceController
                 ),
             )
         );
-        $aclManipulator->buildGroupForm($builder);
+        $aclOperator->buildGroupForm($builder);
 
         $form = $builder->getForm();
         $form->handleRequest($request);
         if ($form->isValid()) {
             try {
-                $aclManipulator->updateGroup($resource, $form->getData());
+                $aclOperator->updateGroup($resource, $form->getData());
 
                 $this->addFlash('Les permissions ont bien été modifiées.', 'success');
 

@@ -49,7 +49,7 @@ class UserType extends AbstractTableType
                 'label' => 'ekyna_core.field.add_date',
                 'sortable' => true,
             ))
-            ->addColumn('actions', 'actions', array(
+            ->addColumn('actions', 'admin_actions', array(
                 'buttons' => array(
                     array(
                         'label' => 'Modifier',
@@ -58,6 +58,7 @@ class UserType extends AbstractTableType
                         'route_parameters_map' => array(
                             'userId' => 'id'
                         ),
+                        'permission' => 'edit',
                     ),
                     array(
                         'label' => 'Supprimer',
@@ -66,6 +67,7 @@ class UserType extends AbstractTableType
                         'route_parameters_map' => array(
                             'userId' => 'id'
                         ),
+                        'permission' => 'edit',
                     ),
                 ),
             ))

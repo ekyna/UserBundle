@@ -44,7 +44,7 @@ class AddressType extends AbstractTableType
                 'label' => 'ekyna_core.field.city',
                 'sortable' => true,
             ))
-            ->addColumn('actions', 'actions', array(
+            ->addColumn('actions', 'admin_actions', array(
                 'buttons' => array(
                     array(
                         'label' => 'ekyna_core.button.edit',
@@ -53,6 +53,7 @@ class AddressType extends AbstractTableType
                         'route_parameters_map' => array(
                             'addressId' => 'id'
                         ),
+                        'permission' => 'edit',
                     ),
                     array(
                         'label' => 'ekyna_core.button.remove',
@@ -61,6 +62,7 @@ class AddressType extends AbstractTableType
                         'route_parameters_map' => array(
                             'addressId' => 'id'
                         ),
+                        'permission' => 'delete',
                     ),
                 ),
             ))

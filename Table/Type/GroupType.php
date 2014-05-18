@@ -36,7 +36,7 @@ class GroupType extends AbstractTableType
                     'groupId' => 'id'
                 ),
             ))
-            ->addColumn('actions', 'actions', array(
+            ->addColumn('actions', 'admin_actions', array(
                 'buttons' => array(
                     array(
                         'label' => 'ekyna_core.button.edit',
@@ -45,6 +45,7 @@ class GroupType extends AbstractTableType
                         'route_parameters_map' => array(
                             'groupId' => 'id'
                         ),
+                        'permission' => 'edit',
                     ),
                     array(
                         'label' => 'ekyna_core.button.remove',
@@ -53,6 +54,7 @@ class GroupType extends AbstractTableType
                         'route_parameters_map' => array(
                             'groupId' => 'id'
                         ),
+                        'permission' => 'delete',
                     ),
                 ),
             ))
