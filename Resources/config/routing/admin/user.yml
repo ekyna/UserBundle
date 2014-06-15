@@ -36,3 +36,19 @@ ekyna_user_user_admin_remove:
     requirements:
         _method: GET|POST
         userId:  \d+
+
+ekyna_user_user_admin_search:
+    path: /users/search
+    defaults: { _controller: "ekyna_user.user.controller:searchAction" }
+    requirements:
+        _method: GET
+    options:
+        expose: true
+
+ekyna_user_user_admin_find:
+    path: /users/find
+    defaults: { _controller: "ekyna_user.user.controller:findAction" }
+    requirements:
+        _method: GET
+    options:
+        expose: true

@@ -18,22 +18,6 @@ class AuthenticationSuccessHandler extends DefaultAuthenticationSuccessHandler
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token)
     {
-        // TODO: send login warning email if has ROLE_ADMIN
-
         return parent::onAuthenticationSuccess($request, $token);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function determineTargetUrl(Request $request)
-    {
-        if (null !== $targetUrl = $request->getSession()->get('_ekyna.login_success.target_path', null)) {
-            $request->getSession()->remove('_ekyna.login_success.target_path');
-
-            return $targetUrl;
-        }
-
-        return parent::determineTargetUrl($request);
     }
 }

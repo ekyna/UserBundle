@@ -93,6 +93,16 @@ class User extends BaseUser implements UserInterface
     }
 
     /**
+     * Returns the search text representation.
+     * 
+     * @return string
+     */
+    public function getSearchText()
+    {
+        return sprintf('%s %s - %s', $this->firstname, $this->lastname, $this->email);
+    }
+
+    /**
      * Set company
      *
      * @param string $company

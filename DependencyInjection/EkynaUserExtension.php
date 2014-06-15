@@ -27,7 +27,41 @@ class EkynaUserExtension extends AbstractExtension implements PrependExtensionIn
     public function prepend(ContainerBuilder $container)
     {
         $bundles = $container->getParameter('kernel.bundles');
-        $config = array(
+        
+        foreach ($container->getExtensions() as $name => $extension) {
+            switch ($name) {
+            	case 'fos_user':
+            	    $container->prependExtensionConfig(
+            	       $name,
+            	       $this->getFosUserBundleConfiguration()
+                    );
+            	    break;
+
+            	case 'fos_elastica':
+            	    $container->prependExtensionConfig(
+            	        $name,
+            	        $this->getFosElasticaBundleConfiguration()
+                    );
+            	    break;
+
+            	case 'jms_serializer':
+            	    $container->prependExtensionConfig(
+            	        $name,
+            	        $this->getJmsSerializerBundleConfiguration()
+                    );
+            	    break;
+            }
+        }
+    }
+
+    /**
+     * Returns FOSUserBundle configuration.
+     *
+     * @return array
+     */
+    protected function getFosUserBundleConfiguration()
+    {
+        return array(
             'db_driver' => 'orm',
             'firewall_name' => 'admin',
             'user_class' => 'Ekyna\Bundle\UserBundle\Entity\User',
@@ -48,24 +82,59 @@ class EkynaUserExtension extends AbstractExtension implements PrependExtensionIn
                 ),
             ),
         );
-        if (true === isset($bundles['FOSUserBundle'])) {
-            $this->configureFosUserBundle($container, $config);
-        }
     }
 
     /**
-     * @param ContainerBuilder $container
-     * @param array            $config
+     * Returns JMSSerializerBundle configuration.
      *
-     * @return void
+     * @return array
      */
-    protected function configureFosUserBundle(ContainerBuilder $container, array $config)
+    protected function getJmsSerializerBundleConfiguration()
     {
-        foreach (array_keys($container->getExtensions()) as $name) {
-            if ($name == 'fos_user') {
-                $container->prependExtensionConfig($name, $config);
-                break;
-            }
-        }
+        return array(
+            'metadata' => array(
+                'directories' => array(
+                    'FOSUserBundle' => array(
+                        'namespace_prefix' => 'FOS\\UserBundle',
+                        'path' => realpath(__DIR__.'/../Resources/serializer/FOSUserBundle'),
+                    ),
+                ),
+            ),
+        );
+    }
+
+    /**
+     * Returns FOSElacticaBundle configuration.
+     *
+     * @return array
+     */
+    protected function getFosElasticaBundleConfiguration()
+    {
+        return array(
+            'indexes' => array(
+                'search' => array(
+                    'types' => array(
+                        'ekyna_user_user' => array(
+                            'mappings' => array(
+                                'username' => array('search_analyzer' => 'custom_search', 'index_analyzer' => 'custom_index'),
+                                'firstname' => array('search_analyzer' => 'custom_search', 'index_analyzer' => 'custom_index'),
+                                'lastname' => array('search_analyzer' => 'custom_search', 'index_analyzer' => 'custom_index'),
+                                'email' => array('search_analyzer' => 'custom_search', 'index_analyzer' => 'custom_index'),
+                            ),
+                            'persistence' => array(
+                                'driver' => 'orm',
+                                'model' => 'Ekyna\Bundle\UserBundle\Entity\User',
+                                'provider' => null,
+                                'listener' => array(
+                                    'immediate' => null,
+                                ),
+                                'finder' => null,
+                                'repository' => 'Ekyna\Bundle\UserBundle\Search\UserRepository',
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+        );
     }
 }
