@@ -7,4 +7,4 @@ TODO
 ## Configuration
 TODO
 
-- [Templates](templates.md) 
+- [Templates](templates.md)
