@@ -64,12 +64,12 @@ class User extends BaseUser implements UserInterface
     protected $addresses;
 
     /**
-     * @var \Datetime
+     * @var \DateTime
      */
     protected $createdAt;
 
     /**
-     * @var \Datetime
+     * @var \DateTime
      */
     protected $updatedAt;
 
@@ -325,10 +325,10 @@ class User extends BaseUser implements UserInterface
     /**
      * Set created at
      *
-     * @param \Datetime $createdAt
+     * @param \DateTime $createdAt
      * @return User
      */
-    public function setCreatedAt(\Datetime $createdAt)
+    public function setCreatedAt(\DateTime $createdAt)
     {
         $this->createdAt = $createdAt;
         return $this;
@@ -337,7 +337,7 @@ class User extends BaseUser implements UserInterface
     /**
      * Get created at
      *
-     * @return \Datetime
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -347,10 +347,10 @@ class User extends BaseUser implements UserInterface
     /**
      * Set update at
      *
-     * @param \Datetime $updatedAt
+     * @param \DateTime $updatedAt
      * @return User
      */
-    public function setUpdatedAt(\Datetime $updatedAt)
+    public function setUpdatedAt(\DateTime $updatedAt)
     {
         $this->updatedAt = $updatedAt;
         return $this;
@@ -359,7 +359,7 @@ class User extends BaseUser implements UserInterface
     /**
      * Get updated at
      *
-     * @return \Datetime
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {
