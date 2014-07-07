@@ -73,20 +73,42 @@
 	    <property name="gender">
 	        <constraint name="Choice">
 	            <option name="callback">getGenders</option>
+                <option name="groups">
+                    <value>Registration</value>
+                    <value>Profile</value>
+                </option>
 	        </constraint>
 	    </property>
         <property name="firstname">
-            <constraint name="NotBlank" />
+            <constraint name="NotBlank">
+                <option name="groups">
+                    <value>Registration</value>
+                    <value>Profile</value>
+                </option>
+            </constraint>
             <constraint name="Length">
                 <option name="min">2</option>
                 <option name="max">32</option>
+                <option name="groups">
+                    <value>Registration</value>
+                    <value>Profile</value>
+                </option>
             </constraint>
         </property>
         <property name="lastname">
-            <constraint name="NotBlank" />
+            <constraint name="NotBlank">
+                <option name="groups">
+                    <value>Registration</value>
+                    <value>Profile</value>
+                </option>
+            </constraint>
             <constraint name="Length">
                 <option name="min">2</option>
                 <option name="max">32</option>
+                <option name="groups">
+                    <value>Registration</value>
+                    <value>Profile</value>
+                </option>
             </constraint>
         </property>
 
@@ -94,12 +116,20 @@
             <constraint name="Length">
                 <option name="min">2</option>
                 <option name="max">16</option>
+                <option name="groups">
+                    <value>Registration</value>
+                    <value>Profile</value>
+                </option>
             </constraint>
         </property>
         <property name="mobile">
             <constraint name="Length">
                 <option name="min">2</option>
                 <option name="max">16</option>
+                <option name="groups">
+                    <value>Registration</value>
+                    <value>Profile</value>
+                </option>
             </constraint>
         </property>
 
