@@ -70,10 +70,10 @@ class AddressType extends AbstractTableType
             ->addFilter('street', 'text', array(
             	'label' => 'ekyna_core.field.street'
             ))
-            ->addFilter('postalCode', array(
+            ->addFilter('postalCode', 'text', array(
             	'label' => 'ekyna_core.field.postal_code'
             ))
-            ->addFilter('city', array(
+            ->addFilter('city', 'text', array(
             	'label' => 'ekyna_core.field.city'
             ))
         ;
