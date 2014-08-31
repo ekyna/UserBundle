@@ -52,7 +52,7 @@ class UserType extends AbstractTableType
             ->addColumn('actions', 'admin_actions', array(
                 'buttons' => array(
                     array(
-                        'label' => 'Modifier',
+                        'label' => 'ekyna_core.button.edit',
                         'class' => 'warning',
                         'route_name' => 'ekyna_user_user_admin_edit',
                         'route_parameters_map' => array(
@@ -61,13 +61,13 @@ class UserType extends AbstractTableType
                         'permission' => 'edit',
                     ),
                     array(
-                        'label' => 'Supprimer',
+                        'label' => 'ekyna_core.button.remove',
                         'class' => 'danger',
                         'route_name' => 'ekyna_user_user_admin_remove',
                         'route_parameters_map' => array(
                             'userId' => 'id'
                         ),
-                        'permission' => 'edit',
+                        'permission' => 'delete',
                     ),
                 ),
             ))
