@@ -2,23 +2,16 @@
 
 namespace Ekyna\Bundle\UserBundle\Table\Type;
 
+use Ekyna\Bundle\AdminBundle\Table\Type\ResourceTableType;
 use Ekyna\Component\Table\TableBuilderInterface;
-use Ekyna\Component\Table\AbstractTableType;
 
 /**
- * UserType
- *
+ * Class UserType
+ * @package Ekyna\Bundle\UserBundle\Table\Type
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
-class UserType extends AbstractTableType
+class UserType extends ResourceTableType
 {
-    protected $entityClass;
-
-    public function __construct($class)
-    {
-        $this->entityClass = $class;
-    }
-
     /**
      * {@inheritdoc}
      */
@@ -79,14 +72,6 @@ class UserType extends AbstractTableType
                 'label' => 'ekyna_core.field.add_date',
             ))
         ;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getEntityClass()
-    {
-        return $this->entityClass;
     }
 
     /**

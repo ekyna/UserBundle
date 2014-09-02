@@ -2,23 +2,16 @@
 
 namespace Ekyna\Bundle\UserBundle\Table\Type;
 
+use Ekyna\Bundle\AdminBundle\Table\Type\ResourceTableType;
 use Ekyna\Component\Table\TableBuilderInterface;
-use Ekyna\Component\Table\AbstractTableType;
 
 /**
- * GroupType
- *
+ * Class GroupType
+ * @package Ekyna\Bundle\UserBundle\Table\Type
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
-class GroupType extends AbstractTableType
+class GroupType extends ResourceTableType
 {
-    protected $entityClass;
-
-    public function __construct($class)
-    {
-        $this->entityClass = $class;
-    }
-
     /**
      * {@inheritdoc}
      */
@@ -63,14 +56,6 @@ class GroupType extends AbstractTableType
             	'label' => 'ekyna_core.field.name'
             ))
         ;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getEntityClass()
-    {
-        return $this->entityClass;
     }
 
     /**

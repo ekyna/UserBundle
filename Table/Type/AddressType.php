@@ -2,23 +2,16 @@
 
 namespace Ekyna\Bundle\UserBundle\Table\Type;
 
+use Ekyna\Bundle\AdminBundle\Table\Type\ResourceTableType;
 use Ekyna\Component\Table\TableBuilderInterface;
-use Ekyna\Component\Table\AbstractTableType;
 
 /**
- * AddressType
- *
+ * Class AddressType
+ * @package Ekyna\Bundle\UserBundle\Table\Type
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
-class AddressType extends AbstractTableType
+class AddressType extends ResourceTableType
 {
-    protected $entityClass;
-
-    public function __construct($class)
-    {
-        $this->entityClass = $class;
-    }
-
     /**
      * {@inheritdoc}
      */
@@ -77,14 +70,6 @@ class AddressType extends AbstractTableType
             	'label' => 'ekyna_core.field.city'
             ))
         ;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getEntityClass()
-    {
-        return $this->entityClass;
     }
 
     /**
