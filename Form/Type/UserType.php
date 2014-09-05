@@ -2,22 +2,14 @@
 
 namespace Ekyna\Bundle\UserBundle\Form\Type;
 
-use Symfony\Component\Form\AbstractType;
+use Ekyna\Bundle\AdminBundle\Form\Type\ResourceFormType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * UserType
  */
-class UserType extends AbstractType
+class UserType extends ResourceFormType
 {
-    protected $dataClass;
-
-    public function __construct($class)
-    {
-        $this->dataClass = $class;
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {    
         $builder
@@ -54,13 +46,6 @@ class UserType extends AbstractType
                 'required' => false
             ))
         ;
-    }
-
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults(array(
-            'data_class' => $this->dataClass,
-        ));
     }
 
     /**
