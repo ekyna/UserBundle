@@ -7,8 +7,8 @@ use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Ekyna\Bundle\AdminBundle\DependencyInjection\AbstractExtension;
 
 /**
- * EkynaUserExtension.
- *
+ * Class EkynaUserExtension
+ * @package Ekyna\Bundle\UserBundle\DependencyInjection
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
 class EkynaUserExtension extends AbstractExtension implements PrependExtensionInterface
@@ -68,6 +68,7 @@ class EkynaUserExtension extends AbstractExtension implements PrependExtensionIn
             ),
             'service' => array(
         	    'user_manager' => 'ekyna_user.fos_user_manager',
+                'mailer' => 'ekyna_user.mailer.default'
             ),
             'profile' => array(
             	'form' => array(
@@ -102,7 +103,7 @@ class EkynaUserExtension extends AbstractExtension implements PrependExtensionIn
     }
 
     /**
-     * Returns FOSElacticaBundle configuration.
+     * Returns FOSElasticaBundle configuration.
      *
      * @return array
      */

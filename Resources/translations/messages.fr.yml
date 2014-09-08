@@ -84,6 +84,23 @@ ekyna_user:
             button: Réinitialiser le mot de passe
     email:
         login_success:
-            title : Notification de connexion
             subject: "[%sitename%] Notification de connexion"
-            message: "<p>Bonjour %username%.</p><p>Vous recevez cette email suite à une connexion réussie à votre compte client sur %sitename% le %date%.<br>Si vous n'êtes pas à l'origine de cette connexion veuillez s'il vous plait changer votre mot de passe et avertir notre adminitrateur.</p>"
+            title : Notification de connexion
+            message: |
+                <p>Bonjour %username%.</p>
+                <p>Vous recevez cette email suite à une connexion réussie à votre compte client sur %sitename% le %date%.<br>
+                Si vous n'êtes pas à l'origine de cette connexion veuillez s'il vous plait changer votre mot de passe et avertir notre adminitrateur.</p>
+        registration:
+            subject: "[%sitename%] Création de votre compte client"
+            title: Création de votre compte utilisateur
+            message: |
+                <p>Bonjour %username% !</p>
+                <p>Pour valider votre compte utilisateur, merci de vous rendre sur <a href="%confirmationUrl%"> cette page</a>.</p>
+                <p>Cordialement,<br>L'équipe %sitename%.</p>
+        resetting:
+            subject: "[%sitename%] Réinitialisation de votre mot de passe"
+            title: Réinitialisation de votre mot de passe
+            message: |
+                <p>Bonjour %username% !</p>
+                <p>Pour réinitialiser votre mot de passe, merci de vous rendre sur <a href="%confirmationUrl%">cette page</a>.</p>
+                <p>Cordialement,<br>L'équipe %sitename%.</p>
