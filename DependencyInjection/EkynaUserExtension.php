@@ -26,8 +26,6 @@ class EkynaUserExtension extends AbstractExtension implements PrependExtensionIn
      */
     public function prepend(ContainerBuilder $container)
     {
-        $bundles = $container->getParameter('kernel.bundles');
-        
         foreach ($container->getExtensions() as $name => $extension) {
             switch ($name) {
             	case 'fos_user':

@@ -6,13 +6,17 @@
 
     <parameters>
         <parameter key="ekyna_user.fos_user_manager.class">Ekyna\Bundle\UserBundle\Doctrine\UserManager</parameter>
-        <parameter key="ekyna_user.security.login_handler.class">Ekyna\Bundle\UserBundle\Authentication\AuthenticationSuccessHandler</parameter>
+
+        <parameter key="ekyna_user.authentication_listener.class">Ekyna\Bundle\UserBundle\Listener\AuthenticationListener</parameter>
+
         <parameter key="ekyna_user.gender.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\GenderType</parameter>
         <parameter key="ekyna_user.profile.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\ProfileType</parameter>
         <parameter key="ekyna_user.registration.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\RegistrationType</parameter>
+
+        <parameter key="ekyna_user.menu_builder.class">Ekyna\Bundle\UserBundle\Menu\MenuBuilder</parameter>
+
         <parameter key="ekyna_user.address.twig_extension.class">Ekyna\Bundle\UserBundle\Twig\AddressExtension</parameter>
         <parameter key="ekyna_user.address.render_template">EkynaUserBundle:Address:_render.html.twig</parameter>
-        <parameter key="ekyna_user.menu_builder.class">Ekyna\Bundle\UserBundle\Menu\MenuBuilder</parameter>
     </parameters>
 
     <services>
@@ -26,10 +30,13 @@
             <argument>%fos_user.model.group.class%</argument>
         </service>
 
-        <!-- Login Success Handler -->
-        <service id="ekyna_user.security.login_handler" class="%ekyna_user.security.login_handler.class%" public="false">
-            <argument type="service" id="security.http_utils" />
-            <argument type="collection"></argument>
+        <!-- Events listeners -->
+        <service id="ekyna_user.authentication_listener" class="%ekyna_user.authentication_listener.class%">
+            <argument type="service" id="mailer" />
+            <argument type="service" id="twig" />
+            <argument type="service" id="translator" />
+            <argument type="service" id="ekyna_setting.manager" />
+            <tag name="kernel.event_subscriber" />
         </service>
 
         <!-- Form types -->
@@ -58,6 +65,7 @@
             <tag name="knp_menu.menu" alias="account" />
         </service>
 
+        <!-- Twig extensions -->
 	    <service id="ekyna_user.address.twig_extension" class="%ekyna_user.address.twig_extension.class%">
 	        <argument type="service" id="ekyna_user.address.repository" />
 	        <argument type="service" id="twig" />

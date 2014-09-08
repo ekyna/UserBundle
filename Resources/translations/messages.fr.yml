@@ -82,3 +82,8 @@ ekyna_user:
         resetting:
             title: Réinitialisation du mot de passe
             button: Réinitialiser le mot de passe
+    email:
+        login_success:
+            title : Notification de connexion
+            subject: "[%sitename%] Notification de connexion"
+            message: "<p>Bonjour %username%.</p><p>Vous recevez cette email suite à une connexion réussie à votre compte client sur %sitename% le %date%.<br>Si vous n'êtes pas à l'origine de cette connexion veuillez s'il vous plait changer votre mot de passe et avertir notre adminitrateur.</p>"
