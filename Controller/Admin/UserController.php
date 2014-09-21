@@ -4,6 +4,7 @@ namespace Ekyna\Bundle\UserBundle\Controller\Admin;
 
 use Ekyna\Bundle\AdminBundle\Controller\Context;
 use Ekyna\Bundle\AdminBundle\Controller\ResourceController;
+use Ekyna\Bundle\AdminBundle\Event\ResourceMessage;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\Security\Core\Util\SecureRandom;
 
@@ -17,39 +18,41 @@ class UserController extends ResourceController
     /**
      * {@inheritdoc}
      */
-    protected function persist($resource, $creation = false)
+    protected function createResource($resource)
     {
-        if ($creation) {
-            $generator = new SecureRandom();
-            $password = bin2hex($generator->nextBytes(4));
-            $resource->setPlainPassword($password);
-            $resource->setEnabled(true);
+        $generator = new SecureRandom();
+        $password = bin2hex($generator->nextBytes(4));
+        $resource->setPlainPassword($password);
+        $resource->setEnabled(true);
 
-            $this->addFlash(sprintf('Generated password : "%s".', $password), 'info');
+        $this->getManager()->updateUser($resource, false);
+
+        $event = parent::createResource($resource);
+        if (!$event->hasErrors()) {
+            $event->addMessage(new ResourceMessage(
+                sprintf('Generated password : "%s".', $password),
+                ResourceMessage::TYPE_INFO
+            ));
+            // TODO send credentials by mail (FOS event ?).
         }
 
-        $this->getManager()->updateUser($resource);
+        return $event;
     }
 
     /**
-     * Creates a new resource
-     *
-     * @param Context $context
-     *
-     * @return \Ekyna\Bundle\UserBundle\Entity\User
+     * {@inheritdoc}
      */
     protected function createNew(Context $context)
     {
         $user = $this->getManager()->createUser();
 
-        if(null !== $context && $this->hasParent()) {
+        if (null !== $context && $this->hasParent()) {
             $parentResourceName = $this->getParent()->getConfiguration()->getResourceName();
             $parent = $context->getResource($parentResourceName);
 
             try {
-                $propertyAcessor = PropertyAccess::createPropertyAccessor();
-                $propertyAcessor->setValue($user, $parentResourceName, $parent);
-                //$user->{Inflector::camelize('set_'.$parentResourceName)}($parent);
+                $propertyAccessor = PropertyAccess::createPropertyAccessor();
+                $propertyAccessor->setValue($user, $parentResourceName, $parent);
             } catch (\Exception $e) {
                 throw new \RuntimeException('Failed to set resource\'s parent.');
             }

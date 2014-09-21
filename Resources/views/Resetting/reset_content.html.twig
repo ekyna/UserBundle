@@ -3,6 +3,7 @@
 <form action="{{ path('fos_user_resetting_reset', {'token': token}) }}" {{ form_enctype(form) }} method="POST" class="form-horizontal">
     <div class="form-body">
 	    {{ bootstrap_set_style('horizontal') }}
+        {{ form_errors(form) }}
 	    {{ form_row(form.plainPassword.first, { 'label_col': 5, 'widget_col': 7 }) }}
 	    {{ form_row(form.plainPassword.second, { 'label_col': 5, 'widget_col': 7 }) }}
 	    {{ form_rest(form) }}
