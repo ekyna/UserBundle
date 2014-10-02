@@ -6,8 +6,9 @@
 
     <parameters>
         <parameter key="ekyna_user.fos_user_manager.class">Ekyna\Bundle\UserBundle\Doctrine\UserManager</parameter>
+        <parameter key="ekyna_user.mailer.default.class">Ekyna\Bundle\UserBundle\Mailer\Mailer</parameter>
 
-        <parameter key="ekyna_user.authentication_listener.class">Ekyna\Bundle\UserBundle\Listener\AuthenticationListener</parameter>
+        <parameter key="ekyna_user.authentication_listener.class">Ekyna\Bundle\UserBundle\EventListener\AuthenticationListener</parameter>
 
         <parameter key="ekyna_user.gender.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\GenderType</parameter>
         <parameter key="ekyna_user.profile.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\ProfileType</parameter>
@@ -32,10 +33,7 @@
 
         <!-- Events listeners -->
         <service id="ekyna_user.authentication_listener" class="%ekyna_user.authentication_listener.class%">
-            <argument type="service" id="mailer" />
-            <argument type="service" id="twig" />
-            <argument type="service" id="translator" />
-            <argument type="service" id="ekyna_setting.manager" />
+            <argument type="service" id="ekyna_user.mailer.default" />
             <tag name="kernel.event_subscriber" />
         </service>
 
@@ -74,7 +72,7 @@
 	    </service>
 
         <!-- Mailer -->
-        <service id="ekyna_user.mailer.default" class="Ekyna\Bundle\UserBundle\Mailer\Mailer" public="false">
+        <service id="ekyna_user.mailer.default" class="%ekyna_user.mailer.default.class%" public="false">
             <argument type="service" id="mailer" />
             <argument type="service" id="router" />
             <argument type="service" id="templating" />

@@ -47,7 +47,7 @@ class MenuBuilder
     /**
      * Adds a menu entry
      * 
-     * @param unknown $name
+     * @param string $name
      * @param array $options
      */
     public function addEntry($name, array $options)

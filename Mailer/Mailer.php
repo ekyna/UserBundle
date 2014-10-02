@@ -14,6 +14,9 @@ use Symfony\Component\Translation\TranslatorInterface;
  */
 class Mailer extends BaseMailer
 {
+    /** @var \Swift_Mailer $mailer */
+    protected $mailer;
+
     /**
      * @var SettingsManager
      */
@@ -37,6 +40,34 @@ class Mailer extends BaseMailer
     public function setTranslator(TranslatorInterface $translator)
     {
         $this->translator = $translator;
+    }
+
+    /**
+     * Send an email to the user to warn about successful login.
+     *
+     * @param UserInterface $user
+     */
+    public function sendSuccessfulLoginEmailMessage(UserInterface $user)
+    {
+        /** @var \Ekyna\Bundle\UserBundle\Entity\User $user */
+        $siteName  = $this->settingsManager->getParameter('general.site_name');
+        $userName = sprintf('%s %s', $user->getFirstname(), $user->getLastname());
+
+        $rendered = $this->templating->render(
+            'EkynaUserBundle:Security:login_success_email.html.twig',
+            array(
+                'username' => $userName,
+                'sitename' => $siteName,
+                'date' => new \DateTime()
+            )
+        );
+
+        $subject = $this->translator->trans(
+            'ekyna_user.email.login_success.subject',
+            array('%sitename%' => $siteName)
+        );
+
+        $this->sendEmail($rendered, $user->getEmail(), $userName, $subject);
     }
 
     /**
