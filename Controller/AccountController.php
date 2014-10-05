@@ -2,16 +2,23 @@
 
 namespace Ekyna\Bundle\UserBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Ekyna\Bundle\CoreBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * AccountController
- *
+ * Class AccountController
+ * @package Ekyna\Bundle\UserBundle\Controller
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
 class AccountController extends Controller
 {
+    /**
+     * Home action.
+     *
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function homeAction(Request $request)
     {
         $securityContext = $this->get('security.context');
