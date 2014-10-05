@@ -21,6 +21,13 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('ekyna_user');
 
+        $rootNode
+            ->children()
+                ->booleanNode('account_enabled')->defaultValue(false)->end()
+                ->booleanNode('address_enabled')->defaultValue(false)->end()
+            ->end()
+        ;
+
         $this->addPoolsSection($rootNode);
 
         return $treeBuilder;

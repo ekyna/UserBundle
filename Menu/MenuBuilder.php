@@ -3,11 +3,13 @@
 namespace Ekyna\Bundle\UserBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
- * MenuBuilder
- *
+ * Class MenuBuilder
+ * @package Ekyna\Bundle\UserBundle\Menu
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
 class MenuBuilder
@@ -18,56 +20,115 @@ class MenuBuilder
     private $factory;
 
     /**
-     * @var array
+     * @var \Symfony\Component\Security\Core\SecurityContext
      */
-    private $entries;
+    protected $securityContext;
 
     /**
-     * @param \Knp\Menu\FactoryInterface $factory
+     * @var bool
      */
-    public function __construct(FactoryInterface $factory)
+    private $accountEnabled;
+
+    /**
+     * @var OptionsResolverInterface
+     */
+    private $optionResolver;
+
+    /**
+     * @var array
+     */
+    private $accountEntries;
+
+    /**
+     * Constructor.
+     *
+     * @param \Knp\Menu\FactoryInterface $factory
+     * @param SecurityContextInterface $securityContext
+     * @param bool $accountEnabled
+     */
+    public function __construct(FactoryInterface $factory, SecurityContextInterface $securityContext, $accountEnabled = false)
     {
         $this->factory = $factory;
-        $this->entries = array(
-        	'profil' => array(
-        	    'label' => 'ekyna_user.account.menu.profile',
-        	    'route' => 'fos_user_profile_show',
-            ),
-        	'password' => array(
-        	    'label' => 'ekyna_user.account.menu.password',
-        	    'route' => 'fos_user_change_password',
-            ),
-        	'addresses' => array(
-        	    'label' => 'ekyna_user.account.menu.address',
-        	    'route' => 'ekyna_user_address_list',
-            ),
-        );
+        $this->securityContext = $securityContext;
+        $this->accountEnabled = $accountEnabled;
+
+        $this->accountEntries = [];
+
+        $this->optionResolver = new OptionsResolver();
+        $this->optionResolver
+            ->setDefaults(array(
+                'label' => null,
+                'route' => null,
+                'position' => 0,
+            ))
+            ->setRequired(array('label', 'route', 'position'))
+            ->setAllowedTypes(array(
+                'label' => 'string',
+                'route' => 'string',
+                'position' => 'int',
+            ))
+        ;
     }
 
     /**
-     * Adds a menu entry
+     * Adds the entry to he account menu.
      * 
      * @param string $name
      * @param array $options
      */
-    public function addEntry($name, array $options)
+    public function addAccountEntry($name, array $options)
     {
-        $this->entries[$name] = $options;
+        $this->accountEntries[$name] = $this->optionResolver->resolve($options);
     }
 
     /**
-     * Create account menu
-     * 
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * 
+     * Creates the account menu.
+     *
      * @return \Knp\Menu\ItemInterface
      */
-    public function createAccountMenu(Request $request)
+    public function createAccountMenu()
     {
         $menu = $this->factory->createItem('root');
 
-        foreach($this->entries as $name => $options) {
+        uasort($this->accountEntries, function($a, $b) {
+            if ($a['position'] == $b['position']) {
+                return 0;
+            }
+            return $a['position'] < $b['position'] ? -1 : 1;
+        });
+
+        foreach($this->accountEntries as $name => $options) {
             $menu->addChild($name, $options);
+        }
+
+        return $menu;
+    }
+
+    /**
+     * Creates the user menu.
+     *
+     * @return \Knp\Menu\ItemInterface
+     */
+    public function createUserMenu()
+    {
+        $menu = $this->factory->createItem('root');
+
+        // TODO translations
+
+        if ($this->accountEnabled) {
+            if (null !== $this->securityContext->getToken()) {
+                if ($this->securityContext->isGranted('IS_AUTHENTICATED_FULLY') || $this->securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+                    $user = $this->securityContext->getToken()->getUser();
+                    $item = $menu->addChild($user->getEmail(), array('uri' => '#'));
+                    $item->addChild('Mon profil', array('route' => 'fos_user_profile_show'));
+                    if ($this->securityContext->isGranted('ROLE_ADMIN')) {
+                        $item->addChild('Administration', array('route' => 'ekyna_admin'));
+                    }
+                    $item->addChild('Se déconnecter', array('route' => 'fos_user_security_logout'));
+                    return $menu;
+                }
+            }
+            $menu->addChild('Connection', array('route' => 'fos_user_security_login'));
         }
 
         return $menu;

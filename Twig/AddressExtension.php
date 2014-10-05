@@ -53,15 +53,16 @@ class AddressExtension extends \Twig_Extension
 
     /**
      * Format an address
-     * 
-     * @param mixed $address
+     *
+     * @param mixed $addressOrId
+     * @return string
      */
     public function renderAddress($addressOrId)
     {
-        if($addressOrId instanceOf Address) {
+        if ($addressOrId instanceOf Address) {
             $address = $addressOrId;
-        }else{
-            if(null === $address = $this->repository->findOneById(intval($addressOrId))) {
+        } else {
+            if (null === $address = $this->repository->findOneBy(array('id', intval($addressOrId)))) {
                 return '';
             }
         }

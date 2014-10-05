@@ -14,6 +14,7 @@
         <parameter key="ekyna_user.profile.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\ProfileType</parameter>
         <parameter key="ekyna_user.registration.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\RegistrationType</parameter>
 
+        <parameter key="ekyna_user.routing_loader.class">Ekyna\Bundle\UserBundle\Routing\AccountLoader</parameter>
         <parameter key="ekyna_user.menu_builder.class">Ekyna\Bundle\UserBundle\Menu\MenuBuilder</parameter>
 
         <parameter key="ekyna_user.address.twig_extension.class">Ekyna\Bundle\UserBundle\Twig\AddressExtension</parameter>
@@ -50,9 +51,18 @@
             <tag name="form.type" alias="ekyna_user_registration" />
         </service>
 
+        <!-- Routing loader -->
+        <service id="ekyna_user.routing_loader" class="%ekyna_user.routing_loader.class%">
+            <argument>%ekyna_user.account_enabled%</argument>
+            <argument>%ekyna_user.address_enabled%</argument>
+            <tag name="routing.loader" />
+        </service>
+
         <!-- Account Menu -->
         <service id="ekyna_user.menu_builder" class="%ekyna_user.menu_builder.class%">
             <argument type="service" id="knp_menu.factory" />
+            <argument type="service" id="security.context" />
+            <argument>%ekyna_user.account_enabled%</argument>
         </service>
         <service id="ekyna_user.menu.account"
             class="Knp\Menu\MenuItem"
@@ -61,6 +71,14 @@
             scope="request">
             <argument type="service" id="request" />
             <tag name="knp_menu.menu" alias="account" />
+        </service>
+        <service id="ekyna_user.menu.user"
+                 class="Knp\Menu\MenuItem"
+                 factory-service="ekyna_user.menu_builder"
+                 factory-method="createUserMenu"
+                 scope="request">
+            <argument type="service" id="request" />
+            <tag name="knp_menu.menu" alias="user" />
         </service>
 
         <!-- Twig extensions -->

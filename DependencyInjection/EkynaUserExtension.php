@@ -18,7 +18,33 @@ class EkynaUserExtension extends AbstractExtension implements PrependExtensionIn
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        $this->configure($configs, 'ekyna_user', new Configuration(), $container);
+        list($config, $loader) = $this->configure($configs, 'ekyna_user', new Configuration(), $container);
+
+        $accountEnabled = $config['account_enabled'];
+        $addressEnabled = $config['address_enabled'];
+        $container->setParameter('ekyna_user.account_enabled', $accountEnabled);
+        $container->setParameter('ekyna_user.address_enabled', $addressEnabled);
+
+        $menu = $container->getDefinition('ekyna_user.menu_builder');
+        if ($accountEnabled) {
+            $menu->addMethodCall('addAccountEntry', array('profil', array(
+                'label' => 'ekyna_user.account.menu.profile',
+                'route' => 'fos_user_profile_show',
+                'position' => -3,
+            )));
+            $menu->addMethodCall('addAccountEntry', array('password', array(
+                'label' => 'ekyna_user.account.menu.password',
+                'route' => 'fos_user_change_password',
+                'position' => -2,
+            )));
+            if ($addressEnabled) {
+                $menu->addMethodCall('addAccountEntry', array('address', array(
+                    'label'    => 'ekyna_user.account.menu.address',
+                    'route'    => 'ekyna_user_address_list',
+                    'position' => -1,
+                )));
+            }
+        }
     }
 
     /**
