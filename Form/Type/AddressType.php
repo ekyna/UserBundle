@@ -7,14 +7,22 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * AddressType.
- *
+ * Class AddressType
+ * @package Ekyna\Bundle\UserBundle\Form\Type
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
 class AddressType extends AbstractAddressType
 {
+    /**
+     * @var string
+     */
     protected $dataClass;
 
+    /**
+     * Constructor.
+     *
+     * @param $class
+     */
     public function __construct($class)
     {
         $this->dataClass = $class;

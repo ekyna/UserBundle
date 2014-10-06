@@ -3,12 +3,13 @@
 namespace Ekyna\Bundle\UserBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Ekyna\Bundle\UserBundle\Model\GroupInterface;
 use Ekyna\Bundle\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\User as BaseUser;
 
 /**
- * User
- *
+ * Class User
+ * @package Ekyna\Bundle\UserBundle\Entity
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
 class User extends BaseUser implements UserInterface
@@ -241,21 +242,16 @@ class User extends BaseUser implements UserInterface
     }
 
     /**
-     * Set group
-     *
-     * @param Group $group
-     * @return User
+     * {@inheritdoc}
      */
-    public function setGroup(Group $group = null)
+    public function setGroup(GroupInterface $group = null)
     {
         $this->group = $group;
         return $this;
     }
 
     /**
-     * Get group
-     *
-     * @return Group
+     * {@inheritdoc}
      */
     public function getGroup()
     {

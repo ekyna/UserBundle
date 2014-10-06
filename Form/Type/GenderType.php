@@ -6,8 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * GenderType
- *
+ * Class GenderType
+ * @package Ekyna\Bundle\UserBundle\Form\Type
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
 class GenderType extends AbstractType

@@ -7,8 +7,8 @@ use Elastica\Query\QueryString;
 use FOS\ElasticaBundle\Repository;
 
 /**
- * UserRepository.
- *
+ * Class UserRepository
+ * @package Ekyna\Bundle\UserBundle\Search
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
 class UserRepository extends Repository implements SearchRepositoryInterface

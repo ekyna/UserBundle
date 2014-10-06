@@ -6,12 +6,15 @@ use Ekyna\Bundle\AdminBundle\Controller\ResourceController;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * GroupController
- *
+ * Class GroupController
+ * @package Ekyna\Bundle\UserBundle\Controller\Admin
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
 class GroupController extends ResourceController
 {
+    /**
+     * {@inheritdoc}
+     */
     public function showAction(Request $request)
     {
         $context = $this->loadContext($request);
@@ -28,6 +31,12 @@ class GroupController extends ResourceController
         );
     }
 
+    /**
+     * Edit permissions action.
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function editPermissionsAction(Request $request)
     {
         $context = $this->loadContext($request);

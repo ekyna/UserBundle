@@ -6,8 +6,8 @@ use Ekyna\Bundle\CoreBundle\Model\AbstractAddress;
 use Ekyna\Bundle\UserBundle\Model\AddressInterface;
 
 /**
- * Address.
- *
+ * Class Address
+ * @package Ekyna\Bundle\UserBundle\Entity
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
 class Address extends AbstractAddress implements AddressInterface

@@ -37,6 +37,11 @@ class Mailer extends BaseMailer
         $this->settingsManager = $settingsManager;
     }
 
+    /**
+     * Sets the translator.
+     *
+     * @param TranslatorInterface $translator
+     */
     public function setTranslator(TranslatorInterface $translator)
     {
         $this->translator = $translator;

@@ -5,8 +5,8 @@ namespace Ekyna\Bundle\UserBundle\Entity;
 use Ekyna\Bundle\AdminBundle\Doctrine\ORM\ResourceRepository;
 
 /**
- * AddressRepository
- *
+ * Class AddressRepository
+ * @package Ekyna\Bundle\UserBundle\Entity
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
 class AddressRepository extends ResourceRepository

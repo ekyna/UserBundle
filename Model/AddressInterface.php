@@ -3,8 +3,8 @@
 namespace Ekyna\Bundle\UserBundle\Model;
 
 /**
- * AddressInterface
- *
+ * Interface AddressInterface
+ * @package Ekyna\Bundle\UserBundle\Model
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
 interface AddressInterface
@@ -12,7 +12,7 @@ interface AddressInterface
     /**
      * Get user
      *
-     * @return \Ekyna\Bundle\UserBundle\Model\UserInterface
+     * @return UserInterface
      */
     public function getUser();
 

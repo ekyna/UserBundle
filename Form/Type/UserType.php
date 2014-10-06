@@ -6,10 +6,15 @@ use Ekyna\Bundle\AdminBundle\Form\Type\ResourceFormType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * UserType
+ * Class UserType
+ * @package Ekyna\Bundle\UserBundle\Form\Type
+ * @author Étienne Dauvergne <contact@ekyna.com>
  */
 class UserType extends ResourceFormType
 {
+    /**
+     * {@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {    
         $builder

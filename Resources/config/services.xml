@@ -5,10 +5,10 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="ekyna_user.fos_user_manager.class">Ekyna\Bundle\UserBundle\Doctrine\UserManager</parameter>
         <parameter key="ekyna_user.mailer.default.class">Ekyna\Bundle\UserBundle\Mailer\Mailer</parameter>
 
         <parameter key="ekyna_user.authentication_listener.class">Ekyna\Bundle\UserBundle\EventListener\AuthenticationListener</parameter>
+        <parameter key="ekyna_user.user_listener.class">Ekyna\Bundle\UserBundle\EventListener\UserListener</parameter>
 
         <parameter key="ekyna_user.gender.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\GenderType</parameter>
         <parameter key="ekyna_user.profile.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\ProfileType</parameter>
@@ -22,19 +22,15 @@
     </parameters>
 
     <services>
-        <!-- FOS User Manager -->
-        <service id="ekyna_user.fos_user_manager" class="%ekyna_user.fos_user_manager.class%" public="false">
-            <argument type="service" id="security.encoder_factory" />
-            <argument type="service" id="fos_user.util.username_canonicalizer" />
-            <argument type="service" id="fos_user.util.email_canonicalizer" />
-            <argument type="service" id="fos_user.entity_manager" />
-            <argument>%fos_user.model.user.class%</argument>
-            <argument>%fos_user.model.group.class%</argument>
-        </service>
 
         <!-- Events listeners -->
         <service id="ekyna_user.authentication_listener" class="%ekyna_user.authentication_listener.class%">
             <argument type="service" id="ekyna_user.mailer.default" />
+            <tag name="kernel.event_subscriber" />
+        </service>
+        <service id="ekyna_user.user_listener" class="%ekyna_user.user_listener.class%">
+            <argument type="service" id="ekyna_user.group.repository" />
+            <argument type="service" id="fos_user.user_manager" />
             <tag name="kernel.event_subscriber" />
         </service>
 

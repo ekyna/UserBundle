@@ -6,12 +6,15 @@ use FOS\UserBundle\Form\Type\RegistrationFormType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * ProfileType
- *
+ * Class RegistrationType
+ * @package Ekyna\Bundle\UserBundle\Form\Type
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
 class RegistrationType extends RegistrationFormType
 {
+    /**
+     * {@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
@@ -39,6 +42,9 @@ class RegistrationType extends RegistrationFormType
         ;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getName()
     {
         return 'ekyna_user_registration';

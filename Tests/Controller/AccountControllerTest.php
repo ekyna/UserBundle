@@ -5,8 +5,8 @@ namespace Ekyna\Bundle\UserBundle\Tests\Controller;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**
- * AccountControllerTest
- *
+ * Class AccountControllerTest
+ * @package Ekyna\Bundle\UserBundle\Tests\Controller
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
 class AccountControllerTest extends WebTestCase

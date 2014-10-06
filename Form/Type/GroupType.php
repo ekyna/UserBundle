@@ -6,12 +6,15 @@ use Ekyna\Bundle\AdminBundle\Form\Type\ResourceFormType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * GroupType
- *
+ * Class GroupType
+ * @package Ekyna\Bundle\UserBundle\Form\Type
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
 class GroupType extends ResourceFormType
 {
+    /**
+     * {@inheritdoc}
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {    
         $builder

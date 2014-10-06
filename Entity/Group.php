@@ -8,8 +8,8 @@ use FOS\UserBundle\Model\Group as BaseGroup;
 use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
 
 /**
- * Group
- *
+ * Class Group
+ * @package Ekyna\Bundle\UserBundle\Entity
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
 class Group extends BaseGroup implements GroupInterface
