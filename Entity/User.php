@@ -3,6 +3,7 @@
 namespace Ekyna\Bundle\UserBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Ekyna\Bundle\UserBundle\Model\AddressInterface;
 use Ekyna\Bundle\UserBundle\Model\GroupInterface;
 use Ekyna\Bundle\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\User as BaseUser;
@@ -37,12 +38,12 @@ class User extends BaseUser implements UserInterface
     /**
      * @var string
      */
-    protected $firstname;
+    protected $firstName;
 
     /**
      * @var string
      */
-    protected $lastname;
+    protected $lastName;
 
     /**
      * @var string
@@ -100,14 +101,11 @@ class User extends BaseUser implements UserInterface
      */
     public function getSearchText()
     {
-        return sprintf('%s %s - %s', $this->firstname, $this->lastname, $this->email);
+        return sprintf('%s %s - %s', $this->firstName, $this->lastName, $this->email);
     }
 
     /**
-     * Set company
-     *
-     * @param string $company
-     * @return User
+     * {@inheritdoc}
      */
     public function setCompany($company)
     {
@@ -117,9 +115,7 @@ class User extends BaseUser implements UserInterface
     }
 
     /**
-     * Get company
-     *
-     * @return string 
+     * {@inheritdoc}
      */
     public function getCompany()
     {
@@ -127,10 +123,7 @@ class User extends BaseUser implements UserInterface
     }
 
     /**
-     * Set gender
-     *
-     * @param string $gender
-     * @return User
+     * {@inheritdoc}
      */
     public function setGender($gender)
     {
@@ -140,9 +133,7 @@ class User extends BaseUser implements UserInterface
     }
 
     /**
-     * Get gender
-     *
-     * @return string 
+     * {@inheritdoc}
      */
     public function getGender()
     {
@@ -150,56 +141,43 @@ class User extends BaseUser implements UserInterface
     }
 
     /**
-     * Set firstname
-     *
-     * @param string $firstname
-     * @return User
+     * {@inheritdoc}
      */
-    public function setFirstname($firstname)
+    public function setFirstName($firstName)
     {
-        $this->firstname = $firstname;
+        $this->firstName = $firstName;
 
         return $this;
     }
 
     /**
-     * Get firstname
-     *
-     * @return string 
+     * {@inheritdoc}
      */
-    public function getFirstname()
+    public function getFirstName()
     {
-        return $this->firstname;
+        return $this->firstName;
     }
 
     /**
-     * Set lastname
-     *
-     * @param string $lastname
-     * @return User
+     * {@inheritdoc}
      */
-    public function setLastname($lastname)
+    public function setLastName($lastName)
     {
-        $this->lastname = $lastname;
+        $this->lastName = $lastName;
 
         return $this;
     }
 
     /**
-     * Get lastname
-     *
-     * @return string 
+     * {@inheritdoc}
      */
-    public function getLastname()
+    public function getLastName()
     {
-        return $this->lastname;
+        return $this->lastName;
     }
 
     /**
-     * Set phone
-     *
-     * @param string $phone
-     * @return User
+     * {@inheritdoc}
      */
     public function setPhone($phone)
     {
@@ -209,9 +187,7 @@ class User extends BaseUser implements UserInterface
     }
 
     /**
-     * Get phone
-     *
-     * @return string 
+     * {@inheritdoc}
      */
     public function getPhone()
     {
@@ -219,10 +195,7 @@ class User extends BaseUser implements UserInterface
     }
 
     /**
-     * Set mobile
-     *
-     * @param string $mobile
-     * @return User
+     * {@inheritdoc}
      */
     public function setMobile($mobile)
     {
@@ -232,9 +205,7 @@ class User extends BaseUser implements UserInterface
     }
 
     /**
-     * Get mobile
-     *
-     * @return string 
+     * {@inheritdoc}
      */
     public function getMobile()
     {
@@ -273,12 +244,21 @@ class User extends BaseUser implements UserInterface
     }
 
     /**
-     * Add addresses
-     *
-     * @param Address $address
-     * @return Group
+     * {@inheritdoc}
      */
-    public function addAddress(Address $address)
+    public function setAddresses(ArrayCollection $addresses)
+    {
+        /** @var AddressInterface $address */
+        foreach($addresses as $address) {
+            $address->setUser($this);
+        }
+        $this->addresses = $addresses;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function addAddress(AddressInterface $address)
     {
         if(!$this->hasAddress($address)) {
             $address->setUser($this);
@@ -288,30 +268,23 @@ class User extends BaseUser implements UserInterface
     }
 
     /**
-     * Remove addresses
-     *
-     * @param Address $address
+     * {@inheritdoc}
      */
-    public function removeAddress(Address $address)
+    public function removeAddress(AddressInterface $address)
     {
         $this->addresses->removeElement($address);
     }
 
     /**
-     * Returns true whether the group has given address
-     *
-     * @param Address $address
-     * @return boolean
+     * {@inheritdoc}
      */
-    public function hasAddress(Address $address)
+    public function hasAddress(AddressInterface $address)
     {
         return $this->addresses->contains($address);
     }
 
     /**
-     * Get addresses
-     *
-     * @return ArrayCollection
+     * {@inheritdoc}
      */
     public function getAddresses()
     {
@@ -319,10 +292,7 @@ class User extends BaseUser implements UserInterface
     }
 
     /**
-     * Set created at
-     *
-     * @param \DateTime $createdAt
-     * @return User
+     * {@inheritdoc}
      */
     public function setCreatedAt(\DateTime $createdAt)
     {
@@ -331,9 +301,7 @@ class User extends BaseUser implements UserInterface
     }
 
     /**
-     * Get created at
-     *
-     * @return \DateTime
+     * {@inheritdoc}
      */
     public function getCreatedAt()
     {
@@ -341,21 +309,16 @@ class User extends BaseUser implements UserInterface
     }
 
     /**
-     * Set update at
-     *
-     * @param \DateTime $updatedAt
-     * @return User
+     * {@inheritdoc}
      */
-    public function setUpdatedAt(\DateTime $updatedAt)
+    public function setUpdatedAt(\DateTime $updatedAt = null)
     {
         $this->updatedAt = $updatedAt;
         return $this;
     }
 
     /**
-     * Get updated at
-     *
-     * @return \DateTime
+     * {@inheritdoc}
      */
     public function getUpdatedAt()
     {

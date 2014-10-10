@@ -88,9 +88,9 @@ class EkynaUserExtension extends AbstractExtension implements PrependExtensionIn
         return array(
             'db_driver' => 'orm',
             'firewall_name' => 'admin',
-            'user_class' => 'Ekyna\Bundle\UserBundle\Entity\User',
+            'user_class' => '%ekyna_user.user.class%',
             'group' => array(
-                'group_class' => 'Ekyna\Bundle\UserBundle\Entity\Group',
+                'group_class' => '%ekyna_user.group.class%',
             ),
             'service' => array(
                 'mailer' => 'ekyna_user.mailer.default'
@@ -147,7 +147,7 @@ class EkynaUserExtension extends AbstractExtension implements PrependExtensionIn
                             ),
                             'persistence' => array(
                                 'driver' => 'orm',
-                                'model' => 'Ekyna\Bundle\UserBundle\Entity\User',
+                                'model' => '%ekyna_user.user.class%',
                                 'provider' => null,
                                 'listener' => array(
                                     'immediate' => null,

@@ -2,7 +2,6 @@
 
 namespace Ekyna\Bundle\UserBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Ekyna\Bundle\UserBundle\Model\GroupInterface;
 use FOS\UserBundle\Model\Group as BaseGroup;
 use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
@@ -20,22 +19,19 @@ class Group extends BaseGroup implements GroupInterface
     protected $default = false;
 
     /**
-     * @var ArrayCollection
-     */
-    protected $users;
-
-    /**
      * Constructor
+     *
+     * @param string $name
+     * @param array $roles
      */
-    public function __construct($name = null, array $roles = array())
+    public function __construct($name, array $roles = array())
     {
         parent::__construct($name, $roles);
         $this->default = false;
-        $this->users = new ArrayCollection();
     }
 
     /**
-     * Returns a string representation
+     * Returns a string representation.
      *
      * @return string
      */
@@ -45,10 +41,7 @@ class Group extends BaseGroup implements GroupInterface
     }
 
     /**
-     * Set whether the group is the default one
-     *  
-     * @param boolean $default
-     * @return Group
+     * {@inheritdoc}
      */
     public function setDefault($default)
     {
@@ -57,59 +50,11 @@ class Group extends BaseGroup implements GroupInterface
     }
 
     /**
-     * Get whether the group is the default one
-     * 
-     * @return boolean
+     * {@inheritdoc}
      */
-    public function getdefault()
+    public function getDefault()
     {
         return $this->default;
-    }
-
-    /**
-     * Add users
-     *
-     * @param User $user
-     * @return Group
-     */
-    public function addUser(User $user)
-    {
-        if(!$this->hasUser($user)) {
-            $user->setGroup($this);
-            $this->users->add($user);
-        }
-        return $this;
-    }
-
-    /**
-     * Remove users
-     *
-     * @param User $user
-     */
-    public function removeUser(User $user)
-    {
-        $this->users->removeElement($user);
-    }
-
-    /**
-     * Returns true whether the group has given user
-     *
-     * @param User $user
-     * @return boolean
-     */
-    public function hasUser(User $user)
-    {
-        return $this->users->contains($user);
-    }
-
-    /**
-     * Get users
-     *
-     * @return ArrayCollection
-     */
-    public function getUsers()
-    {
-        return $this->users;
     }
 
     /**

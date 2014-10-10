@@ -16,8 +16,8 @@
 
         <field name="company" column="company" type="string" length="64" nullable="true" />
         <field name="gender" column="gender" type="string" length="8" />
-        <field name="firstname" column="firstname" type="string" length="32" />
-        <field name="lastname" column="lastname" type="string" length="32" />
+        <field name="firstName" column="first_name" type="string" length="32" />
+        <field name="lastName" column="last_name" type="string" length="32" />
         <field name="street" column="street" type="string" length="255" />
         <field name="supplement" column="supplement" type="string" length="255" nullable="true" />
         <field name="postalCode" column="postal_code" type="text" length="8" />
@@ -33,7 +33,7 @@
         </field>
 
         <many-to-one field="user" target-entity="Ekyna\Bundle\UserBundle\Entity\User" inversed-by="addresses">
-            <join-column name="user_id" referenced-column-name="id" on-delete="CASCADE" />
+            <join-column name="user_id" referenced-column-name="id" on-delete="CASCADE" nullable="true" />
         </many-to-one>
 
     </entity>

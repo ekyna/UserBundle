@@ -3,10 +3,10 @@
 namespace Ekyna\Bundle\UserBundle\EventListener;
 
 use Doctrine\ORM\EntityRepository;
-use Ekyna\Bundle\AdminBundle\Event\ResourceEvent;
 use Ekyna\Bundle\AdminBundle\Event\ResourceMessage;
+use Ekyna\Bundle\UserBundle\Event\UserEvent;
 use Ekyna\Bundle\UserBundle\Event\UserEvents;
-use FOS\UserBundle\Event\UserEvent;
+use FOS\UserBundle\Event\UserEvent AS FOSUserEvent;
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Model\UserManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -44,9 +44,9 @@ class UserListener implements EventSubscriberInterface
     /**
      * Pre create resource event handler.
      *
-     * @param ResourceEvent $event
+     * @param UserEvent $event
      */
-    public function onPreCreate(ResourceEvent $event)
+    public function onPreCreate(UserEvent $event)
     {
         /** @var \Ekyna\Bundle\UserBundle\Model\UserInterface $user */
         $user = $event->getResource();
@@ -72,9 +72,9 @@ class UserListener implements EventSubscriberInterface
     /**
      * Post create resource event handler.
      *
-     * @param ResourceEvent $event
+     * @param UserEvent $event
      */
-    public function onPostCreate(ResourceEvent $event)
+    public function onPostCreate(UserEvent $event)
     {
         // TODO Send credentials by mail
         // $user->getPlainPassword()
@@ -83,9 +83,9 @@ class UserListener implements EventSubscriberInterface
     /**
      * Pre update resource event handler.
      *
-     * @param ResourceEvent $event
+     * @param UserEvent $event
      */
-    public function onPreUpdate(ResourceEvent $event)
+    public function onPreUpdate(UserEvent $event)
     {
         /** @var \Ekyna\Bundle\UserBundle\Model\UserInterface $user */
         $user = $event->getResource();
@@ -97,10 +97,10 @@ class UserListener implements EventSubscriberInterface
     /**
      * Registration initialize event handler.
      *
-     * @param UserEvent $event
+     * @param FOSUserEvent $event
      * @throws \RuntimeException
      */
-    public function onRegistrationInitialize(UserEvent $event)
+    public function onRegistrationInitialize(FOSUserEvent $event)
     {
         /** @var \Ekyna\Bundle\UserBundle\Model\GroupInterface $defaultGroup */
         if(null === $defaultGroup = $this->groupRepository->findOneBy(array('default' => true))) {

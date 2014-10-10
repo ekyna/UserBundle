@@ -56,7 +56,7 @@ class Mailer extends BaseMailer
     {
         /** @var \Ekyna\Bundle\UserBundle\Entity\User $user */
         $siteName  = $this->settingsManager->getParameter('general.site_name');
-        $userName = sprintf('%s %s', $user->getFirstname(), $user->getLastname());
+        $userName = sprintf('%s %s', $user->getFirstName(), $user->getLastName());
 
         $rendered = $this->templating->render(
             'EkynaUserBundle:Security:login_success_email.html.twig',
@@ -84,7 +84,7 @@ class Mailer extends BaseMailer
         $template = $this->parameters['confirmation.template'];
         $url = $this->router->generate('fos_user_registration_confirm', array('token' => $user->getConfirmationToken()), true);
         $sitename = $this->settingsManager->getParameter('general.site_name');
-        $username = sprintf('%s %s', $user->getFirstname(), $user->getLastname());
+        $username = sprintf('%s %s', $user->getFirstName(), $user->getLastName());
 
         $rendered = $this->templating->render($template, array(
             'username' => $username,
@@ -109,7 +109,7 @@ class Mailer extends BaseMailer
         $template = $this->parameters['resetting.template'];
         $url = $this->router->generate('fos_user_resetting_reset', array('token' => $user->getConfirmationToken()), true);
         $sitename = $this->settingsManager->getParameter('general.site_name');
-        $username = sprintf('%s %s', $user->getFirstname(), $user->getLastname());
+        $username = sprintf('%s %s', $user->getFirstName(), $user->getLastName());
 
         $rendered = $this->templating->render($template, array(
             'username' => $username,

@@ -17,8 +17,8 @@
         <parameter key="ekyna_user.routing_loader.class">Ekyna\Bundle\UserBundle\Routing\AccountLoader</parameter>
         <parameter key="ekyna_user.menu_builder.class">Ekyna\Bundle\UserBundle\Menu\MenuBuilder</parameter>
 
-        <parameter key="ekyna_user.address.twig_extension.class">Ekyna\Bundle\UserBundle\Twig\AddressExtension</parameter>
-        <parameter key="ekyna_user.address.render_template">EkynaUserBundle:Address:_render.html.twig</parameter>
+        <parameter key="ekyna_user.twig.address_extension.class">Ekyna\Bundle\UserBundle\Twig\AddressExtension</parameter>
+        <parameter key="ekyna_user.twig.address_template">EkynaUserBundle:Address:_render.html.twig</parameter>
     </parameters>
 
     <services>
@@ -28,7 +28,7 @@
             <argument type="service" id="ekyna_user.mailer.default" />
             <tag name="kernel.event_subscriber" />
         </service>
-        <service id="ekyna_user.user_listener" class="%ekyna_user.user_listener.class%">
+        <service id="ekyna_user.user.listener" class="%ekyna_user.user_listener.class%">
             <argument type="service" id="ekyna_user.group.repository" />
             <argument type="service" id="fos_user.user_manager" />
             <tag name="kernel.event_subscriber" />
@@ -61,10 +61,10 @@
             <argument>%ekyna_user.account_enabled%</argument>
         </service>
         <service id="ekyna_user.menu.account"
-            class="Knp\Menu\MenuItem"
-            factory-service="ekyna_user.menu_builder"
-            factory-method="createAccountMenu"
-            scope="request">
+                class="Knp\Menu\MenuItem"
+                factory-service="ekyna_user.menu_builder"
+                factory-method="createAccountMenu"
+                scope="request">
             <argument type="service" id="request" />
             <tag name="knp_menu.menu" alias="account" />
         </service>
@@ -78,10 +78,10 @@
         </service>
 
         <!-- Twig extensions -->
-	    <service id="ekyna_user.address.twig_extension" class="%ekyna_user.address.twig_extension.class%">
+	    <service id="ekyna_user.twig.address_extension" class="%ekyna_user.twig.address_extension.class%">
 	        <argument type="service" id="ekyna_user.address.repository" />
 	        <argument type="service" id="twig" />
-	        <argument>%ekyna_user.address.render_template%</argument>
+	        <argument>%ekyna_user.twig.address_template%</argument>
 	        <tag name="twig.extension" />
 	    </service>
 

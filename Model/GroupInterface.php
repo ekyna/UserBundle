@@ -11,4 +11,25 @@ use FOS\UserBundle\Model\GroupInterface as BaseGroupInterface;
  */
 interface GroupInterface extends BaseGroupInterface
 {
+    /**
+     * Set whether the group is the default one
+     *
+     * @param boolean $default
+     * @return GroupInterface|$this
+     */
+    public function setDefault($default);
+
+    /**
+     * Get whether the group is the default one
+     *
+     * @return boolean
+     */
+    public function getDefault();
+
+    /**
+     * Returns the security identity.
+     *
+     * @return \Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity
+     */
+    public function getSecurityIdentity();
 }

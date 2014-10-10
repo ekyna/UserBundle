@@ -3,7 +3,7 @@
 namespace Ekyna\Bundle\UserBundle\Twig;
 
 use Ekyna\Bundle\UserBundle\Entity\AddressRepository;
-use Ekyna\Bundle\UserBundle\Entity\Address;
+use Ekyna\Bundle\UserBundle\Model\AddressInterface;
 
 /**
  * Class AddressExtension
@@ -59,10 +59,11 @@ class AddressExtension extends \Twig_Extension
      */
     public function renderAddress($addressOrId)
     {
-        if ($addressOrId instanceOf Address) {
+        if ($addressOrId instanceOf AddressInterface) {
             $address = $addressOrId;
         } else {
-            if (null === $address = $this->repository->findOneBy(array('id', intval($addressOrId)))) {
+            $addressOrId = intval($addressOrId);
+            if (0 >= $addressOrId || null === $address = $this->repository->find($addressOrId)) {
                 return '';
             }
         }

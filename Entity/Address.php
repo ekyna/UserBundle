@@ -4,6 +4,7 @@ namespace Ekyna\Bundle\UserBundle\Entity;
 
 use Ekyna\Bundle\CoreBundle\Model\AbstractAddress;
 use Ekyna\Bundle\UserBundle\Model\AddressInterface;
+use Ekyna\Bundle\UserBundle\Model\UserInterface;
 
 /**
  * Class Address
@@ -35,12 +36,12 @@ class Address extends AbstractAddress implements AddressInterface
     /**
      * @var string
      */
-    protected $firstname;
+    protected $firstName;
 
     /**
      * @var string
      */
-    protected $lastname;
+    protected $lastName;
 
     /**
      * @var string
@@ -86,9 +87,7 @@ class Address extends AbstractAddress implements AddressInterface
     }
 
     /**
-     * Get id
-     *
-     * @return integer
+     * {@inheritdoc}
      */
     public function getId()
     {
@@ -96,12 +95,9 @@ class Address extends AbstractAddress implements AddressInterface
     }
 
     /**
-     * Set user
-     *
-     * @param User $user
-     * @return User
+     * {@inheritdoc}
      */
-    public function setUser(User $user = null)
+    public function setUser(UserInterface $user = null)
     {
         $this->user = $user;
 
@@ -109,9 +105,7 @@ class Address extends AbstractAddress implements AddressInterface
     }
 
     /**
-     * Get user
-     *
-     * @return User
+     * {@inheritdoc}
      */
     public function getUser()
     {
@@ -119,10 +113,7 @@ class Address extends AbstractAddress implements AddressInterface
     }
 
     /**
-     * Set company
-     *
-     * @param string $company
-     * @return Address
+     * {@inheritdoc}
      */
     public function setCompany($company)
     {
@@ -132,9 +123,7 @@ class Address extends AbstractAddress implements AddressInterface
     }
 
     /**
-     * Get company
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function getCompany()
     {
@@ -142,10 +131,7 @@ class Address extends AbstractAddress implements AddressInterface
     }
 
     /**
-     * Set gender
-     *
-     * @param integer $gender
-     * @return Address
+     * {@inheritdoc}
      */
     public function setGender($gender)
     {
@@ -155,9 +141,7 @@ class Address extends AbstractAddress implements AddressInterface
     }
 
     /**
-     * Get gender
-     *
-     * @return integer
+     * {@inheritdoc}
      */
     public function getGender()
     {
@@ -165,56 +149,43 @@ class Address extends AbstractAddress implements AddressInterface
     }
 
     /**
-     * Set firstname
-     *
-     * @param string $firstname
-     * @return Address
+     * {@inheritdoc}
      */
-    public function setFirstname($firstname)
+    public function setFirstName($firstName)
     {
-        $this->firstname = $firstname;
+        $this->firstName = $firstName;
     
         return $this;
     }
 
     /**
-     * Get firstname
-     *
-     * @return string
+     * {@inheritdoc}
      */
-    public function getFirstname()
+    public function getFirstName()
     {
-        return $this->firstname;
+        return $this->firstName;
     }
 
     /**
-     * Set lastname
-     *
-     * @param string $lastname
-     * @return Address
+     * {@inheritdoc}
      */
-    public function setLastname($lastname)
+    public function setLastName($lastName)
     {
-        $this->lastname = $lastname;
+        $this->lastName = $lastName;
     
         return $this;
     }
 
     /**
-     * Get lastname
-     *
-     * @return string
+     * {@inheritdoc}
      */
-    public function getLastname()
+    public function getLastName()
     {
-        return $this->lastname;
+        return $this->lastName;
     }
 
     /**
-     * Set phone
-     *
-     * @param string $phone
-     * @return Address
+     * {@inheritdoc}
      */
     public function setPhone($phone)
     {
@@ -224,9 +195,7 @@ class Address extends AbstractAddress implements AddressInterface
     }
 
     /**
-     * Get phone
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function getPhone()
     {
@@ -234,10 +203,7 @@ class Address extends AbstractAddress implements AddressInterface
     }
 
     /**
-     * Set mobile
-     *
-     * @param string $mobile
-     * @return Address
+     * {@inheritdoc}
      */
     public function setMobile($mobile)
     {
@@ -247,9 +213,7 @@ class Address extends AbstractAddress implements AddressInterface
     }
 
     /**
-     * Get mobile
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function getMobile()
     {
@@ -257,10 +221,7 @@ class Address extends AbstractAddress implements AddressInterface
     }
 
     /**
-     * Set locked
-     *
-     * @param boolean $locked
-     * @return Address
+     * {@inheritdoc}
      */
     public function setLocked($locked)
     {
@@ -270,9 +231,7 @@ class Address extends AbstractAddress implements AddressInterface
     }
 
     /**
-     * Get locked
-     *
-     * @return boolean 
+     * {@inheritdoc}
      */
     public function getLocked()
     {
@@ -280,12 +239,9 @@ class Address extends AbstractAddress implements AddressInterface
     }
 
     /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     * @return Address
+     * {@inheritdoc}
      */
-    public function setCreatedAt($createdAt)
+    public function setCreatedAt(\DateTime $createdAt)
     {
         $this->createdAt = $createdAt;
 
@@ -293,9 +249,7 @@ class Address extends AbstractAddress implements AddressInterface
     }
 
     /**
-     * Get createdAt
-     *
-     * @return \DateTime
+     * {@inheritdoc}
      */
     public function getCreatedAt()
     {
@@ -303,12 +257,9 @@ class Address extends AbstractAddress implements AddressInterface
     }
 
     /**
-     * Set updatedAt
-     *
-     * @param \DateTime $updatedAt
-     * @return Address
+     * {@inheritdoc}
      */
-    public function setUpdatedAt($updatedAt)
+    public function setUpdatedAt(\DateTime $updatedAt = null)
     {
         $this->updatedAt = $updatedAt;
 
@@ -316,9 +267,7 @@ class Address extends AbstractAddress implements AddressInterface
     }
 
     /**
-     * Get updatedAt
-     *
-     * @return \DateTime
+     * {@inheritdoc}
      */
     public function getUpdatedAt()
     {

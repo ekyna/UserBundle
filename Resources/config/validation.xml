@@ -7,7 +7,7 @@
 
     <class name="Ekyna\Bundle\UserBundle\Entity\Address">
         <property name="user">
-            <constraint name="NotNull" />
+            <constraint name="Valid" />
         </property>
 
 	    <property name="gender">
@@ -18,14 +18,14 @@
 	            </option>
 	        </constraint>
 	    </property>
-        <property name="firstname">
+        <property name="firstName">
             <constraint name="NotBlank" />
             <constraint name="Length">
                 <option name="min">2</option>
                 <option name="max">32</option>
             </constraint>
         </property>
-        <property name="lastname">
+        <property name="lastName">
             <constraint name="NotBlank" />
             <constraint name="Length">
                 <option name="min">2</option>
@@ -79,7 +79,7 @@
                 </option>
 	        </constraint>
 	    </property>
-        <property name="firstname">
+        <property name="firstName">
             <constraint name="NotBlank">
                 <option name="groups">
                     <value>Registration</value>
@@ -95,7 +95,7 @@
                 </option>
             </constraint>
         </property>
-        <property name="lastname">
+        <property name="lastName">
             <constraint name="NotBlank">
                 <option name="groups">
                     <value>Registration</value>
@@ -135,9 +135,6 @@
 
         <property name="addresses">
             <constraint name="Valid" />
-            <constraint name="All">
-                <constraint name="NotNull" />
-            </constraint>
         </property>
     </class>
 

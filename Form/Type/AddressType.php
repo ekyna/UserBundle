@@ -41,11 +41,11 @@ class AddressType extends AbstractAddressType
                 'required' => false
             ))
             ->add('gender', 'ekyna_user_gender')
-            ->add('firstname', 'text', array(
-                'label' => 'ekyna_core.field.firstname',
+            ->add('firstName', 'text', array(
+                'label' => 'ekyna_core.field.first_name',
             ))
-            ->add('lastname', 'text', array(
-                'label' => 'ekyna_core.field.lastname',
+            ->add('lastName', 'text', array(
+                'label' => 'ekyna_core.field.last_name',
             ))
             ->add('phone', 'text', array(
                 'label' => 'ekyna_core.field.phone',
