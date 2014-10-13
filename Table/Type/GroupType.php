@@ -32,6 +32,15 @@ class GroupType extends ResourceTableType
             ->addColumn('actions', 'admin_actions', array(
                 'buttons' => array(
                     array(
+                        'label' => 'ekyna_user.group.button.edit_permissions',
+                        'class' => 'warning',
+                        'route_name' => 'ekyna_user_group_admin_edit_permissions',
+                        'route_parameters_map' => array(
+                            'groupId' => 'id'
+                        ),
+                        'permission' => 'edit',
+                    ),
+                    array(
                         'label' => 'ekyna_core.button.edit',
                         'class' => 'warning',
                         'route_name' => 'ekyna_user_group_admin_edit',

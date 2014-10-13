@@ -49,7 +49,10 @@ class Configuration implements ConfigurationInterface
                             ->isRequired()
                             ->addDefaultsIfNotSet()
                             ->children()
-                                ->scalarNode('templates')->defaultValue('EkynaUserBundle:User/Admin')->end()
+                                ->variableNode('templates')->defaultValue(array(
+                                    '_form.html' => 'EkynaUserBundle:User/Admin:_form.html',
+                                    'show.html'  => 'EkynaUserBundle:User/Admin:show.html',
+                                ))->end()
                                 ->scalarNode('entity')->defaultValue('Ekyna\Bundle\UserBundle\Entity\User')->end()
                                 ->scalarNode('controller')->end()
                                 ->scalarNode('repository')->end()
@@ -63,7 +66,10 @@ class Configuration implements ConfigurationInterface
                             ->isRequired()
                             ->addDefaultsIfNotSet()
                             ->children()
-                                ->scalarNode('templates')->defaultValue('EkynaUserBundle:Group/Admin')->end()
+                                ->variableNode('templates')->defaultValue(array(
+                                    '_form.html' => 'EkynaUserBundle:Group/Admin:_form.html',
+                                    'show.html'  => 'EkynaUserBundle:Group/Admin:show.html',
+                                ))->end()
                                 ->scalarNode('entity')->defaultValue('Ekyna\Bundle\UserBundle\Entity\Group')->end()
                                 ->scalarNode('controller')->defaultValue('Ekyna\Bundle\UserBundle\Controller\Admin\GroupController')->end()
                                 ->scalarNode('repository')->end()
@@ -77,7 +83,7 @@ class Configuration implements ConfigurationInterface
                             ->isRequired()
                             ->addDefaultsIfNotSet()
                             ->children()
-                                ->scalarNode('templates')->defaultValue('EkynaUserBundle:Address/Admin')->end()
+                                ->variableNode('templates')->defaultValue('EkynaUserBundle:Address/Admin')->end()
                                 ->scalarNode('entity')->defaultValue('Ekyna\Bundle\UserBundle\Entity\Address')->end()
                                 ->scalarNode('controller')->end()
                                 ->scalarNode('repository')->defaultValue('Ekyna\Bundle\UserBundle\Entity\AddressRepository')->end()

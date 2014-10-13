@@ -90,7 +90,7 @@ class GroupController extends ResourceController
         );
 
         return $this->render(
-            $this->config->getTemplate('edit_permissions.html'),
+            'EkynaUserBundle:Group/Admin:edit_permissions.html.twig',
             $context->getTemplateVars(array(
                 'form' => $form->createView()
             ))
