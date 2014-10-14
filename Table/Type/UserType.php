@@ -39,7 +39,7 @@ class UserType extends ResourceTableType
                 ),
             ))
             ->addColumn('createdAt', 'datetime', array(
-                'label' => 'ekyna_core.field.add_date',
+                'label' => 'ekyna_core.field.created_at',
                 'sortable' => true,
             ))
             ->addColumn('actions', 'admin_actions', array(
@@ -69,7 +69,7 @@ class UserType extends ResourceTableType
             	'label' => 'ekyna_core.field.email'
             ))
             ->addFilter('createdAt', 'datetime', array(
-                'label' => 'ekyna_core.field.add_date',
+                'label' => 'ekyna_core.field.created_at',
             ))
         ;
     }
