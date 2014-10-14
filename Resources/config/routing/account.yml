@@ -6,6 +6,9 @@ ekyna_user_account_home:
             name: Espace client
             footer: true
             position: 99
+            seo:
+                follow: false
+                index: false
     requirements:
         _method: GET
 
