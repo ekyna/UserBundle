@@ -140,10 +140,10 @@ class EkynaUserExtension extends AbstractExtension implements PrependExtensionIn
                     'types' => array(
                         'ekyna_user_user' => array(
                             'mappings' => array(
-                                'username' => array('search_analyzer' => 'custom_search', 'index_analyzer' => 'custom_index'),
-                                'firstname' => array('search_analyzer' => 'custom_search', 'index_analyzer' => 'custom_index'),
-                                'lastname' => array('search_analyzer' => 'custom_search', 'index_analyzer' => 'custom_index'),
-                                'email' => array('search_analyzer' => 'custom_search', 'index_analyzer' => 'custom_index'),
+                                'username' => array('search_analyzer' => 'fr_search', 'index_analyzer' => 'fr_index'),
+                                'firstname' => array('search_analyzer' => 'fr_search', 'index_analyzer' => 'fr_index'),
+                                'lastname' => array('search_analyzer' => 'fr_search', 'index_analyzer' => 'fr_index'),
+                                'email' => array('search_analyzer' => 'fr_search', 'index_analyzer' => 'fr_index'),
                             ),
                             'persistence' => array(
                                 'driver' => 'orm',
