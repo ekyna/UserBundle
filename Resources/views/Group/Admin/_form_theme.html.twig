@@ -1,0 +1,45 @@
+{% extends "EkynaAdminBundle:Form:form_div_layout.html.twig" %}
+
+{% block ekyna_admin_permissions_widget %}
+{% spaceless %}
+{% if form|length > 0 %}
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th></th>
+        {% for permission in permissions %}
+            <th>{{ permission|capitalize }}</th>
+        {% endfor %}
+    </tr>
+    </thead>
+    <tbody>
+    {% for child in form %}
+        <tr>
+            <th>{{ form_label(child) }}</th>
+            {{ form_widget(child) }}
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>{{ 'ekyna_admin.acl.no_rules'|trans }}</p>
+{% endif %}
+{% endspaceless %}
+{% endblock ekyna_admin_permissions_widget %}
+
+{% block ekyna_admin_permission_widget %}
+{% spaceless %}
+{% for child in form %}
+    <td>{{ form_widget(child) }}</td>
+{% endfor %}
+{% endspaceless %}
+{% endblock ekyna_admin_permission_widget %}
+
+
+{% block form_label %}
+{% spaceless %}
+{% if label is not sameas(false) %}
+    {{ label|trans({}, translation_domain)|raw }}
+{% endif %}
+{% endspaceless %}
+{% endblock form_label %}

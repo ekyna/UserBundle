@@ -18,7 +18,7 @@ class EkynaUserExtension extends AbstractExtension implements PrependExtensionIn
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        list($config, $loader) = $this->configure($configs, 'ekyna_user', new Configuration(), $container);
+        $config = $this->configure($configs, 'ekyna_user', new Configuration(), $container);
 
         $accountEnabled = $config['account_enabled'];
         $addressEnabled = $config['address_enabled'];

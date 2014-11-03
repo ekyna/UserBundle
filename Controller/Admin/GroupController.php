@@ -23,11 +23,13 @@ class GroupController extends ResourceController
 
         $this->isGranted('VIEW', $resource);
 
-        $aclDatas = $this->get('ekyna_admin.acl_operator')->generateGroupViewDatas($resource);
+        $datas = array(
+            'acl_datas' => $this->get('ekyna_admin.acl_operator')->generateGroupViewDatas($resource)
+        );
 
         return $this->render(
             $this->config->getTemplate('show.html'),
-            $context->getTemplateVars(array('acl_datas' => $aclDatas))
+            $context->getTemplateVars($datas)
         );
     }
 
@@ -47,7 +49,7 @@ class GroupController extends ResourceController
 
         $aclOperator = $this->get('ekyna_admin.acl_operator');
         $builder = $this->createFormBuilder(
-            $aclOperator->generateGroupFormDatas($resource),
+            array('acls' => $aclOperator->generateGroupFormDatas($resource)),
             array(
                 'admin_mode' => true,
                 '_redirect_enabled' => true,
@@ -65,7 +67,7 @@ class GroupController extends ResourceController
         $form->handleRequest($request);
         if ($form->isValid()) {
             try {
-                $aclOperator->updateGroup($resource, $form->getData());
+                $aclOperator->updateGroup($resource, $form->get('acls')->getData());
 
                 $this->addFlash('Les permissions ont bien été modifiées.', 'success');
 
@@ -80,7 +82,7 @@ class GroupController extends ResourceController
                     )
                 );
             } catch(\Exception $e) {
-                $this->addFlash('Erreur lors de la mise à jour des permissions :<br>' . $e->getMessage(), 'error');
+                $this->addFlash('Erreur lors de la mise à jour des permissions :<br>' . $e->getMessage(), 'danger');
             }
         }
 
@@ -89,11 +91,14 @@ class GroupController extends ResourceController
             'ekyna_user.group.button.edit_permissions'
         );
 
+        $datas = array(
+            'permissions' => $aclOperator->getPermissions(),
+            'form' => $form->createView(),
+        );
+
         return $this->render(
             'EkynaUserBundle:Group/Admin:edit_permissions.html.twig',
-            $context->getTemplateVars(array(
-                'form' => $form->createView()
-            ))
+            $context->getTemplateVars($datas)
         );
     }
 }
