@@ -11,8 +11,11 @@
         <parameter key="ekyna_user.user_listener.class">Ekyna\Bundle\UserBundle\EventListener\UserListener</parameter>
 
         <parameter key="ekyna_user.gender.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\GenderType</parameter>
+        <parameter key="ekyna_user.user.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\UserType</parameter>
         <parameter key="ekyna_user.profile.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\ProfileType</parameter>
         <parameter key="ekyna_user.registration.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\RegistrationType</parameter>
+
+        <parameter key="ekyna_user.user.table_type.class">Ekyna\Bundle\UserBundle\Table\Type\UserType</parameter>
 
         <parameter key="ekyna_user.routing_loader.class">Ekyna\Bundle\UserBundle\Routing\AccountLoader</parameter>
         <parameter key="ekyna_user.menu_builder.class">Ekyna\Bundle\UserBundle\Menu\MenuBuilder</parameter>
@@ -31,12 +34,20 @@
         <service id="ekyna_user.user.listener" class="%ekyna_user.user_listener.class%">
             <argument type="service" id="ekyna_user.group.repository" />
             <argument type="service" id="fos_user.user_manager" />
+            <argument type="service" id="ekyna_user.mailer.default" />
             <tag name="kernel.event_subscriber" />
         </service>
 
         <!-- Form types -->
         <service id="ekyna_user.gender.form_type" class="%ekyna_user.gender.form_type.class%">
             <tag name="form.type" alias="ekyna_user_gender" />
+        </service>
+        <service id="ekyna_user.user.form_type" class="%ekyna_user.user.form_type.class%">
+            <argument>%fos_user.model.user.class%</argument>
+            <call method="setSecurityContext">
+                <argument type="service" id="security.context" />
+            </call>
+            <tag name="form.type" alias="ekyna_user_user" />
         </service>
         <service id="ekyna_user.profile.form_type" class="%ekyna_user.profile.form_type.class%">
             <argument>%fos_user.model.user.class%</argument>
@@ -45,6 +56,18 @@
         <service id="ekyna_user.registration.form_type" class="%ekyna_user.registration.form_type.class%">
             <argument>%fos_user.model.user.class%</argument>
             <tag name="form.type" alias="ekyna_user_registration" />
+        </service>
+
+        <!-- Table types -->
+        <service id="ekyna_user.user.table_type" class="%ekyna_user.user.table_type.class%">
+            <argument>%fos_user.model.user.class%</argument>
+            <call method="setSecurityContext">
+                <argument type="service" id="security.context" />
+            </call>
+            <call method="setGroupClass">
+                <argument>%fos_user.model.group.class%</argument>
+            </call>
+            <tag name="table.type" alias="ekyna_user_user" />
         </service>
 
         <!-- Routing loader -->

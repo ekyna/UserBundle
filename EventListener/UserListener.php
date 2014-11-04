@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityRepository;
 use Ekyna\Bundle\AdminBundle\Event\ResourceMessage;
 use Ekyna\Bundle\UserBundle\Event\UserEvent;
 use Ekyna\Bundle\UserBundle\Event\UserEvents;
+use Ekyna\Bundle\UserBundle\Mailer\Mailer;
 use FOS\UserBundle\Event\UserEvent AS FOSUserEvent;
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Model\UserManagerInterface;
@@ -30,15 +31,22 @@ class UserListener implements EventSubscriberInterface
     protected $fosUserManager;
 
     /**
+     * @var Mailer
+     */
+    protected $mailer;
+
+    /**
      * Constructor.
      *
-     * @param EntityRepository $groupRepository
+     * @param EntityRepository     $groupRepository
      * @param UserManagerInterface $fosUserManager
+     * @param Mailer               $mailer
      */
-    public function __construct(EntityRepository $groupRepository, UserManagerInterface $fosUserManager)
+    public function __construct(EntityRepository $groupRepository, UserManagerInterface $fosUserManager, Mailer $mailer)
     {
         $this->groupRepository = $groupRepository;
-        $this->fosUserManager = $fosUserManager;
+        $this->fosUserManager  = $fosUserManager;
+        $this->mailer          = $mailer;
     }
 
     /**
@@ -52,6 +60,7 @@ class UserListener implements EventSubscriberInterface
         $user = $event->getResource();
 
         // Generates a secured password.
+        $password = '';
         if (0 === strlen($user->getPlainPassword())) {
             $generator = new SecureRandom();
             $password = bin2hex($generator->nextBytes(4));
@@ -59,10 +68,13 @@ class UserListener implements EventSubscriberInterface
             $user->setEnabled(true);
 
             // Warn about the generated password
-            $event->addMessage(new ResourceMessage(
-                sprintf('Generated password : "%s".', $password),
-                ResourceMessage::TYPE_INFO
-            ));
+            $event
+                ->addMessage(new ResourceMessage(
+                    sprintf('Generated password : "%s".', $password),
+                    ResourceMessage::TYPE_INFO
+                ))
+                ->addData('password', $password)
+            ;
         }
 
         $this->fosUserManager->updatePassword($user);
@@ -76,8 +88,19 @@ class UserListener implements EventSubscriberInterface
      */
     public function onPostCreate(UserEvent $event)
     {
-        // TODO Send credentials by mail
-        // $user->getPlainPassword()
+        if (!$event->hasData('password')) {
+            return;
+        }
+
+        /** @var \Ekyna\Bundle\UserBundle\Model\UserInterface $user */
+        $user = $event->getResource();
+
+        if (0 < $this->mailer->sendCreationEmailMessage($user, $event->getData('password'))) {
+            $event->addMessage(new ResourceMessage('ekyna_user.user.event.credentials_sent'));
+        }
+
+        // Because it is "re-set" in pre_create event
+        $user->eraseCredentials();
     }
 
     /**

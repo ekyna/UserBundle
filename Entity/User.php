@@ -325,4 +325,13 @@ class User extends BaseUser implements UserInterface
         return $this->updatedAt;
     }
 
+    /**
+     * Returns the expiresAt.
+     *
+     * @return \DateTime
+     */
+    public function getExpiresAt()
+    {
+        return $this->expiresAt;
+    }
 }

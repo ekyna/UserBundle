@@ -1,0 +1,9 @@
+{% extends ":Email:base.html.twig" %}
+
+{% block subject %}
+{{ 'ekyna_user.email.creation.title'|trans }}
+{% endblock subject %}
+
+{% block body %}
+{{ 'ekyna_user.email.creation.message'|trans({'%username%': username, '%sitename%': sitename, '%login%': login, '%password%': password})|raw }}
+{% endblock body %}

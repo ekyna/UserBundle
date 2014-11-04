@@ -41,6 +41,26 @@ class GroupType extends ResourceTableType
                         'permission' => 'edit',
                     ),
                     array(
+                        'label' => 'ekyna_core.button.move_up',
+                        'icon' => 'arrow-up',
+                        'class' => 'primary',
+                        'route_name' => 'ekyna_user_group_admin_move_up',
+                        'route_parameters_map' => array(
+                            'groupId' => 'id'
+                        ),
+                        'permission' => 'edit',
+                    ),
+                    array(
+                        'label' => 'ekyna_core.button.move_down',
+                        'icon' => 'arrow-down',
+                        'class' => 'primary',
+                        'route_name' => 'ekyna_user_group_admin_move_down',
+                        'route_parameters_map' => array(
+                            'groupId' => 'id'
+                        ),
+                        'permission' => 'edit',
+                    ),
+                    array(
                         'label' => 'ekyna_core.button.edit',
                         'class' => 'warning',
                         'route_name' => 'ekyna_user_group_admin_edit',

@@ -1,45 +1,59 @@
 ekyna_user_group_admin_home:
-    path: /groups/
+    path: /
     defaults: { _controller: "ekyna_user.group.controller:homeAction" }
     requirements:
         _method: GET
 
 ekyna_user_group_admin_list:
-    path: /groups/list
+    path: /list
     defaults: { _controller: "ekyna_user.group.controller:listAction" }
     requirements:
         _method: GET|POST
 
 ekyna_user_group_admin_new:
-    path: /groups/new
+    path: /new
     defaults: { _controller: "ekyna_user.group.controller:newAction" }
     requirements:
         _method: GET|POST
 
 ekyna_user_group_admin_show:
-    path: /groups/{groupId}/show
+    path: /{groupId}/show
     defaults: { _controller: "ekyna_user.group.controller:showAction" }
     requirements:
         _method: GET
-        groupId:  \d+
+        groupId: \d+
 
 ekyna_user_group_admin_edit:
-    path: /groups/{groupId}/edit
+    path: /{groupId}/edit
     defaults: { _controller: "ekyna_user.group.controller:editAction" }
     requirements:
         _method: GET|POST
-        groupId:  \d+
+        groupId: \d+
+
+ekyna_user_group_admin_move_up:
+    path: /{groupId}/moveup
+    defaults: { _controller: "ekyna_user.group.controller:moveUpAction" }
+    requirements:
+        _method: GET
+        groupId: \d+
+
+ekyna_user_group_admin_move_down:
+    path: /{groupId}/movedown
+    defaults: { _controller: "ekyna_user.group.controller:moveDownAction" }
+    requirements:
+        _method: GET
+        groupId: \d+
 
 ekyna_user_group_admin_remove:
-    path: /groups/{groupId}/remove
+    path: /{groupId}/remove
     defaults: { _controller: "ekyna_user.group.controller:removeAction" }
     requirements:
         _method: GET|POST
-        groupId:  \d+
+        groupId: \d+
 
 ekyna_user_group_admin_edit_permissions:
-    path: /groups/{groupId}/edit-permissions
+    path: /{groupId}/edit-permissions
     defaults: { _controller: "ekyna_user.group.controller:editPermissionsAction" }
     requirements:
         _method: GET|POST
-        groupId:  \d+
+        groupId: \d+

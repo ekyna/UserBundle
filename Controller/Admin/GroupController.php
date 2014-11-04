@@ -2,6 +2,7 @@
 
 namespace Ekyna\Bundle\UserBundle\Controller\Admin;
 
+use Ekyna\Bundle\AdminBundle\Controller\Resource\SortableTrait;
 use Ekyna\Bundle\AdminBundle\Controller\ResourceController;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -12,6 +13,8 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class GroupController extends ResourceController
 {
+    use SortableTrait;
+
     /**
      * {@inheritdoc}
      */

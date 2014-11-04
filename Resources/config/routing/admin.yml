@@ -1,11 +1,11 @@
 ekyna_user_group_admin:
     resource: "admin/group.yml"
-    prefix:   /
+    prefix:   /groups
 
 ekyna_user_user_admin:
     resource: "admin/user.yml"
-    prefix:   /
+    prefix:   /users
 
 ekyna_user_address_admin:
     resource: "admin/address.yml"
-    prefix:   /
+    prefix:   /users/{userId}/addresses

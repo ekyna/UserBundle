@@ -17,6 +17,8 @@ ekyna_user:
             remove: Supprimer l'utilisateur
         alert:
             no_user: Aucun utilisateur configuré
+        event:
+            credentials_sent: Un e-mail contenant les informations de connection a été envoyé à l'utilisateur.
     group:
         label:
             singular: Groupe
@@ -83,6 +85,15 @@ ekyna_user:
             title: Réinitialisation du mot de passe
             button: Réinitialiser le mot de passe
     email:
+        creation:
+            subject: "[%sitename%] Création de votre compte"
+            title : Création de votre compte
+            message: |
+                <p>Bonjour %username%.</p>
+                <p>Vous recevez cette email suite à la création votre compte client sur %sitename%.</p>
+                <p>Vous pouvez dès à présent <a href="%login_url%">vous connecter</a> en utilisant vos identifiants :<br>
+                Nom d'utilisateur : <strong>%login%</strong><br>
+                Mot de passe : <strong>%password%</strong>.</p>
         login_success:
             subject: "[%sitename%] Notification de connexion"
             title : Notification de connexion

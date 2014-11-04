@@ -101,8 +101,16 @@ class EkynaUserExtension extends AbstractExtension implements PrependExtensionIn
                 ),
             ),
             'registration' => array(
+            	'confirmation' => array(
+            	    'template' => 'EkynaUserBundle:Registration:email.html.twig',
+                ),
             	'form' => array(
             	    'type' => 'ekyna_user_registration',
+                ),
+            ),
+            'resetting' => array(
+            	'email' => array(
+            	    'template' => 'EkynaUserBundle:Resetting:email.html.twig',
                 ),
             ),
         );

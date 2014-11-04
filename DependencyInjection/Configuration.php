@@ -54,7 +54,7 @@ class Configuration implements ConfigurationInterface
                                     'show.html'  => 'EkynaUserBundle:User/Admin:show.html',
                                 ))->end()
                                 ->scalarNode('entity')->defaultValue('Ekyna\Bundle\UserBundle\Entity\User')->end()
-                                ->scalarNode('controller')->end()
+                                ->scalarNode('controller')->defaultValue('Ekyna\Bundle\UserBundle\Controller\Admin\UserController')->end()
                                 ->scalarNode('repository')->end()
                                 ->scalarNode('form')->defaultValue('Ekyna\Bundle\UserBundle\Form\Type\UserType')->end()
                                 ->scalarNode('table')->defaultValue('Ekyna\Bundle\UserBundle\Table\Type\UserType')->end()

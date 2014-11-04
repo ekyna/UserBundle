@@ -48,7 +48,7 @@ class Mailer extends BaseMailer
     }
 
     /**
-     * Send an email to the user to warn about successful login.
+     * Sends an email to the user to warn about successful login.
      *
      * @param UserInterface $user
      */
@@ -73,6 +73,42 @@ class Mailer extends BaseMailer
         );
 
         $this->sendEmail($rendered, $user->getEmail(), $userName, $subject);
+    }
+
+    /**
+     * Sends an email to the user to warn about account creation.
+     *
+     * @param UserInterface $user
+     * @param string        $password
+     * @return integer
+     */
+    public function sendCreationEmailMessage(UserInterface $user, $password)
+    {
+        /** @var \Ekyna\Bundle\UserBundle\Entity\User $user */
+        $siteName  = $this->settingsManager->getParameter('general.site_name');
+        $userName = sprintf('%s %s', $user->getFirstName(), $user->getLastName());
+        $login = $user->getUsername();
+
+        if (0 === strlen($password)) {
+            return 0;
+        }
+
+        $rendered = $this->templating->render(
+            'EkynaUserBundle:User:creation_email.html.twig',
+            array(
+                'username' => $userName,
+                'sitename' => $siteName,
+                'login'    => $login,
+                'password' => $password,
+            )
+        );
+
+        $subject = $this->translator->trans(
+            'ekyna_user.email.creation.subject',
+            array('%sitename%' => $siteName)
+        );
+
+        return $this->sendEmail($rendered, $user->getEmail(), $userName, $subject);
     }
 
     /**
@@ -126,10 +162,14 @@ class Mailer extends BaseMailer
     }
 
     /**
+     * Sends the message.
+     *
      * @param string $renderedTemplate
      * @param string $toEmail
      * @param string $toName
      * @param string $subject
+     *
+     * @return integer
      */
     protected function sendEmail($renderedTemplate, $toEmail, $toName, $subject)
     {
@@ -142,6 +182,6 @@ class Mailer extends BaseMailer
             ->setTo($toEmail, $toName)
             ->setBody($renderedTemplate, 'text/html');
 
-        $this->mailer->send($message);
+        return $this->mailer->send($message);
     }
 }

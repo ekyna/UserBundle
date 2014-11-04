@@ -1,44 +1,52 @@
 ekyna_user_user_admin_home:
-    path: /users/
+    path: /
     defaults: { _controller: "ekyna_user.user.controller:homeAction" }
     requirements:
         _method: GET
 
 ekyna_user_user_admin_list:
-    path: /users/list
+    path: /list
     defaults: { _controller: "ekyna_user.user.controller:listAction" }
     requirements:
         _method: GET|POST
 
 ekyna_user_user_admin_new:
-    path: /users/new
+    path: /new
     defaults: { _controller: "ekyna_user.user.controller:newAction" }
     requirements:
         _method: GET|POST
 
 ekyna_user_user_admin_show:
-    path: /users/{userId}/show
+    path: /{userId}/show
     defaults: { _controller: "ekyna_user.user.controller:showAction" }
     requirements:
         _method: GET
-        userId:  \d+
+        userId: \d+
 
 ekyna_user_user_admin_edit:
-    path: /users/{userId}/edit
+    path: /{userId}/edit
     defaults: { _controller: "ekyna_user.user.controller:editAction" }
     requirements:
         _method: GET|POST
-        userId:  \d+
+        userId: \d+
+
+ekyna_user_user_admin_toggle:
+    path: /{userId}/toggle/{field}
+    defaults: { _controller: "ekyna_user.user.controller:toggleAction", field: "locked" }
+    requirements:
+        _method: GET
+        userId: \d+
+        field: \w+
 
 ekyna_user_user_admin_remove:
-    path: /users/{userId}/remove
+    path: /{userId}/remove
     defaults: { _controller: "ekyna_user.user.controller:removeAction" }
     requirements:
         _method: GET|POST
-        userId:  \d+
+        userId: \d+
 
 ekyna_user_user_admin_search:
-    path: /users/search
+    path: /search
     defaults: { _controller: "ekyna_user.user.controller:searchAction" }
     requirements:
         _method: GET
@@ -46,7 +54,7 @@ ekyna_user_user_admin_search:
         expose: true
 
 ekyna_user_user_admin_find:
-    path: /users/find
+    path: /find
     defaults: { _controller: "ekyna_user.user.controller:findAction" }
     requirements:
         _method: GET
