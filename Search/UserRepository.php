@@ -17,8 +17,9 @@ class UserRepository extends Repository implements SearchRepositoryInterface
     {
         $query = new QueryString();
         $query
+            ->setDefaultOperator('OR')
             ->setParam('query', $text)
-            ->setParam('fields', array('email', '*name'))
+            ->setParam('fields', array('email', 'firstName', 'lastName'))
         ;
 
         return $this->find($query);
