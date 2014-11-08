@@ -16,7 +16,6 @@ class AccountController extends Controller
      * Home action.
      *
      * @param Request $request
-     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function homeAction(Request $request)
@@ -27,5 +26,15 @@ class AccountController extends Controller
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
         return $this->redirect($this->generateUrl('fos_user_profile_show'));
+    }
+
+    /**
+     * Login widget action.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function loginWidgetAction()
+    {
+        return $this->render('EkynaUserBundle:Security:login_widget.html.twig');
     }
 }
