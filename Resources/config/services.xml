@@ -109,6 +109,16 @@
 	        <tag name="twig.extension" />
 	    </service>
 
+        <!-- (FOS) User manager -->
+        <service id="ekyna_user.user_manager.default" class="Ekyna\Bundle\UserBundle\Doctrine\UserManager" public="false">
+            <argument type="service" id="security.encoder_factory" />
+            <argument type="service" id="fos_user.util.username_canonicalizer" />
+            <argument type="service" id="fos_user.util.email_canonicalizer" />
+            <argument type="service" id="fos_user.entity_manager" />
+            <argument>%ekyna_user.user.class%</argument>
+            <argument>%ekyna_user.group.class%</argument>
+        </service>
+
         <!-- Mailer -->
         <service id="ekyna_user.mailer.default" class="%ekyna_user.mailer.default.class%" public="false">
             <argument type="service" id="mailer" />

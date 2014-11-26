@@ -8,6 +8,7 @@
 
     <entity
         name="Ekyna\Bundle\UserBundle\Entity\Group"
+        repository-class="Ekyna\Bundle\UserBundle\Entity\GroupRepository"
         table="user_group">
 
         <id name="id" type="integer" column="id">

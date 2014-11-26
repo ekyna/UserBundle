@@ -93,7 +93,8 @@ class EkynaUserExtension extends AbstractExtension implements PrependExtensionIn
                 'group_class' => '%ekyna_user.group.class%',
             ),
             'service' => array(
-                'mailer' => 'ekyna_user.mailer.default'
+                'mailer'       => 'ekyna_user.mailer.default',
+                'user_manager' => 'ekyna_user.user_manager.default',
             ),
             'profile' => array(
             	'form' => array(

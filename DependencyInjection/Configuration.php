@@ -72,7 +72,7 @@ class Configuration implements ConfigurationInterface
                                 ))->end()
                                 ->scalarNode('entity')->defaultValue('Ekyna\Bundle\UserBundle\Entity\Group')->end()
                                 ->scalarNode('controller')->defaultValue('Ekyna\Bundle\UserBundle\Controller\Admin\GroupController')->end()
-                                ->scalarNode('repository')->end()
+                                ->scalarNode('repository')->defaultValue('Ekyna\Bundle\UserBundle\Entity\GroupRepository')->end()
                                 ->scalarNode('form')->defaultValue('Ekyna\Bundle\UserBundle\Form\Type\GroupType')->end()
                                 ->scalarNode('table')->defaultValue('Ekyna\Bundle\UserBundle\Table\Type\GroupType')->end()
                                 ->scalarNode('parent')->end()
