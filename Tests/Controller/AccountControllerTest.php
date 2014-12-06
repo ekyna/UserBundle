@@ -49,8 +49,8 @@ class AccountControllerTest extends WebTestCase
 
         $form['fos_user_registration_form[company]']   = 'Test company';
         $form['fos_user_registration_form[gender]']->select('mr');
-        $form['fos_user_registration_form[firstname]'] = 'John';
-        $form['fos_user_registration_form[lastname]']  = 'Doe';
+        $form['fos_user_registration_form[firstName]'] = 'John';
+        $form['fos_user_registration_form[lastName]']  = 'Doe';
         $form['fos_user_registration_form[phone]']     = '0212345678';
         $form['fos_user_registration_form[mobile]']    = '0687654321';
 
