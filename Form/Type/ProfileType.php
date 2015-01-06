@@ -20,6 +20,7 @@ class ProfileType extends ProfileFormType
         parent::buildForm($builder, $options);
 
         $builder
+            ->remove('username')
             ->add('company', 'text', array(
                 'label' => 'ekyna_core.field.company',
                 'required' => false

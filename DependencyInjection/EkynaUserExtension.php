@@ -20,6 +20,8 @@ class EkynaUserExtension extends AbstractExtension implements PrependExtensionIn
     {
         $config = $this->configure($configs, 'ekyna_user', new Configuration(), $container);
 
+        $container->setParameter('ekyna_user.username_enabled', $config['username_enabled']);
+
         $accountEnabled = $config['account_enabled'];
         $addressEnabled = $config['address_enabled'];
         $container->setParameter('ekyna_user.account_enabled', $accountEnabled);
@@ -27,7 +29,7 @@ class EkynaUserExtension extends AbstractExtension implements PrependExtensionIn
 
         $menu = $container->getDefinition('ekyna_user.menu_builder');
         if ($accountEnabled) {
-            $menu->addMethodCall('addAccountEntry', array('profil', array(
+            $menu->addMethodCall('addAccountEntry', array('profile', array(
                 'label' => 'ekyna_user.account.menu.profile',
                 'route' => 'fos_user_profile_show',
                 'position' => -3,
@@ -52,40 +54,27 @@ class EkynaUserExtension extends AbstractExtension implements PrependExtensionIn
      */
     public function prepend(ContainerBuilder $container)
     {
-        foreach ($container->getExtensions() as $name => $extension) {
-            switch ($name) {
-            	case 'fos_user':
-            	    $container->prependExtensionConfig(
-            	       $name,
-            	       $this->getFosUserBundleConfiguration()
-                    );
-            	    break;
+        $bundles = $container->getParameter('kernel.bundles');
 
-            	case 'fos_elastica':
-            	    $container->prependExtensionConfig(
-            	        $name,
-            	        $this->getFosElasticaBundleConfiguration()
-                    );
-            	    break;
-
-            	case 'jms_serializer':
-            	    $container->prependExtensionConfig(
-            	        $name,
-            	        $this->getJmsSerializerBundleConfiguration()
-                    );
-            	    break;
-            }
+        if (array_key_exists('FOSUserBundle', $bundles)) {
+            $this->configureFOSUserBundle($container);
+        }
+        if (array_key_exists('FOSElasticaBundle', $bundles)) {
+            $this->configureFOSElasticaBundle($container);
+        }
+        if (array_key_exists('JMSSerializerBundle', $bundles)) {
+            $this->configureJMSSerializerBundle($container);
         }
     }
 
     /**
-     * Returns FOSUserBundle configuration.
+     * Configures the FOS user bundle.
      *
-     * @return array
+     * @param ContainerBuilder $container
      */
-    protected function getFosUserBundleConfiguration()
+    protected function configureFOSUserBundle(ContainerBuilder $container)
     {
-        return array(
+        $container->prependExtensionConfig('fos_user', array(
             'db_driver' => 'orm',
             'firewall_name' => 'admin',
             'user_class' => '%ekyna_user.user.class%',
@@ -114,17 +103,17 @@ class EkynaUserExtension extends AbstractExtension implements PrependExtensionIn
             	    'template' => 'EkynaUserBundle:Resetting:email.html.twig',
                 ),
             ),
-        );
+        ));
     }
 
     /**
-     * Returns JMSSerializerBundle configuration.
+     * Configures the JMS serializer bundle.
      *
-     * @return array
+     * @param ContainerBuilder $container
      */
-    protected function getJmsSerializerBundleConfiguration()
+    protected function configureJMSSerializerBundle(ContainerBuilder $container)
     {
-        return array(
+        $container->prependExtensionConfig('jms_serializer', array(
             'metadata' => array(
                 'directories' => array(
                     'FOSUserBundle' => array(
@@ -133,17 +122,17 @@ class EkynaUserExtension extends AbstractExtension implements PrependExtensionIn
                     ),
                 ),
             ),
-        );
+        ));
     }
 
     /**
-     * Returns FOSElasticaBundle configuration.
+     * Configures the FOS elastica bundle.
      *
-     * @return array
+     * @param ContainerBuilder $container
      */
-    protected function getFosElasticaBundleConfiguration()
+    protected function configureFOSElasticaBundle(ContainerBuilder $container)
     {
-        return array(
+        $container->prependExtensionConfig('fos_elastica', array(
             'indexes' => array(
                 'search' => array(
                     'types' => array(
@@ -168,6 +157,6 @@ class EkynaUserExtension extends AbstractExtension implements PrependExtensionIn
                     ),
                 ),
             ),
-        );
+        ));
     }
 }

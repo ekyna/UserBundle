@@ -123,17 +123,17 @@ class UserListener implements EventSubscriberInterface
      * @param FOSUserEvent $event
      * @throws \RuntimeException
      */
-    public function onRegistrationInitialize(FOSUserEvent $event)
-    {
-        /** @var \Ekyna\Bundle\UserBundle\Model\GroupInterface $defaultGroup */
-        if(null === $defaultGroup = $this->groupRepository->findOneBy(array('default' => true))) {
-            throw new \RuntimeException('Enable to find default group.');
-        }
-
-        /** @var \Ekyna\Bundle\UserBundle\Model\UserInterface $user */
-        $user = $event->getUser();
-        $user->setGroup($defaultGroup);
-    }
+//    public function onRegistrationInitialize(FOSUserEvent $event)
+//    {
+//        /** @var \Ekyna\Bundle\UserBundle\Model\GroupInterface $defaultGroup */
+//        if(null === $defaultGroup = $this->groupRepository->findOneBy(array('default' => true))) {
+//            throw new \RuntimeException('Enable to find default group.');
+//        }
+//
+//        /** @var \Ekyna\Bundle\UserBundle\Model\UserInterface $user */
+//        $user = $event->getUser();
+//        $user->setGroup($defaultGroup);
+//    }
 
     /**
      * {@inheritdoc}
@@ -144,7 +144,7 @@ class UserListener implements EventSubscriberInterface
             UserEvents::PRE_CREATE  => array('onPreCreate', 0),
             UserEvents::POST_CREATE => array('onPostCreate', 0),
             UserEvents::PRE_UPDATE  => array('onPreUpdate', 0),
-            FOSUserEvents::REGISTRATION_INITIALIZE => array('onRegistrationInitialize', 0),
+//            FOSUserEvents::REGISTRATION_INITIALIZE => array('onRegistrationInitialize', 0),
         );
     }
 }

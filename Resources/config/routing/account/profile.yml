@@ -5,7 +5,6 @@ fos_user_profile_show:
         _cms:
             name: "Mon profil"
             parent: ekyna_user_account_home
-            menu: false
     requirements:
         _method: GET
 
@@ -16,17 +15,5 @@ fos_user_profile_edit:
         _cms:
             name: "Modifiez vos informations"
             parent: fos_user_profile_show
-            menu: false
-    requirements:
-        _method: GET|POST
-
-fos_user_change_password:
-    pattern: /change-password
-    defaults:
-        _controller: FOSUserBundle:ChangePassword:changePassword
-        _cms:
-            name: "Modifiez votre mot de passe"
-            parent: fos_user_profile_show
-            menu: false
     requirements:
         _method: GET|POST

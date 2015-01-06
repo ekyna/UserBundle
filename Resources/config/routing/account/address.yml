@@ -5,7 +5,6 @@ ekyna_user_address_list:
         _cms:
             name: "Mes adresses"
             parent: ekyna_user_account_home
-            menu: false
     requirements:
         _method: GET
 
@@ -16,7 +15,6 @@ ekyna_user_address_new:
         _cms:
             name: "Ajouter une adresse"
             parent: ekyna_user_address_list
-            menu: false
     requirements:
         _method: GET|POST
 
@@ -27,7 +25,6 @@ ekyna_user_address_edit:
         _cms:
             name: "Modifier une adresse"
             parent: ekyna_user_address_list
-            menu: false
     requirements:
         _method: GET|POST
 
@@ -38,6 +35,5 @@ ekyna_user_address_remove:
         _cms:
             name: "Supprimer une adresse"
             parent: ekyna_user_address_list
-            menu: false
     requirements:
         _method: GET|POST

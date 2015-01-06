@@ -5,7 +5,6 @@ fos_user_registration_register:
         _cms:
             name: "Créer un compte client"
             parent: ekyna_user_account_home
-            menu: false
     requirements:
         _method: GET|POST
 
@@ -16,7 +15,6 @@ fos_user_registration_check_email:
         _cms:
             name: "Consultez votre boite mail"
             parent: fos_user_registration_register
-            menu: false
     requirements:
         _method: GET
 
@@ -34,6 +32,5 @@ fos_user_registration_confirmed:
         _cms:
             name: "Confirmation"
             parent: fos_user_registration_register
-            menu: false
     requirements:
         _method: GET

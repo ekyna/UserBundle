@@ -4,7 +4,7 @@ ekyna_user_account_home:
         _controller: EkynaUserBundle:Account:home
         _cms:
             name: Espace client
-            footer: true
+            menus: [footer]
             position: 99
             seo:
                 follow: false
@@ -26,3 +26,14 @@ fos_user_resetting:
 fos_user_profile:
     resource: "account/profile.yml"
     prefix: /profile
+
+
+fos_user_change_password:
+    pattern: /change-password
+    defaults:
+        _controller: FOSUserBundle:ChangePassword:changePassword
+        _cms:
+            name: "Modifiez votre mot de passe"
+            parent: fos_user_profile_show
+    requirements:
+        _method: GET|POST

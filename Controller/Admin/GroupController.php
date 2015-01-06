@@ -2,6 +2,7 @@
 
 namespace Ekyna\Bundle\UserBundle\Controller\Admin;
 
+use Ekyna\Bundle\AdminBundle\Controller\Context;
 use Ekyna\Bundle\AdminBundle\Controller\Resource\SortableTrait;
 use Ekyna\Bundle\AdminBundle\Controller\ResourceController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,8 +22,8 @@ class GroupController extends ResourceController
     public function showAction(Request $request)
     {
         $context = $this->loadContext($request);
-        $resourceName = $this->config->getResourceName();
-        $resource = $context->getResource($resourceName);
+
+        $resource = $context->getResource();
 
         $this->isGranted('VIEW', $resource);
 
@@ -45,8 +46,8 @@ class GroupController extends ResourceController
     public function editPermissionsAction(Request $request)
     {
         $context = $this->loadContext($request);
-        $resourceName = $this->config->getResourceName();
-        $resource = $context->getResource($resourceName);
+
+        $resource = $context->getResource();
 
         $this->isGranted('EDIT', $resource);
 

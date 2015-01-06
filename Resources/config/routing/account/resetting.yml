@@ -5,7 +5,6 @@ fos_user_resetting_request:
         _cms:
             name: "Réinitialisez votre mot de passe"
             parent: ekyna_user_account_home
-            menu: false
     requirements:
         _method: GET
 
@@ -23,7 +22,6 @@ fos_user_resetting_check_email:
         _cms:
             name: "Consultez votre boite mail"
             parent: fos_user_resetting_request
-            menu: false
     requirements:
         _method: GET
 
@@ -34,6 +32,5 @@ fos_user_resetting_reset:
         _cms:
             name: "Changez votre mot de passe"
             parent: fos_user_resetting_request
-            menu: false
     requirements:
         _method: GET|POST

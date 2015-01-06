@@ -8,3 +8,9 @@ FOS\UserBundle\Model\User:
             expose: true
         email:
             expose: true
+    virtual_properties:
+        __toString:
+            expose: true
+            serialized_name: text
+            type: string
+            groups: [Search]

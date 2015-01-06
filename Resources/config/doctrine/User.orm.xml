@@ -8,7 +8,8 @@
 
     <entity
         name="Ekyna\Bundle\UserBundle\Entity\User"
-        table="user_user">
+        table="user_user"
+        repository-class="Ekyna\Bundle\UserBundle\Entity\UserRepository">
 
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO" />

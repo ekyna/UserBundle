@@ -23,6 +23,7 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
+                ->booleanNode('username_enabled')->defaultValue(false)->end()
                 ->booleanNode('account_enabled')->defaultValue(false)->end()
                 ->booleanNode('address_enabled')->defaultValue(false)->end()
             ->end()
@@ -55,7 +56,7 @@ class Configuration implements ConfigurationInterface
                                 ))->end()
                                 ->scalarNode('entity')->defaultValue('Ekyna\Bundle\UserBundle\Entity\User')->end()
                                 ->scalarNode('controller')->defaultValue('Ekyna\Bundle\UserBundle\Controller\Admin\UserController')->end()
-                                ->scalarNode('repository')->end()
+                                ->scalarNode('repository')->defaultValue('Ekyna\Bundle\UserBundle\Entity\UserRepository')->end()
                                 ->scalarNode('form')->defaultValue('Ekyna\Bundle\UserBundle\Form\Type\UserType')->end()
                                 ->scalarNode('table')->defaultValue('Ekyna\Bundle\UserBundle\Table\Type\UserType')->end()
                                 ->scalarNode('parent')->end()

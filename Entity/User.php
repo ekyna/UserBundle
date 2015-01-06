@@ -85,21 +85,37 @@ class User extends BaseUser implements UserInterface
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+        if (empty($this->username)) {
+            $this->username = $email;
+        }
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setEmailCanonical($emailCanonical)
+    {
+        $this->emailCanonical = $emailCanonical;
+        if (empty($this->usernameCanonical)) {
+            $this->usernameCanonical = $emailCanonical;
+        }
+
+        return $this;
+    }
+
+    /**
      * Returns a string representation
      * 
      * @return string
      */
     public function __toString()
-    {
-        return (string) $this->getEmail();
-    }
-
-    /**
-     * Returns the search text representation.
-     * 
-     * @return string
-     */
-    public function getSearchText()
     {
         return sprintf('%s %s - %s', $this->firstName, $this->lastName, $this->email);
     }

@@ -49,10 +49,10 @@ class UserType extends ResourceFormType
                     return $qb->andWhere($qb->expr()->gte('g.position', $group->getPosition()));
                 },
             ))
-            ->add('username', 'text', array(
+            /*->add('username', 'text', array(
                 'label' => 'ekyna_core.field.username',
                 'required' => false,
-            ))
+            ))*/
             ->add('email', 'email', array(
                 'label' => 'ekyna_core.field.email',
                 //'disabled' => true,

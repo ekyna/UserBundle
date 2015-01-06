@@ -2,8 +2,11 @@
 
 namespace Ekyna\Bundle\UserBundle\Form\Type;
 
+use Ekyna\Bundle\UserBundle\Doctrine\UserManager;
 use FOS\UserBundle\Form\Type\RegistrationFormType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 
 /**
  * Class RegistrationType
@@ -20,6 +23,7 @@ class RegistrationType extends RegistrationFormType
         parent::buildForm($builder, $options);
 
         $builder
+            ->remove('username')
             ->add('company', 'text', array(
                 'label' => 'ekyna_core.field.company',
                 'required' => false

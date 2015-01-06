@@ -13,6 +13,13 @@ use FOS\UserBundle\Model\UserInterface as BaseUserInterface;
 interface UserInterface extends BaseUserInterface
 {
     /**
+     * Returns the identifier.
+     *
+     * @return integer
+     */
+    public function getId();
+
+    /**
      * Set company
      *
      * @param string $company

@@ -1,12 +1,16 @@
 Ekyna\Bundle\UserBundle\Entity\User:
     exclusion_policy: ALL
     properties:
-        firstname:
+        username:
             expose: true
-        lastname:
+        firstName:
+            expose: true
+        lastName:
+            expose: true
+        email:
             expose: true
     virtual_properties:
-        getSearchText:
+        __toString:
             expose: true
             serialized_name: text
             type: string

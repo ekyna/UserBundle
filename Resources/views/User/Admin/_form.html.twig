@@ -6,11 +6,15 @@
     {{ form_errors(form) }}
     <div class="tab-content">
 	    <div class="tab-pane active" id="general">
+			{{ form_row(form.email) }}
+			{% if form.username is defined %}
 	        <div class="row">
 	            <div class="col-md-6">{{ form_row(form.username, {'label_col': 4, 'widget_col': 8}) }}</div>
 	            <div class="col-md-6">{{ form_row(form.group, {'label_col': 4, 'widget_col': 8}) }}</div>
 	        </div>
-	        {{ form_row(form.email) }}
+			{% else %}
+			{{ form_row(form.group, {'label_col': 4, 'widget_col': 8}) }}
+			{% endif %}
 	        <hr>
 	        {{ form_row(form.company) }}
 	        {{ form_row(form.gender) }}

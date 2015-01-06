@@ -53,7 +53,7 @@ class UserType extends ResourceTableType
     /**
      * {@inheritdoc}
      */
-    public function buildTable(TableBuilderInterface $builder)
+    public function buildTable(TableBuilderInterface $builder, array $options = array())
     {
         /** @var \Ekyna\Bundle\UserBundle\Model\GroupInterface $group */
         $group = $this->securityContext->getToken()->getUser()->getGroup();
@@ -68,8 +68,16 @@ class UserType extends ResourceTableType
                 'route_name' => 'ekyna_user_user_admin_show',
                 'route_parameters_map' => array('userId' => 'id'),
             ))
-            ->addColumn('username', 'text', array(
+            /*->addColumn('username', 'text', array(
                 'label' => 'ekyna_core.field.username',
+                'sortable' => true,
+            ))*/
+            ->addColumn('firstName', 'text', array(
+                'label' => 'ekyna_core.field.first_name',
+                'sortable' => true,
+            ))
+            ->addColumn('lastName', 'text', array(
+                'label' => 'ekyna_core.field.last_name',
                 'sortable' => true,
             ))
             ->addColumn('group', 'anchor', array(
@@ -127,8 +135,14 @@ class UserType extends ResourceTableType
             ->addFilter('email', 'text', array(
             	'label' => 'ekyna_core.field.email',
             ))
-            ->addFilter('username', 'text', array(
+            /*->addFilter('username', 'text', array(
             	'label' => 'ekyna_core.field.username',
+            ))*/
+            ->addFilter('firstName', 'text', array(
+            	'label' => 'ekyna_core.field.first_name',
+            ))
+            ->addFilter('lastName', 'text', array(
+            	'label' => 'ekyna_core.field.last_name',
             ))
             ->addFilter('group', 'entity', array(
                 'label' => 'ekyna_core.field.group',
