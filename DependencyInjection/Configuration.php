@@ -23,9 +23,19 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->booleanNode('username_enabled')->defaultValue(false)->end()
-                ->booleanNode('account_enabled')->defaultValue(false)->end()
-                ->booleanNode('address_enabled')->defaultValue(false)->end()
+                ->arrayNode('templates')
+                    ->children()
+                        ->scalarNode('base')->defaultValue('EkynaUserBundle::base.html.twig')->end()
+                        ->scalarNode('address')->defaultValue('EkynaUserBundle:Address:_render.html.twig')->end()
+                    ->end()
+                ->end()
+                ->arrayNode('features')
+                    ->children()
+                        ->booleanNode('username')->defaultValue(false)->end()
+                        ->booleanNode('account')->defaultValue(false)->end()
+                        ->booleanNode('address')->defaultValue(false)->end()
+                    ->end()
+                ->end()
             ->end()
         ;
 

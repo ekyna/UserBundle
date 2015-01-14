@@ -35,6 +35,9 @@ class AccountController extends Controller
      */
     public function loginWidgetAction()
     {
-        return $this->render('EkynaUserBundle:Security:login_widget.html.twig');
+        return $this
+            ->render('EkynaUserBundle:Security:login_widget.html.twig')
+            ->setPrivate()
+        ;
     }
 }

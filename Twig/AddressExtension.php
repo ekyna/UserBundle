@@ -12,37 +12,48 @@ use Ekyna\Bundle\UserBundle\Model\AddressInterface;
  */
 class AddressExtension extends \Twig_Extension
 {
+    const DEFAULT_ADDRESS_TEMPLATE = 'EkynaUserBundle:Address:_render.html.twig';
+
     /**
      * @var AddressRepository
      */
     protected $repository;
 
     /**
-     * @var \Twig_Environment
+     * @var array
      */
-    protected $twig;
+    protected $options;
 
     /**
-     * @var string
+     * @var \Twig_Template
      */
     protected $template;
 
     /**
-     * Initialize AddressExtension
+     * Constructor.
+     *
      * @param AddressRepository $repository
-     * @param \Twig_Environment $twig
-     * @param string $template
+     * @param array $options
      */
-    public function __construct(AddressRepository $repository, \Twig_Environment $twig, $template)
+    public function __construct(AddressRepository $repository, array $options)
     {
         $this->repository = $repository;
-        $this->twig = $twig;
-        $this->template = $template;
+
+        $this->options = array_merge(array(
+            'address_template' => self::DEFAULT_ADDRESS_TEMPLATE,
+        ), $options);
     }
 
     /**
-     * Returns a list of functions to add to the existing list.
-     * @return array An array of functions
+     * {@inheritdoc}
+     */
+    public function initRuntime(\Twig_Environment $twig)
+    {
+        $this->template = $twig->loadTemplate($this->options['address_template']);
+    }
+
+    /**
+     * {@inheritdoc}
      */
     public function getFunctions()
     {
@@ -52,7 +63,7 @@ class AddressExtension extends \Twig_Extension
     }
 
     /**
-     * Format an address
+     * Renders the address.
      *
      * @param mixed $addressOrId
      * @return string
@@ -68,15 +79,14 @@ class AddressExtension extends \Twig_Extension
             }
         }
 
-        return $this->twig->render($this->template, array('address' => $address));
+        return $this->template->render(array('address' => $address));
     }
 
     /**
-     * Returns the name of the extension.
-     * @return string The extension name
+     * {@inheritdoc}
      */
     public function getName()
     {
-        return 'ekyna_address';
+        return 'ekyna_user_address';
     }
 }

@@ -1,6 +1,6 @@
-{% extends "::base.html.twig" %}
+{% extends ekyna_user_account_base_template() %}
 
-{% block body %}
+{% block content %}
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
         <h3>{{ 'ekyna_user.account.resetting.title'|trans }}</h3>
@@ -8,4 +8,4 @@
         {% include "EkynaUserBundle:Resetting:request_content.html.twig" %}
     </div>
 </div>
-{% endblock %}
+{% endblock content %}

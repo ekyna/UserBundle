@@ -6,33 +6,22 @@
                         http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="ekyna_user.mailer.default.class">Ekyna\Bundle\UserBundle\Mailer\Mailer</parameter>
-
-        <parameter key="ekyna_user.authentication_listener.class">Ekyna\Bundle\UserBundle\EventListener\AuthenticationListener</parameter>
-        <parameter key="ekyna_user.user_listener.class">Ekyna\Bundle\UserBundle\EventListener\UserListener</parameter>
-
         <parameter key="ekyna_user.gender.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\GenderType</parameter>
         <parameter key="ekyna_user.user.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\UserType</parameter>
         <parameter key="ekyna_user.profile.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\ProfileType</parameter>
         <parameter key="ekyna_user.registration.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\RegistrationType</parameter>
 
         <parameter key="ekyna_user.user.table_type.class">Ekyna\Bundle\UserBundle\Table\Type\UserType</parameter>
-
-        <parameter key="ekyna_user.routing_loader.class">Ekyna\Bundle\UserBundle\Routing\AccountLoader</parameter>
-        <parameter key="ekyna_user.menu_builder.class">Ekyna\Bundle\UserBundle\Menu\MenuBuilder</parameter>
-
-        <parameter key="ekyna_user.twig.address_extension.class">Ekyna\Bundle\UserBundle\Twig\AddressExtension</parameter>
-        <parameter key="ekyna_user.twig.address_template">EkynaUserBundle:Address:_render.html.twig</parameter>
     </parameters>
 
     <services>
 
         <!-- Events listeners -->
-        <service id="ekyna_user.authentication_listener" class="%ekyna_user.authentication_listener.class%">
+        <service id="ekyna_user.authentication_listener" class="Ekyna\Bundle\UserBundle\EventListener\AuthenticationListener">
             <argument type="service" id="ekyna_user.mailer.default" />
             <tag name="kernel.event_subscriber" />
         </service>
-        <service id="ekyna_user.user.listener" class="%ekyna_user.user_listener.class%">
+        <service id="ekyna_user.user.listener" class="Ekyna\Bundle\UserBundle\EventListener\UserListener">
             <argument type="service" id="ekyna_user.group.repository" />
             <argument type="service" id="fos_user.user_manager" />
             <argument type="service" id="ekyna_user.mailer.default" />
@@ -72,14 +61,14 @@
         </service>
 
         <!-- Routing loader -->
-        <service id="ekyna_user.routing_loader" class="%ekyna_user.routing_loader.class%">
+        <service id="ekyna_user.routing_loader" class="Ekyna\Bundle\UserBundle\Routing\AccountLoader">
             <argument>%ekyna_user.account_enabled%</argument>
             <argument>%ekyna_user.address_enabled%</argument>
             <tag name="routing.loader" />
         </service>
 
         <!-- Account Menu -->
-        <service id="ekyna_user.menu_builder" class="%ekyna_user.menu_builder.class%">
+        <service id="ekyna_user.menu_builder" class="Ekyna\Bundle\UserBundle\Menu\MenuBuilder">
             <argument type="service" id="knp_menu.factory" />
             <argument type="service" id="security.context" />
             <argument>%ekyna_user.account_enabled%</argument>
@@ -102,10 +91,17 @@
         </service>
 
         <!-- Twig extensions -->
-	    <service id="ekyna_user.twig.address_extension" class="%ekyna_user.twig.address_extension.class%">
+	    <service id="ekyna_user.twig.address_extension" class="Ekyna\Bundle\UserBundle\Twig\AddressExtension">
 	        <argument type="service" id="ekyna_user.address.repository" />
-	        <argument type="service" id="twig" />
-	        <argument>%ekyna_user.twig.address_template%</argument>
+            <argument type="collection">
+	            <argument key="address_template">%ekyna_user.address_template%</argument>
+            </argument>
+	        <tag name="twig.extension" />
+	    </service>
+	    <service id="ekyna_user.twig.account_extension" class="Ekyna\Bundle\UserBundle\Twig\AccountExtension">
+            <argument type="collection">
+                <argument key="base_template">%ekyna_user.base_template%</argument>
+            </argument>
 	        <tag name="twig.extension" />
 	    </service>
 
@@ -120,7 +116,7 @@
         </service>
 
         <!-- Mailer -->
-        <service id="ekyna_user.mailer.default" class="%ekyna_user.mailer.default.class%" public="false">
+        <service id="ekyna_user.mailer.default" class="Ekyna\Bundle\UserBundle\Mailer\Mailer" public="false">
             <argument type="service" id="mailer" />
             <argument type="service" id="router" />
             <argument type="service" id="templating" />

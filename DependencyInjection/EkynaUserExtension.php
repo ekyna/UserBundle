@@ -20,12 +20,15 @@ class EkynaUserExtension extends AbstractExtension implements PrependExtensionIn
     {
         $config = $this->configure($configs, 'ekyna_user', new Configuration(), $container);
 
-        $container->setParameter('ekyna_user.username_enabled', $config['username_enabled']);
+        $container->setParameter('ekyna_user.username_enabled', $config['features']['username']);
 
-        $accountEnabled = $config['account_enabled'];
-        $addressEnabled = $config['address_enabled'];
+        $accountEnabled = $config['features']['account'];
+        $addressEnabled = $config['features']['address'];
         $container->setParameter('ekyna_user.account_enabled', $accountEnabled);
         $container->setParameter('ekyna_user.address_enabled', $addressEnabled);
+
+        $container->setParameter('ekyna_user.base_template', $config['templates']['base']);
+        $container->setParameter('ekyna_user.address_template', $config['templates']['address']);
 
         $menu = $container->getDefinition('ekyna_user.menu_builder');
         if ($accountEnabled) {

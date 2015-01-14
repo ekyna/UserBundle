@@ -1,6 +1,6 @@
-{% extends "::base.html.twig" %}
+{% extends ekyna_user_account_base_template() %}
 
-{% block body %}
+{% block content %}
 <div class="row">
     <div class="col-md-12">
         <h1>{{ 'ekyna_user.account.title'|trans }}</h1>
@@ -13,7 +13,7 @@
 	    <p style="text-align:center; margin-top:20px;"><a href="{{ path('fos_user_security_logout') }}"><span class="glyphicon glyphicon-off"></span> Se déconnecter</a></p>
     </div>
     <div class="col-md-9">
-        {% block account %}{% endblock %}
+        {% block account %}{% endblock account %}
     </div>
 </div>
-{% endblock %}
+{% endblock content %}
