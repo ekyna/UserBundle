@@ -1,4 +1,4 @@
-{% if address.lastname != '' and address.firstname != '' -%}
+{% if address.lastName != '' and address.firstName != '' -%}
 <strong>{{ ('ekyna_core.gender.' ~ address.gender ~ '.short')|trans }} {{ address.lastName }} {{ address.firstName }}</strong><br>
 {%- endif %}
 {% if address.company != '' -%}
