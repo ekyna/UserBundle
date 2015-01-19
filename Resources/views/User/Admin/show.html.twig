@@ -17,7 +17,9 @@
 <div class="show show-with-tabs">
     <ul class="nav nav-tabs">
 	    <li class="active"><a href="#general" data-toggle="tab">{{ 'ekyna_core.field.general'|trans }}</a></li>
+	    {% if ekyna_user.address_enabled -%}
 	    <li><a href="#address" data-toggle="tab">{{ 'ekyna_user.address.label.plural'|trans }}</a></li>
+	    {%- endif %}
 	</ul>
 	<div class="show-body">
 	    <div class="tab-content">
@@ -54,6 +56,7 @@
 	                </div>
 	            </div>
 		    </div>
+		    {% if ekyna_user.address_enabled -%}
 		    <div class="tab-pane" id="address">
 	        {% set opened = false %}
 			{% for address in user.addresses %}
@@ -86,6 +89,7 @@
 			    </p>
 			{% endif %}
 		    </div>
+			{%- endif %}
 	    </div>
 	</div>
 </div>

@@ -2,7 +2,6 @@
 
 namespace Ekyna\Bundle\UserBundle\Controller\Admin;
 
-use Ekyna\Bundle\AdminBundle\Controller\Context;
 use Ekyna\Bundle\AdminBundle\Controller\Resource\SortableTrait;
 use Ekyna\Bundle\AdminBundle\Controller\ResourceController;
 use Symfony\Component\HttpFoundation\Request;
@@ -91,7 +90,7 @@ class GroupController extends ResourceController
         }
 
         $this->appendBreadcrumb(
-            sprintf('%s-edit-permissions', $resourceName),
+            sprintf('%s-edit-permissions', $this->config->getResourceName()),
             'ekyna_user.group.button.edit_permissions'
         );
 

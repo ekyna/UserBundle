@@ -101,6 +101,7 @@
 	    <service id="ekyna_user.twig.account_extension" class="Ekyna\Bundle\UserBundle\Twig\AccountExtension">
             <argument type="collection">
                 <argument key="base_template">%ekyna_user.base_template%</argument>
+                <argument key="address_enabled">%ekyna_user.address_enabled%</argument>
             </argument>
 	        <tag name="twig.extension" />
 	    </service>

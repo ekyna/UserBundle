@@ -25,6 +25,7 @@ class AccountExtension extends \Twig_Extension
     {
         $this->options = array_merge(array(
             'base_template' => self::DEFAULT_BASE_TEMPLATE,
+            'address_enabled' => false,
         ), $options);
     }
 
@@ -40,25 +41,32 @@ class AccountExtension extends \Twig_Extension
         //}
     }
 
+    public function getGlobals()
+    {
+        return array(
+            'ekyna_user' => $this->options,
+        );
+    }
+
     /**
      * {@inheritdoc}
      */
-    public function getFunctions()
+    /*public function getFunctions()
     {
         return array(
             new \Twig_SimpleFunction('ekyna_user_account_base_template', array($this, 'getBaseTemplate'), array('is_safe' => array('html'))),
         );
-    }
+    }*/
 
     /**
      * Returns the user account base template name.
      *
      * @return string
      */
-    public function getBaseTemplate()
+    /*public function getBaseTemplate()
     {
         return $this->options['base_template'];
-    }
+    }*/
 
     /**
      * {@inheritdoc}
