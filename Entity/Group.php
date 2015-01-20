@@ -2,7 +2,6 @@
 
 namespace Ekyna\Bundle\UserBundle\Entity;
 
-use Ekyna\Bundle\CoreBundle\Model\SortableInterface;
 use Ekyna\Bundle\CoreBundle\Model\SortableTrait;
 use Ekyna\Bundle\UserBundle\Model\GroupInterface;
 use FOS\UserBundle\Model\Group as BaseGroup;
