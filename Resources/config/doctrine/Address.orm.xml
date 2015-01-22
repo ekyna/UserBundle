@@ -19,10 +19,10 @@
         <field name="lastName" column="last_name" type="string" length="32" />
         <field name="street" column="street" type="string" length="255" />
         <field name="supplement" column="supplement" type="string" length="255" nullable="true" />
-        <field name="postalCode" column="postal_code" type="text" length="8" />
-        <field name="city" column="city" type="text" length="255" />
-        <field name="phone" column="phone" type="text" length="16" nullable="true" />
-        <field name="mobile" column="mobile" type="text" length="16" nullable="true" />
+        <field name="postalCode" column="postal_code" type="string" length="8" />
+        <field name="city" column="city" type="string" length="255" />
+        <field name="phone" column="phone" type="string" length="16" nullable="true" />
+        <field name="mobile" column="mobile" type="string" length="16" nullable="true" />
         <field name="locked" column="locked" type="boolean" />
         <field name="createdAt" type="datetime" column="created_at">
             <gedmo:timestampable on="create"/>

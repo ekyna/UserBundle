@@ -27,6 +27,9 @@
             <gedmo:timestampable on="update"/>
         </field>
 
+        <!--<one-to-one field="defaultAddress" target-entity="Ekyna\Bundle\UserBundle\Entity\Address">
+            <join-column name="address_id" referenced-column-name="id" nullable="true" />
+        </one-to-one>-->
         <one-to-many field="addresses" target-entity="Ekyna\Bundle\UserBundle\Entity\Address" mapped-by="user">
             <cascade>
                 <cascade-all />

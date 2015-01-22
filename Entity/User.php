@@ -61,7 +61,12 @@ class User extends BaseUser implements UserInterface
     protected $group;
 
     /**
-     * @var ArrayCollection
+     * @var AddressInterface
+     */
+    /*protected $defaultAddress;*/
+
+    /**
+     * @var ArrayCollection|AddressInterface[]
      */
     protected $addresses;
 
@@ -258,6 +263,23 @@ class User extends BaseUser implements UserInterface
         }
         return array(self::ROLE_DEFAULT);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    /*public function getDefaultAddress()
+    {
+        return $this->defaultAddress;
+    }*/
+
+    /**
+     * {@inheritdoc}
+     */
+    /*public function setDefaultAddress(AddressInterface $defaultAddress = null)
+    {
+        $this->defaultAddress = $defaultAddress;
+        return $this;
+    }*/
 
     /**
      * {@inheritdoc}

@@ -13,10 +13,15 @@ use Ekyna\Bundle\UserBundle\Model\GroupInterface;
 class GroupRepository extends ResourceRepository
 {
     /**
+     * Returns the default user group.
+     *
      * @return GroupInterface
+     * @throws \RuntimeException
      */
     public function findDefault()
     {
-        return $this->findOneBy(array('default' => true));
+        if (null === $group = $this->findOneBy(array('default' => true))) {
+            throw new \RuntimeException('Default user group not found.');
+        }
     }
 }

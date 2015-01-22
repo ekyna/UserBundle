@@ -125,6 +125,21 @@ interface UserInterface extends BaseUserInterface
     public function getGroup();
 
     /**
+     * Returns the defaultAddress.
+     *
+     * @return AddressInterface
+     */
+    /*public function getDefaultAddress();*/
+
+    /**
+     * Sets the defaultAddress.
+     *
+     * @param AddressInterface $defaultAddress
+     * @return UserInterface|$this
+     */
+    /*public function setDefaultAddress(AddressInterface $defaultAddress = null);*/
+
+    /**
      * Sets the addresses.
      *
      * @param ArrayCollection|AddressInterface[] $addresses
