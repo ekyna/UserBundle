@@ -79,7 +79,9 @@ ekyna_user:
             edit: Modifier mes informations
         registration:
             email_check: Vérification par email
-            confirmed: Compte activé
+            confirmed:
+                title: Compte activé
+                message: Félicitations ! Votre compte est maintenant activé.
             button: Inscription
         resetting:
             title: Réinitialisation du mot de passe

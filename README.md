@@ -7,4 +7,5 @@ FOSUser management with [EkynaAdminBundle](https://github.com/ekyna/AdminBundle)
 
 ## TODO:
  * Fix permissions edit/view layout + group by bundle.
- * Overrides user Roles methods (use Group methods instead)
+ * Overrides user Roles methods (use Group methods instead).
+ * Change translations, as FOSUserBundle's rely on username. 

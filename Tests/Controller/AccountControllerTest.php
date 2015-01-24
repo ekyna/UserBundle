@@ -43,7 +43,7 @@ class AccountControllerTest extends WebTestCase
 
         // Fill the form
         $form['fos_user_registration_form[email]']                 = 'john.doe@example.com';
-        $form['fos_user_registration_form[username]']              = 'johndoe35';
+//        $form['fos_user_registration_form[username]']              = 'johndoe35';
         $form['fos_user_registration_form[plainPassword][first]']  = 'password';
         $form['fos_user_registration_form[plainPassword][second]'] = 'password';
 
@@ -64,7 +64,7 @@ class AccountControllerTest extends WebTestCase
 
         // Check that registration succeed
         $this->assertCount(1, $crawler->filter('html:contains("Compte activé")'));
-        $this->assertCount(1, $crawler->filter('html:contains("Félicitations johndoe35, votre compte est maintenant activé.")'));
+        $this->assertCount(1, $crawler->filter('html:contains("Félicitations ! Votre compte est maintenant activé.")'));
     }
 
     public function testLogin()

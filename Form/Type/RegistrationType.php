@@ -15,6 +15,18 @@ use Symfony\Component\Form\FormEvents;
  */
 class RegistrationType extends RegistrationFormType
 {
+    private $usernameEnabled;
+
+    /**
+     * @param string $class The User class name
+     * @param bool $usernameEnabled Whether to add the username field or not
+     */
+    public function __construct($class, $usernameEnabled = true)
+    {
+        parent::__construct($class);
+        $this->usernameEnabled = $usernameEnabled;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -22,8 +34,11 @@ class RegistrationType extends RegistrationFormType
     {
         parent::buildForm($builder, $options);
 
+        if (!$this->usernameEnabled) {
+            $builder->remove('username');
+        }
+
         $builder
-            ->remove('username')
             ->add('company', 'text', array(
                 'label' => 'ekyna_core.field.company',
                 'required' => false
