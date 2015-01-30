@@ -287,10 +287,11 @@ class User extends BaseUser implements UserInterface
     public function setAddresses(ArrayCollection $addresses)
     {
         /** @var AddressInterface $address */
-        foreach($addresses as $address) {
+        foreach ($addresses as $address) {
             $address->setUser($this);
         }
         $this->addresses = $addresses;
+        return $this;
     }
 
     /**
@@ -298,7 +299,7 @@ class User extends BaseUser implements UserInterface
      */
     public function addAddress(AddressInterface $address)
     {
-        if(!$this->hasAddress($address)) {
+        if (!$this->hasAddress($address)) {
             $address->setUser($this);
             $this->addresses->add($address);
         }
@@ -310,7 +311,10 @@ class User extends BaseUser implements UserInterface
      */
     public function removeAddress(AddressInterface $address)
     {
-        $this->addresses->removeElement($address);
+        if ($this->hasAddress($address)) {
+            $this->addresses->removeElement($address);
+        }
+        return $this;
     }
 
     /**

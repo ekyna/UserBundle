@@ -38,7 +38,7 @@ class AddressType extends AbstractAddressType
         $builder
             ->add('company', 'text', array(
                 'label' => 'ekyna_core.field.company',
-                'required' => false
+                'required' => false,
             ))
             ->add('gender', 'ekyna_user_gender')
             ->add('firstName', 'text', array(
@@ -49,11 +49,11 @@ class AddressType extends AbstractAddressType
             ))
             ->add('phone', 'text', array(
                 'label' => 'ekyna_core.field.phone',
-                'required' => false
+                'required' => false,
             ))
             ->add('mobile', 'text', array(
                 'label' => 'ekyna_core.field.mobile',
-                'required' => false
+                'required' => false,
             ))
         ;
     }
