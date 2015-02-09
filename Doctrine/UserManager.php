@@ -5,16 +5,18 @@ namespace Ekyna\Bundle\UserBundle\Doctrine;
 use Doctrine\Common\Persistence\ObjectManager;
 use Ekyna\Bundle\UserBundle\Entity\GroupRepository;
 use Ekyna\Bundle\UserBundle\Model\UserInterface;
+use Ekyna\Bundle\UserBundle\Model\UserManagerInterface;
 use FOS\UserBundle\Doctrine\UserManager as BaseManager;
 use FOS\UserBundle\Util\CanonicalizerInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use Symfony\Component\Security\Core\Util\SecureRandom;
 
 /**
  * Class UserManager
  * @package Ekyna\Bundle\UserBundle\Doctrine
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
-class UserManager extends BaseManager
+class UserManager extends BaseManager implements UserManagerInterface
 {
     /**
      * @var GroupRepository
@@ -45,9 +47,7 @@ class UserManager extends BaseManager
     }
 
     /**
-     * Returns an empty user instance
-     *
-     * @return UserInterface
+     * {@inheritdoc}
      */
     public function createUser()
     {
@@ -58,5 +58,15 @@ class UserManager extends BaseManager
         $user->setGroup($this->groupRepository->findDefault());
 
         return $user;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function generatePassword(UserInterface $user)
+    {
+        $generator = new SecureRandom();
+        $password = bin2hex($generator->nextBytes(4));
+        $user->setPlainPassword($password);
     }
 }

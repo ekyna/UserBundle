@@ -7,11 +7,8 @@ use Ekyna\Bundle\AdminBundle\Event\ResourceMessage;
 use Ekyna\Bundle\UserBundle\Event\UserEvent;
 use Ekyna\Bundle\UserBundle\Event\UserEvents;
 use Ekyna\Bundle\UserBundle\Mailer\Mailer;
-use FOS\UserBundle\Event\UserEvent AS FOSUserEvent;
-use FOS\UserBundle\FOSUserEvents;
-use FOS\UserBundle\Model\UserManagerInterface;
+use Ekyna\Bundle\UserBundle\Model\UserManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Security\Core\Util\SecureRandom;
 
 /**
  * Class UserListener
@@ -28,7 +25,7 @@ class UserListener implements EventSubscriberInterface
     /**
      * @var UserManagerInterface
      */
-    protected $fosUserManager;
+    protected $userManager;
 
     /**
      * @var Mailer
@@ -45,7 +42,7 @@ class UserListener implements EventSubscriberInterface
     public function __construct(EntityRepository $groupRepository, UserManagerInterface $fosUserManager, Mailer $mailer)
     {
         $this->groupRepository = $groupRepository;
-        $this->fosUserManager  = $fosUserManager;
+        $this->userManager  = $fosUserManager;
         $this->mailer          = $mailer;
     }
 
@@ -60,14 +57,13 @@ class UserListener implements EventSubscriberInterface
         $user = $event->getResource();
 
         // Generates a secured password.
-        $password = '';
+
         if (0 === strlen($user->getPlainPassword())) {
-            $generator = new SecureRandom();
-            $password = bin2hex($generator->nextBytes(4));
-            $user->setPlainPassword($password);
+            $this->userManager->generatePassword($user);
             $user->setEnabled(true);
 
             // Warn about the generated password
+            $password = $user->getPlainPassword();
             $event
                 ->addMessage(new ResourceMessage(
                     sprintf('Generated password : "%s".', $password),
@@ -77,8 +73,8 @@ class UserListener implements EventSubscriberInterface
             ;
         }
 
-        $this->fosUserManager->updatePassword($user);
-        $this->fosUserManager->updateCanonicalFields($user);
+        $this->userManager->updatePassword($user);
+        $this->userManager->updateCanonicalFields($user);
     }
 
     /**
@@ -113,27 +109,9 @@ class UserListener implements EventSubscriberInterface
         /** @var \Ekyna\Bundle\UserBundle\Model\UserInterface $user */
         $user = $event->getResource();
 
-        $this->fosUserManager->updatePassword($user);
-        $this->fosUserManager->updateCanonicalFields($user);
+        $this->userManager->updatePassword($user);
+        $this->userManager->updateCanonicalFields($user);
     }
-
-    /**
-     * Registration initialize event handler.
-     *
-     * @param FOSUserEvent $event
-     * @throws \RuntimeException
-     */
-//    public function onRegistrationInitialize(FOSUserEvent $event)
-//    {
-//        /** @var \Ekyna\Bundle\UserBundle\Model\GroupInterface $defaultGroup */
-//        if(null === $defaultGroup = $this->groupRepository->findOneBy(array('default' => true))) {
-//            throw new \RuntimeException('Enable to find default group.');
-//        }
-//
-//        /** @var \Ekyna\Bundle\UserBundle\Model\UserInterface $user */
-//        $user = $event->getUser();
-//        $user->setGroup($defaultGroup);
-//    }
 
     /**
      * {@inheritdoc}
@@ -144,7 +122,6 @@ class UserListener implements EventSubscriberInterface
             UserEvents::PRE_CREATE  => array('onPreCreate', 0),
             UserEvents::POST_CREATE => array('onPostCreate', 0),
             UserEvents::PRE_UPDATE  => array('onPreUpdate', 0),
-//            FOSUserEvents::REGISTRATION_INITIALIZE => array('onRegistrationInitialize', 0),
         );
     }
 }
