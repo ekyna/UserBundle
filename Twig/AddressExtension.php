@@ -33,15 +33,17 @@ class AddressExtension extends \Twig_Extension
      * Constructor.
      *
      * @param AddressRepository $repository
-     * @param array $options
+     * @param array $config
      */
-    public function __construct(AddressRepository $repository, array $options)
+    public function __construct(AddressRepository $repository, array $config)
     {
         $this->repository = $repository;
 
         $this->options = array_merge(array(
-            'address_template' => self::DEFAULT_ADDRESS_TEMPLATE,
-        ), $options);
+            'template' => self::DEFAULT_ADDRESS_TEMPLATE,
+        ), array(
+            'template' => $config['templates']['address']
+        ));
     }
 
     /**
@@ -49,7 +51,7 @@ class AddressExtension extends \Twig_Extension
      */
     public function initRuntime(\Twig_Environment $twig)
     {
-        $this->template = $twig->loadTemplate($this->options['address_template']);
+        $this->template = $twig->loadTemplate($this->options['template']);
     }
 
     /**

@@ -26,8 +26,10 @@
     <div class="form-group">
         <div class="col-sm-offset-5 col-sm-7">
             <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-            <button type="submit" class="btn btn-primary">{{ 'ekyna_core.button.login'|trans }}</button><br>
-            <a href="{{ path('fos_user_resetting_request') }}" class="btn btn-link">{{ 'ekyna_user.account.resetting.button'|trans }}</a>
+            <button type="submit" class="btn btn-primary">{{ 'ekyna_core.button.login'|trans }}</button>
+            {% if ekyna_user.resetting -%}
+            <br><a href="{{ path('fos_user_resetting_request') }}" class="btn btn-link">{{ 'ekyna_user.account.resetting.button'|trans }}</a>
+            {%- endif %}
         </div>
     </div>
 </form>

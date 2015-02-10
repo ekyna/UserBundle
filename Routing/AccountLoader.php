@@ -18,25 +18,18 @@ class AccountLoader extends Loader
     private $loaded = false;
 
     /**
-     * @var bool
+     * @var array
      */
-    private $accountEnabled = false;
-
-    /**
-     * @var bool
-     */
-    private $addressEnabled = false;
+    private $config;
 
     /**
      * Constructor.
      *
-     * @param bool $accountEnabled
-     * @param bool $addressEnabled
+     * @param array $config
      */
-    public function __construct($accountEnabled, $addressEnabled)
+    public function __construct(array $config)
     {
-        $this->accountEnabled = $accountEnabled;
-        $this->addressEnabled = $addressEnabled;
+        $this->config = $config;
     }
 
     /**
@@ -48,25 +41,27 @@ class AccountLoader extends Loader
             throw new \RuntimeException('Do not add the "product" routes loader twice.');
         }
 
-        $prefix = '/account';
-
         $collection = new RouteCollection();
 
         // Base account
-        if ($this->accountEnabled) {
+        if ($this->config['enable']) {
+
+            $prefix = '/'.trim($this->config['prefix'], '/');
+
             $resource = '@EkynaUserBundle/Resources/config/routing/account.yml';
             $type     = 'yaml';
             $routes = $this->import($resource, $type);
             $routes->addPrefix($prefix);
             $collection->addCollection($routes);
 
-            // Address
-            if ($this->addressEnabled) {
-                $resource = '@EkynaUserBundle/Resources/config/routing/account/address.yml';
-                $type     = 'yaml';
-                $routes = $this->import($resource, $type);
-                $routes->addPrefix($prefix.'/address');
-                $collection->addCollection($routes);
+            foreach (array('register', 'resetting', 'profile', 'address') as $name) {
+                if ($this->config[$name]) {
+                    $resource = '@EkynaUserBundle/Resources/config/routing/account/'.$name.'.yml';
+                    $type     = 'yaml';
+                    $routes = $this->import($resource, $type);
+                    $routes->addPrefix($prefix.'/'. $name);
+                    $collection->addCollection($routes);
+                }
             }
         }
 

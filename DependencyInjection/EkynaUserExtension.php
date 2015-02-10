@@ -20,29 +20,26 @@ class EkynaUserExtension extends AbstractExtension implements PrependExtensionIn
     {
         $config = $this->configure($configs, 'ekyna_user', new Configuration(), $container);
 
-        $container->setParameter('ekyna_user.username_enabled', $config['features']['username']);
+        $accountConfig = $config['account'];
+        $accountConfig['templates'] = $config['templates'];
 
-        $accountEnabled = $config['features']['account'];
-        $addressEnabled = $config['features']['address'];
-        $container->setParameter('ekyna_user.account_enabled', $accountEnabled);
-        $container->setParameter('ekyna_user.address_enabled', $addressEnabled);
-
-        $container->setParameter('ekyna_user.base_template', $config['templates']['base']);
-        $container->setParameter('ekyna_user.address_template', $config['templates']['address']);
+        $container->setParameter('ekyna_user.account_config', $accountConfig);
 
         $menu = $container->getDefinition('ekyna_user.menu_builder');
-        if ($accountEnabled) {
-            $menu->addMethodCall('addAccountEntry', array('profile', array(
-                'label' => 'ekyna_user.account.menu.profile',
-                'route' => 'fos_user_profile_show',
-                'position' => -3,
-            )));
+        if ($accountConfig['enable']) {
+            if ($accountConfig['profile']) {
+                $menu->addMethodCall('addAccountEntry', array('profile', array(
+                    'label' => 'ekyna_user.account.menu.profile',
+                    'route' => 'fos_user_profile_show',
+                    'position' => -3,
+                )));
+            }
             $menu->addMethodCall('addAccountEntry', array('password', array(
                 'label' => 'ekyna_user.account.menu.password',
                 'route' => 'fos_user_change_password',
                 'position' => -2,
             )));
-            if ($addressEnabled) {
+            if ($accountConfig['address']) {
                 $menu->addMethodCall('addAccountEntry', array('address', array(
                     'label'    => 'ekyna_user.account.menu.address',
                     'route'    => 'ekyna_user_address_list',

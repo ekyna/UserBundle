@@ -8,6 +8,8 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\AuthenticationEvents;
 use Symfony\Component\Security\Core\Event\AuthenticationEvent;
 use Symfony\Component\Security\Core\Event\AuthenticationFailureEvent;
+use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
+
 
 /**
  * Class AuthenticationListener
@@ -17,6 +19,11 @@ use Symfony\Component\Security\Core\Event\AuthenticationFailureEvent;
 class AuthenticationListener implements EventSubscriberInterface
 {
     /**
+     * @var AccessDecisionManagerInterface
+     */
+    private $accessDecisionManager;
+
+    /**
      * @var Mailer
      */
     private $mailer;
@@ -24,10 +31,12 @@ class AuthenticationListener implements EventSubscriberInterface
     /**
      * Constructor.
      *
+     * @param AccessDecisionManagerInterface $accessDecisionManager
      * @param Mailer $mailer
      */
-    public function __construct(Mailer $mailer)
+    public function __construct(AccessDecisionManagerInterface $accessDecisionManager, Mailer $mailer)
     {
+        $this->accessDecisionManager = $accessDecisionManager;
         $this->mailer = $mailer;
     }
 
@@ -61,13 +70,15 @@ class AuthenticationListener implements EventSubscriberInterface
     {
         $token = $event->getAuthenticationToken();
 
-        /** @var \Ekyna\Bundle\UserBundle\Entity\User $user */
-        $user = $token->getUser();
+        $userIsAdmin = $this->accessDecisionManager->decide($token, array('ROLE_ADMIN'));
 
         // Only for Admins and fully authenticated
-        if (!($user->getGroup()->hasRole('ROLE_ADMIN') && $token instanceof UsernamePasswordToken)) {
+        if (!($userIsAdmin && $token instanceof UsernamePasswordToken)) {
             return;
         }
+
+        /** @var \Ekyna\Bundle\UserBundle\Entity\User $user */
+        $user = $token->getUser();
 
         $this->mailer->sendSuccessfulLoginEmailMessage($user);
     }

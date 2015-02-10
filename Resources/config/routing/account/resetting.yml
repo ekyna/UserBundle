@@ -1,5 +1,5 @@
 fos_user_resetting_request:
-    pattern: /
+    pattern: ""
     defaults:
         _controller: FOSUserBundle:Resetting:request
         _cms:

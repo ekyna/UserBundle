@@ -1,5 +1,5 @@
 ekyna_user_address_list:
-    pattern: /
+    pattern: ""
     defaults:
         _controller: EkynaUserBundle:Address:list
         _cms:

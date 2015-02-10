@@ -26,13 +26,18 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('templates')
                     ->children()
                         ->scalarNode('base')->defaultValue('EkynaUserBundle::base.html.twig')->end()
+                        ->scalarNode('email')->defaultValue('EkynaUserBundle::email.html.twig')->end()
                         ->scalarNode('address')->defaultValue('EkynaUserBundle:Address:_render.html.twig')->end()
                     ->end()
                 ->end()
-                ->arrayNode('features')
+                ->arrayNode('account')
                     ->children()
+                        ->booleanNode('enable')->defaultValue(false)->end()
+                        ->scalarNode('prefix')->defaultValue('/account')->end()
                         ->booleanNode('username')->defaultValue(false)->end()
-                        ->booleanNode('account')->defaultValue(false)->end()
+                        ->booleanNode('register')->defaultValue(false)->end()
+                        ->booleanNode('resetting')->defaultValue(false)->end()
+                        ->booleanNode('profile')->defaultValue(false)->end()
                         ->booleanNode('address')->defaultValue(false)->end()
                     ->end()
                 ->end()
@@ -61,8 +66,8 @@ class Configuration implements ConfigurationInterface
                             ->addDefaultsIfNotSet()
                             ->children()
                                 ->variableNode('templates')->defaultValue(array(
-                                    '_form.html' => 'EkynaUserBundle:User/Admin:_form.html',
-                                    'show.html'  => 'EkynaUserBundle:User/Admin:show.html',
+                                    '_form.html' => 'EkynaUserBundle:Admin/User:_form.html',
+                                    'show.html'  => 'EkynaUserBundle:Admin/User:show.html',
                                 ))->end()
                                 ->scalarNode('entity')->defaultValue('Ekyna\Bundle\UserBundle\Entity\User')->end()
                                 ->scalarNode('controller')->defaultValue('Ekyna\Bundle\UserBundle\Controller\Admin\UserController')->end()
@@ -78,8 +83,8 @@ class Configuration implements ConfigurationInterface
                             ->addDefaultsIfNotSet()
                             ->children()
                                 ->variableNode('templates')->defaultValue(array(
-                                    '_form.html' => 'EkynaUserBundle:Group/Admin:_form.html',
-                                    'show.html'  => 'EkynaUserBundle:Group/Admin:show.html',
+                                    '_form.html' => 'EkynaUserBundle:Admin/Group:_form.html',
+                                    'show.html'  => 'EkynaUserBundle:Admin/Group:show.html',
                                 ))->end()
                                 ->scalarNode('entity')->defaultValue('Ekyna\Bundle\UserBundle\Entity\Group')->end()
                                 ->scalarNode('controller')->defaultValue('Ekyna\Bundle\UserBundle\Controller\Admin\GroupController')->end()
@@ -94,7 +99,7 @@ class Configuration implements ConfigurationInterface
                             ->isRequired()
                             ->addDefaultsIfNotSet()
                             ->children()
-                                ->variableNode('templates')->defaultValue('EkynaUserBundle:Address/Admin')->end()
+                                ->variableNode('templates')->defaultValue('EkynaUserBundle:Admin/Address')->end()
                                 ->scalarNode('entity')->defaultValue('Ekyna\Bundle\UserBundle\Entity\Address')->end()
                                 ->scalarNode('controller')->end()
                                 ->scalarNode('repository')->defaultValue('Ekyna\Bundle\UserBundle\Entity\AddressRepository')->end()

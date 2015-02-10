@@ -81,10 +81,12 @@ class AccountControllerTest extends WebTestCase
         $form = $crawler->selectButton('Connexion')->form();
         $form['_username']   = 'wronglogin';
         $form['_password']   = 'wrongpassword';
+
         $crawler = $client->submit($form);
 
         // Response is a redirection to login page ?
         $this->assertRegExp('/\/account\/login$/', $client->getResponse()->headers->get('location'));
+
         $crawler = $client->followRedirect();
 
         // Login failed ?
@@ -96,6 +98,7 @@ class AccountControllerTest extends WebTestCase
         $form['_password']   = 'password';
 
         $crawler = $client->submit($form);
+
         $crawler = $client->followRedirect();
 
         // Home Page

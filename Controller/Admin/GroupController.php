@@ -100,7 +100,7 @@ class GroupController extends ResourceController
         );
 
         return $this->render(
-            'EkynaUserBundle:Group/Admin:edit_permissions.html.twig',
+            'EkynaUserBundle:Admin/Group:edit_permissions.html.twig',
             $context->getTemplateVars($datas)
         );
     }

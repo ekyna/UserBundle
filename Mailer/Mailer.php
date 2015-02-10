@@ -94,7 +94,7 @@ class Mailer extends BaseMailer
         }
 
         $rendered = $this->templating->render(
-            'EkynaUserBundle:User:creation_email.html.twig',
+            'EkynaUserBundle:Admin/User:creation_email.html.twig',
             array(
                 'username' => $userName,
                 'sitename' => $siteName,

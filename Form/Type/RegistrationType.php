@@ -15,16 +15,19 @@ use Symfony\Component\Form\FormEvents;
  */
 class RegistrationType extends RegistrationFormType
 {
+    /**
+     * @var bool
+     */
     private $usernameEnabled;
 
     /**
-     * @param string $class The User class name
-     * @param bool $usernameEnabled Whether to add the username field or not
+     * @param string $class
+     * @param array $config
      */
-    public function __construct($class, $usernameEnabled = true)
+    public function __construct($class, array $config)
     {
         parent::__construct($class);
-        $this->usernameEnabled = $usernameEnabled;
+        $this->usernameEnabled = $config['username'];
     }
 
     /**

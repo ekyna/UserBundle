@@ -19,14 +19,13 @@ class AccountExtension extends \Twig_Extension
     /**
      * Constructor.
      *
-     * @param array $options
+     * @param array $config
      */
-    public function __construct(array $options = array())
+    public function __construct(array $config)
     {
         $this->options = array_merge(array(
-            'base_template' => self::DEFAULT_BASE_TEMPLATE,
-            'address_enabled' => false,
-        ), $options);
+            'templates' => array('base' => self::DEFAULT_BASE_TEMPLATE),
+        ), $config);
     }
 
     /**
@@ -35,7 +34,7 @@ class AccountExtension extends \Twig_Extension
     public function initRuntime(\Twig_Environment $twig)
     {
         //try {
-            $twig->loadTemplate($this->options['base_template']);
+            $twig->loadTemplate($this->options['templates']['base']);
         //} catch(\Exception $e) {
         //    $this->options['base_template'] = self::DEFAULT_BASE_TEMPLATE;
         //}

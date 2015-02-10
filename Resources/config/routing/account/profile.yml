@@ -1,5 +1,5 @@
 fos_user_profile_show:
-    pattern: /
+    pattern: ""
     defaults:
         _controller: FOSUserBundle:Profile:show
         _cms:

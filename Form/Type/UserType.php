@@ -15,9 +15,25 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
 class UserType extends ResourceFormType
 {
     /**
+     * @var bool
+     */
+    private $usernameEnabled;
+
+    /**
      * @var SecurityContextInterface
      */
     protected $securityContext;
+
+
+    /**
+     * @param string $class
+     * @param array $config
+     */
+    public function __construct($class, array $config)
+    {
+        parent::__construct($class);
+        $this->usernameEnabled = $config['username'];
+    }
 
     /**
      * Sets the securityContext.
@@ -49,13 +65,8 @@ class UserType extends ResourceFormType
                     return $qb->andWhere($qb->expr()->gte('g.position', $group->getPosition()));
                 },
             ))
-            /*->add('username', 'text', array(
-                'label' => 'ekyna_core.field.username',
-                'required' => false,
-            ))*/
             ->add('email', 'email', array(
                 'label' => 'ekyna_core.field.email',
-                //'disabled' => true,
             ))
             ->add('company', 'text', array(
                 'label' => 'ekyna_core.field.company',
@@ -77,6 +88,12 @@ class UserType extends ResourceFormType
                 'required' => false
             ))
         ;
+
+        if ($this->usernameEnabled) {
+            $builder->add('username', 'text', array(
+                'label' => 'ekyna_core.field.username',
+            ));
+        }
     }
 
     /**

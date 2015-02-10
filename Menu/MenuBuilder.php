@@ -44,13 +44,13 @@ class MenuBuilder
      *
      * @param \Knp\Menu\FactoryInterface $factory
      * @param SecurityContextInterface $securityContext
-     * @param bool $accountEnabled
+     * @param array $config
      */
-    public function __construct(FactoryInterface $factory, SecurityContextInterface $securityContext, $accountEnabled = false)
+    public function __construct(FactoryInterface $factory, SecurityContextInterface $securityContext, array $config)
     {
         $this->factory = $factory;
         $this->securityContext = $securityContext;
-        $this->accountEnabled = $accountEnabled;
+        $this->accountEnabled = $config['enable'];
 
         $this->accountEntries = [];
 

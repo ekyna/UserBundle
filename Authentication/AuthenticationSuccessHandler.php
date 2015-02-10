@@ -26,6 +26,8 @@ class AuthenticationSuccessHandler extends DefaultAuthenticationSuccessHandler
             return $this->httpUtils->createRedirectResponse($request, $targetUrl);
         }
 
+
+
         return parent::onAuthenticationSuccess($request, $token);
     }
 }

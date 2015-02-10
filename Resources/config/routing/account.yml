@@ -15,17 +15,17 @@ ekyna_user_account_home:
 fos_user_security:
     resource: "account/security.yml"
 
-fos_user_register:
-    resource: "account/registration.yml"
-    prefix: /register
-
-fos_user_resetting:
-    resource: "account/resetting.yml"
-    prefix: /resetting
-
-fos_user_profile:
-    resource: "account/profile.yml"
-    prefix: /profile
+#fos_user_register:
+#    resource: "account/registration.yml"
+#    prefix: /register
+#
+#fos_user_resetting:
+#    resource: "account/resetting.yml"
+#    prefix: /resetting
+#
+#fos_user_profile:
+#    resource: "account/profile.yml"
+#    prefix: /profile
 
 
 fos_user_change_password:

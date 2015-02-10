@@ -13,7 +13,7 @@
 {% block main %}
 <form action="{{ path('ekyna_user_group_admin_edit_permissions', identifiers|merge({'groupId': group.id})) }}" {{ form_enctype(form) }} method="post" class="form-horizontal">
     <div class="form-body">
-        {% form_theme form "EkynaUserBundle:Group/Admin:_form_theme.html.twig" %}
+        {% form_theme form "EkynaUserBundle:Admin/Group:_form_theme.html.twig" %}
 	    {{ bootstrap_set_style('horizontal') }}
         <div class="acl-table ekyna-table">
             {{ form_widget(form.acls) }}

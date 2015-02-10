@@ -267,6 +267,14 @@ class User extends BaseUser implements UserInterface
     /**
      * {@inheritdoc}
      */
+    public function hasRole($role)
+    {
+        throw new \BadMethodCallException('Please use the SecurityContext, or an implementation of AccessDecisionManager');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     /*public function getDefaultAddress()
     {
         return $this->defaultAddress;

@@ -18,6 +18,7 @@
 
         <!-- Events listeners -->
         <service id="ekyna_user.authentication_listener" class="Ekyna\Bundle\UserBundle\EventListener\AuthenticationListener">
+            <argument type="service" id="security.access.decision_manager" />
             <argument type="service" id="ekyna_user.mailer.default" />
             <tag name="kernel.event_subscriber" />
         </service>
@@ -34,6 +35,7 @@
         </service>
         <service id="ekyna_user.user.form_type" class="%ekyna_user.user.form_type.class%">
             <argument>%fos_user.model.user.class%</argument>
+            <argument>%ekyna_user.account_config%</argument>
             <call method="setSecurityContext">
                 <argument type="service" id="security.context" />
             </call>
@@ -41,12 +43,12 @@
         </service>
         <service id="ekyna_user.profile.form_type" class="%ekyna_user.profile.form_type.class%">
             <argument>%fos_user.model.user.class%</argument>
-            <argument>%ekyna_user.username_enabled%</argument>
+            <argument>%ekyna_user.account_config%</argument>
             <tag name="form.type" alias="ekyna_user_profile" />
         </service>
         <service id="ekyna_user.registration.form_type" class="%ekyna_user.registration.form_type.class%">
             <argument>%fos_user.model.user.class%</argument>
-            <argument>%ekyna_user.username_enabled%</argument>
+            <argument>%ekyna_user.account_config%</argument>
             <tag name="form.type" alias="ekyna_user_registration" />
         </service>
 
@@ -64,8 +66,7 @@
 
         <!-- Routing loader -->
         <service id="ekyna_user.routing_loader" class="Ekyna\Bundle\UserBundle\Routing\AccountLoader">
-            <argument>%ekyna_user.account_enabled%</argument>
-            <argument>%ekyna_user.address_enabled%</argument>
+            <argument>%ekyna_user.account_config%</argument>
             <tag name="routing.loader" />
         </service>
 
@@ -73,7 +74,7 @@
         <service id="ekyna_user.menu_builder" class="Ekyna\Bundle\UserBundle\Menu\MenuBuilder">
             <argument type="service" id="knp_menu.factory" />
             <argument type="service" id="security.context" />
-            <argument>%ekyna_user.account_enabled%</argument>
+            <argument>%ekyna_user.account_config%</argument>
         </service>
         <service id="ekyna_user.menu.account"
                 class="Knp\Menu\MenuItem"
@@ -95,16 +96,11 @@
         <!-- Twig extensions -->
 	    <service id="ekyna_user.twig.address_extension" class="Ekyna\Bundle\UserBundle\Twig\AddressExtension">
 	        <argument type="service" id="ekyna_user.address.repository" />
-            <argument type="collection">
-	            <argument key="address_template">%ekyna_user.address_template%</argument>
-            </argument>
+            <argument>%ekyna_user.account_config%</argument>
 	        <tag name="twig.extension" />
 	    </service>
 	    <service id="ekyna_user.twig.account_extension" class="Ekyna\Bundle\UserBundle\Twig\AccountExtension">
-            <argument type="collection">
-                <argument key="base_template">%ekyna_user.base_template%</argument>
-                <argument key="address_enabled">%ekyna_user.address_enabled%</argument>
-            </argument>
+            <argument>%ekyna_user.account_config%</argument>
 	        <tag name="twig.extension" />
 	    </service>
 

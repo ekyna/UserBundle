@@ -10,7 +10,7 @@
 
 {% block main %}
 <form action="{{ path('ekyna_user_address_admin_new', identifiers) }}" {{ form_enctype(form) }} method="post" class="form-horizontal form-with-tabs">
-    {% include "EkynaUserBundle:Address/Admin:_form.html.twig" %}
+    {% include "EkynaUserBundle:Admin/Address:_form.html.twig" %}
     {{ ui_form_footer(form) }}
 </form>
 {% endblock %}
