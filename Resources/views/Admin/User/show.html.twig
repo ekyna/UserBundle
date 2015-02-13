@@ -35,18 +35,18 @@
 	                </div>
 	            </div>
 				{% else %}
-				{{ show_row(user.group, 'entity', 'ekyna_core.field.group', {'label_nb_col': 4, 'route': 'ekyna_user_group_admin_show', 'route_params_map': {'groupId': 'id'}, 'field': 'name'}) }}
+				{{ show_row(user.group, 'entity', 'ekyna_core.field.group', {'route': 'ekyna_user_group_admin_show', 'route_params_map': {'groupId': 'id'}, 'field': 'name'}) }}
 				{% endif %}
 				<hr>
 				{{ show_row(user.company, 'text', 'ekyna_core.field.company') }}
-		        <div class="row">
-	                <div class="col-md-6">
-	                    {{ show_row(user.lastName, 'text', 'ekyna_core.field.last_name', {'label_nb_col': 4}) }}
-	                </div>
-	                <div class="col-md-6">
-                        {{ show_row(user.firstName, 'text', 'ekyna_core.field.first_name', {'label_nb_col': 4}) }}
-	                </div>
-	            </div>
+				<div class="row show-row">
+					<div class="col-md-2 show-label">{{ 'ekyna_core.field.identity'|trans }}</div>
+					<div class="col-md-10">
+						<div class="show-widget show-widget-simple">
+							{{ ('ekyna_core.gender.' ~ user.gender ~ '.long')|trans }} {{ user.lastName }} {{ user.firstName }}
+						</div>
+					</div>
+				</div>
 		        <div class="row">
 	                <div class="col-md-6">
 	                    {{ show_row(user.phone, 'text', 'ekyna_core.field.phone', {'label_nb_col': 4}) }}

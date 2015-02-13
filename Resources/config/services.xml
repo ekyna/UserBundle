@@ -7,6 +7,7 @@
 
     <parameters>
         <parameter key="ekyna_user.gender.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\GenderType</parameter>
+        <parameter key="ekyna_user.identity.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\IdentityType</parameter>
         <parameter key="ekyna_user.user.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\UserType</parameter>
         <parameter key="ekyna_user.profile.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\ProfileType</parameter>
         <parameter key="ekyna_user.registration.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\RegistrationType</parameter>
@@ -32,6 +33,9 @@
         <!-- Form types -->
         <service id="ekyna_user.gender.form_type" class="%ekyna_user.gender.form_type.class%">
             <tag name="form.type" alias="ekyna_user_gender" />
+        </service>
+        <service id="ekyna_user.identity.form_type" class="%ekyna_user.identity.form_type.class%">
+            <tag name="form.type" alias="ekyna_user_identity" />
         </service>
         <service id="ekyna_user.user.form_type" class="%ekyna_user.user.form_type.class%">
             <argument>%fos_user.model.user.class%</argument>

@@ -10,7 +10,7 @@ use FOS\UserBundle\Model\UserInterface as BaseUserInterface;
  * @package Ekyna\Bundle\UserBundle\Model
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
-interface UserInterface extends BaseUserInterface
+interface UserInterface extends BaseUserInterface, IdentityInterface
 {
     /**
      * Returns the identifier.
@@ -33,51 +33,6 @@ interface UserInterface extends BaseUserInterface
      * @return string
      */
     public function getCompany();
-
-    /**
-     * Set gender
-     *
-     * @param string $gender
-     * @return UserInterface|$this
-     */
-    public function setGender($gender);
-
-    /**
-     * Get gender
-     *
-     * @return string
-     */
-    public function getGender();
-
-    /**
-     * Set firstName
-     *
-     * @param string $firstName
-     * @return UserInterface|$this
-     */
-    public function setFirstName($firstName);
-
-    /**
-     * Get firstName
-     *
-     * @return string
-     */
-    public function getFirstName();
-
-    /**
-     * Set lastName
-     *
-     * @param string $lastName
-     * @return UserInterface|$this
-     */
-    public function setLastName($lastName);
-
-    /**
-     * Get lastName
-     *
-     * @return string
-     */
-    public function getLastName();
 
     /**
      * Set phone

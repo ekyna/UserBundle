@@ -72,13 +72,7 @@ class UserType extends ResourceFormType
                 'label' => 'ekyna_core.field.company',
                 'required' => false
             ))
-            ->add('gender', 'ekyna_user_gender', array('expanded' => false))
-            ->add('firstName', 'text', array(
-                'label' => 'ekyna_core.field.first_name',
-            ))
-            ->add('lastName', 'text', array(
-                'label' => 'ekyna_core.field.last_name',
-            ))
+            ->add('identity', 'ekyna_user_identity')
             ->add('phone', 'text', array(
                 'label' => 'ekyna_core.field.phone',
                 'required' => false

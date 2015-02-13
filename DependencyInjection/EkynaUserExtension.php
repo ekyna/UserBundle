@@ -56,6 +56,9 @@ class EkynaUserExtension extends AbstractExtension implements PrependExtensionIn
     {
         $bundles = $container->getParameter('kernel.bundles');
 
+        if (array_key_exists('TwigBundle', $bundles)) {
+            $this->configureTwigBundle($container);
+        }
         if (array_key_exists('FOSUserBundle', $bundles)) {
             $this->configureFOSUserBundle($container);
         }
@@ -65,6 +68,18 @@ class EkynaUserExtension extends AbstractExtension implements PrependExtensionIn
         if (array_key_exists('JMSSerializerBundle', $bundles)) {
             $this->configureJMSSerializerBundle($container);
         }
+    }
+
+    /**
+     * Configures the TwigBundle.
+     *
+     * @param ContainerBuilder $container
+     */
+    protected function configureTwigBundle(ContainerBuilder $container)
+    {
+        $container->prependExtensionConfig('twig', array(
+            'form' => array('resources' => array('EkynaUserBundle:Form:form_div_layout.html.twig')),
+        ));
     }
 
     /**

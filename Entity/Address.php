@@ -4,6 +4,7 @@ namespace Ekyna\Bundle\UserBundle\Entity;
 
 use Ekyna\Bundle\CoreBundle\Model\AbstractAddress;
 use Ekyna\Bundle\UserBundle\Model\AddressInterface;
+use Ekyna\Bundle\UserBundle\Model\IdentityTrait;
 use Ekyna\Bundle\UserBundle\Model\UserInterface;
 
 /**
@@ -13,6 +14,8 @@ use Ekyna\Bundle\UserBundle\Model\UserInterface;
  */
 class Address extends AbstractAddress implements AddressInterface
 {
+    use IdentityTrait;
+
     /**
      * @var integer
      */
@@ -27,21 +30,6 @@ class Address extends AbstractAddress implements AddressInterface
      * @var string
      */
     protected $company;
-
-    /**
-     * @var integer
-     */
-    protected $gender;
-
-    /**
-     * @var string
-     */
-    protected $firstName;
-
-    /**
-     * @var string
-     */
-    protected $lastName;
 
     /**
      * @var string
@@ -128,60 +116,6 @@ class Address extends AbstractAddress implements AddressInterface
     public function getCompany()
     {
         return $this->company;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setGender($gender)
-    {
-        $this->gender = $gender;
-    
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getGender()
-    {
-        return $this->gender;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setFirstName($firstName)
-    {
-        $this->firstName = $firstName;
-    
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getFirstName()
-    {
-        return $this->firstName;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setLastName($lastName)
-    {
-        $this->lastName = $lastName;
-    
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getLastName()
-    {
-        return $this->lastName;
     }
 
     /**

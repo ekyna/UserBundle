@@ -5,6 +5,7 @@ namespace Ekyna\Bundle\UserBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Ekyna\Bundle\UserBundle\Model\AddressInterface;
 use Ekyna\Bundle\UserBundle\Model\GroupInterface;
+use Ekyna\Bundle\UserBundle\Model\IdentityTrait;
 use Ekyna\Bundle\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\User as BaseUser;
 
@@ -15,6 +16,8 @@ use FOS\UserBundle\Model\User as BaseUser;
  */
 class User extends BaseUser implements UserInterface
 {
+    use IdentityTrait;
+
     /**
      * Returns valid gender choices
      * 
@@ -29,21 +32,6 @@ class User extends BaseUser implements UserInterface
      * @var string
      */
     protected $company;
-
-    /**
-     * @var string
-     */
-    protected $gender;
-
-    /**
-     * @var string
-     */
-    protected $firstName;
-
-    /**
-     * @var string
-     */
-    protected $lastName;
 
     /**
      * @var string
@@ -141,60 +129,6 @@ class User extends BaseUser implements UserInterface
     public function getCompany()
     {
         return $this->company;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setGender($gender)
-    {
-        $this->gender = $gender;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getGender()
-    {
-        return $this->gender;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setFirstName($firstName)
-    {
-        $this->firstName = $firstName;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getFirstName()
-    {
-        return $this->firstName;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setLastName($lastName)
-    {
-        $this->lastName = $lastName;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getLastName()
-    {
-        return $this->lastName;
     }
 
     /**

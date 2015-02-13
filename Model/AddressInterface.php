@@ -7,7 +7,7 @@ namespace Ekyna\Bundle\UserBundle\Model;
  * @package Ekyna\Bundle\UserBundle\Model
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
-interface AddressInterface
+interface AddressInterface extends IdentityInterface
 {
     /**
      * Get id
@@ -45,51 +45,6 @@ interface AddressInterface
      * @return string
      */
     public function getCompany();
-
-    /**
-     * Set gender
-     *
-     * @param integer $gender
-     * @return AddressInterface|$this
-     */
-    public function setGender($gender);
-
-    /**
-     * Get gender
-     *
-     * @return integer
-     */
-    public function getGender();
-
-    /**
-     * Set firstName
-     *
-     * @param string $firstName
-     * @return AddressInterface|$this
-     */
-    public function setFirstName($firstName);
-
-    /**
-     * Get firstName
-     *
-     * @return string
-     */
-    public function getFirstName();
-
-    /**
-     * Set lastName
-     *
-     * @param string $lastName
-     * @return AddressInterface|$this
-     */
-    public function setLastName($lastName);
-
-    /**
-     * Get lastName
-     *
-     * @return string
-     */
-    public function getLastName();
 
     /**
      * Set phone

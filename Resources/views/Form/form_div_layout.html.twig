@@ -1,0 +1,19 @@
+{% extends 'EkynaAdminBundle:Form:form_div_layout.html.twig' %}
+
+{% block ekyna_user_identity_widget %}
+{% spaceless %}
+    <div class="row">
+        <div class="col-md-2">
+            {{ form_widget(form.gender) }}
+        </div>
+        <div class="col-md-5">
+            {{ form_widget(form.lastName) }}
+        </div>
+        <div class="col-md-5">
+            {{ form_widget(form.firstName) }}
+        </div>
+    </div>
+    {{ form_errors(form) }}
+    {{ form_rest(form) }}
+{% endspaceless %}
+{% endblock ekyna_user_identity_widget %}
