@@ -23,6 +23,7 @@ class GroupRepository extends ResourceRepository
         if (null === $group = $this->findOneBy(array('default' => true))) {
             throw new \RuntimeException('Default user group not found.');
         }
+        return $group;
     }
 
     /**
