@@ -15,9 +15,9 @@
         </id>
 
         <field name="company" type="string" column="company" length="64" nullable="true" />
-        <field name="gender" type="string" column="gender" length="8" nullable="true" />
-        <field name="firstName" type="string" column="first_name" length="32" nullable="true" />
-        <field name="lastName" type="string" column="last_name" length="32" nullable="true" />
+        <field name="gender" type="string" column="gender" length="8" nullable="true" /> <!-- TODO nullable false -->
+        <field name="firstName" type="string" column="first_name" length="32" nullable="true" /> <!-- TODO nullable false -->
+        <field name="lastName" type="string" column="last_name" length="32" nullable="true" /> <!-- TODO nullable false -->
         <field name="phone" type="text" column="phone" length="16" nullable="true" />
         <field name="mobile" type="text" column="mobile" length="16" nullable="true" />
         <field name="createdAt" type="datetime" column="created_at">
@@ -36,7 +36,7 @@
             </cascade>
         </one-to-many>
         <many-to-one field="group" target-entity="Ekyna\Bundle\UserBundle\Entity\Group" fetch="EAGER">
-            <join-column name="group_id" referenced-column-name="id" on-delete="RESTRICT" />
+            <join-column name="group_id" referenced-column-name="id" nullable="false" on-delete="RESTRICT" />
         </many-to-one>
 
     </entity>
