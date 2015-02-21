@@ -173,8 +173,8 @@ class Mailer extends BaseMailer
      */
     protected function sendEmail($renderedTemplate, $toEmail, $toName, $subject)
     {
-        $fromEmail = $this->settingsManager->getParameter('general.admin_email');
-        $fromName = $this->settingsManager->getParameter('general.admin_name');
+        $fromEmail = $this->settingsManager->getParameter('notification.from_email');
+        $fromName = $this->settingsManager->getParameter('notification.from_name');
 
         $message = \Swift_Message::newInstance()
             ->setSubject($subject)
