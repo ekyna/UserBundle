@@ -5,6 +5,9 @@ fos_user_profile_show:
         _cms:
             name: "Mon profil"
             parent: ekyna_user_account_home
+            seo:
+                follow: false
+                index: false
     requirements:
         _method: GET
 
@@ -15,5 +18,8 @@ fos_user_profile_edit:
         _cms:
             name: "Modifiez vos informations"
             parent: fos_user_profile_show
+            seo:
+                follow: false
+                index: false
     requirements:
         _method: GET|POST

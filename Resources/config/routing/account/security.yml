@@ -5,6 +5,9 @@ fos_user_security_login:
         _cms:
             name: "Connexion"
             parent: ekyna_user_account_home
+            seo:
+                follow: false
+                index: false
     requirements:
         _method: GET
 
