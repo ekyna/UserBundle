@@ -13,7 +13,7 @@ interface IdentityInterface
      * Set gender
      *
      * @param string $gender
-     * @return UserInterface|$this
+     * @return IdentityInterface|$this
      */
     public function setGender($gender);
 
@@ -28,7 +28,7 @@ interface IdentityInterface
      * Set firstName
      *
      * @param string $firstName
-     * @return UserInterface|$this
+     * @return IdentityInterface|$this
      */
     public function setFirstName($firstName);
 
@@ -43,7 +43,7 @@ interface IdentityInterface
      * Set lastName
      *
      * @param string $lastName
-     * @return UserInterface|$this
+     * @return IdentityInterface|$this
      */
     public function setLastName($lastName);
 
