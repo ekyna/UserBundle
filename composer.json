@@ -17,7 +17,7 @@
         "MIT"
     ],
     "require" : {
-        "php" : ">=5.3.3",
+        "php" : ">=5.4.0",
         "friendsofsymfony/user-bundle" : "2.0.*@dev",
         "ekyna/admin-bundle" : "0.1.*@dev"
     },
