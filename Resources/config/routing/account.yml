@@ -1,5 +1,5 @@
 ekyna_user_account_home:
-    pattern: /
+    pattern: ""
     defaults:
         _controller: EkynaUserBundle:Account:home
         _cms:

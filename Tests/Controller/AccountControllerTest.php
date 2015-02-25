@@ -2,7 +2,7 @@
 
 namespace Ekyna\Bundle\UserBundle\Tests\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Ekyna\Bundle\UserBundle\Tests\WebTestCase;
 
 /**
  * Class AccountControllerTest
@@ -13,16 +13,14 @@ class AccountControllerTest extends WebTestCase
 {
     public function testSecuredAccount()
     {
-        $client = static::createClient();
-
         // Go to account home page
-        $crawler = $client->request('GET', '/account/');
+        $this->client->request('GET', '/account/');
 
         // Response is a redirection to login page ?
-        $this->assertRegExp('/\/login$/', $client->getResponse()->headers->get('location'));
+        $this->assertRegExp('#/account/login$#', $this->client->getResponse()->headers->get('location'));
 
         // Follow redirection
-        $crawler = $client->followRedirect();
+        $crawler = $this->client->followRedirect();
 
         // Check that this is login page
         $this->assertCount(1, $crawler->filter('html:contains("Connectez-vous à votre compte client")'));
@@ -31,10 +29,8 @@ class AccountControllerTest extends WebTestCase
 
     public function testRegistration()
     {
-        $client = static::createClient();
-
         // Go to registration page
-        $crawler = $client->request('GET', '/account/register/');
+        $crawler = $this->client->request('GET', '/account/register/');
 
         // Check that this is registration page
         $this->assertCount(1, $crawler->filter('html:contains("Créez votre compte client")'));
@@ -43,7 +39,7 @@ class AccountControllerTest extends WebTestCase
 
         // Fill the form
         $form['fos_user_registration_form[email]']                 = 'john.doe@example.com';
-//        $form['fos_user_registration_form[username]']              = 'johndoe35';
+//        $form['fos_user_registration_form[username]']              = 'johndoe';
         $form['fos_user_registration_form[plainPassword][first]']  = 'password';
         $form['fos_user_registration_form[plainPassword][second]'] = 'password';
 
@@ -54,13 +50,13 @@ class AccountControllerTest extends WebTestCase
         $form['fos_user_registration_form[phone]']     = '0212345678';
         $form['fos_user_registration_form[mobile]']    = '0687654321';
 
-        $crawler = $client->submit($form);
+        $this->client->submit($form);
 
         // Response is a redirection to confirmed page ?
-        $this->assertRegExp('/\/register\/confirmed$/', $client->getResponse()->headers->get('location'));
+        $this->assertRegExp('#/register/confirmed/?#', $this->client->getResponse()->headers->get('location'));
 
         // Follow redirection
-        $crawler = $client->followRedirect();
+        $crawler = $this->client->followRedirect();
 
         // Check that registration succeed
         $this->assertCount(1, $crawler->filter('html:contains("Compte activé")'));
@@ -69,39 +65,9 @@ class AccountControllerTest extends WebTestCase
 
     public function testLogin()
     {
-        $client = static::createClient();
+        $this->logIn();
 
-        // Go to login page
-        $crawler = $client->request('GET', '/account/login');
-
-        // Check that this is login page
-        $this->assertCount(1, $crawler->filter('html:contains("Connectez-vous à votre compte client")'));
-
-        // Fill the form with wrong credentials
-        $form = $crawler->selectButton('Connexion')->form();
-        $form['_username']   = 'wronglogin';
-        $form['_password']   = 'wrongpassword';
-
-        $crawler = $client->submit($form);
-
-        // Response is a redirection to login page ?
-        $this->assertRegExp('/\/account\/login$/', $client->getResponse()->headers->get('location'));
-
-        $crawler = $client->followRedirect();
-
-        // Login failed ?
-        $this->assertCount(1, $crawler->filter('html:contains("Nom d\'utilisateur ou mot de passe incorrect")'));
-
-        // Fill the form with previously created user's credentials
-        $form = $crawler->selectButton('Connexion')->form();
-        $form['_username']   = 'johndoe35';
-        $form['_password']   = 'password';
-
-        $crawler = $client->submit($form);
-
-        $crawler = $client->followRedirect();
-
-        // Home Page
-        $this->assertCount(1, $crawler->filter('html:contains("Accueil")'));
+        $this->client->request('GET', '/account/register/');
+        $this->assertTrue($this->client->getResponse()->isSuccessful(), 'Failed to reach account profile page.');
     }
 }

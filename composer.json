@@ -19,6 +19,7 @@
     "require" : {
         "php" : ">=5.4.0",
         "friendsofsymfony/user-bundle" : "2.0.*@dev",
+        "ekyna/core-bundle" : "0.1.*@dev",
         "ekyna/admin-bundle" : "0.1.*@dev"
     },
     "autoload" : {
