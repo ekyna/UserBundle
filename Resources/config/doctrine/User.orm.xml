@@ -18,8 +18,8 @@
         <field name="gender" type="string" column="gender" length="8" nullable="true" /> <!-- TODO nullable false -->
         <field name="firstName" type="string" column="first_name" length="32" nullable="true" /> <!-- TODO nullable false -->
         <field name="lastName" type="string" column="last_name" length="32" nullable="true" /> <!-- TODO nullable false -->
-        <field name="phone" type="text" column="phone" length="16" nullable="true" />
-        <field name="mobile" type="text" column="mobile" length="16" nullable="true" />
+        <field name="phone" type="phone_number" column="phone" nullable="true" />
+        <field name="mobile" type="phone_number" column="mobile" nullable="true" />
         <field name="createdAt" type="datetime" column="created_at">
             <gedmo:timestampable on="create"/>
         </field>

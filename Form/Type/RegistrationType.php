@@ -4,6 +4,7 @@ namespace Ekyna\Bundle\UserBundle\Form\Type;
 
 use Ekyna\Bundle\UserBundle\Doctrine\UserManager;
 use FOS\UserBundle\Form\Type\RegistrationFormType;
+use libphonenumber\PhoneNumberFormat;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -44,7 +45,7 @@ class RegistrationType extends RegistrationFormType
         $builder
             ->add('company', 'text', array(
                 'label' => 'ekyna_core.field.company',
-                'required' => false
+                'required' => false,
             ))
             ->add('gender', 'ekyna_user_gender')
             ->add('firstName', 'text', array(
@@ -55,11 +56,15 @@ class RegistrationType extends RegistrationFormType
             ))
             ->add('phone', 'text', array(
                 'label' => 'ekyna_core.field.phone',
-                'required' => false
+                'required' => false,
+                'default_region' => 'FR', // TODO get user locale
+                'format' => PhoneNumberFormat::NATIONAL,
             ))
             ->add('mobile', 'text', array(
                 'label' => 'ekyna_core.field.mobile',
-                'required' => false
+                'required' => false,
+                'default_region' => 'FR', // TODO get user locale
+                'format' => PhoneNumberFormat::NATIONAL,
             ))
         ;
     }

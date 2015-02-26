@@ -3,6 +3,7 @@
 namespace Ekyna\Bundle\UserBundle\Form\Type;
 
 use FOS\UserBundle\Form\Type\ProfileFormType;
+use libphonenumber\PhoneNumberFormat;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
@@ -41,16 +42,20 @@ class ProfileType extends ProfileFormType
         $builder
             ->add('company', 'text', array(
                 'label' => 'ekyna_core.field.company',
-                'required' => false
+                'required' => false,
             ))
             ->add('identity', 'ekyna_user_identity')
             ->add('phone', 'text', array(
                 'label' => 'ekyna_core.field.phone',
-                'required' => false
+                'required' => false,
+                'default_region' => 'FR', // TODO get user locale
+                'format' => PhoneNumberFormat::NATIONAL,
             ))
             ->add('mobile', 'text', array(
                 'label' => 'ekyna_core.field.mobile',
-                'required' => false
+                'required' => false,
+                'default_region' => 'FR', // TODO get user locale
+                'format' => PhoneNumberFormat::NATIONAL,
             ))
         ;
     }

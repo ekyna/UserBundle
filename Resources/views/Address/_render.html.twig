@@ -10,8 +10,8 @@
 {%- endif %}
 {{ address.postalCode }} {{ address.city }}<br>
 {% if address.phone != '' -%}
-<abbr title="{{ 'ekyna_core.field.phone'|trans }}">T:</abbr> {{ address.phone }}<br>
+<abbr title="{{ 'ekyna_core.field.phone'|trans }}">T:</abbr> {{ phone_number_format(address.phone, 'NATIONAL') }}<br>
 {%- endif %}
 {% if address.mobile != '' -%}
-<abbr title="{{ 'ekyna_core.field.mobile'|trans }}">M:</abbr> {{ address.mobile }}<br>
+<abbr title="{{ 'ekyna_core.field.mobile'|trans }}">M:</abbr> {{ phone_number_format(address.mobile, 'NATIONAL') }}<br>
 {%- endif %}

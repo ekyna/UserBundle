@@ -56,16 +56,10 @@
         </property>
 
         <property name="phone">
-            <constraint name="Length">
-                <option name="min">2</option>
-                <option name="max">16</option>
-            </constraint>
+            <constraint name="Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber" />
         </property>
         <property name="mobile">
-            <constraint name="Length">
-                <option name="min">2</option>
-                <option name="max">16</option>
-            </constraint>
+            <constraint name="Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber" />
         </property>
     </class>
 
@@ -113,24 +107,10 @@
         </property>
 
         <property name="phone">
-            <constraint name="Length">
-                <option name="min">2</option>
-                <option name="max">16</option>
-                <option name="groups">
-                    <value>Registration</value>
-                    <value>Profile</value>
-                </option>
-            </constraint>
+            <constraint name="Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber" />
         </property>
         <property name="mobile">
-            <constraint name="Length">
-                <option name="min">2</option>
-                <option name="max">16</option>
-                <option name="groups">
-                    <value>Registration</value>
-                    <value>Profile</value>
-                </option>
-            </constraint>
+            <constraint name="Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber" />
         </property>
 
         <property name="addresses">

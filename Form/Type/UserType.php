@@ -4,6 +4,7 @@ namespace Ekyna\Bundle\UserBundle\Form\Type;
 
 use Doctrine\ORM\EntityRepository;
 use Ekyna\Bundle\AdminBundle\Form\Type\ResourceFormType;
+use libphonenumber\PhoneNumberFormat;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
@@ -73,13 +74,17 @@ class UserType extends ResourceFormType
                 'required' => false
             ))
             ->add('identity', 'ekyna_user_identity')
-            ->add('phone', 'text', array(
+            ->add('phone', 'tel', array(
                 'label' => 'ekyna_core.field.phone',
-                'required' => false
+                'required' => false,
+                'default_region' => 'FR', // TODO get user locale
+                'format' => PhoneNumberFormat::NATIONAL,
             ))
-            ->add('mobile', 'text', array(
+            ->add('mobile', 'tel', array(
                 'label' => 'ekyna_core.field.mobile',
-                'required' => false
+                'required' => false,
+                'default_region' => 'FR', // TODO get user locale
+                'format' => PhoneNumberFormat::NATIONAL,
             ))
         ;
 

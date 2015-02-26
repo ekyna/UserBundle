@@ -3,6 +3,7 @@
 namespace Ekyna\Bundle\UserBundle\Form\Type;
 
 use Ekyna\Bundle\CoreBundle\Form\Type\AbstractAddressType;
+use libphonenumber\PhoneNumberFormat;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -41,13 +42,17 @@ class AddressType extends AbstractAddressType
                 'required' => false,
             ))
             ->add('identity', 'ekyna_user_identity')
-            ->add('phone', 'text', array(
+            ->add('phone', 'tel', array(
                 'label' => 'ekyna_core.field.phone',
                 'required' => false,
+                'default_region' => 'FR', // TODO get user locale
+                'format' => PhoneNumberFormat::NATIONAL,
             ))
-            ->add('mobile', 'text', array(
+            ->add('mobile', 'tel', array(
                 'label' => 'ekyna_core.field.mobile',
                 'required' => false,
+                'default_region' => 'FR', // TODO get user locale
+                'format' => PhoneNumberFormat::NATIONAL,
             ))
         ;
     }
