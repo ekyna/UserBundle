@@ -45,13 +45,13 @@ class ProfileType extends ProfileFormType
                 'required' => false,
             ))
             ->add('identity', 'ekyna_user_identity')
-            ->add('phone', 'text', array(
+            ->add('phone', 'tel', array(
                 'label' => 'ekyna_core.field.phone',
                 'required' => false,
                 'default_region' => 'FR', // TODO get user locale
                 'format' => PhoneNumberFormat::NATIONAL,
             ))
-            ->add('mobile', 'text', array(
+            ->add('mobile', 'tel', array(
                 'label' => 'ekyna_core.field.mobile',
                 'required' => false,
                 'default_region' => 'FR', // TODO get user locale
