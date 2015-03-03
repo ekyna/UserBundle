@@ -6,6 +6,10 @@ FOS\UserBundle\Model\User:
             groups: [Search, Default]
         username:
             expose: true
+        firstName:
+            expose: true
+        lastName:
+            expose: true
         email:
             expose: true
     virtual_properties:

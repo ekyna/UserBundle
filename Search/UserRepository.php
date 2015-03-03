@@ -3,7 +3,7 @@
 namespace Ekyna\Bundle\UserBundle\Search;
 
 use Ekyna\Bundle\AdminBundle\Search\SearchRepositoryInterface;
-use Elastica\Query\QueryString;
+use Elastica\Query;
 use FOS\ElasticaBundle\Repository;
 
 /**
@@ -15,12 +15,15 @@ class UserRepository extends Repository implements SearchRepositoryInterface
 {
     public function defaultSearch($text)
     {
-        $query = new QueryString();
-        $query
-            ->setDefaultOperator('OR')
-            ->setParam('query', $text)
-            ->setParam('fields', array('email', 'firstName', 'lastName'))
-        ;
+        if (0 == strlen($text)) {
+            $query = new Query\MatchAll();
+        } else {
+            $query = new Query\MultiMatch();
+            $query
+                ->setQuery($text)
+                ->setFields(array('email', 'first_name', 'last_name'))
+            ;
+        }
 
         return $this->find($query);
     }
