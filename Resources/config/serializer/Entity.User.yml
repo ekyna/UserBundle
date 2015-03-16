@@ -1,6 +1,9 @@
 Ekyna\Bundle\UserBundle\Entity\User:
     exclusion_policy: ALL
     properties:
+        id:
+            expose: true
+            groups: [Search, Default]
         username:
             expose: true
         firstName:

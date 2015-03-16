@@ -1,0 +1,19 @@
+fos_elastica:
+    indexes:
+        search:
+            types:
+                ekyna_user_user:
+                    mappings:
+                        username:   {search_analyzer: fr_search, index_analyzer: fr_index}
+                        firstName:  {search_analyzer: fr_search, index_analyzer: fr_index}
+                        lastName:   {search_analyzer: fr_search, index_analyzer: fr_index}
+                        email:      {search_analyzer: fr_search, index_analyzer: fr_index}
+                    persistence:
+                        driver: orm
+                        model: %ekyna_user.user.class%
+                        provider:
+                            batch_size: 20
+                        listener:
+                            immediate: ~
+                        finder: ~
+                        repository: Ekyna\Bundle\UserBundle\Search\UserRepository

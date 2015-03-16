@@ -1,0 +1,20 @@
+fos_user:
+    db_driver: orm
+    firewall_name: admin
+    user_class: %ekyna_user.user.class%
+    group:
+        group_class: %ekyna_user.group.class%
+    service:
+        mailer: ekyna_user.mailer.default
+        user_manager: ekyna_user.user_manager.default
+    profile:
+        form:
+            type: ekyna_user_profile
+    registration:
+        confirmation:
+            template: EkynaUserBundle:Registration:email.html.twig
+        form:
+            type: ekyna_user_registration
+    resetting:
+        email:
+            template: EkynaUserBundle:Resetting:email.html.twig
