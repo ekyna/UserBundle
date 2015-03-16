@@ -1,0 +1,16 @@
+Ekyna\Bundle\UserBundle\Entity\Address:
+    exclusion_policy: ALL
+    properties:
+        id:
+            expose: true
+            groups: [Search, Default]
+        postalCode:
+            expose: true
+        city:
+            expose: true
+    virtual_properties:
+        __toString:
+            expose: true
+            serialized_name: text
+            type: string
+            groups: [Search]
