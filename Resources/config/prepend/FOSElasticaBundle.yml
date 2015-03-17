@@ -12,8 +12,7 @@ fos_elastica:
                         driver: orm
                         model: %ekyna_user.user.class%
                         provider:
-                            batch_size: 20
-                        listener:
-                            immediate: ~
+                            batch_size: 25
+                        listener: ~
                         finder: ~
                         repository: Ekyna\Bundle\UserBundle\Search\UserRepository
