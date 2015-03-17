@@ -13,7 +13,14 @@ use FOS\ElasticaBundle\Repository;
  */
 class UserRepository extends Repository implements SearchRepositoryInterface
 {
-    public function defaultSearch($text)
+    /**
+     * Search users.
+     *
+     * @param string $text
+     * @param integer $limit
+     * @return \Ekyna\Bundle\UserBundle\Model\UserInterface[]
+     */
+    public function defaultSearch($text, $limit = 10)
     {
         if (0 == strlen($text)) {
             $query = new Query\MatchAll();
@@ -25,6 +32,6 @@ class UserRepository extends Repository implements SearchRepositoryInterface
             ;
         }
 
-        return $this->find($query);
+        return $this->find($query, $limit);
     }
 }
