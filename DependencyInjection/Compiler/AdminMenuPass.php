@@ -24,7 +24,7 @@ class AdminMenuPass implements CompilerPassInterface
             'name'     => 'users',
             'label'    => 'ekyna_user.user.label.plural',
             'icon'     => 'users',
-            'position' => 98,
+            'position' => 99,
         )));
         $pool->addMethodCall('createEntry', array('users', array( 
             'name'     => 'users',
