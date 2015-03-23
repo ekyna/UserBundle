@@ -77,7 +77,7 @@ class AuthenticationListener implements EventSubscriberInterface
             return;
         }
 
-        /** @var \Ekyna\Bundle\UserBundle\Entity\User $user */
+        /** @var \Ekyna\Bundle\UserBundle\Model\UserInterface $user */
         $user = $token->getUser();
 
         $this->mailer->sendSuccessfulLoginEmailMessage($user);

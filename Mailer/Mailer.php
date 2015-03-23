@@ -54,7 +54,7 @@ class Mailer extends BaseMailer
      */
     public function sendSuccessfulLoginEmailMessage(UserInterface $user)
     {
-        /** @var \Ekyna\Bundle\UserBundle\Entity\User $user */
+        /** @var \Ekyna\Bundle\UserBundle\Model\UserInterface $user */
         $siteName  = $this->settingsManager->getParameter('general.site_name');
         $userName = sprintf('%s %s', $user->getFirstName(), $user->getLastName());
 
@@ -84,7 +84,7 @@ class Mailer extends BaseMailer
      */
     public function sendCreationEmailMessage(UserInterface $user, $password)
     {
-        /** @var \Ekyna\Bundle\UserBundle\Entity\User $user */
+        /** @var \Ekyna\Bundle\UserBundle\Model\UserInterface $user */
         $siteName  = $this->settingsManager->getParameter('general.site_name');
         $userName = sprintf('%s %s', $user->getFirstName(), $user->getLastName());
         $login = $user->getUsername();
@@ -116,7 +116,7 @@ class Mailer extends BaseMailer
      */
     public function sendConfirmationEmailMessage(UserInterface $user)
     {
-        /** @var \Ekyna\Bundle\UserBundle\Entity\User $user */
+        /** @var \Ekyna\Bundle\UserBundle\Model\UserInterface $user */
         $template = $this->parameters['confirmation.template'];
         $url = $this->router->generate('fos_user_registration_confirm', array('token' => $user->getConfirmationToken()), true);
         $sitename = $this->settingsManager->getParameter('general.site_name');
@@ -141,7 +141,7 @@ class Mailer extends BaseMailer
      */
     public function sendResettingEmailMessage(UserInterface $user)
     {
-        /** @var \Ekyna\Bundle\UserBundle\Entity\User $user */
+        /** @var \Ekyna\Bundle\UserBundle\Model\UserInterface $user */
         $template = $this->parameters['resetting.template'];
         $url = $this->router->generate('fos_user_resetting_reset', array('token' => $user->getConfirmationToken()), true);
         $sitename = $this->settingsManager->getParameter('general.site_name');

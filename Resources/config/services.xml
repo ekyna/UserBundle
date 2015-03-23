@@ -38,32 +38,31 @@
             <tag name="form.type" alias="ekyna_user_identity" />
         </service>
         <service id="ekyna_user.user.form_type" class="%ekyna_user.user.form_type.class%">
-            <argument>%fos_user.model.user.class%</argument>
+            <argument type="service" id="security.context" />
+            <argument>%ekyna_user.user.class%</argument>
+            <argument>%ekyna_user.group.class%</argument>
             <argument>%ekyna_user.account_config%</argument>
-            <call method="setSecurityContext">
-                <argument type="service" id="security.context" />
-            </call>
             <tag name="form.type" alias="ekyna_user_user" />
         </service>
         <service id="ekyna_user.profile.form_type" class="%ekyna_user.profile.form_type.class%">
-            <argument>%fos_user.model.user.class%</argument>
+            <argument>%ekyna_user.user.class%</argument>
             <argument>%ekyna_user.account_config%</argument>
             <tag name="form.type" alias="ekyna_user_profile" />
         </service>
         <service id="ekyna_user.registration.form_type" class="%ekyna_user.registration.form_type.class%">
-            <argument>%fos_user.model.user.class%</argument>
+            <argument>%ekyna_user.user.class%</argument>
             <argument>%ekyna_user.account_config%</argument>
             <tag name="form.type" alias="ekyna_user_registration" />
         </service>
 
         <!-- Table types -->
         <service id="ekyna_user.user.table_type" class="%ekyna_user.user.table_type.class%">
-            <argument>%fos_user.model.user.class%</argument>
+            <argument>%ekyna_user.user.class%</argument>
             <call method="setSecurityContext">
                 <argument type="service" id="security.context" />
             </call>
             <call method="setGroupClass">
-                <argument>%fos_user.model.group.class%</argument>
+                <argument>%ekyna_user.group.class%</argument>
             </call>
             <tag name="table.type" alias="ekyna_user_user" />
         </service>

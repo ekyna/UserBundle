@@ -16,36 +16,36 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
 class UserType extends ResourceFormType
 {
     /**
-     * @var bool
+     * @var string
      */
-    private $usernameEnabled;
+    protected $groupClass;
 
     /**
      * @var SecurityContextInterface
      */
     protected $securityContext;
 
-
     /**
-     * @param string $class
-     * @param array $config
+     * @var bool
      */
-    public function __construct($class, array $config)
-    {
-        parent::__construct($class);
-        $this->usernameEnabled = $config['username'];
-    }
+    private $usernameEnabled;
+
 
     /**
-     * Sets the securityContext.
+     * Constructor.
      *
      * @param SecurityContextInterface $securityContext
-     * @return UserType
+     * @param string $userClass
+     * @param string $groupClass
+     * @param array $config
      */
-    public function setSecurityContext($securityContext)
+    public function __construct(SecurityContextInterface $securityContext, $userClass, $groupClass, array $config)
     {
+        parent::__construct($userClass);
+
         $this->securityContext = $securityContext;
-        return $this;
+        $this->groupClass = $groupClass;
+        $this->usernameEnabled = $config['username'];
     }
 
     /**
@@ -59,7 +59,7 @@ class UserType extends ResourceFormType
         $builder
             ->add('group', 'entity', array(
                 'label' => 'ekyna_core.field.group',
-                'class' => 'Ekyna\Bundle\UserBundle\Entity\Group',
+                'class' => $this->groupClass,
                 'property' => 'name',
                 'query_builder' => function(EntityRepository $er) use ($group) {
                     $qb = $er->createQueryBuilder('g');

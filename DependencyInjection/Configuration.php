@@ -24,6 +24,7 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->arrayNode('templates')
+                    ->addDefaultsIfNotSet()
                     ->children()
                         ->scalarNode('base')->defaultValue('EkynaUserBundle::base.html.twig')->end()
                         ->scalarNode('email')->defaultValue('EkynaUserBundle::email.html.twig')->end()
@@ -31,6 +32,7 @@ class Configuration implements ConfigurationInterface
                     ->end()
                 ->end()
                 ->arrayNode('account')
+                    ->addDefaultsIfNotSet()
                     ->children()
                         ->booleanNode('enable')->defaultValue(false)->end()
                         ->scalarNode('prefix')->defaultValue('/account')->end()
@@ -62,7 +64,6 @@ class Configuration implements ConfigurationInterface
                     ->addDefaultsIfNotSet()
                     ->children()
                         ->arrayNode('user')
-                            ->isRequired()
                             ->addDefaultsIfNotSet()
                             ->children()
                                 ->variableNode('templates')->defaultValue(array(
@@ -79,7 +80,6 @@ class Configuration implements ConfigurationInterface
                             ->end()
                         ->end()
                         ->arrayNode('group')
-                            ->isRequired()
                             ->addDefaultsIfNotSet()
                             ->children()
                                 ->variableNode('templates')->defaultValue(array(
@@ -96,7 +96,6 @@ class Configuration implements ConfigurationInterface
                             ->end()
                         ->end()
                         ->arrayNode('address')
-                            ->isRequired()
                             ->addDefaultsIfNotSet()
                             ->children()
                                 ->variableNode('templates')->defaultValue('EkynaUserBundle:Admin/Address')->end()

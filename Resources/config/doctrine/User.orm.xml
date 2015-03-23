@@ -6,9 +6,10 @@
         xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                             http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="Ekyna\Bundle\UserBundle\Entity\User"
-            table="user_user"
-            repository-class="Ekyna\Bundle\UserBundle\Entity\UserRepository">
+    <mapped-superclass
+            name="Ekyna\Bundle\UserBundle\Entity\User"
+            repository-class="Ekyna\Bundle\UserBundle\Entity\UserRepository"
+            table="user_user">
 
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO" />
@@ -30,7 +31,7 @@
         <!--<one-to-one field="defaultAddress" target-entity="Ekyna\Bundle\UserBundle\Entity\Address">
             <join-column name="address_id" referenced-column-name="id" nullable="true" />
         </one-to-one>-->
-        <one-to-many field="addresses" target-entity="Ekyna\Bundle\UserBundle\Entity\Address" mapped-by="user">
+        <one-to-many field="addresses" target-entity="Ekyna\Bundle\UserBundle\Model\AddressInterface" mapped-by="user">
             <cascade>
                 <cascade-all />
             </cascade>
@@ -39,6 +40,6 @@
             <join-column name="group_id" referenced-column-name="id" nullable="false" on-delete="RESTRICT" />
         </many-to-one>
 
-    </entity>
+    </mapped-superclass>
 
 </doctrine-mapping>
