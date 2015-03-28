@@ -36,9 +36,11 @@ class AddressType extends AbstractAddressType
     {
         parent::buildForm($builder, $options);
 
-        $builder->add('identity', 'ekyna_user_identity', array(
-            'required' => false,
-        ));
+        if ($options['identity']) {
+            $builder->add('identity', 'ekyna_user_identity', array(
+                'required' => false,
+            ));
+        }
         if ($options['company']) {
             $builder->add('company', 'text', array(
                 'label' => 'ekyna_core.field.company',
@@ -58,7 +60,8 @@ class AddressType extends AbstractAddressType
                     'required' => false,
                     'default_region' => 'FR', // TODO get user locale
                     'format' => PhoneNumberFormat::NATIONAL,
-                ));
+                ))
+            ;
         }
     }
 
@@ -71,7 +74,13 @@ class AddressType extends AbstractAddressType
             ->setDefaults(array(
                 'data_class' => $this->dataClass,
                 'company'    => true,
+                'identity'   => true,
                 'phones'     => true,
+            ))
+            ->addAllowedTypes(array(
+                'company'    => 'bool',
+                'identity'   => 'bool',
+                'phones'     => 'bool',
             ))
         ;
     }

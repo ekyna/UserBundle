@@ -22,7 +22,7 @@
 {% spaceless %}
     {{ form_errors(form) }}
     {% if form.company is defined %}{{ form_row(form.company) }}{% endif %}
-    {{ form_row(form.identity) }}
+    {% if form.identity is defined %}{{ form_row(form.identity) }}{% endif %}
     {{ form_row(form.street) }}
     {{ form_row(form.supplement) }}
     <div class="row">
