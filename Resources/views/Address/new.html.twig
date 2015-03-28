@@ -5,7 +5,8 @@
 <hr>
 <form action="{{ path('ekyna_user_address_new') }}" {{ form_enctype(form) }} method="post" class="form-horizontal">
     <div class="form-body">
-        {% include "EkynaUserBundle:Address:_form.html.twig" %}
+        {{ bootstrap_set_style('horizontal') }}
+        {{ form_widget(form) }}
     </div>
     {{ ui_form_footer(form) }}
 </form>

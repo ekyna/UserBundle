@@ -21,9 +21,37 @@
 	<div class="show-body">
 	    <div class="tab-content">
 		    <div class="tab-pane active" id="general">
-				<dl class="dl-horizontal">
-					<dt>Rue</dt><dd>{{ address.street }}</dd>
-				</dl>
+                {{ show_row(address.company, 'text', 'ekyna_core.field.company') }}
+                <div class="row show-row">
+                    <div class="col-md-2 show-label">{{ 'ekyna_core.field.identity'|trans }}</div>
+                    <div class="col-md-10">
+                        <div class="show-widget show-widget-simple">
+                            {% if address.lastName is not empty and address.firstName is not empty -%}
+                                {{ render_identity(address) }}
+                            {%- else -%}
+                                {{ render_identity(address.user) }}
+                            {%- endif %}
+                        </div>
+                    </div>
+                </div>
+                {{ show_row(address.street, 'text', 'ekyna_core.field.street') }}
+                {{ show_row(address.supplement, 'text', 'ekyna_core.field.supplement') }}
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ show_row(address.postalCode, 'text', 'ekyna_core.field.postal_code', {'label_nb_col': 4}) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ show_row(address.city, 'text', 'ekyna_core.field.city', {'label_nb_col': 4}) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ show_row(address.phone, 'tel', 'ekyna_core.field.phone', {'label_nb_col': 4}) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ show_row(address.mobile, 'tel', 'ekyna_core.field.mobile', {'label_nb_col': 4}) }}
+                    </div>
+                </div>
 		    </div>
 	    </div>
 	</div>

@@ -36,27 +36,30 @@ class AddressType extends AbstractAddressType
     {
         parent::buildForm($builder, $options);
 
-        $builder
-            ->add('company', 'text', array(
+        $builder->add('identity', 'ekyna_user_identity', array(
+            'required' => false,
+        ));
+        if ($options['company']) {
+            $builder->add('company', 'text', array(
                 'label' => 'ekyna_core.field.company',
                 'required' => false,
-            ))
-            ->add('identity', 'ekyna_user_identity', array(
-                'required' => false,
-            ))
-            ->add('phone', 'tel', array(
-                'label' => 'ekyna_core.field.phone',
-                'required' => false,
-                'default_region' => 'FR', // TODO get user locale
-                'format' => PhoneNumberFormat::NATIONAL,
-            ))
-            ->add('mobile', 'tel', array(
-                'label' => 'ekyna_core.field.mobile',
-                'required' => false,
-                'default_region' => 'FR', // TODO get user locale
-                'format' => PhoneNumberFormat::NATIONAL,
-            ))
-        ;
+            ));
+        }
+        if ($options['phones']) {
+            $builder
+                ->add('phone', 'tel', array(
+                    'label' => 'ekyna_core.field.phone',
+                    'required' => false,
+                    'default_region' => 'FR', // TODO get user locale
+                    'format' => PhoneNumberFormat::NATIONAL,
+                ))
+                ->add('mobile', 'tel', array(
+                    'label' => 'ekyna_core.field.mobile',
+                    'required' => false,
+                    'default_region' => 'FR', // TODO get user locale
+                    'format' => PhoneNumberFormat::NATIONAL,
+                ));
+        }
     }
 
     /**
@@ -64,9 +67,13 @@ class AddressType extends AbstractAddressType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class' => $this->dataClass,
-        ));
+        $resolver
+            ->setDefaults(array(
+                'data_class' => $this->dataClass,
+                'company'    => true,
+                'phones'     => true,
+            ))
+        ;
     }
 
     /**
