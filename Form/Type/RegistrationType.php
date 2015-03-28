@@ -47,13 +47,7 @@ class RegistrationType extends RegistrationFormType
                 'label' => 'ekyna_core.field.company',
                 'required' => false,
             ))
-            ->add('gender', 'ekyna_user_gender')
-            ->add('firstName', 'text', array(
-                'label' => 'ekyna_core.field.first_name',
-            ))
-            ->add('lastName', 'text', array(
-                'label' => 'ekyna_core.field.last_name',
-            ))
+            ->add('identity', 'ekyna_user_identity')
             ->add('phone', 'tel', array(
                 'label' => 'ekyna_core.field.phone',
                 'required' => false,
@@ -66,6 +60,7 @@ class RegistrationType extends RegistrationFormType
                 'default_region' => 'FR', // TODO get user locale
                 'format' => PhoneNumberFormat::NATIONAL,
             ))
+            ->add('captcha', 'ekyna_captcha')
         ;
     }
 

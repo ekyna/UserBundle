@@ -2,11 +2,11 @@
 
 {% block content %}
 <div class="row">
-    <div class="col-md-6">
-	    <h3>Créez votre compte client</h3>
-	    <p>Grâce à votre compte client ...</p>
+    <div class="col-md-4">
+	    {{ cms_title('h3') }}
+	    {{ cms_content() }}
     </div>
-    <div class="col-md-6">
+    <div class="col-md-8">
         {% include "EkynaUserBundle:Registration:register_content.html.twig" %}
     </div>
 </div>

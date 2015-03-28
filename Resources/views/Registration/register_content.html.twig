@@ -2,25 +2,43 @@
     <div class="form-body">
 	    {{ bootstrap_set_style('horizontal') }}
         {{ form_errors(form) }}
-	    {{ form_row(form.email, {'label_col': 4, 'widget_col': 8, 'label': 'ekyna_core.field.email'|trans}) }}
+        {{ form_row(form.identity) }}
+	    {{ form_row(form.email, {'label': 'ekyna_core.field.email'|trans}) }}
 		{% if form.username is defined -%}
-	    {{ form_row(form.username, {'label_col': 4, 'widget_col': 8, 'label': 'ekyna_core.field.username'|trans}) }}
+	    {{ form_row(form.username, {'label': 'ekyna_core.field.username'|trans}) }}
 		{%- endif %}
-	    {{ form_row(form.plainPassword.first, {'label_col': 4, 'widget_col': 8, 'label': 'ekyna_core.field.password'|trans}) }}
-	    {{ form_row(form.plainPassword.second, { 'label_col': 4, 'widget_col': 8, 'label': 'ekyna_core.field.verify'|trans}) }}
+        <div class="row">
+            <div class="col-md-6">
+                {{ form_row(form.plainPassword.first, {'label_col': 4, 'widget_col': 8, 'label': 'ekyna_core.field.password'|trans}) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_row(form.plainPassword.second, {'label_col': 4, 'widget_col': 8, 'label': 'ekyna_core.field.verify'|trans}) }}
+            </div>
+        </div>
 	    <hr>
-	    {{ form_row(form.company, {'label_col': 4, 'widget_col': 8}) }}
-	    {{ form_row(form.gender, {'label_col': 4, 'widget_col': 8}) }}
-	    {{ form_row(form.firstName, {'label_col': 4, 'widget_col': 8}) }}
-	    {{ form_row(form.lastName, {'label_col': 4, 'widget_col': 8}) }}
-	    {{ form_row(form.phone, {'label_col': 4, 'widget_col': 8}) }}
-	    {{ form_row(form.mobile, {'label_col': 4, 'widget_col': 8}) }}
+        {{ form_row(form.company) }}
+        <div class="row">
+            <div class="col-md-6">
+                {{ form_row(form.phone, {'label_col': 4, 'widget_col': 8}) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_row(form.mobile, {'label_col': 4, 'widget_col': 8}) }}
+            </div>
+        </div>
+        <hr>
+        <div class="form-group row">
+            <div class="col-sm-offset-2 col-sm-10">
+                {{ form_row(form.captcha) }}
+            </div>
+        </div>
 	    {{ form_rest(form) }}
     </div>
     <div class="form-footer">
         <div class="form-group row">
-            <div class="col-sm-offset-4 col-sm-8">
-                <button type="submit" name="submit" class="btn btn-primary"><span class="glyphicon glyphicon-ok"></span> {{ 'ekyna_core.button.save'|trans }}</button>
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" name="submit" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-ok"></span> {{ 'ekyna_core.button.save'|trans }}
+                </button>
             </div>
 	    </div>
 	</div>
