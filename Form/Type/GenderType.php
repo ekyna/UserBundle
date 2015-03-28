@@ -13,6 +13,22 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class GenderType extends AbstractType
 {
     /**
+     * @var string
+     */
+    private $genderClass;
+
+
+    /**
+     * Constructor.
+     *
+     * @param string $genderClass
+     */
+    public function __construct($genderClass)
+    {
+        $this->genderClass = $genderClass;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
@@ -20,14 +36,10 @@ class GenderType extends AbstractType
         $resolver->setDefaults(array(
             'label' => 'ekyna_core.field.gender',
             'expanded' => true,
-            'choices' => array(
-                'mr' => 'ekyna_core.gender.mr.long',
-                'mrs' => 'ekyna_core.gender.mrs.long',
-                'miss' => 'ekyna_core.gender.miss.long',
-            ),
+            'choices' => call_user_func($this->genderClass.'::getChoices'),
             'attr' => array(
-            	'class' => 'inline'
-            )
+            	'class' => 'inline no-select2',
+            ),
         ));
     }
 

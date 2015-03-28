@@ -28,7 +28,7 @@ class RegistrationType extends RegistrationFormType
     public function __construct($class, array $config)
     {
         parent::__construct($class);
-        $this->usernameEnabled = $config['username'];
+        $this->usernameEnabled = $config['account']['username'];
     }
 
     /**

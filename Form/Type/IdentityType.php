@@ -20,18 +20,21 @@ class IdentityType extends AbstractType
     {
         $builder
             ->add('gender', 'ekyna_user_gender', array(
-                'label' => false,
+                'label'    => false,
                 'expanded' => false,
+                'required' => $options['required'],
             ))
             ->add('lastName', 'text', array(
-                'label' => false,
-                'attr' => array(
+                'label'    => false,
+                'required' => $options['required'],
+                'attr'     => array(
                     'placeholder' => 'ekyna_core.field.last_name',
                 ),
             ))
             ->add('firstName', 'text', array(
-                'label' => false,
-                'attr' => array(
+                'label'    => false,
+                'required' => $options['required'],
+                'attr'     => array(
                     'placeholder' => 'ekyna_core.field.first_name',
                 ),
             ))
@@ -42,9 +45,10 @@ class IdentityType extends AbstractType
     {
         $resolver
             ->setDefaults(array(
-                'data_class' => 'Ekyna\Bundle\UserBundle\Model\IdentityInterface',
-                'label' => 'ekyna_core.field.identity',
+                'data_class'   => 'Ekyna\Bundle\UserBundle\Model\IdentityInterface',
+                'label'        => 'ekyna_core.field.identity',
                 'inherit_data' => true,
+                'required'     => true,
             ))
         ;
     }

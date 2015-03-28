@@ -17,7 +17,7 @@
 <div class="show show-with-tabs">
     <ul class="nav nav-tabs">
 	    <li class="active"><a href="#general" data-toggle="tab">{{ 'ekyna_core.field.general'|trans }}</a></li>
-	    {% if ekyna_user.address -%}
+	    {% if ekyna_user_config.account.address -%}
 	    <li><a href="#address" data-toggle="tab">{{ 'ekyna_user.address.label.plural'|trans }}</a></li>
 	    {%- endif %}
 	</ul>
@@ -25,7 +25,7 @@
 	    <div class="tab-content">
 		    <div class="tab-pane active" id="general">
 				{{ show_row(user.email, 'text', 'ekyna_core.field.email') }}
-		        {% if ekyna_user.username %}
+		        {% if ekyna_user_config.account.username %}
 				<div class="row">
 	                <div class="col-md-6">
 	                    {{ show_row(user.username, 'text', 'ekyna_core.field.username', {'label_nb_col': 4}) }}
@@ -42,9 +42,7 @@
 				<div class="row show-row">
 					<div class="col-md-2 show-label">{{ 'ekyna_core.field.identity'|trans }}</div>
 					<div class="col-md-10">
-						<div class="show-widget show-widget-simple">
-							{{ ('ekyna_core.gender.' ~ user.gender ~ '.long')|trans }} {{ user.lastName }} {{ user.firstName }}
-						</div>
+						<div class="show-widget show-widget-simple">{{ render_identity(user) }}</div>
 					</div>
 				</div>
 		        <div class="row">
@@ -56,7 +54,7 @@
 	                </div>
 	            </div>
 		    </div>
-		    {% if ekyna_user.address -%}
+		    {% if ekyna_user_config.account.address -%}
 		    <div class="tab-pane" id="address">
 	        {% set opened = false %}
 			{% for address in user.addresses %}

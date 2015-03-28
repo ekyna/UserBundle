@@ -13,6 +13,8 @@ use Ekyna\Bundle\AdminBundle\DependencyInjection\AbstractExtension;
  */
 class EkynaUserExtension extends AbstractExtension implements PrependExtensionInterface
 {
+    const DEFAULT_GENDER_CLASS = 'Ekyna\Bundle\UserBundle\Model\Genders';
+
     /**
      * {@inheritdoc}
      */
@@ -20,10 +22,9 @@ class EkynaUserExtension extends AbstractExtension implements PrependExtensionIn
     {
         $config = $this->configure($configs, 'ekyna_user', new Configuration(), $container);
 
-        $accountConfig = $config['account'];
-        $accountConfig['templates'] = $config['templates'];
+        $container->setParameter('ekyna_user.gender_class', $config['gender_class']);
 
-        $container->setParameter('ekyna_user.account_config', $accountConfig);
+        $accountConfig = $config['account'];
 
         $menu = $container->getDefinition('ekyna_user.menu_builder');
         if ($accountConfig['enable']) {
@@ -47,6 +48,13 @@ class EkynaUserExtension extends AbstractExtension implements PrependExtensionIn
                 )));
             }
         }
+
+        $exposedConfig = [];
+        $exposedConfig['account'] = $config['account'];
+        $exposedConfig['templates'] = $config['templates'];
+        $exposedConfig['gender_class'] = $config['gender_class'];
+
+        $container->setParameter('ekyna_user.config', $exposedConfig);
     }
 
     /**

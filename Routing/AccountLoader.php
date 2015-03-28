@@ -44,9 +44,9 @@ class AccountLoader extends Loader
         $collection = new RouteCollection();
 
         // Base account
-        if ($this->config['enable']) {
+        if ($this->config['account']['enable']) {
 
-            $prefix = '/'.trim($this->config['prefix'], '/');
+            $prefix = '/'.trim($this->config['account']['prefix'], '/');
 
             $resource = '@EkynaUserBundle/Resources/config/routing/account.yml';
             $type     = 'yaml';
@@ -55,7 +55,7 @@ class AccountLoader extends Loader
             $collection->addCollection($routes);
 
             foreach (array('register', 'resetting', 'profile', 'address') as $name) {
-                if ($this->config[$name]) {
+                if ($this->config['account'][$name]) {
                     $resource = '@EkynaUserBundle/Resources/config/routing/account/'.$name.'.yml';
                     $type     = 'yaml';
                     $routes = $this->import($resource, $type);

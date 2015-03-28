@@ -1,4 +1,13 @@
 ekyna_user:
+    gender:
+        short:
+            mr: Mr
+            mrs: Mme
+            miss: Melle
+        long:
+            mr: Monsieur
+            mrs: Madame
+            miss: Mademoiselle
     user:
         label:
             singular: Utilisateur

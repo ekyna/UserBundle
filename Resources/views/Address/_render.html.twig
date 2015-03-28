@@ -1,6 +1,10 @@
-{% if address.lastName != '' and address.firstName != '' -%}
-<strong>{{ ('ekyna_core.gender.' ~ address.gender ~ '.short')|trans }} {{ address.lastName }} {{ address.firstName }}</strong><br>
+<strong>
+{% if address.lastName is not empty and address.firstName is not empty -%}
+    {{ render_identity(address) }}
+{%- else -%}
+    {{ render_identity(address.user) }}
 {%- endif %}
+</strong><br>
 {% if address.company != '' -%}
 <strong><em>{{ address.company }}</em></strong><br>
 {%- endif %}

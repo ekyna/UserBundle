@@ -41,7 +41,9 @@ class AddressType extends AbstractAddressType
                 'label' => 'ekyna_core.field.company',
                 'required' => false,
             ))
-            ->add('identity', 'ekyna_user_identity')
+            ->add('identity', 'ekyna_user_identity', array(
+                'required' => false,
+            ))
             ->add('phone', 'tel', array(
                 'label' => 'ekyna_core.field.phone',
                 'required' => false,

@@ -45,7 +45,7 @@ class UserType extends ResourceFormType
 
         $this->securityContext = $securityContext;
         $this->groupClass = $groupClass;
-        $this->usernameEnabled = $config['username'];
+        $this->usernameEnabled = $config['account']['username'];
     }
 
     /**

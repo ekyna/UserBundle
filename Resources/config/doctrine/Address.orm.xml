@@ -15,9 +15,9 @@
         </id>
 
         <field name="company" column="company" type="string" length="64" nullable="true" />
-        <field name="gender" column="gender" type="string" length="8" />
-        <field name="firstName" column="first_name" type="string" length="32" />
-        <field name="lastName" column="last_name" type="string" length="32" />
+        <field name="gender" column="gender" type="string" length="8" nullable="true" />
+        <field name="firstName" column="first_name" type="string" length="32" nullable="true" />
+        <field name="lastName" column="last_name" type="string" length="32" nullable="true" />
         <field name="street" column="street" type="string" length="255" />
         <field name="supplement" column="supplement" type="string" length="255" nullable="true" />
         <field name="postalCode" column="postal_code" type="string" length="8" />

@@ -50,7 +50,7 @@ class MenuBuilder
     {
         $this->factory = $factory;
         $this->securityContext = $securityContext;
-        $this->accountEnabled = $config['enable'];
+        $this->accountEnabled = $config['account']['enable'];
 
         $this->accountEntries = [];
 

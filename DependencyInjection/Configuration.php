@@ -13,6 +13,8 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  */
 class Configuration implements ConfigurationInterface
 {
+    const DEFAULT_GENDER_CLASS = 'Ekyna\Bundle\UserBundle\Model\Genders';
+
     /**
      * {@inheritDoc}
      */
@@ -23,6 +25,22 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
+                ->scalarNode('gender_class')
+                    ->validate()
+                        ->ifTrue(function ($class) {
+                            if (!class_exists($class)) {
+                                return true;
+                            }
+                            if ($class !== self::DEFAULT_GENDER_CLASS &&
+                                !in_array(self::DEFAULT_GENDER_CLASS, class_parents($class))) {
+                                return true;
+                            }
+                            return false;
+                        })
+                        ->thenInvalid('%s must extend '.self::DEFAULT_GENDER_CLASS)
+                    ->end()
+                    ->defaultValue(self::DEFAULT_GENDER_CLASS)
+                ->end()
                 ->arrayNode('templates')
                     ->addDefaultsIfNotSet()
                     ->children()

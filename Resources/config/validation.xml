@@ -6,6 +6,7 @@
                         http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
 
     <class name="Ekyna\Bundle\UserBundle\Entity\Address">
+        <constraint name="Ekyna\Bundle\UserBundle\Validator\Constraints\Address" />
         <property name="user">
             <constraint name="Valid" />
         </property>
@@ -19,14 +20,12 @@
 	        </constraint>
 	    </property>
         <property name="firstName">
-            <constraint name="NotBlank" />
             <constraint name="Length">
                 <option name="min">2</option>
                 <option name="max">32</option>
             </constraint>
         </property>
         <property name="lastName">
-            <constraint name="NotBlank" />
             <constraint name="Length">
                 <option name="min">2</option>
                 <option name="max">32</option>

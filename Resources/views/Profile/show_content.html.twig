@@ -1,5 +1,5 @@
 <dl class="dl-horizontal">
-    {% if ekyna_user.username %}
+    {% if ekyna_user_config.account.username %}
         <dt>{{ 'ekyna_core.field.username'|trans }}</dt>
         <dd>{{ user.username|default('&nbsp;')|raw }}</dd>
     {% endif %}
@@ -11,7 +11,7 @@
     <dt>{{ 'ekyna_core.field.company'|trans }}</dt>
     <dd>{{ user.company|default('&nbsp;')|raw }}</dd>
     <dt>{{ 'ekyna_core.field.identity'|trans }}</dt>
-    <dd>{{ ('ekyna_core.gender.' ~ user.gender ~ '.short')|trans }} {{ user.lastName }} {{ user.firstName }}</dd>
+    <dd>{{ render_identity(user) }}</dd>
     <dt>{{ 'ekyna_core.field.phone'|trans }}</dt>
     <dd>
         {%- if user.phone|length > 0 -%}
