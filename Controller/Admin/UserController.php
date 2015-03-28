@@ -2,6 +2,7 @@
 
 namespace Ekyna\Bundle\UserBundle\Controller\Admin;
 
+use Ekyna\Bundle\AdminBundle\Controller\Context;
 use Ekyna\Bundle\AdminBundle\Controller\Resource\ToggleableTrait;
 use Ekyna\Bundle\AdminBundle\Controller\ResourceController;
 
@@ -13,4 +14,12 @@ use Ekyna\Bundle\AdminBundle\Controller\ResourceController;
 class UserController extends ResourceController
 {
     use ToggleableTrait;
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function createNew(Context $context)
+    {
+        return $this->get('fos_user.user_manager')->createUser();
+    }
 }
