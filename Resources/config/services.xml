@@ -102,6 +102,12 @@
             <tag name="knp_menu.menu" alias="user" />
         </service>
 
+        <!-- Constraint validators -->
+        <service id="ekyna_user.gender.validator" class="Ekyna\Bundle\UserBundle\Validator\Constraints\GenderValidator">
+            <argument>%ekyna_user.gender_class%</argument>
+            <tag name="validator.constraint_validator" alias="ekyna_user_gender" />
+        </service>
+
         <!-- Twig extensions -->
 	    <service id="ekyna_user.twig.user_extension" class="Ekyna\Bundle\UserBundle\Twig\UserExtension">
 	        <argument type="service" id="translator" />

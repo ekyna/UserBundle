@@ -23,6 +23,7 @@ class IdentityType extends AbstractType
                 'label'    => false,
                 'expanded' => false,
                 'required' => $options['required'],
+                'error_bubbling' => true,
             ))
             ->add('lastName', 'text', array(
                 'label'    => false,
@@ -30,6 +31,7 @@ class IdentityType extends AbstractType
                 'attr'     => array(
                     'placeholder' => 'ekyna_core.field.last_name',
                 ),
+                'error_bubbling' => true,
             ))
             ->add('firstName', 'text', array(
                 'label'    => false,
@@ -37,6 +39,7 @@ class IdentityType extends AbstractType
                 'attr'     => array(
                     'placeholder' => 'ekyna_core.field.first_name',
                 ),
+                'error_bubbling' => true,
             ))
         ;
     }
