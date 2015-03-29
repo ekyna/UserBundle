@@ -52,6 +52,7 @@ class IdentityType extends AbstractType
                 'label'        => 'ekyna_core.field.identity',
                 'inherit_data' => true,
                 'required'     => true,
+                'error_bubbling' => false,
             ))
         ;
     }
