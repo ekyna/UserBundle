@@ -8,6 +8,7 @@
     <parameters>
         <parameter key="ekyna_user.gender.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\GenderType</parameter>
         <parameter key="ekyna_user.identity.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\IdentityType</parameter>
+        <parameter key="ekyna_user.address.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\AddressType</parameter>
         <parameter key="ekyna_user.user.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\UserType</parameter>
         <parameter key="ekyna_user.user_search.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\UserSearchType</parameter>
         <parameter key="ekyna_user.profile.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\ProfileType</parameter>
@@ -45,6 +46,10 @@
             <argument>%ekyna_user.group.class%</argument>
             <argument>%ekyna_user.config%</argument>
             <tag name="form.type" alias="ekyna_user_user" />
+        </service>
+        <service id="ekyna_user.address.form_type" class="%ekyna_user.address.form_type.class%">
+            <argument>%ekyna_user.address.class%</argument>
+            <tag name="form.type" alias="ekyna_user_address" />
         </service>
         <service id="ekyna_user.profile.form_type" class="%ekyna_user.profile.form_type.class%">
             <argument>%ekyna_user.user.class%</argument>

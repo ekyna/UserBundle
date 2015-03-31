@@ -36,28 +36,28 @@ class AddressType extends AbstractAddressType
     {
         parent::buildForm($builder, $options);
 
-        if ($options['identity']) {
-            $builder->add('identity', 'ekyna_user_identity', array(
-                'required' => false,
-            ));
-        }
         if ($options['company']) {
             $builder->add('company', 'text', array(
                 'label' => 'ekyna_core.field.company',
-                'required' => false,
+                'required' => $options['company_required'],
+            ));
+        }
+        if ($options['identity']) {
+            $builder->add('identity', 'ekyna_user_identity', array(
+                'required' => $options['identity_required'],
             ));
         }
         if ($options['phones']) {
             $builder
                 ->add('phone', 'tel', array(
                     'label' => 'ekyna_core.field.phone',
-                    'required' => false,
+                    'required' => $options['phone_required'],
                     'default_region' => 'FR', // TODO get user locale
                     'format' => PhoneNumberFormat::NATIONAL,
                 ))
                 ->add('mobile', 'tel', array(
                     'label' => 'ekyna_core.field.mobile',
-                    'required' => false,
+                    'required' => $options['mobile_required'],
                     'default_region' => 'FR', // TODO get user locale
                     'format' => PhoneNumberFormat::NATIONAL,
                 ))
@@ -72,15 +72,23 @@ class AddressType extends AbstractAddressType
     {
         $resolver
             ->setDefaults(array(
-                'data_class' => $this->dataClass,
-                'company'    => true,
-                'identity'   => true,
-                'phones'     => true,
+                'data_class'        => $this->dataClass,
+                'company'           => true,
+                'identity'          => true,
+                'phones'            => true,
+                'company_required'  => false,
+                'identity_required' => true,
+                'phone_required'    => true,
+                'mobile_required'   => false,
             ))
             ->addAllowedTypes(array(
-                'company'    => 'bool',
-                'identity'   => 'bool',
-                'phones'     => 'bool',
+                'company'           => 'bool',
+                'identity'          => 'bool',
+                'phones'            => 'bool',
+                'company_required'  => 'bool',
+                'identity_required' => 'bool',
+                'phone_required'    => 'bool',
+                'mobile_required'   => 'bool',
             ))
         ;
     }

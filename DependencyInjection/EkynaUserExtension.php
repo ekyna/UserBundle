@@ -11,7 +11,7 @@ use Ekyna\Bundle\AdminBundle\DependencyInjection\AbstractExtension;
  * @package Ekyna\Bundle\UserBundle\DependencyInjection
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
-class EkynaUserExtension extends AbstractExtension implements PrependExtensionInterface
+class EkynaUserExtension extends AbstractExtension
 {
     const DEFAULT_GENDER_CLASS = 'Ekyna\Bundle\UserBundle\Model\Genders';
 

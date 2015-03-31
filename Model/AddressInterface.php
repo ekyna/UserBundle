@@ -2,12 +2,14 @@
 
 namespace Ekyna\Bundle\UserBundle\Model;
 
+use Ekyna\Bundle\CoreBundle\Model\AddressInterface as BaseInterface;
+
 /**
  * Interface AddressInterface
  * @package Ekyna\Bundle\UserBundle\Model
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
-interface AddressInterface extends IdentityInterface
+interface AddressInterface extends BaseInterface, IdentityInterface
 {
     /**
      * Get id
