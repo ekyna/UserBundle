@@ -5,6 +5,7 @@ namespace Ekyna\Bundle\UserBundle\Mailer;
 use Ekyna\Bundle\SettingBundle\Manager\SettingsManager;
 use FOS\UserBundle\Mailer\Mailer as BaseMailer;
 use FOS\UserBundle\Model\UserInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 /**
@@ -14,7 +15,9 @@ use Symfony\Component\Translation\TranslatorInterface;
  */
 class Mailer extends BaseMailer
 {
-    /** @var \Swift_Mailer $mailer */
+    /**
+     * @var \Swift_Mailer $mailer
+     */
     protected $mailer;
 
     /**
@@ -93,18 +96,60 @@ class Mailer extends BaseMailer
             return 0;
         }
 
+        $loginUrl = $this->router->generate('fos_user_security_login', [], UrlGeneratorInterface::ABSOLUTE_URL);
+
         $rendered = $this->templating->render(
             'EkynaUserBundle:Admin/User:creation_email.html.twig',
             array(
-                'username' => $userName,
-                'sitename' => $siteName,
-                'login'    => $login,
-                'password' => $password,
+                'username'  => $userName,
+                'sitename'  => $siteName,
+                'login_url' => $loginUrl,
+                'login'     => $login,
+                'password'  => $password,
             )
         );
 
         $subject = $this->translator->trans(
             'ekyna_user.email.creation.subject',
+            array('%sitename%' => $siteName)
+        );
+
+        return $this->sendEmail($rendered, $user->getEmail(), $userName, $subject);
+    }
+
+    /**
+     * Sends an email to the user to warn about the new password.
+     *
+     * @param UserInterface $user
+     * @param string        $password
+     * @return integer
+     */
+    public function sendNewPasswordEmailMessage(UserInterface $user, $password)
+    {
+        /** @var \Ekyna\Bundle\UserBundle\Model\UserInterface $user */
+        $siteName  = $this->settingsManager->getParameter('general.site_name');
+        $userName = sprintf('%s %s', $user->getFirstName(), $user->getLastName());
+        $login = $user->getUsername();
+
+        if (0 === strlen($password)) {
+            return 0;
+        }
+
+        $loginUrl = $this->router->generate('fos_user_security_login', [], UrlGeneratorInterface::ABSOLUTE_URL);
+
+        $rendered = $this->templating->render(
+            'EkynaUserBundle:Admin/User:new_password_email.html.twig',
+            array(
+                'username'  => $userName,
+                'sitename'  => $siteName,
+                'login_url' => $loginUrl,
+                'login'     => $login,
+                'password'  => $password,
+            )
+        );
+
+        $subject = $this->translator->trans(
+            'ekyna_user.email.new_password.subject',
             array('%sitename%' => $siteName)
         );
 

@@ -23,9 +23,18 @@ ekyna_user:
             show: Détail de l'utilisateur
             new: Nouvel utilisateur
             edit: Modifier l'utilisateur
+            generate_password: Générer un nouveau mot de passe
+            clear_password_request: Annuler la demande de réinitilisation
             remove: Supprimer l'utilisateur
+        field:
+            password_request_at: Date réinitialisation du mot de passe
+            confirmation_token: Jeton de confirmation
+            credentials_expired: Mot de passe expérié
+            credentials_expires_at: Date d'expiration du mot de passe
         alert:
-            no_user: Aucun utilisateur configuré
+            empty_list: Aucun utilisateur configuré
+            no_password_request: Aucune demande de réinitialisation du mot de passe trouvée.
+            password_request_cleared: La demande de réinitialisation a bien été annulée.
         event:
             credentials_sent: Un e-mail contenant les informations de connection a été envoyé à l'utilisateur.
     group:
@@ -47,7 +56,7 @@ ekyna_user:
             edit_permissions: Modifier les permissions
             remove: Supprimer le groupe
         alert:
-            no_group: Aucun groupe configuré
+            empty_list: Aucun groupe configuré
     address:
         label:
             singular: Adresse
@@ -65,7 +74,7 @@ ekyna_user:
             edit: Modifier l'adresse
             remove: Supprimer l'adresse
         alert:
-            no_address: Aucune adresse configuré
+            empty_list: Aucune adresse configuré
     account:
         title: Espace client
         menu:
@@ -103,6 +112,15 @@ ekyna_user:
                 <p>Bonjour %username%.</p>
                 <p>Vous recevez cet email suite à la création de votre compte client sur %sitename%.</p>
                 <p>Vous pouvez dès à présent <a href="%login_url%">vous connecter</a> en utilisant vos identifiants :<br>
+                Nom d'utilisateur : <strong>%login%</strong><br>
+                Mot de passe : <strong>%password%</strong>.</p>
+        new_password:
+            subject: "[%sitename%] Nouveaux identifiants"
+            title : Nouveaux identifiants
+            message: |
+                <p>Bonjour %username%.</p>
+                <p>Vous recevez cet email suite à la modification de votre mot de passe sur %sitename%.</p>
+                <p>Vous pouvez dès à présent <a href="%login_url%">vous connecter</a> en utilisant vos nouveaux identifiants :<br>
                 Nom d'utilisateur : <strong>%login%</strong><br>
                 Mot de passe : <strong>%password%</strong>.</p>
         login_success:

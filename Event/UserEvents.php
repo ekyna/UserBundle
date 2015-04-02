@@ -13,8 +13,8 @@ final class UserEvents
     const POST_CREATE = 'ekyna_user.user.post_create';
 
     const PRE_UPDATE  = 'ekyna_user.user.pre_update';
-    const POST_UPDATE = 'ekyna_user.user.pre_delete';
+    const POST_UPDATE = 'ekyna_user.user.post_update';
 
     const PRE_DELETE  = 'ekyna_user.user.pre_update';
-    const POST_DELETE = 'ekyna_user.user.pre_delete';
+    const POST_DELETE = 'ekyna_user.user.post_delete';
 }

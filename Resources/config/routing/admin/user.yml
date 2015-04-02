@@ -30,6 +30,20 @@ ekyna_user_user_admin_edit:
         _method: GET|POST
         userId: \d+
 
+ekyna_user_user_admin_generate_password:
+    path: /{userId}/generate-password
+    defaults: { _controller: "ekyna_user.user.controller:generatePasswordAction" }
+    requirements:
+        _method: GET|POST
+        userId: \d+
+
+ekyna_user_user_admin_clear_password_request:
+    path: /{userId}/clear-password-request
+    defaults: { _controller: "ekyna_user.user.controller:clearPasswordRequestAction" }
+    requirements:
+        _method: GET|POST
+        userId: \d+
+
 ekyna_user_user_admin_toggle:
     path: /{userId}/toggle/{field}
     defaults: { _controller: "ekyna_user.user.controller:toggleAction", field: "locked" }

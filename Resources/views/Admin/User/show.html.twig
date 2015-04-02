@@ -17,6 +17,7 @@
 <div class="show show-with-tabs">
     <ul class="nav nav-tabs">
 	    <li class="active"><a href="#user-user-general" data-toggle="tab">{{ 'ekyna_core.field.general'|trans }}</a></li>
+	    <li><a href="#user-user-informations" data-toggle="tab">{{ 'ekyna_core.field.informations'|trans }}</a></li>
 	    {% if ekyna_user_config.account.address -%}
 	    <li><a href="#user-user-address" data-toggle="tab">{{ 'ekyna_user.address.label.plural'|trans }}</a></li>
 	    {%- endif %}
@@ -54,6 +55,46 @@
 	                </div>
 	            </div>
 		    </div>
+            <div class="tab-pane" id="user-user-informations">
+                {% if admin_resource_access(user, 'EDIT') %}
+                <div class="actions">
+                    {{ ui_button(
+                        'ekyna_user.user.button.generate_password', {
+                            'path': path('ekyna_user_user_admin_generate_password', {'userId': user.id}),
+                            'type': 'link', 'size': 'sm', 'theme': 'warning'
+                    }) }}
+                    {{ ui_button(
+                        'ekyna_user.user.button.clear_password_request', {
+                            'path': path('ekyna_user_user_admin_clear_password_request', {'userId': user.id}),
+                            'type': 'link', 'size': 'sm', 'theme': 'warning'
+                    }) }}
+                </div>
+                {% endif %}
+		        <div class="row">
+	                <div class="col-md-6">
+	                    {{ show_row(user.expired, 'checkbox', 'ekyna_core.field.expired', {'label_nb_col': 4}) }}
+	                </div>
+	                <div class="col-md-6">
+                        {{ show_row(user.expiresAt, 'datetime', 'ekyna_core.field.expires_at', {'label_nb_col': 4}) }}
+	                </div>
+	            </div>
+		        <div class="row">
+	                <div class="col-md-6">
+	                    {{ show_row(user.passwordRequestedAt, 'datetime', 'ekyna_user.user.field.password_request_at', {'label_nb_col': 4}) }}
+	                </div>
+	                <div class="col-md-6">
+                        {{ show_row(user.confirmationToken|truncate(64), 'text', 'ekyna_user.user.field.confirmation_token', {'label_nb_col': 4}) }}
+	                </div>
+	            </div>
+		        {#<div class="row">
+	                <div class="col-md-6">
+	                    {{ show_row(user.credentialsExpired, 'checkbox', 'ekyna_user.user.field.credentials_expired', {'label_nb_col': 4}) }}
+	                </div>
+	                <div class="col-md-6">
+                        {{ show_row(user.credentialsExpireAt, 'datetime', 'ekyna_user.user.field.credentials_expires_at', {'label_nb_col': 4}) }}
+	                </div>
+	            </div>#}
+            </div>
 		    {% if ekyna_user_config.account.address -%}
 		    <div class="tab-pane" id="user-user-address">
 	        {% set opened = false %}

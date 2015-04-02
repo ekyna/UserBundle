@@ -73,7 +73,7 @@ class User extends BaseUser implements UserInterface
     public function setEmail($email)
     {
         $this->email = $email;
-        if (empty($this->username)) {
+        if ($this->username != $email) {
             $this->username = $email;
         }
 

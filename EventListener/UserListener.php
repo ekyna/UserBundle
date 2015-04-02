@@ -94,9 +94,6 @@ class UserListener implements EventSubscriberInterface
         if (0 < $this->mailer->sendCreationEmailMessage($user, $event->getData('password'))) {
             $event->addMessage(new ResourceMessage('ekyna_user.user.event.credentials_sent'));
         }
-
-        // Because it is "re-set" in pre_create event
-        $user->eraseCredentials();
     }
 
     /**
@@ -114,6 +111,25 @@ class UserListener implements EventSubscriberInterface
     }
 
     /**
+     * Post update resource event handler.
+     *
+     * @param UserEvent $event
+     */
+    public function onPostUpdate(UserEvent $event)
+    {
+        if (!$event->hasData('password')) {
+            return;
+        }
+
+        /** @var \Ekyna\Bundle\UserBundle\Model\UserInterface $user */
+        $user = $event->getResource();
+
+        if (0 < $this->mailer->sendNewPasswordEmailMessage($user, $event->getData('password'))) {
+            $event->addMessage(new ResourceMessage('ekyna_user.user.event.credentials_sent'));
+        }
+    }
+
+    /**
      * {@inheritdoc}
      */
     public static function getSubscribedEvents()
@@ -122,6 +138,7 @@ class UserListener implements EventSubscriberInterface
             UserEvents::PRE_CREATE  => array('onPreCreate', 0),
             UserEvents::POST_CREATE => array('onPostCreate', 0),
             UserEvents::PRE_UPDATE  => array('onPreUpdate', 0),
+            UserEvents::POST_UPDATE  => array('onPostUpdate', 0),
         );
     }
 }
