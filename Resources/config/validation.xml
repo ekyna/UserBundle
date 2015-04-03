@@ -36,9 +36,8 @@
         </property>
         <property name="postalCode">
             <constraint name="NotBlank" />
-            <constraint name="Length">
-                <option name="min">5</option>
-                <option name="max">5</option>
+            <constraint name="Regex">
+                <option name="pattern">/^[0-9]{5}$/</option>
             </constraint>
         </property>
         <property name="city">

@@ -3,6 +3,7 @@
 namespace Ekyna\Bundle\UserBundle\Entity;
 
 use Ekyna\Bundle\CoreBundle\Model\AbstractAddress;
+use Ekyna\Bundle\CoreBundle\Model\TimestampableTrait;
 use Ekyna\Bundle\UserBundle\Model\AddressInterface;
 use Ekyna\Bundle\UserBundle\Model\IdentityTrait;
 use Ekyna\Bundle\UserBundle\Model\UserInterface;
@@ -15,6 +16,7 @@ use Ekyna\Bundle\UserBundle\Model\UserInterface;
 class Address extends AbstractAddress implements AddressInterface
 {
     use IdentityTrait;
+    use TimestampableTrait;
 
     /**
      * @var integer
@@ -45,16 +47,6 @@ class Address extends AbstractAddress implements AddressInterface
      * @var boolean
      */
     protected $locked;
-
-    /**
-     * @var \DateTime
-     */
-    protected $createdAt;
-
-    /**
-     * @var \DateTime
-     */
-    protected $updatedAt;
 
     /**
      * Constructor.
@@ -170,41 +162,5 @@ class Address extends AbstractAddress implements AddressInterface
     public function getLocked()
     {
         return $this->locked;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setCreatedAt(\DateTime $createdAt)
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setUpdatedAt(\DateTime $updatedAt = null)
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
     }
 }

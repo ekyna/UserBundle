@@ -3,13 +3,14 @@
 namespace Ekyna\Bundle\UserBundle\Model;
 
 use Ekyna\Bundle\CoreBundle\Model\AddressInterface as BaseInterface;
+use Ekyna\Bundle\CoreBundle\Model\TimestampableInterface;
 
 /**
  * Interface AddressInterface
  * @package Ekyna\Bundle\UserBundle\Model
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
-interface AddressInterface extends BaseInterface, IdentityInterface
+interface AddressInterface extends BaseInterface, IdentityInterface, TimestampableInterface
 {
     /**
      * Get id
@@ -92,34 +93,4 @@ interface AddressInterface extends BaseInterface, IdentityInterface
      * @return boolean
      */
     public function getLocked();
-
-    /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     * @return AddressInterface|$this
-     */
-    public function setCreatedAt(\DateTime $createdAt);
-
-    /**
-     * Get createdAt
-     *
-     * @return \DateTime
-     */
-    public function getCreatedAt();
-
-    /**
-     * Set updatedAt
-     *
-     * @param \DateTime $updatedAt
-     * @return AddressInterface|$this
-     */
-    public function setUpdatedAt(\DateTime $updatedAt = null);
-
-    /**
-     * Get updatedAt
-     *
-     * @return \DateTime
-     */
-    public function getUpdatedAt();
 }
