@@ -87,6 +87,13 @@ class UserType extends ResourceTableType
                 'route_name' => 'ekyna_user_group_admin_show',
                 'route_parameters_map' => array('groupId' => 'group.id'),
             ))
+            ->addColumn('enabled', 'boolean', array(
+                'label' => 'ekyna_core.field.enabled',
+                'sortable' => true,
+                'route_name' => 'ekyna_user_user_admin_toggle',
+                'route_parameters' => array('field' => 'enabled'),
+                'route_parameters_map' => array('userId' => 'id'),
+            ))
             ->addColumn('locked', 'boolean', array(
                 'label' => 'ekyna_core.field.locked',
                 'sortable' => true,
@@ -152,6 +159,9 @@ class UserType extends ResourceTableType
                     $qb = $er->createQueryBuilder('g');
                     return $qb->andWhere($qb->expr()->gte('g.position', $group->getPosition()));
                 },
+            ))
+            ->addFilter('enabled', 'boolean', array(
+                'label' => 'ekyna_core.field.enabled',
             ))
             ->addFilter('locked', 'boolean', array(
                 'label' => 'ekyna_core.field.locked',

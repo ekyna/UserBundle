@@ -16,9 +16,9 @@
         </id>
 
         <field name="company" type="string" column="company" length="64" nullable="true" />
-        <field name="gender" type="string" column="gender" length="8" nullable="true" /> <!-- TODO nullable false -->
-        <field name="firstName" type="string" column="first_name" length="32" nullable="true" /> <!-- TODO nullable false -->
-        <field name="lastName" type="string" column="last_name" length="32" nullable="true" /> <!-- TODO nullable false -->
+        <field name="gender" type="string" column="gender" length="8" />
+        <field name="firstName" type="string" column="first_name" length="32" />
+        <field name="lastName" type="string" column="last_name" length="32" />
         <field name="phone" type="phone_number" column="phone" nullable="true" />
         <field name="mobile" type="phone_number" column="mobile" nullable="true" />
         <field name="createdAt" type="datetime" column="created_at">
@@ -31,11 +31,13 @@
         <!--<one-to-one field="defaultAddress" target-entity="Ekyna\Bundle\UserBundle\Entity\Address">
             <join-column name="address_id" referenced-column-name="id" nullable="true" />
         </one-to-one>-->
+
         <one-to-many field="addresses" target-entity="Ekyna\Bundle\UserBundle\Model\AddressInterface" mapped-by="user">
             <cascade>
                 <cascade-all />
             </cascade>
         </one-to-many>
+
         <many-to-one field="group" target-entity="Ekyna\Bundle\UserBundle\Entity\Group" fetch="EAGER">
             <join-column name="group_id" referenced-column-name="id" nullable="false" on-delete="RESTRICT" />
         </many-to-one>
