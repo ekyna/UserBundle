@@ -6,6 +6,8 @@ use Doctrine\ORM\EntityRepository;
 use Ekyna\Bundle\AdminBundle\Form\Type\ResourceFormType;
 use libphonenumber\PhoneNumberFormat;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
@@ -93,6 +95,25 @@ class UserType extends ResourceFormType
                 'label' => 'ekyna_core.field.username',
             ));
         }
+
+        $builder->addEventListener(
+            FormEvents::PRE_SET_DATA,
+            function(FormEvent $event) {
+                /** @var \Ekyna\Bundle\UserBundle\Model\UserInterface $user */
+                $user = $event->getData();
+
+                if (null === $user || null === $user->getId()) {
+                    $form = $event->getForm();
+                    $form->add('sendCreationEmail', 'checkbox', array(
+                        'label' => 'ekyna_user.user.field.send_creation_email',
+                        'required' => false,
+                        'attr' => array(
+                            'align_with_widget' => true,
+                        ),
+                    ));
+                }
+            }
+        );
     }
 
     /**

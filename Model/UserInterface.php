@@ -161,4 +161,26 @@ interface UserInterface extends BaseUserInterface, IdentityInterface
      * @return \DateTime
      */
     public function getUpdatedAt();
+
+    /**
+     * Returns the expiresAt.
+     *
+     * @return \DateTime
+     */
+    public function getExpiresAt();
+
+    /**
+     * Sets whether to send the creation email or not.
+     *
+     * @param bool $send
+     * @return UserInterface|$this
+     */
+    public function setSendCreationEmail($send);
+
+    /**
+     * Returns whether to send the creation email or not.
+     *
+     * @return bool
+     */
+    public function getSendCreationEmail();
 }

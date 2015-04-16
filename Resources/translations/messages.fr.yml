@@ -27,6 +27,7 @@ ekyna_user:
             clear_password_request: Annuler la demande de réinitilisation
             remove: Supprimer l'utilisateur
         field:
+            send_creation_email: Notification l'utilisateur de la création de son compte.
             password_request_at: Date réinitialisation du mot de passe
             confirmation_token: Jeton de confirmation
             credentials_expired: Mot de passe expérié

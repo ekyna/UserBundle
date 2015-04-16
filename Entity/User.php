@@ -59,6 +59,12 @@ class User extends BaseUser implements UserInterface
     protected $updatedAt;
 
     /**
+     * @var bool (non mapped)
+     */
+    protected $sendCreationEmail = true;
+
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -300,12 +306,28 @@ class User extends BaseUser implements UserInterface
     }
 
     /**
-     * Returns the expiresAt.
-     *
-     * @return \DateTime
+     * {@inheritdoc}
      */
     public function getExpiresAt()
     {
         return $this->expiresAt;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setSendCreationEmail($send)
+    {
+        $this->sendCreationEmail = (bool) $send;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSendCreationEmail()
+    {
+        return $this->sendCreationEmail;
     }
 }

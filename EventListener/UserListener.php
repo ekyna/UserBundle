@@ -90,6 +90,9 @@ class UserListener implements EventSubscriberInterface
 
         /** @var \Ekyna\Bundle\UserBundle\Model\UserInterface $user */
         $user = $event->getResource();
+        if (!$user->getSendCreationEmail()) {
+            return;
+        }
 
         if (0 < $this->mailer->sendCreationEmailMessage($user, $event->getData('password'))) {
             $event->addMessage(new ResourceMessage('ekyna_user.user.event.credentials_sent'));
