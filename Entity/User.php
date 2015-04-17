@@ -74,6 +74,16 @@ class User extends BaseUser implements UserInterface
     }
 
     /**
+     * Returns a string representation
+     * 
+     * @return string
+     */
+    public function __toString()
+    {
+        return sprintf('%s %s - %s', $this->firstName, $this->lastName, $this->email);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function setEmail($email)
@@ -97,16 +107,6 @@ class User extends BaseUser implements UserInterface
         }
 
         return $this;
-    }
-
-    /**
-     * Returns a string representation
-     * 
-     * @return string
-     */
-    public function __toString()
-    {
-        return sprintf('%s %s - %s', $this->firstName, $this->lastName, $this->email);
     }
 
     /**

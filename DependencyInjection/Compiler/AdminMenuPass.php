@@ -31,12 +31,14 @@ class AdminMenuPass implements CompilerPassInterface
             'route'    => 'ekyna_user_user_admin_home',
             'label'    => 'ekyna_user.user.label.plural',
             'resource' => 'ekyna_user_user',
+            'position' => 1,
         )));
         $pool->addMethodCall('createEntry', array('users', array(
             'name'     => 'groups', 
             'route'    => 'ekyna_user_group_admin_home', 
             'label'    => 'ekyna_user.group.label.plural',
             'resource' => 'ekyna_user_group',
+            'position' => 2,
         )));
     }
 }

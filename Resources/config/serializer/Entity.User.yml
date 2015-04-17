@@ -8,8 +8,10 @@ Ekyna\Bundle\UserBundle\Entity\User:
             expose: true
         firstName:
             expose: true
+            serialized_name: first_name
         lastName:
             expose: true
+            serialized_name: last_name
         email:
             expose: true
     virtual_properties:

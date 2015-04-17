@@ -5,8 +5,8 @@ fos_elastica:
                 ekyna_user_user:
                     mappings:
                         username:   {search_analyzer: fr_search, index_analyzer: fr_index}
-                        firstName:  {search_analyzer: fr_search, index_analyzer: fr_index}
-                        lastName:   {search_analyzer: fr_search, index_analyzer: fr_index}
+                        first_name:  {search_analyzer: fr_search, index_analyzer: fr_index}
+                        last_name:   {search_analyzer: fr_search, index_analyzer: fr_index}
                         email:      {search_analyzer: fr_search, index_analyzer: fr_index}
                     persistence:
                         driver: orm
