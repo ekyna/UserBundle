@@ -23,6 +23,7 @@
         <service id="ekyna_user.authentication_listener" class="Ekyna\Bundle\UserBundle\EventListener\AuthenticationListener">
             <argument type="service" id="security.access.decision_manager" />
             <argument type="service" id="ekyna_user.mailer.default" />
+            <argument>%ekyna_user.notification_config%</argument>
             <tag name="kernel.event_subscriber" />
         </service>
         <service id="ekyna_user.user.listener" class="Ekyna\Bundle\UserBundle\EventListener\UserListener">

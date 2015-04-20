@@ -61,6 +61,12 @@ class Configuration implements ConfigurationInterface
                         ->booleanNode('address')->defaultValue(false)->end()
                     ->end()
                 ->end()
+                ->arrayNode('notification')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->booleanNode('admin_login')->defaultValue(true)->end()
+                    ->end()
+                ->end()
             ->end()
         ;
 

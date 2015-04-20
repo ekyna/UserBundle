@@ -23,6 +23,7 @@ class EkynaUserExtension extends AbstractExtension
         $config = $this->configure($configs, 'ekyna_user', new Configuration(), $container);
 
         $container->setParameter('ekyna_user.gender_class', $config['gender_class']);
+        $container->setParameter('ekyna_user.notification_config', $config['notification']);
 
         $accountConfig = $config['account'];
 
