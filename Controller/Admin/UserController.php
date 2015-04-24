@@ -7,6 +7,7 @@ use Ekyna\Bundle\AdminBundle\Controller\Resource\ToggleableTrait;
 use Ekyna\Bundle\AdminBundle\Controller\ResourceController;
 use Ekyna\Bundle\AdminBundle\Event\ResourceMessage;
 use Ekyna\Bundle\UserBundle\Event\UserEvent;
+use Ekyna\Bundle\UserBundle\Extension\Admin\ShowTabInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
@@ -25,6 +26,19 @@ class UserController extends ResourceController
     protected function createNew(Context $context)
     {
         return $this->get('fos_user.user_manager')->createUser();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function buildShowData(array &$data, Context $context)
+    {
+        /** @var \Ekyna\Bundle\UserBundle\Model\UserInterface $user */
+        $user = $context->getResource();
+
+        $data['tabs'] = $this->get('ekyna_user.extension.registry')->getShowAdminTabs($user);
+
+        return null;
     }
 
     /**

@@ -79,6 +79,13 @@
             <tag name="table.type" alias="ekyna_user_user" />
         </service>
 
+        <!-- User extensions -->
+        <service id="ekyna_user.extension.registry" class="Ekyna\Bundle\UserBundle\Extension\ExtensionRegistry" />
+        <service id="ekyna_user.extension.address" class="Ekyna\Bundle\UserBundle\Extension\AddressExtension">
+            <argument>%ekyna_user.config%</argument>
+            <tag name="ekyna_user.extension" />
+        </service>
+
         <!-- Routing loader -->
         <service id="ekyna_user.routing_loader" class="Ekyna\Bundle\UserBundle\Routing\AccountLoader">
             <argument>%ekyna_user.config%</argument>
@@ -89,6 +96,7 @@
         <service id="ekyna_user.menu_builder" class="Ekyna\Bundle\UserBundle\Menu\MenuBuilder">
             <argument type="service" id="knp_menu.factory" />
             <argument type="service" id="security.context" />
+            <argument type="service" id="ekyna_user.extension.registry" />
             <argument>%ekyna_user.config%</argument>
         </service>
         <service id="ekyna_user.menu.account"
@@ -152,6 +160,7 @@
                 <argument type="service" id="translator" />
             </call>
         </service>
+
     </services>
 
 </container>

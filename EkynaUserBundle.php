@@ -3,6 +3,7 @@
 namespace Ekyna\Bundle\UserBundle;
 
 use Ekyna\Bundle\CoreBundle\AbstractBundle;
+use Ekyna\Bundle\UserBundle\DependencyInjection\Compiler\ExtensionPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Ekyna\Bundle\UserBundle\DependencyInjection\Compiler\AdminMenuPass;
 
@@ -21,6 +22,7 @@ class EkynaUserBundle extends AbstractBundle
         parent::build($container);
 
         $container->addCompilerPass(new AdminMenuPass());
+        $container->addCompilerPass(new ExtensionPass());
     }
 
     /**

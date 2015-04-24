@@ -3,7 +3,6 @@
 namespace Ekyna\Bundle\UserBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Ekyna\Bundle\AdminBundle\DependencyInjection\AbstractExtension;
 
 /**
@@ -41,13 +40,6 @@ class EkynaUserExtension extends AbstractExtension
                 'route' => 'fos_user_change_password',
                 'position' => -2,
             )));
-            if ($accountConfig['address']) {
-                $menu->addMethodCall('addAccountEntry', array('address', array(
-                    'label'    => 'ekyna_user.account.menu.address',
-                    'route'    => 'ekyna_user_address_list',
-                    'position' => -1,
-                )));
-            }
         }
 
         $exposedConfig = [];

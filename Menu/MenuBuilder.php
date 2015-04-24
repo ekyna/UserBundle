@@ -2,6 +2,7 @@
 
 namespace Ekyna\Bundle\UserBundle\Menu;
 
+use Ekyna\Bundle\UserBundle\Extension\ExtensionRegistry;
 use Knp\Menu\FactoryInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -15,14 +16,19 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
 class MenuBuilder
 {
     /**
-     * @var \Knp\Menu\FactoryInterface
+     * @var FactoryInterface
      */
     private $factory;
 
     /**
-     * @var \Symfony\Component\Security\Core\SecurityContext
+     * @var SecurityContextInterface
      */
     protected $securityContext;
+
+    /**
+     * @var SecurityContextInterface
+     */
+    protected $extensionRegistry;
 
     /**
      * @var bool
@@ -39,20 +45,24 @@ class MenuBuilder
      */
     private $accountEntries;
 
+
     /**
      * Constructor.
      *
-     * @param \Knp\Menu\FactoryInterface $factory
+     * @param FactoryInterface         $factory
      * @param SecurityContextInterface $securityContext
-     * @param array $config
+     * @param ExtensionRegistry        $extensionRegistry
+     * @param array                    $config
      */
-    public function __construct(FactoryInterface $factory, SecurityContextInterface $securityContext, array $config)
-    {
+    public function __construct(
+        FactoryInterface $factory,
+        SecurityContextInterface $securityContext,
+        ExtensionRegistry $extensionRegistry,
+        array $config
+    ) {
         $this->factory = $factory;
         $this->securityContext = $securityContext;
         $this->accountEnabled = $config['account']['enable'];
-
-        $this->accountEntries = [];
 
         $this->optionResolver = new OptionsResolver();
         $this->optionResolver
@@ -68,6 +78,11 @@ class MenuBuilder
                 'position' => 'int',
             ))
         ;
+
+        $this->accountEntries = [];
+        foreach ($extensionRegistry->getAccountEntries() as $name => $options) {
+            $this->addAccountEntry($name, $options);
+        }
     }
 
     /**

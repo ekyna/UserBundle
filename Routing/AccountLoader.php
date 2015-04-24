@@ -38,7 +38,7 @@ class AccountLoader extends Loader
     public function load($resource, $type = null)
     {
         if (true === $this->loaded) {
-            throw new \RuntimeException('Do not add the "product" routes loader twice.');
+            throw new \RuntimeException('Do not add the "account" routes loader twice.');
         }
 
         $collection = new RouteCollection();

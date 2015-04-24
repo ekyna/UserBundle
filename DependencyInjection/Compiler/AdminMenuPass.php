@@ -12,6 +12,9 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
  */
 class AdminMenuPass implements CompilerPassInterface
 {
+    /**
+     * {@inheritdoc}
+     */
     public function process(ContainerBuilder $container)
     {
         if (!$container->hasDefinition('ekyna_admin.menu.pool')) {
