@@ -6,6 +6,8 @@ use Ekyna\Bundle\SettingBundle\Manager\SettingsManager;
 use FOS\UserBundle\Mailer\Mailer as BaseMailer;
 use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
 
 /**
@@ -31,6 +33,16 @@ class Mailer extends BaseMailer
     protected $translator;
 
     /**
+     * @var AccessDecisionManagerInterface
+     */
+    protected $accessDecisionManager;
+
+    /**
+     * @var array
+     */
+    protected $config;
+
+    /**
      * Sets the settings manager.
      *
      * @param SettingsManager $settingsManager
@@ -48,6 +60,26 @@ class Mailer extends BaseMailer
     public function setTranslator(TranslatorInterface $translator)
     {
         $this->translator = $translator;
+    }
+
+    /**
+     * Sets the accessDecisionManager.
+     *
+     * @param AccessDecisionManagerInterface $accessDecisionManager
+     */
+    public function setAccessDecisionManager(AccessDecisionManagerInterface $accessDecisionManager)
+    {
+        $this->accessDecisionManager = $accessDecisionManager;
+    }
+
+    /**
+     * Sets the config.
+     *
+     * @param array $config
+     */
+    public function setConfig(array $config)
+    {
+        $this->config = $config;
     }
 
     /**
@@ -96,7 +128,9 @@ class Mailer extends BaseMailer
             return 0;
         }
 
-        $loginUrl = $this->router->generate('fos_user_security_login', [], UrlGeneratorInterface::ABSOLUTE_URL);
+        if (null === $loginUrl = $this->getLoginUrl($user)) {
+            return 0;
+        }
 
         $rendered = $this->templating->render(
             'EkynaUserBundle:Admin/User:creation_email.html.twig',
@@ -135,7 +169,9 @@ class Mailer extends BaseMailer
             return 0;
         }
 
-        $loginUrl = $this->router->generate('fos_user_security_login', [], UrlGeneratorInterface::ABSOLUTE_URL);
+        if (null === $loginUrl = $this->getLoginUrl($user)) {
+            return 0;
+        }
 
         $rendered = $this->templating->render(
             'EkynaUserBundle:Admin/User:new_password_email.html.twig',
@@ -164,18 +200,18 @@ class Mailer extends BaseMailer
         /** @var \Ekyna\Bundle\UserBundle\Model\UserInterface $user */
         $template = $this->parameters['confirmation.template'];
         $url = $this->router->generate('fos_user_registration_confirm', array('token' => $user->getConfirmationToken()), true);
-        $sitename = $this->settingsManager->getParameter('general.site_name');
+        $siteName = $this->settingsManager->getParameter('general.site_name');
         $username = sprintf('%s %s', $user->getFirstName(), $user->getLastName());
 
         $rendered = $this->templating->render($template, array(
             'username' => $username,
             'confirmationUrl' => $url,
-            'sitename' => $sitename,
+            'sitename' => $siteName,
         ));
 
         $subject = $this->translator->trans(
             'ekyna_user.email.registration.subject',
-            array('%sitename%' => $sitename)
+            array('%sitename%' => $siteName)
         );
 
         $this->sendEmail($rendered, $user->getEmail(), $username, $subject);
@@ -189,21 +225,38 @@ class Mailer extends BaseMailer
         /** @var \Ekyna\Bundle\UserBundle\Model\UserInterface $user */
         $template = $this->parameters['resetting.template'];
         $url = $this->router->generate('fos_user_resetting_reset', array('token' => $user->getConfirmationToken()), true);
-        $sitename = $this->settingsManager->getParameter('general.site_name');
+        $siteName = $this->settingsManager->getParameter('general.site_name');
         $username = sprintf('%s %s', $user->getFirstName(), $user->getLastName());
 
         $rendered = $this->templating->render($template, array(
             'username' => $username,
             'confirmationUrl' => $url,
-            'sitename' => $sitename,
+            'sitename' => $siteName,
         ));
 
         $subject = $this->translator->trans(
             'ekyna_user.email.resetting.subject',
-            array('%sitename%' => $sitename)
+            array('%sitename%' => $siteName)
         );
 
         $this->sendEmail($rendered, $user->getEmail(), $username, $subject);
+    }
+
+    /**
+     * Returns the login url.
+     *
+     * @param UserInterface $user
+     * @return null|string
+     */
+    protected function getLoginUrl(UserInterface $user)
+    {
+        $token = new UsernamePasswordToken($user, 'none', 'none', $user->getRoles());
+        if ($this->accessDecisionManager->decide($token, array('ROLE_ADMIN'))) {
+            return $this->router->generate('ekyna_admin_security_login', [], UrlGeneratorInterface::ABSOLUTE_URL);
+        } else if ($this->config['account']['enable']) {
+            return $this->router->generate('fos_user_security_login', [], UrlGeneratorInterface::ABSOLUTE_URL);
+        }
+        return null;
     }
 
     /**

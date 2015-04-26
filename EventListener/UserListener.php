@@ -57,7 +57,6 @@ class UserListener implements EventSubscriberInterface
         $user = $event->getResource();
 
         // Generates a secured password.
-
         if (0 === strlen($user->getPlainPassword())) {
             $this->userManager->generatePassword($user);
             $user->setEnabled(true);

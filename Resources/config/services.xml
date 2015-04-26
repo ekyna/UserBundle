@@ -159,6 +159,12 @@
             <call method="setTranslator">
                 <argument type="service" id="translator" />
             </call>
+            <call method="setAccessDecisionManager">
+                <argument type="service" id="security.access.decision_manager" />
+            </call>
+            <call method="setConfig">
+                <argument>%ekyna_user.config%</argument>
+            </call>
         </service>
 
     </services>
