@@ -3,6 +3,7 @@ fos_elastica:
         search:
             types:
                 ekyna_user_user:
+                    _all: {enabled: false}
                     mappings:
                         username:   {search_analyzer: fr_search, index_analyzer: fr_index}
                         first_name:  {search_analyzer: fr_search, index_analyzer: fr_index}

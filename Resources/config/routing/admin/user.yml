@@ -46,7 +46,7 @@ ekyna_user_user_admin_clear_password_request:
 
 ekyna_user_user_admin_toggle:
     path: /{userId}/toggle/{field}
-    defaults: { _controller: "ekyna_user.user.controller:toggleAction", field: "locked" }
+    defaults: { _controller: "ekyna_user.user.controller:toggleAction", field: locked }
     requirements:
         _method: GET
         userId: \d+
