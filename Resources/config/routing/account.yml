@@ -2,6 +2,9 @@ ekyna_user_account_home:
     pattern: ""
     defaults:
         _controller: EkynaUserBundle:Account:home
+    requirements:
+        _method: GET
+    options:
         _cms:
             name: Espace client
             menus: [footer]
@@ -9,8 +12,6 @@ ekyna_user_account_home:
             seo:
                 follow: false
                 index: false
-    requirements:
-        _method: GET
 
 fos_user_security:
     resource: "account/security.yml"
@@ -19,11 +20,12 @@ fos_user_change_password:
     pattern: /change-password
     defaults:
         _controller: FOSUserBundle:ChangePassword:changePassword
+    requirements:
+        _method: GET|POST
+    options:
         _cms:
             name: "Modifiez votre mot de passe"
             parent: fos_user_profile_show
             seo:
                 follow: false
                 index: false
-    requirements:
-        _method: GET|POST

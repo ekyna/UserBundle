@@ -2,14 +2,15 @@ fos_user_security_login:
     pattern: /login
     defaults:
         _controller: FOSUserBundle:Security:login
+    requirements:
+        _method: GET
+    options:
         _cms:
             name: "Connexion"
             parent: ekyna_user_account_home
             seo:
                 follow: false
                 index: false
-    requirements:
-        _method: GET
 
 fos_user_security_check:
     pattern: /login-check

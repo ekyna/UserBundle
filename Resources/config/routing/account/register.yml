@@ -2,27 +2,29 @@ fos_user_registration_register:
     pattern: ""
     defaults:
         _controller: FOSUserBundle:Registration:register
+    requirements:
+        _method: GET|POST
+    options:
         _cms:
             name: "Créer un compte client"
             parent: ekyna_user_account_home
             seo:
                 follow: false
                 index: false
-    requirements:
-        _method: GET|POST
 
 fos_user_registration_check_email:
     pattern: /check-email
     defaults:
         _controller: FOSUserBundle:Registration:checkEmail
+    requirements:
+        _method: GET
+    options:
         _cms:
             name: "Consultez votre boite mail"
             parent: fos_user_registration_register
             seo:
                 follow: false
                 index: false
-    requirements:
-        _method: GET
 
 fos_user_registration_confirm:
     pattern: /confirm/{token}
@@ -35,11 +37,12 @@ fos_user_registration_confirmed:
     pattern: /confirmed
     defaults:
         _controller: FOSUserBundle:Registration:confirmed
+    requirements:
+        _method: GET
+    options:
         _cms:
             name: "Confirmation"
             parent: fos_user_registration_register
             seo:
                 follow: false
                 index: false
-    requirements:
-        _method: GET

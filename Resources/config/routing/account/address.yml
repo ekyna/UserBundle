@@ -2,50 +2,54 @@ ekyna_user_address_list:
     pattern: ""
     defaults:
         _controller: EkynaUserBundle:Address:list
+    requirements:
+        _method: GET
+    options:
         _cms:
             name: "Mes adresses"
             parent: ekyna_user_account_home
             seo:
                 follow: false
                 index: false
-    requirements:
-        _method: GET
 
 ekyna_user_address_new:
     pattern: /new
     defaults:
         _controller: EkynaUserBundle:Address:new
+    requirements:
+        _method: GET|POST
+    options:
         _cms:
             name: "Ajouter une adresse"
             parent: ekyna_user_address_list
             seo:
                 follow: false
                 index: false
-    requirements:
-        _method: GET|POST
 
 ekyna_user_address_edit:
     pattern: /{addressId}/edit
     defaults:
         _controller: EkynaUserBundle:Address:edit
+    requirements:
+        _method: GET|POST
+    options:
         _cms:
             name: "Modifier une adresse"
             parent: ekyna_user_address_list
             seo:
                 follow: false
                 index: false
-    requirements:
-        _method: GET|POST
 
 ekyna_user_address_remove:
     pattern: /{addressId}/remove
     defaults:
         _controller: EkynaUserBundle:Address:remove
+    requirements:
+        _method: GET|POST
+    options:
         _cms:
             name: "Supprimer une adresse"
             parent: ekyna_user_address_list
             seo:
                 follow: false
                 index: false
-    requirements:
-        _method: GET|POST

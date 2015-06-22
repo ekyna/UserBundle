@@ -2,24 +2,26 @@ fos_user_profile_show:
     pattern: ""
     defaults:
         _controller: FOSUserBundle:Profile:show
+    requirements:
+        _method: GET
+    options:
         _cms:
             name: "Mon profil"
             parent: ekyna_user_account_home
             seo:
                 follow: false
                 index: false
-    requirements:
-        _method: GET
 
 fos_user_profile_edit:
     pattern: /edit
     defaults:
         _controller: FOSUserBundle:Profile:edit
+    requirements:
+        _method: GET|POST
+    options:
         _cms:
             name: "Modifiez vos informations"
             parent: fos_user_profile_show
             seo:
                 follow: false
                 index: false
-    requirements:
-        _method: GET|POST

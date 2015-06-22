@@ -2,14 +2,15 @@ fos_user_resetting_request:
     pattern: ""
     defaults:
         _controller: FOSUserBundle:Resetting:request
+    requirements:
+        _method: GET
+    options:
         _cms:
             name: "Réinitialisez votre mot de passe"
             parent: ekyna_user_account_home
             seo:
                 follow: false
                 index: false
-    requirements:
-        _method: GET
 
 fos_user_resetting_send_email:
     pattern: /send-email
@@ -22,24 +23,26 @@ fos_user_resetting_check_email:
     pattern: /check-email
     defaults:
         _controller: FOSUserBundle:Resetting:checkEmail
+    requirements:
+        _method: GET
+    options:
         _cms:
             name: "Consultez votre boite mail"
             parent: fos_user_resetting_request
             seo:
                 follow: false
                 index: false
-    requirements:
-        _method: GET
 
 fos_user_resetting_reset:
     pattern: /reset/{token}
     defaults:
         _controller: FOSUserBundle:Resetting:reset
+    requirements:
+        _method: GET|POST
+    options:
         _cms:
             name: "Changez votre mot de passe"
             parent: fos_user_resetting_request
             seo:
                 follow: false
                 index: false
-    requirements:
-        _method: GET|POST
