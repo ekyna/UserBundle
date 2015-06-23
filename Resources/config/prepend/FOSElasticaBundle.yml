@@ -5,7 +5,6 @@ fos_elastica:
                 ekyna_user_user:
                     _all: {enabled: false}
                     mappings:
-                        username:   {search_analyzer: fr_search, index_analyzer: fr_index}
                         first_name:  {search_analyzer: fr_search, index_analyzer: fr_index}
                         last_name:   {search_analyzer: fr_search, index_analyzer: fr_index}
                         email:      {search_analyzer: fr_search, index_analyzer: fr_index}
