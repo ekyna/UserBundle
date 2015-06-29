@@ -25,7 +25,7 @@
                 <div class="row show-row">
                     <div class="col-md-2 show-label">{{ 'ekyna_core.field.identity'|trans }}</div>
                     <div class="col-md-10">
-                        <div class="show-widget show-widget-simple">
+                        <div class="show-widget show-widget-inline">
                             {% if address.lastName is not empty and address.firstName is not empty -%}
                                 {{ render_identity(address) }}
                             {%- else -%}
