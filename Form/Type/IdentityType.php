@@ -23,6 +23,7 @@ class IdentityType extends AbstractType
                 'label'    => false,
                 'expanded' => false,
                 'required' => $options['required'],
+                'empty_value' => 'ekyna_core.value.choose',
                 'error_bubbling' => true,
             ))
             ->add('lastName', 'text', array(

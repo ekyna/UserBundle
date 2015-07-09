@@ -51,7 +51,7 @@ class UserSearchType extends AbstractType
      */
     public function getParent()
     {
-        return 'ekyna_core_entity_search';
+        return 'ekyna_entity_search';
     }
 
     /**

@@ -19,6 +19,7 @@ class AddressType extends AbstractAddressType
      */
     protected $dataClass;
 
+
     /**
      * Constructor.
      *

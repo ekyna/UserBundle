@@ -58,7 +58,7 @@
 
     <class name="Ekyna\Bundle\UserBundle\Entity\User">
 	    <property name="gender">
-            <constraint name="NotNull" />
+            <constraint name="NotBlank" />
             <constraint name="Ekyna\Bundle\UserBundle\Validator\Constraints\Gender" />
 	    </property>
         <property name="firstName">

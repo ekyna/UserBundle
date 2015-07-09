@@ -46,3 +46,15 @@
     {{ form_rest(form) }}
 {% endspaceless %}
 {% endblock ekyna_user_address_widget %}
+
+{% block ekyna_user_address_choice_widget %}
+{% spaceless %}
+    <div {{ block('widget_container_attributes') }}>
+        {% for child in form %}
+            {#{ form_label(child) }#}
+            {{ form_widget(child) }}
+            {{ form_errors(child) }}
+        {% endfor %}
+    </div>
+{% endspaceless %}
+{% endblock ekyna_user_address_choice_widget %}
