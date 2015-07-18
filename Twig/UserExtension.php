@@ -108,10 +108,11 @@ class UserExtension extends \Twig_Extension
     /**
      * Renders the address.
      *
-     * @param mixed $addressOrId
+     * @param AddressInterface|int $addressOrId
+     * @param bool $displayPhones
      * @return string
      */
-    public function renderAddress($addressOrId)
+    public function renderAddress($addressOrId, $displayPhones = true)
     {
         if ($addressOrId instanceOf AddressInterface) {
             $address = $addressOrId;
@@ -122,7 +123,7 @@ class UserExtension extends \Twig_Extension
             }
         }
 
-        return $this->addressTemplate->render(array('address' => $address));
+        return $this->addressTemplate->render(array('address' => $address, 'display_phones' => $displayPhones));
     }
 
     /**

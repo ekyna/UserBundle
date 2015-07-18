@@ -1,3 +1,7 @@
 ekyna_user:
     gender:
         invalid: Cet titre n'est pas un titre valide.
+    address:
+        first_name_is_mandatory: Veuillez saisir le prénom.
+        last_name_is_mandatory: Veuillez saisir le nom.
+        invalid_postal_code: Ce code postal n'est pas valide.

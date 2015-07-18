@@ -43,7 +43,7 @@ class GenderValidator extends ConstraintValidator
         }
 
         if (!call_user_func($this->genderClass.'::isValid', $gender)) {
-            $this->context->addViolation($constraint->message);
+            $this->context->addViolation($constraint->invalidGender);
         }
     }
 }

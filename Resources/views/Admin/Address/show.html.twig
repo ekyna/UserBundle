@@ -46,6 +46,14 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
+                        {{ show_row(address.country|country, 'text', 'ekyna_core.field.country', {'label_nb_col': 4}) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ show_row(address.state, 'text', 'ekyna_core.field.state', {'label_nb_col': 4}) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
                         {{ show_row(address.phone, 'tel', 'ekyna_core.field.phone', {'label_nb_col': 4}) }}
                     </div>
                     <div class="col-md-6">

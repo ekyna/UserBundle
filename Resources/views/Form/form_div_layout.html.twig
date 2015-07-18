@@ -33,6 +33,14 @@
             {{ form_row(form.city, {'label_col': 4, 'widget_col': 8}) }}
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_row(form.country, {'label_col': 4, 'widget_col': 8}) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.state, {'label_col': 4, 'widget_col': 8}) }}
+        </div>
+    </div>
     {% if form.phone is defined %}
     <div class="row">
         <div class="col-md-6">

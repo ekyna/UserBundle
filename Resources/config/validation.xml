@@ -36,12 +36,19 @@
         </property>
         <property name="postalCode">
             <constraint name="NotBlank" />
-            <constraint name="Regex">
-                <option name="pattern">/^[0-9]{5}$/</option><!-- TODO fix for other countries (Ex: Monreal H3W2L3) -->
-            </constraint>
         </property>
         <property name="city">
             <constraint name="NotBlank" />
+            <constraint name="Length">
+                <option name="min">3</option>
+                <option name="max">64</option>
+            </constraint>
+        </property>
+        <property name="country">
+            <constraint name="NotBlank" />
+            <constraint name="Country" />
+        </property>
+        <property name="state">
             <constraint name="Length">
                 <option name="min">3</option>
                 <option name="max">64</option>

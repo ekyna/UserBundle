@@ -11,7 +11,9 @@ use Symfony\Component\Validator\Constraint;
  */
 class Address extends Constraint
 {
-    public $message = 'This value should not be blank.';
+    public $firstNameIsMandatory = 'ekyna_user.address.first_name_is_mandatory';
+    public $lastNameIsMandatory = 'ekyna_user.address.last_name_is_mandatory';
+    public $invalidPostalCode = 'ekyna_user.address.invalid_postal_code';
 
     /**
      * {@inheritdoc}
