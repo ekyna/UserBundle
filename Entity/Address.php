@@ -2,7 +2,7 @@
 
 namespace Ekyna\Bundle\UserBundle\Entity;
 
-use Ekyna\Bundle\CoreBundle\Model\AbstractAddress;
+use Ekyna\Bundle\CoreBundle\Entity\AbstractAddress;
 use Ekyna\Bundle\CoreBundle\Model\TimestampableTrait;
 use Ekyna\Bundle\UserBundle\Model\AddressInterface;
 use Ekyna\Bundle\UserBundle\Model\IdentityTrait;
