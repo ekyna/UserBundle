@@ -2,7 +2,7 @@
 
 namespace Ekyna\Bundle\UserBundle\Form\Type;
 
-use Ekyna\Bundle\CoreBundle\Form\Type\AbstractAddressType;
+use Ekyna\Bundle\AdminBundle\Form\Type\ResourceFormType;
 use libphonenumber\PhoneNumberFormat;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -12,31 +12,13 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  * @package Ekyna\Bundle\UserBundle\Form\Type
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
-class AddressType extends AbstractAddressType
+class AddressType extends ResourceFormType
 {
-    /**
-     * @var string
-     */
-    protected $dataClass;
-
-
-    /**
-     * Constructor.
-     *
-     * @param $class
-     */
-    public function __construct($class)
-    {
-        $this->dataClass = $class;
-    }
-
     /**
      * {@inheritDoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        parent::buildForm($builder, $options);
-
         if ($options['company']) {
             $builder->add('company', 'text', array(
                 'label' => 'ekyna_core.field.company',
@@ -71,9 +53,10 @@ class AddressType extends AbstractAddressType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
+        parent::setDefaultOptions($resolver);
+
         $resolver
             ->setDefaults(array(
-                'data_class'        => $this->dataClass,
                 'company'           => true,
                 'identity'          => true,
                 'phones'            => true,
@@ -92,6 +75,14 @@ class AddressType extends AbstractAddressType
                 'mobile_required'   => 'bool',
             ))
         ;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getParent()
+    {
+        return 'ekyna_address';
     }
 
     /**
