@@ -16,7 +16,7 @@ class IdentityType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options = array())
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('gender', 'ekyna_user_gender', array(
