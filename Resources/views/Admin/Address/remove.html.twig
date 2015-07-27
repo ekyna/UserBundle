@@ -1,21 +1,6 @@
-{% extends "EkynaAdminBundle:Entity:sided.html.twig" %}
-
-{% block title %}
-<h1>{{ 'ekyna_user.address.header.remove'|trans|raw }}</h1>
-{% endblock %}
+{% extends "EkynaAdminBundle:Entity/Default:remove.html.twig" %}
 
 {% block actions %}
 {{ admin_resource_btn(address.user, 'show', {'label': 'ekyna_core.button.back'}) }}
 {{ admin_resource_btn(address, 'new') }}
-{% endblock %}
-
-{% block main %}
-<form action="{{ path('ekyna_user_address_admin_remove', identifiers|merge({'addressId': address.id})) }}" method="post" class="form-horizontal">
-    <div class="form-body">
-	    {{ bootstrap_set_style('horizontal') }}
-        {{ bootstrap_set_col_size('md') }}
-		{{ form_widget(form) }}
-    </div>
-    {{ ui_form_footer(form) }}
-</form>
 {% endblock %}

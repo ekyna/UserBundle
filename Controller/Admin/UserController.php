@@ -75,7 +75,7 @@ class UserController extends ResourceController
         $this->getOperator()->update($event);
         $event->toFlashes($this->getFlashBag());
 
-        return $this->redirect($this->getResourceHelper()->generateResourcePath($resource));
+        return $this->redirect($this->generateResourcePath($resource));
     }
 
     /**
@@ -107,6 +107,6 @@ class UserController extends ResourceController
             $this->addFlash('ekyna_user.user.alert.no_password_request', 'warning');
         }
 
-        return $this->redirect($this->getResourceHelper()->generateResourcePath($resource));
+        return $this->redirect($this->generateResourcePath($resource));
     }
 }

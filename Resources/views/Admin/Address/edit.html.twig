@@ -1,17 +1,6 @@
-{% extends "EkynaAdminBundle:Entity:sided.html.twig" %}
-
-{% block title %}
-<h1>{{ 'ekyna_user.address.header.edit'|trans|raw }}</h1>
-{% endblock %}
+{% extends "EkynaAdminBundle:Entity/Default:edit.html.twig" %}
 
 {% block actions %}
 {{ admin_resource_btn(address.user, 'show', {'label': 'ekyna_core.button.back'}) }}
 {{ admin_resource_btn(address, 'new') }}
-{% endblock %}
-
-{% block main %}
-<form action="{{ path('ekyna_user_address_admin_edit', identifiers|merge({'addressId': address.id})) }}" {{ form_enctype(form) }} method="post" class="form-horizontal form-with-tabs">
-    {% include "EkynaUserBundle:Admin/Address:_form.html.twig" %}
-    {{ ui_form_footer(form) }}
-</form>
 {% endblock %}

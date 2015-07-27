@@ -22,6 +22,7 @@ class GroupController extends ResourceController
     {
         $context = $this->loadContext($request);
 
+        /** @var \Ekyna\Bundle\UserBundle\Model\GroupInterface $resource */
         $resource = $context->getResource();
 
         $this->isGranted('VIEW', $resource);
@@ -40,33 +41,53 @@ class GroupController extends ResourceController
      * Edit permissions action.
      *
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function editPermissionsAction(Request $request)
     {
         $context = $this->loadContext($request);
 
+        /** @var \Ekyna\Bundle\UserBundle\Model\GroupInterface $resource */
         $resource = $context->getResource();
 
         $this->isGranted('EDIT', $resource);
 
+        $cancelPath = $this->generateResourcePath($resource);
+
         $aclOperator = $this->get('ekyna_admin.acl_operator');
         $builder = $this->createFormBuilder(
             array('acls' => $aclOperator->generateGroupFormDatas($resource)),
-            array(
-                'admin_mode' => true,
-                '_redirect_enabled' => true,
-                '_footer' => array(
-                    'cancel_path' => $this->generateUrl(
-                        $this->config->getRoute('show'),
-                        $context->getIdentifiers(true)
-                    ),
-                ),
-            )
+            array('admin_mode' => true, '_redirect_enabled' => true)
         );
         $aclOperator->buildGroupForm($builder);
 
         $form = $builder->getForm();
+        $form->add('actions', 'form_actions', [
+            'buttons' => [
+                'save' => [
+                    'type' => 'submit', 'options' => [
+                        'button_class' => 'primary',
+                        'label' => 'ekyna_core.button.save',
+                        'attr' => [
+                            'icon' => 'ok',
+                        ],
+                    ],
+                ],
+                'cancel' => [
+                    'type' => 'button', 'options' => [
+                        'label' => 'ekyna_core.button.cancel',
+                        'button_class' => 'default',
+                        'as_link' => true,
+                        'attr' => [
+                            'class' => 'form-cancel-btn',
+                            'icon' => 'remove',
+                            'href' => $cancelPath,
+                        ],
+                    ],
+                ],
+            ],
+        ]);
+
         $form->handleRequest($request);
         if ($form->isValid()) {
             try {
@@ -78,12 +99,7 @@ class GroupController extends ResourceController
                     return $this->redirect($redirectPath);
                 }
 
-                return $this->redirect(
-                    $this->generateUrl(
-                        $this->config->getRoute('show'),
-                        $context->getIdentifiers(true)
-                    )
-                );
+                return $this->redirect($cancelPath );
             } catch(\Exception $e) {
                 $this->addFlash('Erreur lors de la mise à jour des permissions :<br>' . $e->getMessage(), 'danger');
             }

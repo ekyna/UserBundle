@@ -1,16 +1,5 @@
-{% extends "EkynaAdminBundle:Entity:sided.html.twig" %}
-
-{% block title %}
-<h1>{{ 'ekyna_user.address.header.new'|trans|raw }}</h1>
-{% endblock %}
+{% extends "EkynaAdminBundle:Entity/Default:new.html.twig" %}
 
 {% block actions %}
 {{ admin_resource_btn('ekyna_user.user', 'show', {'path': path('ekyna_user_user_admin_show', identifiers), 'label': 'ekyna_core.button.back'}) }}
-{% endblock %}
-
-{% block main %}
-<form action="{{ path('ekyna_user_address_admin_new', identifiers) }}" {{ form_enctype(form) }} method="post" class="form-horizontal form-with-tabs">
-    {% include "EkynaUserBundle:Admin/Address:_form.html.twig" %}
-    {{ ui_form_footer(form) }}
-</form>
 {% endblock %}

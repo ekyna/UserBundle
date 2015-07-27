@@ -36,22 +36,49 @@ class AddressController extends Controller
      *
      * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function newAction(Request $request)
     {
         $user = $this->getUser();
         $repository = $this->get('ekyna_user.address.repository');
 
-        $address = $repository->createNew($user);
+        $address = $repository->createNew();
         $address->setUser($user);
 
-        $form = $this->createForm('ekyna_user_address', $address, array(
-            '_redirect_enabled' => true,
-            '_footer' => array(
-                'cancel_path' => $this->generateUrl('ekyna_user_address_list'),
-            ),
-        ));
+        $cancelPath = $this->generateUrl('ekyna_user_address_list');
+
+        /** @var \Symfony\Component\Form\FormInterface $form */
+        $form = $this
+            ->createForm('ekyna_user_address', $address, array(
+                '_redirect_enabled' => true,
+            ))
+            ->add('actions', 'form_actions', [
+                'buttons' => [
+                    'save' => [
+                        'type' => 'submit', 'options' => [
+                            'button_class' => 'primary',
+                            'label' => 'ekyna_core.button.save',
+                            'attr' => [
+                                'icon' => 'ok',
+                            ],
+                        ],
+                    ],
+                    'cancel' => [
+                        'type' => 'button', 'options' => [
+                            'label' => 'ekyna_core.button.cancel',
+                            'button_class' => 'default',
+                            'as_link' => true,
+                            'attr' => [
+                                'class' => 'form-cancel-btn',
+                                'icon' => 'remove',
+                                'href' => $cancelPath,
+                            ],
+                        ],
+                    ],
+                ],
+            ])
+        ;
 
         $form->handleRequest($request);
         if ($form->isValid()) {
@@ -59,13 +86,13 @@ class AddressController extends Controller
             $em->persist($address);
             $em->flush();
 
-            $this->addFlash('L\'adresse a été créée avec succès.', 'success');
+            $this->addFlash('L\'adresse a été créée avec succès.', 'success'); // TODO translation
 
             if (null !== $redirectPath = $form->get('_redirect')->getData()) {
                 return $this->redirect($redirectPath);
             }
 
-            return $this->redirect($this->generateUrl('ekyna_user_address_list'));
+            return $this->redirect($cancelPath);
         }
 
         return $this->render('EkynaUserBundle:Address:new.html.twig', array(
@@ -78,7 +105,7 @@ class AddressController extends Controller
      *
      * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      *
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @throws \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException
@@ -89,18 +116,45 @@ class AddressController extends Controller
         $repository = $this->get('ekyna_user.address.repository');
 
         if (null === $address = $repository->find($request->attributes->get('addressId'))) {
-            throw new NotFoundHttpException('Adresse introuvable.');
+            throw new NotFoundHttpException('Adresse introuvable.'); // TODO translation
         }
         if ($address->getUser()->getId() !== $user->getId()) {
-            throw new AccessDeniedHttpException('Vous n\'avez pas l\'autorisation pour acceder à cette resource.');
+            throw new AccessDeniedHttpException('Vous n\'avez pas l\'autorisation pour acceder à cette resource.'); // TODO translation
         }
 
-        $form = $this->createForm('ekyna_user_address', $address, array(
-            '_redirect_enabled' => true,
-            '_footer' => array(
-                'cancel_path' => $this->generateUrl('ekyna_user_address_list'),
-            ),
-        ));
+        $cancelPath = $this->generateUrl('ekyna_user_address_list');
+
+        /** @var \Symfony\Component\Form\FormInterface $form */
+        $form = $this
+            ->createForm('ekyna_user_address', $address, array(
+                '_redirect_enabled' => true,
+            ))
+            ->add('actions', 'form_actions', [
+                'buttons' => [
+                    'save' => [
+                        'type' => 'submit', 'options' => [
+                            'button_class' => 'primary',
+                            'label' => 'ekyna_core.button.save',
+                            'attr' => [
+                                'icon' => 'ok',
+                            ],
+                        ],
+                    ],
+                    'cancel' => [
+                        'type' => 'button', 'options' => [
+                            'label' => 'ekyna_core.button.cancel',
+                            'button_class' => 'default',
+                            'as_link' => true,
+                            'attr' => [
+                                'class' => 'form-cancel-btn',
+                                'icon' => 'remove',
+                                'href' => $cancelPath,
+                            ],
+                        ],
+                    ],
+                ],
+            ])
+        ;
 
         $form->handleRequest($request);
         if ($form->isValid()) {
@@ -108,13 +162,13 @@ class AddressController extends Controller
             $em->persist($address);
             $em->flush();
 
-            $this->addFlash('L\'adresse a été modifiée avec succès.', 'success');
+            $this->addFlash('L\'adresse a été modifiée avec succès.', 'success'); // TODO translation
 
             if (null !== $redirectPath = $form->get('_redirect')->getData()) {
                 return $this->redirect($redirectPath);
             }
 
-            return $this->redirect($this->generateUrl('ekyna_user_address_list'));
+            return $this->redirect($cancelPath);
         }
 
         return $this->render('EkynaUserBundle:Address:edit.html.twig', array(
@@ -128,7 +182,7 @@ class AddressController extends Controller
      *
      * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return \Symfony\Component\HttpFoundation\Response
      *
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @throws \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException
@@ -139,24 +193,49 @@ class AddressController extends Controller
         $repository = $this->get('ekyna_user.address.repository');
 
         if (null === $address = $repository->find($request->attributes->get('addressId'))) {
-            throw new NotFoundHttpException('Adresse introuvable.');
+            throw new NotFoundHttpException('Adresse introuvable.'); // TODO translation
         }
         if ($address->getUser()->getId() !== $user->getId()) {
-            throw new AccessDeniedHttpException('Vous n\'avez pas l\'autorisation pour acceder à cette resource.');
+            throw new AccessDeniedHttpException('Vous n\'avez pas l\'autorisation pour acceder à cette resource.'); // TODO translation
         }
+
+        $cancelPath = $this->generateUrl('ekyna_user_address_list');
 
         $form = $this->createFormBuilder(null, array(
                 '_redirect_enabled' => true,
-                '_footer' => array(
-                    'cancel_path' => $this->generateUrl('ekyna_user_address_list'),
-                ),
             ))
             ->add('confirm', 'checkbox', array(
-                'label' => 'Souhaitez-vous réellement supprimer cette adresse ?',
+                'label' => 'Souhaitez-vous réellement supprimer cette adresse ?', // TODO translation
                 'attr' => array('align_with_widget' => true),
                 'required' => true
             ))
-            ->getForm();
+            ->add('actions', 'form_actions', [
+                'buttons' => [
+                    'remove' => [
+                        'type' => 'submit', 'options' => [
+                            'button_class' => 'danger',
+                            'label' => 'ekyna_core.button.remove',
+                            'attr' => [
+                                'icon' => 'trash',
+                            ],
+                        ],
+                    ],
+                    'cancel' => [
+                        'type' => 'button', 'options' => [
+                            'label' => 'ekyna_core.button.cancel',
+                            'button_class' => 'default',
+                            'as_link' => true,
+                            'attr' => [
+                                'class' => 'form-cancel-btn',
+                                'icon' => 'remove',
+                                'href' => $cancelPath,
+                            ],
+                        ],
+                    ],
+                ],
+            ])
+            ->getForm()
+        ;
 
         $form->handleRequest($request);
         if ($form->isValid()) {
@@ -164,13 +243,13 @@ class AddressController extends Controller
             $em->remove($address);
             $em->flush();
 
-            $this->addFlash('L\'addresse a été supprimée avec succès.', 'success');
+            $this->addFlash('L\'addresse a été supprimée avec succès.', 'success'); // TODO translation
 
             if (null !== $redirectPath = $form->get('_redirect')->getData()) {
                 return $this->redirect($redirectPath);
             }
 
-            return $this->redirect($this->generateUrl('ekyna_user_address_list'));
+            return $this->redirect($cancelPath);
         }
 
         return $this->render('EkynaUserBundle:Address:remove.html.twig', array(
