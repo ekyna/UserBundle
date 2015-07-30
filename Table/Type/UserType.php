@@ -53,7 +53,7 @@ class UserType extends ResourceTableType
     /**
      * {@inheritdoc}
      */
-    public function buildTable(TableBuilderInterface $builder, array $options = array())
+    public function buildTable(TableBuilderInterface $builder, array $options)
     {
         /** @var \Ekyna\Bundle\UserBundle\Model\GroupInterface $group */
         $group = $this->securityContext->getToken()->getUser()->getGroup();
