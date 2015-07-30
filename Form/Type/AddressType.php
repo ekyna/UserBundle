@@ -59,6 +59,7 @@ class AddressType extends ResourceFormType
             ->setDefaults(array(
                 'company'           => true,
                 'identity'          => true,
+                'country'           => true,
                 'phones'            => true,
                 'company_required'  => false,
                 'identity_required' => true,
@@ -68,6 +69,7 @@ class AddressType extends ResourceFormType
             ->addAllowedTypes(array(
                 'company'           => 'bool',
                 'identity'          => 'bool',
+                'country'           => 'bool',
                 'phones'            => 'bool',
                 'company_required'  => 'bool',
                 'identity_required' => 'bool',
