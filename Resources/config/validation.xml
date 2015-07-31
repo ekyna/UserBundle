@@ -6,7 +6,6 @@
                         http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
 
     <class name="Ekyna\Bundle\UserBundle\Entity\Address">
-        <constraint name="Ekyna\Bundle\UserBundle\Validator\Constraints\Address" />
         <property name="user">
             <constraint name="Valid" />
         </property>
@@ -71,6 +70,7 @@
         <property name="firstName">
             <constraint name="NotBlank">
                 <option name="groups">
+                    <value>Default</value>
                     <value>Registration</value>
                     <value>Profile</value>
                 </option>
@@ -79,6 +79,7 @@
                 <option name="min">2</option>
                 <option name="max">32</option>
                 <option name="groups">
+                    <value>Default</value>
                     <value>Registration</value>
                     <value>Profile</value>
                 </option>
@@ -87,6 +88,7 @@
         <property name="lastName">
             <constraint name="NotBlank">
                 <option name="groups">
+                    <value>Default</value>
                     <value>Registration</value>
                     <value>Profile</value>
                 </option>
@@ -95,6 +97,7 @@
                 <option name="min">2</option>
                 <option name="max">32</option>
                 <option name="groups">
+                    <value>Default</value>
                     <value>Registration</value>
                     <value>Profile</value>
                 </option>
@@ -109,6 +112,11 @@
         </property>
 
         <property name="addresses">
+            <constraint name="All">
+                <constraint name="Ekyna\Bundle\UserBundle\Validator\Constraints\Address">
+                    <option name="user">true</option>
+                </constraint>
+            </constraint>
             <constraint name="Valid" />
         </property>
     </class>

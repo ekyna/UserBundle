@@ -184,6 +184,10 @@ class AddressValidator extends ConstraintValidator
      */
     public function validate($address, Constraint $constraint)
     {
+        if (null === $address) {
+            return;
+        }
+
         if (!$address instanceof AddressInterface) {
             throw new UnexpectedTypeException($address, '\Ekyna\Bundle\UserBundle\Model\AddressInterface');
         }
@@ -196,11 +200,18 @@ class AddressValidator extends ConstraintValidator
          * @var Address $constraint
          */
         if (null === $address->getUser()) {
-            if (0 === strlen($address->getFirstName())) {
-                $this->context->addViolationAt('firstName', $constraint->firstNameIsMandatory);
-            }
-            if (0 === strlen($address->getLastName())) {
-                $this->context->addViolationAt('lastName', $constraint->lastNameIsMandatory);
+            if ($constraint->user) {
+                $this->context->addViolationAt('user', $constraint->userIsMandatory);
+            } elseif ($constraint->identity) {
+                if (0 === strlen($address->getGender())) {
+                    $this->context->addViolationAt('gender', $constraint->genderIsMandatory);
+                }
+                if (0 === strlen($address->getFirstName())) {
+                    $this->context->addViolationAt('firstName', $constraint->firstNameIsMandatory);
+                }
+                if (0 === strlen($address->getLastName())) {
+                    $this->context->addViolationAt('lastName', $constraint->lastNameIsMandatory);
+                }
             }
         }
         if (array_key_exists($address->getCountry(), $this->zipRegex)) {
