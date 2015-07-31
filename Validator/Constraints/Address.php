@@ -11,20 +11,17 @@ use Symfony\Component\Validator\Constraint;
  */
 class Address extends Constraint
 {
-    public $userIsMandatory = 'ekyna_user.address.user_is_mandatory';
-    public $genderIsMandatory = 'ekyna_user.address.gender_is_mandatory';
+    public $userIsMandatory      = 'ekyna_user.address.user_is_mandatory';
+    public $genderIsMandatory    = 'ekyna_user.address.gender_is_mandatory';
     public $firstNameIsMandatory = 'ekyna_user.address.first_name_is_mandatory';
-    public $lastNameIsMandatory = 'ekyna_user.address.last_name_is_mandatory';
-    public $invalidPostalCode = 'ekyna_user.address.invalid_postal_code';
+    public $lastNameIsMandatory  = 'ekyna_user.address.last_name_is_mandatory';
+    public $companyIsMandatory   = 'ekyna_user.address.company_is_mandatory';
+    public $phoneIsMandatory     = 'ekyna_user.address.phone_is_mandatory';
+    public $mobileIsMandatory    = 'ekyna_user.address.mobile_is_mandatory';
 
-    public $user = true;
+    public $user     = true;
     public $identity = true;
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getTargets()
-    {
-        return self::CLASS_CONSTRAINT;
-    }
+    public $company  = false;
+    public $phone    = true;
+    public $mobile   = false;
 }

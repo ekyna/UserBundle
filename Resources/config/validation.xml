@@ -26,34 +26,6 @@
             </constraint>
         </property>
 
-        <property name="street">
-            <constraint name="NotBlank" />
-            <constraint name="Length">
-                <option name="min">3</option>
-                <option name="max">255</option>
-            </constraint>
-        </property>
-        <property name="postalCode">
-            <constraint name="NotBlank" />
-        </property>
-        <property name="city">
-            <constraint name="NotBlank" />
-            <constraint name="Length">
-                <option name="min">3</option>
-                <option name="max">64</option>
-            </constraint>
-        </property>
-        <property name="country">
-            <constraint name="NotBlank" />
-            <constraint name="Country" />
-        </property>
-        <property name="state">
-            <constraint name="Length">
-                <option name="min">3</option>
-                <option name="max">64</option>
-            </constraint>
-        </property>
-
         <property name="phone">
             <constraint name="Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber" />
         </property>
