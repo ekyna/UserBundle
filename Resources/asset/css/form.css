@@ -1,0 +1,23 @@
+.ekyna-user-identity {
+    width: 100%;
+}
+
+@media (max-width: 400px) {
+    .ekyna-user-identity .form-control {
+        width: 100%;
+        border-radius: 4px !important;
+        margin-bottom: 10px;
+    }
+    .ekyna-user-identity .form-control:last-child {
+        margin-bottom: 0;
+    }
+}
+
+@media (min-width: 401px) {
+    .ekyna-user-identity .form-control {
+        width: 37%;
+    }
+    .ekyna-user-identity .form-control:first-child {
+        width: 26%;
+    }
+}
