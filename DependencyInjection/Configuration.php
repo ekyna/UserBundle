@@ -53,7 +53,6 @@ class Configuration implements ConfigurationInterface
                     ->addDefaultsIfNotSet()
                     ->children()
                         ->booleanNode('enable')->defaultValue(false)->end()
-                        ->scalarNode('prefix')->defaultValue('/account')->end()
                         ->booleanNode('username')->defaultValue(false)->end()
                         ->booleanNode('register')->defaultValue(false)->end()
                         ->booleanNode('resetting')->defaultValue(false)->end()

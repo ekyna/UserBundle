@@ -1,0 +1,25 @@
+ekyna_user_account_home: /mon-compte
+
+ekyna_user_address_list: /mon-compte/mes-adresses
+ekyna_user_address_new: /mon-compte/mes-adresses/nouvelle
+ekyna_user_address_edit: /mon-compte/mes-adresses/modifier
+ekyna_user_address_remove: /mon-compte/mes-adresses/supprimer
+
+fos_user_change_password: /mon-compte/changer-mot-de-passe
+
+fos_user_profile_show: /mon-compte/mon-profil
+fos_user_profile_edit: /mon-compte/mon-profil/modifier
+
+fos_user_registration_register: /mon-compte/creation
+fos_user_registration_check_email: /mon-compte/creation/verifier-email
+fos_user_registration_confirm: /mon-compte/creation/confirmer/{token}
+fos_user_registration_confirmed: /mon-compte/creation/confirmation
+
+fos_user_resetting_request: /mon-compte/reinitialisation
+fos_user_resetting_send_email: /mon-compte/reinitialisation/envoi-email
+fos_user_resetting_check_email: /mon-compte/reinitialisation/verifier-email
+fos_user_resetting_reset: /mon-compte/reinitialisation/reinitialiser/{token}
+
+fos_user_security_login: /mon-compte/connexion
+fos_user_security_check: /mon-compte/connexion-verification
+fos_user_security_logout: /mon-compte/deconnection

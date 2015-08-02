@@ -46,7 +46,7 @@ class AccountLoader extends Loader
         // Base account
         if ($this->config['account']['enable']) {
 
-            $prefix = '/'.trim($this->config['account']['prefix'], '/');
+            $prefix = '/my-account';
 
             $resource = '@EkynaUserBundle/Resources/config/routing/account.yml';
             $type     = 'yaml';
