@@ -82,17 +82,15 @@ class AddressController extends Controller
 
         $form->handleRequest($request);
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($address);
-            $em->flush();
-
-            $this->addFlash('L\'adresse a été créée avec succès.', 'success'); // TODO translation
-
-            if (null !== $redirectPath = $form->get('_redirect')->getData()) {
-                return $this->redirect($redirectPath);
+            $event = $this->get('ekyna_user.address.operator')->create($address);
+            if (!$event->isPropagationStopped()) {
+                $this->addFlash('ekyna_user.address.message.create.success', 'success');
+                if (null !== $redirectPath = $form->get('_redirect')->getData()) {
+                    return $this->redirect($redirectPath);
+                }
+                return $this->redirect($cancelPath);
             }
-
-            return $this->redirect($cancelPath);
+            $this->addFlash('ekyna_user.address.message.create.failure', 'danger');
         }
 
         return $this->render('EkynaUserBundle:Address:new.html.twig', array(
@@ -116,10 +114,10 @@ class AddressController extends Controller
         $repository = $this->get('ekyna_user.address.repository');
 
         if (null === $address = $repository->find($request->attributes->get('addressId'))) {
-            throw new NotFoundHttpException('Adresse introuvable.'); // TODO translation
+            throw new NotFoundHttpException('Addresse not found.');
         }
         if ($address->getUser()->getId() !== $user->getId()) {
-            throw new AccessDeniedHttpException('Vous n\'avez pas l\'autorisation pour acceder à cette resource.'); // TODO translation
+            throw new AccessDeniedHttpException('Access denied');
         }
 
         $cancelPath = $this->generateUrl('ekyna_user_address_list');
@@ -158,17 +156,15 @@ class AddressController extends Controller
 
         $form->handleRequest($request);
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($address);
-            $em->flush();
-
-            $this->addFlash('L\'adresse a été modifiée avec succès.', 'success'); // TODO translation
-
-            if (null !== $redirectPath = $form->get('_redirect')->getData()) {
-                return $this->redirect($redirectPath);
+            $event = $this->get('ekyna_user.address.operator')->update($address);
+            if (!$event->isPropagationStopped()) {
+                $this->addFlash('ekyna_user.address.message.edit.success', 'success');
+                if (null !== $redirectPath = $form->get('_redirect')->getData()) {
+                    return $this->redirect($redirectPath);
+                }
+                return $this->redirect($cancelPath);
             }
-
-            return $this->redirect($cancelPath);
+            $this->addFlash('ekyna_user.address.message.edit.failure', 'danger');
         }
 
         return $this->render('EkynaUserBundle:Address:edit.html.twig', array(
@@ -193,10 +189,10 @@ class AddressController extends Controller
         $repository = $this->get('ekyna_user.address.repository');
 
         if (null === $address = $repository->find($request->attributes->get('addressId'))) {
-            throw new NotFoundHttpException('Adresse introuvable.'); // TODO translation
+            throw new NotFoundHttpException('Address not found.');
         }
         if ($address->getUser()->getId() !== $user->getId()) {
-            throw new AccessDeniedHttpException('Vous n\'avez pas l\'autorisation pour acceder à cette resource.'); // TODO translation
+            throw new AccessDeniedHttpException('Access denied.');
         }
 
         $cancelPath = $this->generateUrl('ekyna_user_address_list');
@@ -205,7 +201,7 @@ class AddressController extends Controller
                 '_redirect_enabled' => true,
             ))
             ->add('confirm', 'checkbox', array(
-                'label' => 'Souhaitez-vous réellement supprimer cette adresse ?', // TODO translation
+                'label' => 'ekyna_user.address.message.remove.confirm',
                 'attr' => array('align_with_widget' => true),
                 'required' => true
             ))
@@ -239,17 +235,15 @@ class AddressController extends Controller
 
         $form->handleRequest($request);
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($address);
-            $em->flush();
-
-            $this->addFlash('L\'addresse a été supprimée avec succès.', 'success'); // TODO translation
-
-            if (null !== $redirectPath = $form->get('_redirect')->getData()) {
-                return $this->redirect($redirectPath);
+            $event = $this->get('ekyna_user.address.operator')->delete($address);
+            if (!$event->isPropagationStopped()) {
+                $this->addFlash('ekyna_user.address.message.remove.success', 'success');
+                if (null !== $redirectPath = $form->get('_redirect')->getData()) {
+                    return $this->redirect($redirectPath);
+                }
+                return $this->redirect($cancelPath);
             }
-
-            return $this->redirect($cancelPath);
+            $this->addFlash('ekyna_user.address.message.remove.failure', 'danger');
         }
 
         return $this->render('EkynaUserBundle:Address:remove.html.twig', array(

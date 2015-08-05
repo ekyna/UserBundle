@@ -76,9 +76,24 @@ ekyna_user:
             remove: Supprimer l'adresse
         alert:
             empty_list: Aucune adresse configuré
+        message:
+            create:
+                success: L'adresse a été créée avec succès.
+                failure: L'application a rencontré une erreur lors de la création de votre adresse.
+            edit:
+                success: L'adresse a été modifiée avec succès.
+                failure: L'application a rencontré une erreur lors de l'enregistrement de votre adresse.
+            remove:
+                confirm: Souhaitez-vous réellement supprimer cette adresse ?
+                success: L'adresse a été supprimée avec succès.
+                failure: L'application a rencontré une erreur lors de la suppression de votre adresse.
     account:
         title: Espace client
         menu:
+            my_profile: Mon profil
+            backend: Administration
+            login: Connexion
+            logout: Se déconnecter
             profile: Mes informations
             password: Changer mon mot de passe
             address: Mes adresses

@@ -26,7 +26,7 @@ class MenuBuilder
     protected $securityContext;
 
     /**
-     * @var SecurityContextInterface
+     * @var ExtensionRegistry
      */
     protected $extensionRegistry;
 
@@ -62,6 +62,7 @@ class MenuBuilder
     ) {
         $this->factory = $factory;
         $this->securityContext = $securityContext;
+        $this->extensionRegistry = $extensionRegistry;
         $this->accountEnabled = $config['account']['enable'];
 
         $this->optionResolver = new OptionsResolver();
@@ -80,7 +81,7 @@ class MenuBuilder
         ;
 
         $this->accountEntries = [];
-        foreach ($extensionRegistry->getAccountEntries() as $name => $options) {
+        foreach ($this->extensionRegistry->getAccountEntries() as $name => $options) {
             $this->addAccountEntry($name, $options);
         }
     }
@@ -128,22 +129,20 @@ class MenuBuilder
     {
         $menu = $this->factory->createItem('root');
 
-        // TODO translations
-
         if ($this->accountEnabled) {
             if (null !== $this->securityContext->getToken()) {
                 if ($this->securityContext->isGranted('IS_AUTHENTICATED_FULLY') || $this->securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
                     $user = $this->securityContext->getToken()->getUser();
                     $item = $menu->addChild($user->getEmail(), array('uri' => '#'));
-                    $item->addChild('Mon profil', array('route' => 'fos_user_profile_show'));
+                    $item->addChild('ekyna_user.account.menu.my_profile', array('route' => 'fos_user_profile_show'));
                     if ($this->securityContext->isGranted('ROLE_ADMIN')) {
-                        $item->addChild('Administration', array('route' => 'ekyna_admin'));
+                        $item->addChild('ekyna_user.account.menu.backend', array('route' => 'ekyna_admin'));
                     }
-                    $item->addChild('Se déconnecter', array('route' => 'fos_user_security_logout'));
+                    $item->addChild('ekyna_user.account.menu.logout', array('route' => 'fos_user_security_logout'));
                     return $menu;
                 }
             }
-            $menu->addChild('Connection', array('route' => 'fos_user_security_login'));
+            $menu->addChild('ekyna_user.account.menu.login', array('route' => 'fos_user_security_login'));
         }
 
         return $menu;

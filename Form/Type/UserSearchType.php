@@ -35,7 +35,7 @@ class UserSearchType extends AbstractType
     {
         $resolver
             ->setDefaults(array(
-                'label' => 'ekyna_core.field.user',
+                'label' => 'ekyna_user.user.label.singular',
                 'required' => true,
                 'entity'   => $this->userClass,
                 'search_route' => 'ekyna_user_user_admin_search',
