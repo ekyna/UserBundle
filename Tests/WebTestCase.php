@@ -11,13 +11,19 @@ use Ekyna\Bundle\CoreBundle\Tests\WebTestCase as BaseTestCase;
  */
 abstract class WebTestCase extends BaseTestCase
 {
-    protected function logIn()
+    /**
+     * Performs a login.
+     *
+     * @param string $username
+     * @param string $password
+     */
+    protected function logIn($username = 'user@example.org', $password = 'test')
     {
         $crawler = $this->client->request('GET', $this->generatePath('fos_user_security_login'));
 
         $form = $crawler->selectButton('_submit')->form(array(
-            '_username'  => 'user@example.org',
-            '_password'  => 'user',
+            '_username'  => $username,
+            '_password'  => $password,
         ));
 
         $this->client->submit($form);
