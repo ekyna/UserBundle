@@ -2,12 +2,9 @@
 
 namespace Ekyna\Bundle\UserBundle\Form\Type;
 
-use Ekyna\Bundle\UserBundle\Doctrine\UserManager;
 use FOS\UserBundle\Form\Type\RegistrationFormType;
 use libphonenumber\PhoneNumberFormat;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 
 /**
  * Class RegistrationType
@@ -22,13 +19,24 @@ class RegistrationType extends RegistrationFormType
     private $usernameEnabled;
 
     /**
-     * @param string $class
-     * @param array $config
+     * @var string
      */
-    public function __construct($class, array $config)
+    private $kernelEnvironment;
+
+
+    /**
+     * Constructor.
+     *
+     * @param string $class
+     * @param array  $config
+     * @param string $environment
+     */
+    public function __construct($class, array $config, $environment)
     {
         parent::__construct($class);
+
         $this->usernameEnabled = $config['account']['username'];
+        $this->kernelEnvironment = $environment;
     }
 
     /**
@@ -60,8 +68,11 @@ class RegistrationType extends RegistrationFormType
                 'default_region' => 'FR', // TODO get user locale
                 'format' => PhoneNumberFormat::NATIONAL,
             ))
-            ->add('captcha', 'ekyna_captcha')
         ;
+
+        if ($this->kernelEnvironment !== 'test') {
+            $builder->add('captcha', 'ekyna_captcha');
+        }
     }
 
     /**

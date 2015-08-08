@@ -12,6 +12,12 @@ use Ekyna\Bundle\UserBundle\Model\UserInterface;
  */
 class AddressRepository extends ResourceRepository
 {
+    /**
+     * Finds addresses by user.
+     *
+     * @param UserInterface $user
+     * @return array|\Doctrine\ORM\Tools\Pagination\Paginator
+     */
     public function findByUser(UserInterface $user)
     {
         return $this->findBy(array('user' => $user));
