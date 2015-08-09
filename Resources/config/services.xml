@@ -20,6 +20,11 @@
 
     <services>
 
+        <!-- Doctrine entity listeners -->
+        <service id="ekyna_user.address.listener" class="Ekyna\Bundle\UserBundle\Listener\AddressListener">
+            <tag name="doctrine.entity_listener" />
+        </service>
+
         <!-- Events listeners -->
         <service id="ekyna_user.authentication_listener" class="Ekyna\Bundle\UserBundle\EventListener\AuthenticationListener">
             <argument type="service" id="security.access.decision_manager" />

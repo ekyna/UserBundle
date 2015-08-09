@@ -10,6 +10,10 @@
             name="Ekyna\Bundle\UserBundle\Entity\Address"
             table="user_address">
 
+        <entity-listeners>
+            <entity-listener class="Ekyna\Bundle\UserBundle\Listener\AddressListener" />
+        </entity-listeners>
+
         <id name="id" type="integer" column="id">
             <generator strategy="AUTO" />
         </id>
