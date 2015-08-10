@@ -63,7 +63,7 @@ class AddressType extends ResourceFormType
                 'phones'            => true,
                 'company_required'  => false,
                 'identity_required' => true,
-                'phone_required'    => true,
+                'phone_required'    => false,
                 'mobile_required'   => false,
             ))
             ->addAllowedTypes(array(

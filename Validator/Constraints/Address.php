@@ -22,6 +22,6 @@ class Address extends Constraint
     public $user     = true;
     public $identity = true;
     public $company  = false;
-    public $phone    = true;
+    public $phone    = false;
     public $mobile   = false;
 }
