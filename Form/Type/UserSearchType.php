@@ -41,7 +41,6 @@ class UserSearchType extends AbstractType
                 'search_route' => 'ekyna_user_user_admin_search',
                 'find_route'   => 'ekyna_user_user_admin_find',
                 'allow_clear'  => false,
-
             ))
         ;
     }

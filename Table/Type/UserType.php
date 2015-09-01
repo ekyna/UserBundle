@@ -63,7 +63,8 @@ class UserType extends ResourceTableType
                 'sortable' => true,
             ))
             ->addColumn('email', 'anchor', array(
-                'label' => 'ekyna_core.field.email',
+                'label' => 'ekyna_user.user.label.singular',
+                'property_path' => null,
                 'sortable' => true,
                 'route_name' => 'ekyna_user_user_admin_show',
                 'route_parameters_map' => array('userId' => 'id'),
@@ -72,14 +73,14 @@ class UserType extends ResourceTableType
                 'label' => 'ekyna_core.field.username',
                 'sortable' => true,
             ))*/
-            ->addColumn('firstName', 'text', array(
+            /*->addColumn('firstName', 'text', array(
                 'label' => 'ekyna_core.field.first_name',
                 'sortable' => true,
             ))
             ->addColumn('lastName', 'text', array(
                 'label' => 'ekyna_core.field.last_name',
                 'sortable' => true,
-            ))
+            ))*/
             ->addColumn('group', 'anchor', array(
                 'label' => 'ekyna_core.field.group',
                 'property_path' => 'group.name',
