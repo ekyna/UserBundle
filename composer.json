@@ -24,11 +24,10 @@
         "ekyna/admin-bundle" : "0.3.*@dev"
     },
     "autoload" : {
-        "psr-0" : {
-            "Ekyna\\Bundle\\UserBundle" : ""
+        "psr-4" : {
+            "Ekyna\\Bundle\\UserBundle\\" : ""
         }
     },
-    "target-dir" : "Ekyna/Bundle/UserBundle",
     "extra" : {
         "branch-alias" : {
             "dev-master" : "0.3.x-dev"
