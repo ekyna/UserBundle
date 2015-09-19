@@ -114,7 +114,7 @@ class AddressController extends Controller
         $repository = $this->get('ekyna_user.address.repository');
 
         if (null === $address = $repository->find($request->attributes->get('addressId'))) {
-            throw new NotFoundHttpException('Addresse not found.');
+            throw new NotFoundHttpException('Address not found.');
         }
         if ($address->getUser()->getId() !== $user->getId()) {
             throw new AccessDeniedHttpException('Access denied');
