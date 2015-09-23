@@ -1,6 +1,8 @@
 <form action="{{ path('fos_user_security_check') }}" method="post" class="form-horizontal" role="form">
     {% if error %}
-    <div class="alert alert-danger">{{ error|trans({}, 'FOSUserBundle')  }}</div>
+        <div class="alert alert-danger">
+            {{ error.messageKey|trans(error.messageData, 'security') }}
+        </div>
     {% endif %}
     <div class="form-group">
         <label for="username" class="col-sm-5 control-label">{{ 'ekyna_core.field.email_address'|trans }}</label>

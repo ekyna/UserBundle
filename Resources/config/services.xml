@@ -101,7 +101,8 @@
         <!-- Account Menu -->
         <service id="ekyna_user.menu_builder" class="Ekyna\Bundle\UserBundle\Menu\MenuBuilder">
             <argument type="service" id="knp_menu.factory" />
-            <argument type="service" id="security.context" />
+            <argument type="service" id="security.authorization_checker" />
+            <argument type="service" id="security.token_storage" />
             <argument type="service" id="ekyna_user.extension.registry" />
             <argument>%ekyna_user.config%</argument>
         </service>
