@@ -40,23 +40,23 @@ class ProfileType extends ProfileFormType
         }
 
         $builder
-            ->add('company', 'text', array(
+            ->add('company', 'text', [
                 'label' => 'ekyna_core.field.company',
                 'required' => false,
-            ))
+            ])
             ->add('identity', 'ekyna_user_identity')
-            ->add('phone', 'tel', array(
+            ->add('phone', 'tel', [
                 'label' => 'ekyna_core.field.phone',
                 'required' => false,
                 'default_region' => 'FR', // TODO get user locale
                 'format' => PhoneNumberFormat::NATIONAL,
-            ))
-            ->add('mobile', 'tel', array(
+            ])
+            ->add('mobile', 'tel', [
                 'label' => 'ekyna_core.field.mobile',
                 'required' => false,
                 'default_region' => 'FR', // TODO get user locale
                 'format' => PhoneNumberFormat::NATIONAL,
-            ))
+            ])
         ;
     }
 

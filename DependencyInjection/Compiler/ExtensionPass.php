@@ -26,7 +26,7 @@ class ExtensionPass implements CompilerPassInterface
 
         $extensions = $container->findTaggedServiceIds('ekyna_user.extension');
         foreach ($extensions as $id => $extension) {
-            $registry->addMethodCall('addExtension', array(new Reference($id)));
+            $registry->addMethodCall('addExtension', [new Reference($id)]);
         }
     }
 }

@@ -4,7 +4,7 @@ namespace Ekyna\Bundle\UserBundle\Form\Type;
 
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\OptionsResolver\Options;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\AbstractType;
 
 /**
@@ -33,10 +33,10 @@ class AddressChoiceType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver
-            ->setDefaults(array(
+            ->setDefaults([
                 'class'    => $this->dataClass,
                 'property' => 'id',
                 'expanded' => true,
@@ -56,11 +56,9 @@ class AddressChoiceType extends AbstractType
                     }
                     return $previousValue;
                 },
-            ))
-            ->setAllowedTypes(array(
-                'class'    => 'string',
-                'user'     => array('null', 'Ekyna\Bundle\UserBundle\Model\UserInterface'),
-            ))
+            ])
+            ->setAllowedTypes('class', 'string')
+            ->setAllowedTypes('user',  ['null', 'Ekyna\Bundle\UserBundle\Model\UserInterface'])
         ;
     }
 

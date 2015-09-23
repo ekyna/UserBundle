@@ -3,7 +3,7 @@
 namespace Ekyna\Bundle\UserBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Class GenderType
@@ -31,16 +31,16 @@ class GenderType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
+        $resolver->setDefaults([
             'label' => 'ekyna_core.field.gender',
             'expanded' => true,
             'choices' => call_user_func($this->genderClass.'::getChoices'),
-            'attr' => array(
+            'attr' => [
             	'class' => 'inline no-select2',
-            ),
-        ));
+            ],
+        ]);
     }
 
     /**

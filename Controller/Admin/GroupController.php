@@ -27,9 +27,9 @@ class GroupController extends ResourceController
 
         $this->isGranted('VIEW', $resource);
 
-        $datas = array(
+        $datas = [
             'acl_datas' => $this->get('ekyna_admin.acl_operator')->generateGroupViewDatas($resource)
-        );
+        ];
 
         return $this->render(
             $this->config->getTemplate('show.html'),
@@ -56,8 +56,8 @@ class GroupController extends ResourceController
 
         $aclOperator = $this->get('ekyna_admin.acl_operator');
         $builder = $this->createFormBuilder(
-            array('acls' => $aclOperator->generateGroupFormDatas($resource)),
-            array('admin_mode' => true, '_redirect_enabled' => true)
+            ['acls' => $aclOperator->generateGroupFormDatas($resource)],
+            ['admin_mode' => true, '_redirect_enabled' => true]
         );
         $aclOperator->buildGroupForm($builder);
 
@@ -110,10 +110,10 @@ class GroupController extends ResourceController
             'ekyna_user.group.button.edit_permissions'
         );
 
-        $datas = array(
+        $datas = [
             'permissions' => $aclOperator->getPermissions(),
             'form' => $form->createView(),
-        );
+        ];
 
         return $this->render(
             'EkynaUserBundle:Admin/Group:edit_permissions.html.twig',

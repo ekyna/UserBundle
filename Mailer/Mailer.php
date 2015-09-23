@@ -95,16 +95,16 @@ class Mailer extends BaseMailer
 
         $rendered = $this->templating->render(
             'EkynaUserBundle:Security:login_success_email.html.twig',
-            array(
+            [
                 'username' => $userName,
                 'sitename' => $siteName,
                 'date' => new \DateTime()
-            )
+            ]
         );
 
         $subject = $this->translator->trans(
             'ekyna_user.email.login_success.subject',
-            array('%sitename%' => $siteName)
+            ['%sitename%' => $siteName]
         );
 
         $this->sendEmail($rendered, $user->getEmail(), $userName, $subject);
@@ -134,18 +134,18 @@ class Mailer extends BaseMailer
 
         $rendered = $this->templating->render(
             'EkynaUserBundle:Admin/User:creation_email.html.twig',
-            array(
+            [
                 'username'  => $userName,
                 'sitename'  => $siteName,
                 'login_url' => $loginUrl,
                 'login'     => $login,
                 'password'  => $password,
-            )
+            ]
         );
 
         $subject = $this->translator->trans(
             'ekyna_user.email.creation.subject',
-            array('%sitename%' => $siteName)
+            ['%sitename%' => $siteName]
         );
 
         return $this->sendEmail($rendered, $user->getEmail(), $userName, $subject);
@@ -175,18 +175,18 @@ class Mailer extends BaseMailer
 
         $rendered = $this->templating->render(
             'EkynaUserBundle:Admin/User:new_password_email.html.twig',
-            array(
+            [
                 'username'  => $userName,
                 'sitename'  => $siteName,
                 'login_url' => $loginUrl,
                 'login'     => $login,
                 'password'  => $password,
-            )
+            ]
         );
 
         $subject = $this->translator->trans(
             'ekyna_user.email.new_password.subject',
-            array('%sitename%' => $siteName)
+            ['%sitename%' => $siteName]
         );
 
         return $this->sendEmail($rendered, $user->getEmail(), $userName, $subject);
@@ -199,19 +199,19 @@ class Mailer extends BaseMailer
     {
         /** @var \Ekyna\Bundle\UserBundle\Model\UserInterface $user */
         $template = $this->parameters['confirmation.template'];
-        $url = $this->router->generate('fos_user_registration_confirm', array('token' => $user->getConfirmationToken()), true);
+        $url = $this->router->generate('fos_user_registration_confirm', ['token' => $user->getConfirmationToken()], true);
         $siteName = $this->settingsManager->getParameter('general.site_name');
         $username = sprintf('%s %s', $user->getFirstName(), $user->getLastName());
 
-        $rendered = $this->templating->render($template, array(
+        $rendered = $this->templating->render($template, [
             'username' => $username,
             'confirmationUrl' => $url,
             'sitename' => $siteName,
-        ));
+        ]);
 
         $subject = $this->translator->trans(
             'ekyna_user.email.registration.subject',
-            array('%sitename%' => $siteName)
+            ['%sitename%' => $siteName]
         );
 
         $this->sendEmail($rendered, $user->getEmail(), $username, $subject);
@@ -224,19 +224,19 @@ class Mailer extends BaseMailer
     {
         /** @var \Ekyna\Bundle\UserBundle\Model\UserInterface $user */
         $template = $this->parameters['resetting.template'];
-        $url = $this->router->generate('fos_user_resetting_reset', array('token' => $user->getConfirmationToken()), true);
+        $url = $this->router->generate('fos_user_resetting_reset', ['token' => $user->getConfirmationToken()], true);
         $siteName = $this->settingsManager->getParameter('general.site_name');
         $username = sprintf('%s %s', $user->getFirstName(), $user->getLastName());
 
-        $rendered = $this->templating->render($template, array(
+        $rendered = $this->templating->render($template, [
             'username' => $username,
             'confirmationUrl' => $url,
             'sitename' => $siteName,
-        ));
+        ]);
 
         $subject = $this->translator->trans(
             'ekyna_user.email.resetting.subject',
-            array('%sitename%' => $siteName)
+            ['%sitename%' => $siteName]
         );
 
         $this->sendEmail($rendered, $user->getEmail(), $username, $subject);
@@ -251,7 +251,7 @@ class Mailer extends BaseMailer
     protected function getLoginUrl(UserInterface $user)
     {
         $token = new UsernamePasswordToken($user, 'none', 'none', $user->getRoles());
-        if ($this->accessDecisionManager->decide($token, array('ROLE_ADMIN'))) {
+        if ($this->accessDecisionManager->decide($token, ['ROLE_ADMIN'])) {
             return $this->router->generate('ekyna_admin_security_login', [], UrlGeneratorInterface::ABSOLUTE_URL);
         } else if ($this->config['account']['enable']) {
             return $this->router->generate('fos_user_security_login', [], UrlGeneratorInterface::ABSOLUTE_URL);
@@ -274,11 +274,13 @@ class Mailer extends BaseMailer
         $fromEmail = $this->settingsManager->getParameter('notification.from_email');
         $fromName = $this->settingsManager->getParameter('notification.from_name');
 
+        /** @var \Swift_Mime_Message $message */
         $message = \Swift_Message::newInstance()
             ->setSubject($subject)
             ->setFrom($fromEmail, $fromName)
             ->setTo($toEmail, $toName)
-            ->setBody($renderedTemplate, 'text/html');
+            ->setBody($renderedTemplate, 'text/html')
+        ;
 
         return $this->mailer->send($message);
     }

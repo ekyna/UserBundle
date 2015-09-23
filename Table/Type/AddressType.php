@@ -18,57 +18,57 @@ class AddressType extends ResourceTableType
     public function buildTable(TableBuilderInterface $builder, array $options)
     {
         $builder
-            ->addColumn('id', 'number', array(
+            ->addColumn('id', 'number', [
                 'sortable' => true,
-            ))
-            ->addColumn('street', 'anchor', array(
+            ])
+            ->addColumn('street', 'anchor', [
                 'label' => 'ekyna_core.field.street',
                 'sortable' => true,
                 'route_name' => 'ekyna_user_address_admin_show',
-                'route_parameters_map' => array(
+                'route_parameters_map' => [
                     'userId' => 'id'
-                ),
-            ))
-            ->addColumn('postalCode', 'text', array(
+                ],
+            ])
+            ->addColumn('postalCode', 'text', [
                 'label' => 'ekyna_core.field.postal_code',
                 'sortable' => true,
-            ))
-            ->addColumn('city', 'text', array(
+            ])
+            ->addColumn('city', 'text', [
                 'label' => 'ekyna_core.field.city',
                 'sortable' => true,
-            ))
-            ->addColumn('actions', 'admin_actions', array(
-                'buttons' => array(
-                    array(
+            ])
+            ->addColumn('actions', 'admin_actions', [
+                'buttons' => [
+                    [
                         'label' => 'ekyna_core.button.edit',
                         'class' => 'warning',
                         'route_name' => 'ekyna_user_address_admin_edit',
-                        'route_parameters_map' => array(
+                        'route_parameters_map' => [
                             'addressId' => 'id'
-                        ),
+                        ],
                         'permission' => 'edit',
-                    ),
-                    array(
+                    ],
+                    [
                         'label' => 'ekyna_core.button.remove',
                         'class' => 'danger',
                         'route_name' => 'ekyna_user_address_admin_remove',
-                        'route_parameters_map' => array(
+                        'route_parameters_map' => [
                             'addressId' => 'id'
-                        ),
+                        ],
                         'permission' => 'delete',
-                    ),
-                ),
-            ))
+                    ],
+                ],
+            ])
             ->addFilter('id', 'number')
-            ->addFilter('street', 'text', array(
+            ->addFilter('street', 'text', [
             	'label' => 'ekyna_core.field.street'
-            ))
-            ->addFilter('postalCode', 'text', array(
+            ])
+            ->addFilter('postalCode', 'text', [
             	'label' => 'ekyna_core.field.postal_code'
-            ))
-            ->addFilter('city', 'text', array(
+            ])
+            ->addFilter('city', 'text', [
             	'label' => 'ekyna_core.field.city'
-            ))
+            ])
         ;
     }
 

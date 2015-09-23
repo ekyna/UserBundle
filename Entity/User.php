@@ -187,11 +187,11 @@ class User extends BaseUser implements UserInterface
     {
         if($this->group instanceof Group) {
             return array_merge(
-                array(self::ROLE_DEFAULT, $this->group->getSecurityIdentity()->getRole()),
+                [self::ROLE_DEFAULT, $this->group->getSecurityIdentity()->getRole()],
                 $this->group->getRoles()
             );
         }
-        return array(self::ROLE_DEFAULT);
+        return [self::ROLE_DEFAULT];
     }
 
     /**
@@ -199,7 +199,7 @@ class User extends BaseUser implements UserInterface
      */
     public function hasRole($role)
     {
-        throw new \BadMethodCallException('Please use the SecurityContext, or an implementation of AccessDecisionManager');
+        throw new \BadMethodCallException('Please use the AuthorizationChecker service.');
     }
 
     /**

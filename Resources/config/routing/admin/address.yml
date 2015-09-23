@@ -1,30 +1,30 @@
 ekyna_user_address_admin_new:
     path: /new
     defaults: { _controller: "ekyna_user.address.controller:newAction" }
+    methods: [GET|POST]
     requirements:
-        _method: GET|POST
         userId: \d+
 
 ekyna_user_address_admin_show:
     path: /{addressId}/show
     defaults: { _controller: "ekyna_user.address.controller:showAction" }
+    methods: [GET]
     requirements:
-        _method: GET
         userId: \d+
         addressId: \d+
 
 ekyna_user_address_admin_edit:
     path: /{addressId}/edit
     defaults: { _controller: "ekyna_user.address.controller:editAction" }
+    methods: [GET|POST]
     requirements:
-        _method: GET|POST
         addressId:  \d+
         userId: \d+
 
 ekyna_user_address_admin_remove:
     path: /{addressId}/remove
     defaults: { _controller: "ekyna_user.address.controller:removeAction" }
+    methods: [GET|POST]
     requirements:
-        _method: GET|POST
         addressId:  \d+
         userId: \d+

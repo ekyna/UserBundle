@@ -20,7 +20,7 @@ class GroupRepository extends ResourceRepository
      */
     public function findDefault()
     {
-        if (null === $group = $this->findOneBy(array('default' => true))) {
+        if (null === $group = $this->findOneBy(['default' => true])) {
             throw new \RuntimeException('Default user group not found.');
         }
         return $group;

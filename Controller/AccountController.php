@@ -20,8 +20,8 @@ class AccountController extends Controller
      */
     public function homeAction(Request $request)
     {
-        $securityContext = $this->get('security.context');
-        if (!(null !== $securityContext->getToken() && $securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED'))) {
+        // TODO check if AuthenticationCredentialsNotFoundException is raised without a cookie.
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             $request->getSession()->set('_ekyna.login_success.target_path', 'fos_user_profile_show');
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }

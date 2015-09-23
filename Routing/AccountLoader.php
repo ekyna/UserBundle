@@ -54,7 +54,7 @@ class AccountLoader extends Loader
             $routes->addPrefix($prefix);
             $collection->addCollection($routes);
 
-            foreach (array('register', 'resetting', 'profile', 'address') as $name) {
+            foreach (['register', 'resetting', 'profile', 'address'] as $name) {
                 if ($this->config['account'][$name]) {
                     $resource = '@EkynaUserBundle/Resources/config/routing/account/'.$name.'.yml';
                     $type     = 'yaml';

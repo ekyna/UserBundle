@@ -1,59 +1,56 @@
 ekyna_user_group_admin_home:
     path: ""
     defaults: { _controller: "ekyna_user.group.controller:homeAction" }
-    requirements:
-        _method: GET
+    methods: [GET]
 
 ekyna_user_group_admin_list:
     path: /list
     defaults: { _controller: "ekyna_user.group.controller:listAction" }
-    requirements:
-        _method: GET|POST
+    methods: [GET|POST]
 
 ekyna_user_group_admin_new:
     path: /new
     defaults: { _controller: "ekyna_user.group.controller:newAction" }
-    requirements:
-        _method: GET|POST
+    methods: [GET|POST]
 
 ekyna_user_group_admin_show:
     path: /{groupId}/show
     defaults: { _controller: "ekyna_user.group.controller:showAction" }
+    methods: [GET]
     requirements:
-        _method: GET
         groupId: \d+
 
 ekyna_user_group_admin_edit:
     path: /{groupId}/edit
     defaults: { _controller: "ekyna_user.group.controller:editAction" }
+    methods: [GET|POST]
     requirements:
-        _method: GET|POST
         groupId: \d+
 
 ekyna_user_group_admin_move_up:
     path: /{groupId}/moveup
     defaults: { _controller: "ekyna_user.group.controller:moveUpAction" }
+    methods: [GET]
     requirements:
-        _method: GET
         groupId: \d+
 
 ekyna_user_group_admin_move_down:
     path: /{groupId}/movedown
     defaults: { _controller: "ekyna_user.group.controller:moveDownAction" }
+    methods: [GET]
     requirements:
-        _method: GET
         groupId: \d+
 
 ekyna_user_group_admin_remove:
     path: /{groupId}/remove
     defaults: { _controller: "ekyna_user.group.controller:removeAction" }
+    methods: [GET|POST]
     requirements:
-        _method: GET|POST
         groupId: \d+
 
 ekyna_user_group_admin_edit_permissions:
     path: /{groupId}/edit-permissions
     defaults: { _controller: "ekyna_user.group.controller:editPermissionsAction" }
+    methods: [GET|POST]
     requirements:
-        _method: GET|POST
         groupId: \d+

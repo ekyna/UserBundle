@@ -26,9 +26,9 @@ class AddressController extends Controller
 
         $addresses = $repository->findByUser($user);
 
-        return $this->render('EkynaUserBundle:Address:list.html.twig', array(
+        return $this->render('EkynaUserBundle:Address:list.html.twig', [
             'addresses' => $addresses
-        ));
+        ]);
     }
 
     /**
@@ -50,9 +50,9 @@ class AddressController extends Controller
 
         /** @var \Symfony\Component\Form\FormInterface $form */
         $form = $this
-            ->createForm('ekyna_user_address', $address, array(
+            ->createForm('ekyna_user_address', $address, [
                 '_redirect_enabled' => true,
-            ))
+            ])
             ->add('actions', 'form_actions', [
                 'buttons' => [
                     'save' => [
@@ -93,9 +93,9 @@ class AddressController extends Controller
             $this->addFlash('ekyna_user.address.message.create.failure', 'danger');
         }
 
-        return $this->render('EkynaUserBundle:Address:new.html.twig', array(
+        return $this->render('EkynaUserBundle:Address:new.html.twig', [
             'form' => $form->createView()
-        ));
+        ]);
     }
 
     /**
@@ -124,9 +124,9 @@ class AddressController extends Controller
 
         /** @var \Symfony\Component\Form\FormInterface $form */
         $form = $this
-            ->createForm('ekyna_user_address', $address, array(
+            ->createForm('ekyna_user_address', $address, [
                 '_redirect_enabled' => true,
-            ))
+            ])
             ->add('actions', 'form_actions', [
                 'buttons' => [
                     'save' => [
@@ -167,10 +167,10 @@ class AddressController extends Controller
             $this->addFlash('ekyna_user.address.message.edit.failure', 'danger');
         }
 
-        return $this->render('EkynaUserBundle:Address:edit.html.twig', array(
+        return $this->render('EkynaUserBundle:Address:edit.html.twig', [
             'address' => $address,
             'form' => $form->createView()
-        ));
+        ]);
     }
 
     /**
@@ -197,14 +197,14 @@ class AddressController extends Controller
 
         $cancelPath = $this->generateUrl('ekyna_user_address_list');
 
-        $form = $this->createFormBuilder(null, array(
+        $form = $this->createFormBuilder(null, [
                 '_redirect_enabled' => true,
-            ))
-            ->add('confirm', 'checkbox', array(
+            ])
+            ->add('confirm', 'checkbox', [
                 'label' => 'ekyna_user.address.message.remove.confirm',
-                'attr' => array('align_with_widget' => true),
+                'attr' => ['align_with_widget' => true],
                 'required' => true
-            ))
+            ])
             ->add('actions', 'form_actions', [
                 'buttons' => [
                     'remove' => [
@@ -246,9 +246,9 @@ class AddressController extends Controller
             $this->addFlash('ekyna_user.address.message.remove.failure', 'danger');
         }
 
-        return $this->render('EkynaUserBundle:Address:remove.html.twig', array(
+        return $this->render('EkynaUserBundle:Address:remove.html.twig', [
             'address' => $address,
             'form' => $form->createView()
-        ));
+        ]);
     }
 }

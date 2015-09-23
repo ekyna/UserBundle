@@ -20,6 +20,6 @@ class AddressRepository extends ResourceRepository
      */
     public function findByUser(UserInterface $user)
     {
-        return $this->findBy(array('user' => $user));
+        return $this->findBy(['user' => $user]);
     }
 }

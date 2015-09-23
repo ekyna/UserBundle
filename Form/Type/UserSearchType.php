@@ -3,7 +3,7 @@
 namespace Ekyna\Bundle\UserBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Class UserSearchType
@@ -31,17 +31,17 @@ class UserSearchType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver
-            ->setDefaults(array(
+            ->setDefaults([
                 'label' => 'ekyna_user.user.label.singular',
                 'required' => true,
                 'entity'   => $this->userClass,
                 'search_route' => 'ekyna_user_user_admin_search',
                 'find_route'   => 'ekyna_user_user_admin_find',
                 'allow_clear'  => false,
-            ))
+            ])
         ;
     }
 

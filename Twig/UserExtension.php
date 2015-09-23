@@ -62,9 +62,9 @@ class UserExtension extends \Twig_Extension
      */
     public function getGlobals()
     {
-        return array(
+        return [
             'ekyna_user_config' => $this->config,
-        );
+        ];
     }
 
     /**
@@ -72,10 +72,10 @@ class UserExtension extends \Twig_Extension
      */
     public function getFunctions()
     {
-        return array(
-            new \Twig_SimpleFunction('render_identity',  array($this, 'renderIdentity'), array('is_safe' => array('html'))),
-            new \Twig_SimpleFunction('render_address',   array($this, 'renderAddress'),  array('is_safe' => array('html'))),
-        );
+        return [
+            new \Twig_SimpleFunction('render_identity',  [$this, 'renderIdentity'], ['is_safe' => ['html']]),
+            new \Twig_SimpleFunction('render_address',   [$this, 'renderAddress'],  ['is_safe' => ['html']]),
+        ];
     }
 
     /**
@@ -83,9 +83,9 @@ class UserExtension extends \Twig_Extension
      */
     public function getFilters()
     {
-        return array(
-            new \Twig_SimpleFilter('gender', array($this, 'getGenderLabel')),
-        );
+        return [
+            new \Twig_SimpleFilter('gender', [$this, 'getGenderLabel']),
+        ];
     }
 
     /**
@@ -123,7 +123,7 @@ class UserExtension extends \Twig_Extension
             }
         }
 
-        return $this->addressTemplate->render(array('address' => $address, 'display_phones' => $displayPhones));
+        return $this->addressTemplate->render(['address' => $address, 'display_phones' => $displayPhones]);
     }
 
     /**

@@ -29,17 +29,17 @@ class EkynaUserExtension extends AbstractExtension
         $menu = $container->getDefinition('ekyna_user.menu_builder');
         if ($accountConfig['enable']) {
             if ($accountConfig['profile']) {
-                $menu->addMethodCall('addAccountEntry', array('profile', array(
+                $menu->addMethodCall('addAccountEntry', ['profile', [
                     'label' => 'ekyna_user.account.menu.profile',
                     'route' => 'fos_user_profile_show',
                     'position' => -3,
-                )));
+                ]]);
             }
-            $menu->addMethodCall('addAccountEntry', array('password', array(
+            $menu->addMethodCall('addAccountEntry', ['password', [
                 'label' => 'ekyna_user.account.menu.password',
                 'route' => 'fos_user_change_password',
                 'position' => -2,
-            )));
+            ]]);
         }
 
         $exposedConfig = [];
@@ -74,9 +74,9 @@ class EkynaUserExtension extends AbstractExtension
      */
     protected function configureTwigBundle(ContainerBuilder $container)
     {
-        $container->prependExtensionConfig('twig', array(
-            'form' => array('resources' => array('EkynaUserBundle:Form:form_div_layout.html.twig')),
-        ));
+        $container->prependExtensionConfig('twig', [
+            'form' => ['resources' => ['EkynaUserBundle:Form:form_div_layout.html.twig']],
+        ]);
     }
 
     /**
@@ -86,15 +86,15 @@ class EkynaUserExtension extends AbstractExtension
      */
     protected function configureJMSSerializerBundle(ContainerBuilder $container)
     {
-        $container->prependExtensionConfig('jms_serializer', array(
-            'metadata' => array(
-                'directories' => array(
-                    'FOSUserBundle' => array(
+        $container->prependExtensionConfig('jms_serializer', [
+            'metadata' => [
+                'directories' => [
+                    'FOSUserBundle' => [
                         'namespace_prefix' => 'FOS\\UserBundle',
                         'path' => realpath(__DIR__.'/../Resources/serializer/FOSUserBundle'),
-                    ),
-                ),
-            ),
-        ));
+                    ],
+                ],
+            ],
+        ]);
     }
 }

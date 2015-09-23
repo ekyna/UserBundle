@@ -1,9 +1,8 @@
 ekyna_user_address_list:
-    pattern: ""
+    path: ""
     defaults:
         _controller: EkynaUserBundle:Address:list
-    requirements:
-        _method: GET
+    methods: [GET]
     options:
         _cms:
             name: "Mes adresses"
@@ -13,11 +12,10 @@ ekyna_user_address_list:
                 index: false
 
 ekyna_user_address_new:
-    pattern: /new
+    path: /new
     defaults:
         _controller: EkynaUserBundle:Address:new
-    requirements:
-        _method: GET|POST
+    methods: [GET|POST]
     options:
         _cms:
             name: "Ajouter une adresse"
@@ -27,11 +25,10 @@ ekyna_user_address_new:
                 index: false
 
 ekyna_user_address_edit:
-    pattern: /{addressId}/edit
+    path: /{addressId}/edit
     defaults:
         _controller: EkynaUserBundle:Address:edit
-    requirements:
-        _method: GET|POST
+    methods: [GET|POST]
     options:
         _cms:
             name: "Modifier une adresse"
@@ -41,11 +38,10 @@ ekyna_user_address_edit:
                 index: false
 
 ekyna_user_address_remove:
-    pattern: /{addressId}/remove
+    path: /{addressId}/remove
     defaults:
         _controller: EkynaUserBundle:Address:remove
-    requirements:
-        _method: GET|POST
+    methods: [GET|POST]
     options:
         _cms:
             name: "Supprimer une adresse"

@@ -30,10 +30,10 @@ class EkynaUserBundle extends AbstractBundle
      */
     protected function getModelInterfaces()
     {
-        return array(
+        return [
             'Ekyna\Bundle\UserBundle\Model\UserInterface' => 'ekyna_user.user.class',
             'Ekyna\Bundle\UserBundle\Model\AddressInterface' => 'ekyna_user.address.class',
-        );
+        ];
     }
 
     /**

@@ -21,10 +21,10 @@ abstract class WebTestCase extends BaseTestCase
     {
         $crawler = $this->client->request('GET', $this->generatePath('fos_user_security_login'));
 
-        $form = $crawler->selectButton('_submit')->form(array(
+        $form = $crawler->selectButton('_submit')->form([
             '_username'  => $username,
             '_password'  => $password,
-        ));
+        ]);
 
         $this->client->submit($form);
         $this->client->followRedirect();

@@ -1,9 +1,8 @@
 fos_user_security_login:
-    pattern: /login
+    path: /login
     defaults:
         _controller: FOSUserBundle:Security:login
-    requirements:
-        _method: GET
+    methods: [GET]
     options:
         _cms:
             name: "Connexion"
@@ -13,13 +12,12 @@ fos_user_security_login:
                 index: false
 
 fos_user_security_check:
-    pattern: /login-check
+    path: /login-check
     defaults:
         _controller: FOSUserBundle:Security:check
-    requirements:
-        _method: POST
+    methods: [POST]
 
 fos_user_security_logout:
-    pattern: /logout
+    path: /logout
     defaults:
         _controller: FOSUserBundle:Security:logout

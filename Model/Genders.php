@@ -23,11 +23,11 @@ class Genders extends AbstractConstants
         $short = 'ekyna_user.gender.short.';
         $long  = 'ekyna_user.gender.long.';
 
-        return array(
-            self::MR   => array($short.self::MR,   $long.self::MR),
-            self::MRS  => array($short.self::MRS,  $long.self::MRS),
-            self::MISS => array($short.self::MISS, $long.self::MISS),
-        );
+        return [
+            self::MR   => [$short.self::MR,   $long.self::MR],
+            self::MRS  => [$short.self::MRS,  $long.self::MRS],
+            self::MISS => [$short.self::MISS, $long.self::MISS],
+        ];
     }
 
     /**

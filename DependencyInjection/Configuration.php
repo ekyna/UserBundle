@@ -89,10 +89,10 @@ class Configuration implements ConfigurationInterface
                         ->arrayNode('user')
                             ->addDefaultsIfNotSet()
                             ->children()
-                                ->variableNode('templates')->defaultValue(array(
+                                ->variableNode('templates')->defaultValue([
                                     '_form.html' => 'EkynaUserBundle:Admin/User:_form.html',
                                     'show.html'  => 'EkynaUserBundle:Admin/User:show.html',
-                                ))->end()
+                                ])->end()
                                 ->scalarNode('entity')->defaultValue('Ekyna\Bundle\UserBundle\Entity\User')->end()
                                 ->scalarNode('controller')->defaultValue('Ekyna\Bundle\UserBundle\Controller\Admin\UserController')->end()
                                 ->scalarNode('repository')->defaultValue('Ekyna\Bundle\UserBundle\Entity\UserRepository')->end()
@@ -105,10 +105,10 @@ class Configuration implements ConfigurationInterface
                         ->arrayNode('group')
                             ->addDefaultsIfNotSet()
                             ->children()
-                                ->variableNode('templates')->defaultValue(array(
+                                ->variableNode('templates')->defaultValue([
                                     '_form.html' => 'EkynaUserBundle:Admin/Group:_form.html',
                                     'show.html'  => 'EkynaUserBundle:Admin/Group:show.html',
-                                ))->end()
+                                ])->end()
                                 ->scalarNode('entity')->defaultValue('Ekyna\Bundle\UserBundle\Entity\Group')->end()
                                 ->scalarNode('controller')->defaultValue('Ekyna\Bundle\UserBundle\Controller\Admin\GroupController')->end()
                                 ->scalarNode('repository')->defaultValue('Ekyna\Bundle\UserBundle\Entity\GroupRepository')->end()

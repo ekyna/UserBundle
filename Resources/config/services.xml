@@ -43,7 +43,7 @@
             <tag name="form.type" alias="ekyna_user_identity" />
         </service>
         <service id="ekyna_user.user.form_type" class="%ekyna_user.user.form_type.class%">
-            <argument type="service" id="security.context" />
+            <argument type="service" id="security.token_storage" />
             <argument>%ekyna_user.user.class%</argument>
             <argument>%ekyna_user.group.class%</argument>
             <argument>%ekyna_user.config%</argument>
@@ -76,8 +76,8 @@
         <!-- Table types -->
         <service id="ekyna_user.user.table_type" class="%ekyna_user.user.table_type.class%">
             <argument>%ekyna_user.user.class%</argument>
-            <call method="setSecurityContext">
-                <argument type="service" id="security.context" />
+            <call method="setTokenStorage">
+                <argument type="service" id="security.token_storage" />
             </call>
             <call method="setGroupClass">
                 <argument>%ekyna_user.group.class%</argument>

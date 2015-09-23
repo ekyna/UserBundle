@@ -38,7 +38,7 @@
 
 {% block form_label %}
 {% spaceless %}
-{% if label is not sameas(false) %}
+{% if label is not same as(false) %}
     {{ label|trans({}, translation_domain)|raw }}
 {% endif %}
 {% endspaceless %}

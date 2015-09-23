@@ -27,7 +27,7 @@ class Group extends BaseGroup implements GroupInterface
      * @param string $name
      * @param array $roles
      */
-    public function __construct($name = null, array $roles = array())
+    public function __construct($name = null, array $roles = [])
     {
         parent::__construct($name, $roles);
         $this->default = false;

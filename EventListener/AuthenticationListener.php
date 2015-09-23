@@ -39,6 +39,7 @@ class AuthenticationListener implements EventSubscriberInterface
      *
      * @param AccessDecisionManagerInterface $accessDecisionManager
      * @param Mailer $mailer
+     * @param array $config
      */
     public function __construct(AccessDecisionManagerInterface $accessDecisionManager, Mailer $mailer, array $config)
     {
@@ -52,10 +53,10 @@ class AuthenticationListener implements EventSubscriberInterface
      */
     public static function getSubscribedEvents()
     {
-        return array(
+        return [
             //AuthenticationEvents::AUTHENTICATION_FAILURE => 'onAuthenticationFailure',
             AuthenticationEvents::AUTHENTICATION_SUCCESS => 'onAuthenticationSuccess',
-        );
+        ];
     }
 
     /**
@@ -80,7 +81,7 @@ class AuthenticationListener implements EventSubscriberInterface
         }
 
         $token = $event->getAuthenticationToken();
-        $userIsAdmin = $this->accessDecisionManager->decide($token, array('ROLE_ADMIN'));
+        $userIsAdmin = $this->accessDecisionManager->decide($token, ['ROLE_ADMIN']);
 
         // Only for Admins and fully authenticated
         if (!($userIsAdmin && $token instanceof UsernamePasswordToken)) {

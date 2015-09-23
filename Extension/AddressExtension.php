@@ -50,11 +50,11 @@ class AddressExtension extends AbstractExtension
     public function getAccountMenuEntries()
     {
         if ($this->enabled) {
-            return array('address' => array(
+            return ['address' => [
                 'label' => 'ekyna_user.account.menu.address',
                 'route' => 'ekyna_user_address_list',
                 'position' => -1,
-            ));
+            ]];
         }
         return null;
     }

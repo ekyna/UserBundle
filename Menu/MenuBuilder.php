@@ -5,8 +5,8 @@ namespace Ekyna\Bundle\UserBundle\Menu;
 use Ekyna\Bundle\UserBundle\Extension\ExtensionRegistry;
 use Knp\Menu\FactoryInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Security\Core\SecurityContextInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
  * Class MenuBuilder
@@ -21,9 +21,14 @@ class MenuBuilder
     private $factory;
 
     /**
-     * @var SecurityContextInterface
+     * @var AuthorizationCheckerInterface
      */
-    protected $securityContext;
+    protected $authorization;
+
+    /**
+     * @var TokenStorageInterface
+     */
+    protected $tokenStorage;
 
     /**
      * @var ExtensionRegistry
@@ -36,7 +41,7 @@ class MenuBuilder
     private $accountEnabled;
 
     /**
-     * @var OptionsResolverInterface
+     * @var OptionsResolver
      */
     private $optionResolver;
 
@@ -49,35 +54,36 @@ class MenuBuilder
     /**
      * Constructor.
      *
-     * @param FactoryInterface         $factory
-     * @param SecurityContextInterface $securityContext
-     * @param ExtensionRegistry        $extensionRegistry
-     * @param array                    $config
+     * @param FactoryInterface              $factory
+     * @param AuthorizationCheckerInterface $authorization
+     * @param TokenStorageInterface         $tokenStorage
+     * @param ExtensionRegistry             $extensionRegistry
+     * @param array                         $config
      */
     public function __construct(
         FactoryInterface $factory,
-        SecurityContextInterface $securityContext,
+        AuthorizationCheckerInterface $authorization,
+        TokenStorageInterface $tokenStorage,
         ExtensionRegistry $extensionRegistry,
         array $config
     ) {
         $this->factory = $factory;
-        $this->securityContext = $securityContext;
+        $this->authorization = $authorization;
+        $this->tokenStorage  = $tokenStorage;
         $this->extensionRegistry = $extensionRegistry;
         $this->accountEnabled = $config['account']['enable'];
 
         $this->optionResolver = new OptionsResolver();
         $this->optionResolver
-            ->setDefaults(array(
+            ->setDefaults([
                 'label' => null,
                 'route' => null,
                 'position' => 0,
-            ))
-            ->setRequired(array('label', 'route', 'position'))
-            ->setAllowedTypes(array(
-                'label' => 'string',
-                'route' => 'string',
-                'position' => 'int',
-            ))
+            ])
+            ->setRequired(['label', 'route', 'position'])
+            ->setAllowedTypes('label',  'string')
+            ->setAllowedTypes('route',  'string')
+            ->setAllowedTypes('position',  'int')
         ;
 
         $this->accountEntries = [];
@@ -130,19 +136,20 @@ class MenuBuilder
         $menu = $this->factory->createItem('root');
 
         if ($this->accountEnabled) {
-            if (null !== $this->securityContext->getToken()) {
-                if ($this->securityContext->isGranted('IS_AUTHENTICATED_FULLY') || $this->securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-                    $user = $this->securityContext->getToken()->getUser();
-                    $item = $menu->addChild($user->getEmail(), array('uri' => '#'));
-                    $item->addChild('ekyna_user.account.menu.my_profile', array('route' => 'fos_user_profile_show'));
-                    if ($this->securityContext->isGranted('ROLE_ADMIN')) {
-                        $item->addChild('ekyna_user.account.menu.backend', array('route' => 'ekyna_admin'));
+            if (null !== $token = $this->tokenStorage->getToken()) {
+                if ($this->authorization->isGranted('IS_AUTHENTICATED_FULLY') || $this->authorization->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+                    /** @var \Ekyna\Bundle\UserBundle\Model\UserInterface $user */
+                    $user = $token->getUser();
+                    $item = $menu->addChild($user->getEmail(), ['uri' => '#']);
+                    $item->addChild('ekyna_user.account.menu.my_profile', ['route' => 'fos_user_profile_show']);
+                    if ($this->authorization->isGranted('ROLE_ADMIN')) {
+                        $item->addChild('ekyna_user.account.menu.backend', ['route' => 'ekyna_admin']);
                     }
-                    $item->addChild('ekyna_user.account.menu.logout', array('route' => 'fos_user_security_logout'));
+                    $item->addChild('ekyna_user.account.menu.logout', ['route' => 'fos_user_security_logout']);
                     return $menu;
                 }
             }
-            $menu->addChild('ekyna_user.account.menu.login', array('route' => 'fos_user_security_login'));
+            $menu->addChild('ekyna_user.account.menu.login', ['route' => 'fos_user_security_login']);
         }
 
         return $menu;
