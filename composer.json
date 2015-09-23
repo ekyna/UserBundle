@@ -18,7 +18,7 @@
     ],
     "require" : {
         "php" : ">=5.4.0",
-        "friendsofsymfony/user-bundle" : "2.0.*@dev",
+        "friendsofsymfony/user-bundle" : "v2.0.0-alpha1",
         "misd/phone-number-bundle": "~1.0",
         "ekyna/core-bundle" : "0.3.*@dev",
         "ekyna/admin-bundle" : "0.3.*@dev"
