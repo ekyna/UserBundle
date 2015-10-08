@@ -83,14 +83,14 @@
             <constraint name="Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber" />
         </property>
 
-        <property name="addresses">
+        <!--<property name="addresses">
             <constraint name="All">
                 <constraint name="Ekyna\Bundle\UserBundle\Validator\Constraints\Address">
                     <option name="user">true</option>
                 </constraint>
             </constraint>
             <constraint name="Valid" />
-        </property>
+        </property>-->
     </class>
 
 </constraint-mapping>
