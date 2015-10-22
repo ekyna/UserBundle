@@ -14,6 +14,22 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class IdentityType extends AbstractType
 {
     /**
+     * @var string
+     */
+    private $genderClass;
+
+
+    /**
+     * Constructor.
+     *
+     * @param string $genderClass
+     */
+    public function __construct($genderClass)
+    {
+        $this->genderClass = $genderClass;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -23,6 +39,7 @@ class IdentityType extends AbstractType
                 'label'    => false,
                 'expanded' => false,
                 'required' => $options['required'],
+                'choices'  => $options['gender_choices'],
                 'empty_value' => 'ekyna_core.value.choose',
                 'error_bubbling' => true,
             ))
@@ -49,10 +66,11 @@ class IdentityType extends AbstractType
     {
         $resolver
             ->setDefaults(array(
-                'data_class'   => 'Ekyna\Bundle\UserBundle\Model\IdentityInterface',
-                'label'        => 'ekyna_core.field.identity',
-                'inherit_data' => true,
-                'required'     => true,
+                'data_class'     => 'Ekyna\Bundle\UserBundle\Model\IdentityInterface',
+                'gender_choices' => call_user_func($this->genderClass.'::getChoices'),
+                'label'          => 'ekyna_core.field.identity',
+                'inherit_data'   => true,
+                'required'       => true,
                 'error_bubbling' => false,
             ))
         ;

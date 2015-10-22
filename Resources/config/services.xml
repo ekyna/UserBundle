@@ -40,6 +40,7 @@
             <tag name="form.type" alias="ekyna_user_gender" />
         </service>
         <service id="ekyna_user.identity.form_type" class="%ekyna_user.identity.form_type.class%">
+            <argument>%ekyna_user.gender_class%</argument>
             <tag name="form.type" alias="ekyna_user_identity" />
         </service>
         <service id="ekyna_user.user.form_type" class="%ekyna_user.user.form_type.class%">
