@@ -44,7 +44,7 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, OrderedF
         $genders = call_user_func($this->container->getParameter('ekyna_user.gender_class').'::getConstants');
 
         // Creates 3 surveys
-        for ($s = 0; $s < 90; $s++) {
+        for ($s = 0; $s < 16; $s++) {
             $user = $userManager->createUser();
             $user
                 ->setCompany($faker->company)
