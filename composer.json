@@ -20,18 +20,13 @@
         "php" : ">=5.4.0",
         "friendsofsymfony/user-bundle" : "2.0.*@dev",
         "misd/phone-number-bundle": "~1.0",
-        "ekyna/core-bundle" : "0.1.*@dev",
-        "ekyna/admin-bundle" : "0.1.*@dev"
+        "ekyna/core-bundle" : "0.2.x-dev",
+        "ekyna/admin-bundle" : "0.2.x-dev"
     },
     "autoload" : {
         "psr-0" : {
             "Ekyna\\Bundle\\UserBundle" : ""
         }
     },
-    "target-dir" : "Ekyna/Bundle/UserBundle",
-    "extra" : {
-        "branch-alias" : {
-            "dev-master" : "0.1.x-dev"
-        }
-    }
+    "target-dir" : "Ekyna/Bundle/UserBundle"
 }
