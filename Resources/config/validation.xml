@@ -6,9 +6,9 @@
                         http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
 
     <class name="Ekyna\Bundle\UserBundle\Entity\Address">
-        <property name="user">
+        <!--<property name="user">
             <constraint name="Valid" />
-        </property>
+        </property>-->
 
 	    <property name="gender">
 	        <constraint name="Ekyna\Bundle\UserBundle\Validator\Constraints\Gender" />
