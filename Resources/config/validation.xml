@@ -57,6 +57,9 @@
     </class>
 
     <class name="Ekyna\Bundle\UserBundle\Entity\User">
+        <constraint name="Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity">
+            <option name="fields">email</option>
+        </constraint>
 	    <property name="gender">
             <constraint name="NotNull" />
             <constraint name="Ekyna\Bundle\UserBundle\Validator\Constraints\Gender" />

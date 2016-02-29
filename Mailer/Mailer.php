@@ -253,10 +253,8 @@ class Mailer extends BaseMailer
         $token = new UsernamePasswordToken($user, 'none', 'none', $user->getRoles());
         if ($this->accessDecisionManager->decide($token, array('ROLE_ADMIN'))) {
             return $this->router->generate('ekyna_admin_security_login', [], UrlGeneratorInterface::ABSOLUTE_URL);
-        } else if ($this->config['account']['enable']) {
-            return $this->router->generate('fos_user_security_login', [], UrlGeneratorInterface::ABSOLUTE_URL);
         }
-        return null;
+        return $this->router->generate('fos_user_security_login', [], UrlGeneratorInterface::ABSOLUTE_URL);
     }
 
     /**
