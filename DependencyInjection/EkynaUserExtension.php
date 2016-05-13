@@ -75,7 +75,7 @@ class EkynaUserExtension extends AbstractExtension
     protected function configureTwigBundle(ContainerBuilder $container)
     {
         $container->prependExtensionConfig('twig', [
-            'form' => ['resources' => ['EkynaUserBundle:Form:form_div_layout.html.twig']],
+            'form_themes' => ['EkynaUserBundle:Form:form_div_layout.html.twig'],
         ]);
     }
 

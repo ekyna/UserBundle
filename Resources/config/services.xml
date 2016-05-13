@@ -107,20 +107,14 @@
             <argument type="service" id="ekyna_user.extension.registry" />
             <argument>%ekyna_user.config%</argument>
         </service>
-        <service id="ekyna_user.menu.account"
-                class="Knp\Menu\MenuItem"
-                factory-service="ekyna_user.menu_builder"
-                factory-method="createAccountMenu"
-                scope="request">
-            <argument type="service" id="request" />
+        <service id="ekyna_user.menu.account" class="Knp\Menu\MenuItem">
+            <factory service="ekyna_user.menu_builder" method="createAccountMenu" />
+            <argument type="service" id="request_stack" />
             <tag name="knp_menu.menu" alias="account" />
         </service>
-        <service id="ekyna_user.menu.user"
-                 class="Knp\Menu\MenuItem"
-                 factory-service="ekyna_user.menu_builder"
-                 factory-method="createUserMenu"
-                 scope="request">
-            <argument type="service" id="request" />
+        <service id="ekyna_user.menu.user" class="Knp\Menu\MenuItem">
+            <factory service="ekyna_user.menu_builder" method="createUserMenu" />
+            <argument type="service" id="request_stack" />
             <tag name="knp_menu.menu" alias="user" />
         </service>
 
@@ -143,7 +137,7 @@
             <argument type="service" id="security.encoder_factory" />
             <argument type="service" id="fos_user.util.username_canonicalizer" />
             <argument type="service" id="fos_user.util.email_canonicalizer" />
-            <argument type="service" id="fos_user.entity_manager" />
+            <argument type="service" id="fos_user.object_manager" />
             <argument>%ekyna_user.user.class%</argument>
             <argument>%ekyna_user.group.class%</argument>
         </service>
