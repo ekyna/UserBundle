@@ -1,5 +1,5 @@
 ekyna_core:
-    assets:
-        form_css:
-            inputs:
-                - "@EkynaUserBundle/Resources/asset/css/form.css"
+    ui:
+        stylesheets:
+            forms: ~
+#                - "@EkynaUserBundle/Resources/asset/css/form.css"
