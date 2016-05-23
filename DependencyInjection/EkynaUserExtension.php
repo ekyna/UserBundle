@@ -59,24 +59,9 @@ class EkynaUserExtension extends AbstractExtension
 
         $bundles = $container->getParameter('kernel.bundles');
 
-        if (array_key_exists('TwigBundle', $bundles)) {
-            $this->configureTwigBundle($container);
-        }
         if (array_key_exists('JMSSerializerBundle', $bundles)) {
             $this->configureJMSSerializerBundle($container);
         }
-    }
-
-    /**
-     * Configures the TwigBundle.
-     *
-     * @param ContainerBuilder $container
-     */
-    protected function configureTwigBundle(ContainerBuilder $container)
-    {
-        $container->prependExtensionConfig('twig', [
-            'form_themes' => ['EkynaUserBundle:Form:form_div_layout.html.twig'],
-        ]);
     }
 
     /**

@@ -3,12 +3,13 @@
 namespace Ekyna\Bundle\UserBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Class GenderType
  * @package Ekyna\Bundle\UserBundle\Form\Type
- * @author Étienne Dauvergne <contact@ekyna.com>
+ * @author  Étienne Dauvergne <contact@ekyna.com>
  */
 class GenderType extends AbstractType
 {
@@ -34,11 +35,11 @@ class GenderType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'label' => 'ekyna_core.field.gender',
+            'label'    => 'ekyna_core.field.gender',
             'expanded' => true,
-            'choices' => call_user_func($this->genderClass.'::getChoices'),
-            'attr' => [
-            	'class' => 'inline no-select2',
+            'choices'  => call_user_func($this->genderClass . '::getChoices'),
+            'attr'     => [
+                'class' => 'inline no-select2',
             ],
         ]);
     }
@@ -48,14 +49,6 @@ class GenderType extends AbstractType
      */
     public function getParent()
     {
-        return 'choice';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'ekyna_user_gender';
+        return ChoiceType::class;
     }
 }

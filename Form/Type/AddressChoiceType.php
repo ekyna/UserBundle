@@ -3,6 +3,7 @@
 namespace Ekyna\Bundle\UserBundle\Form\Type;
 
 use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\AbstractType;
@@ -10,7 +11,7 @@ use Symfony\Component\Form\AbstractType;
 /**
  * Class AddressChoiceType
  * @package Ekyna\Bundle\UserBundle\Form\Type
- * @author Étienne Dauvergne <contact@ekyna.com>
+ * @author  Étienne Dauvergne <contact@ekyna.com>
  */
 class AddressChoiceType extends AbstractType
 {
@@ -37,29 +38,29 @@ class AddressChoiceType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'class'    => $this->dataClass,
-                'property' => 'id',
-                'expanded' => true,
-                'user'     => null,
-                'empty_value' => false,
-                'query_builder' => function(Options $options, $previousValue) {
+                'class'         => $this->dataClass,
+                //'property_path' => 'id',
+                'expanded'      => true,
+                'user'          => null,
+                'placeholder'   => false,
+                'query_builder' => function (Options $options, $previousValue) {
                     if (null !== $user = $options['user']) {
-                        return function(EntityRepository $er) use ($user) {
+                        return function (EntityRepository $er) use ($user) {
                             $qb = $er->createQueryBuilder('a');
+
                             return $qb
                                 ->andWhere($qb->expr()->eq('a.user', ':user'))
                                 //->andWhere($qb->expr()->eq('a.locked', ':locked'))
-                                ->setParameter('user', $user)
-                                //->setParameter('locked', false)
-                            ;
+                                ->setParameter('user', $user)//->setParameter('locked', false)
+                                ;
                         };
                     }
+
                     return $previousValue;
                 },
             ])
             ->setAllowedTypes('class', 'string')
-            ->setAllowedTypes('user',  ['null', 'Ekyna\Bundle\UserBundle\Model\UserInterface'])
-        ;
+            ->setAllowedTypes('user', ['null', 'Ekyna\Bundle\UserBundle\Model\UserInterface']);
     }
 
     /**
@@ -67,13 +68,13 @@ class AddressChoiceType extends AbstractType
      */
     public function getParent()
     {
-        return 'entity';
+        return EntityType::class;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'ekyna_user_address_choice';
     }

@@ -1,5 +1,5 @@
 ekyna_core:
     ui:
         stylesheets:
-            forms: ~
-#                - "@EkynaUserBundle/Resources/asset/css/form.css"
+            forms:
+                - 'bundles/ekynauser/css/form.css'

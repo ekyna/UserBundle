@@ -2,13 +2,14 @@
 
 namespace Ekyna\Bundle\UserBundle\Form\Type;
 
+use Ekyna\Bundle\CoreBundle\Form\Type\EntitySearchType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Class UserSearchType
  * @package Ekyna\Bundle\UserBundle\Form\Type
- * @author Étienne Dauvergne <contact@ekyna.com>
+ * @author  Étienne Dauvergne <contact@ekyna.com>
  */
 class UserSearchType extends AbstractType
 {
@@ -35,14 +36,13 @@ class UserSearchType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'label' => 'ekyna_user.user.label.singular',
-                'required' => true,
-                'entity'   => $this->userClass,
+                'label'        => 'ekyna_user.user.label.singular',
+                'required'     => true,
+                'entity'       => $this->userClass,
                 'search_route' => 'ekyna_user_user_admin_search',
                 'find_route'   => 'ekyna_user_user_admin_find',
                 'allow_clear'  => false,
-            ])
-        ;
+            ]);
     }
 
     /**
@@ -50,14 +50,6 @@ class UserSearchType extends AbstractType
      */
     public function getParent()
     {
-        return 'ekyna_entity_search';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'ekyna_user_search';
+        return EntitySearchType::class;
     }
 }

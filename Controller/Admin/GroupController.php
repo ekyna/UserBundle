@@ -2,8 +2,10 @@
 
 namespace Ekyna\Bundle\UserBundle\Controller\Admin;
 
+use Braincrafted\Bundle\BootstrapBundle\Form\Type\FormActionsType;
 use Ekyna\Bundle\AdminBundle\Controller\Resource\SortableTrait;
 use Ekyna\Bundle\AdminBundle\Controller\ResourceController;
+use Symfony\Component\Form\Extension\Core\Type;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -56,16 +58,26 @@ class GroupController extends ResourceController
 
         $aclOperator = $this->get('ekyna_admin.acl_operator');
         $builder = $this->createFormBuilder(
-            ['acls' => $aclOperator->generateGroupFormDatas($resource)],
-            ['admin_mode' => true, '_redirect_enabled' => true]
+            [
+                'acls' => $aclOperator->generateGroupFormDatas($resource)
+            ],
+            [
+                'action' => $this->generateUrl('ekyna_user_group_admin_edit_permissions', [
+                    'groupId' => $resource->getId(),
+                ]),
+                'method' => 'POST',
+                'attr' => ['class' => 'form-horizontal form-with-tabs'],
+                'admin_mode' => true,
+                '_redirect_enabled' => true
+            ]
         );
         $aclOperator->buildGroupForm($builder);
 
         $form = $builder->getForm();
-        $form->add('actions', 'form_actions', [
+        $form->add('actions', FormActionsType::class, [
             'buttons' => [
                 'save' => [
-                    'type' => 'submit', 'options' => [
+                    'type' => Type\SubmitType::class, 'options' => [
                         'button_class' => 'primary',
                         'label' => 'ekyna_core.button.save',
                         'attr' => [
@@ -74,7 +86,7 @@ class GroupController extends ResourceController
                     ],
                 ],
                 'cancel' => [
-                    'type' => 'button', 'options' => [
+                    'type' => Type\ButtonType::class, 'options' => [
                         'label' => 'ekyna_core.button.cancel',
                         'button_class' => 'default',
                         'as_link' => true,

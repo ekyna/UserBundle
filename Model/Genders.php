@@ -41,7 +41,7 @@ class Genders extends AbstractConstants
         $offset = $long ? 1 : 0;
         $choices = [];
         foreach (static::getConfig() as $constant => $config) {
-            $choices[$constant] = $config[$offset];
+            $choices[$config[$offset]] = $constant;
         }
         return $choices;
     }

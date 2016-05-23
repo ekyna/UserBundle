@@ -4,12 +4,14 @@ namespace Ekyna\Bundle\UserBundle\Form\Type;
 
 use FOS\UserBundle\Form\Type\ProfileFormType;
 use libphonenumber\PhoneNumberFormat;
+use Misd\PhoneNumberBundle\Form\Type\PhoneNumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
  * Class ProfileType
  * @package Ekyna\Bundle\UserBundle\Form\Type
- * @author Étienne Dauvergne <contact@ekyna.com>
+ * @author  Étienne Dauvergne <contact@ekyna.com>
  */
 class ProfileType extends ProfileFormType
 {
@@ -20,11 +22,12 @@ class ProfileType extends ProfileFormType
 
     /**
      * @param string $class
-     * @param array $config
+     * @param array  $config
      */
     public function __construct($class, array $config)
     {
         parent::__construct($class);
+
         $this->usernameEnabled = $config['account']['username'];
     }
 
@@ -40,31 +43,22 @@ class ProfileType extends ProfileFormType
         }
 
         $builder
-            ->add('company', 'text', [
-                'label' => 'ekyna_core.field.company',
+            ->add('company', TextType::class, [
+                'label'    => 'ekyna_core.field.company',
                 'required' => false,
             ])
-            ->add('identity', 'ekyna_user_identity')
-            ->add('phone', 'tel', [
-                'label' => 'ekyna_core.field.phone',
-                'required' => false,
+            ->add('identity', IdentityType::class)
+            ->add('phone', PhoneNumberType::class, [
+                'label'          => 'ekyna_core.field.phone',
+                'required'       => false,
                 'default_region' => 'FR', // TODO get user locale
-                'format' => PhoneNumberFormat::NATIONAL,
+                'format'         => PhoneNumberFormat::NATIONAL,
             ])
-            ->add('mobile', 'tel', [
-                'label' => 'ekyna_core.field.mobile',
-                'required' => false,
+            ->add('mobile', PhoneNumberType::class, [
+                'label'          => 'ekyna_core.field.mobile',
+                'required'       => false,
                 'default_region' => 'FR', // TODO get user locale
-                'format' => PhoneNumberFormat::NATIONAL,
-            ])
-        ;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'ekyna_user_profile';
+                'format'         => PhoneNumberFormat::NATIONAL,
+            ]);
     }
 }

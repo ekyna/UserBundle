@@ -16,45 +16,45 @@
 </div>
 <div class="show show-with-tabs">
     <ul class="nav nav-tabs">
-	    <li class="active"><a href="#user-user-general" data-toggle="tab">{{ 'ekyna_core.field.general'|trans }}</a></li>
-	    <li><a href="#user-user-informations" data-toggle="tab">{{ 'ekyna_core.field.informations'|trans }}</a></li>
-	    {% for name, tab in tabs %}
+        <li class="active"><a href="#user-user-general" data-toggle="tab">{{ 'ekyna_core.field.general'|trans }}</a></li>
+        <li><a href="#user-user-informations" data-toggle="tab">{{ 'ekyna_core.field.informations'|trans }}</a></li>
+        {% for name, tab in tabs %}
         <li><a href="#user-user-{{ name }}" data-toggle="tab">{{ tab.label|trans }}</a></li>
-	    {% endfor %}
-	</ul>
-	<div class="show-body">
-	    <div class="tab-content">
-		    <div class="tab-pane active" id="user-user-general">
-				{{ show_row(user.email, 'text', 'ekyna_core.field.email') }}
-		        {% if ekyna_user_config.account.username %}
-				<div class="row">
-	                <div class="col-md-6">
-	                    {{ show_row(user.username, 'text', 'ekyna_core.field.username', {'label_nb_col': 4}) }}
-	                </div>
-	                <div class="col-md-6">
-	                    {{ show_row(user.group, 'entity', 'ekyna_core.field.group', {'label_nb_col': 4, 'route': 'ekyna_user_group_admin_show', 'route_params_map': {'groupId': 'id'}, 'field': 'name'}) }}
-	                </div>
-	            </div>
-				{% else %}
-				{{ show_row(user.group, 'entity', 'ekyna_core.field.group', {'route': 'ekyna_user_group_admin_show', 'route_params_map': {'groupId': 'id'}, 'field': 'name'}) }}
-				{% endif %}
-				<hr>
-				{{ show_row(user.company, 'text', 'ekyna_core.field.company') }}
-				<div class="row show-row">
-					<div class="col-md-2 show-label">{{ 'ekyna_core.field.identity'|trans }}</div>
-					<div class="col-md-10">
-						<div class="show-widget show-widget-inline">{{ render_identity(user) }}</div>
-					</div>
-				</div>
-		        <div class="row">
-	                <div class="col-md-6">
-	                    {{ show_row(user.phone, 'tel', 'ekyna_core.field.phone', {'label_nb_col': 4}) }}
-	                </div>
-	                <div class="col-md-6">
+        {% endfor %}
+    </ul>
+    <div class="show-body">
+        <div class="tab-content">
+            <div class="tab-pane active" id="user-user-general">
+                {{ show_row(user.email, 'text', 'ekyna_core.field.email') }}
+                {% if ekyna_user_config.account.username %}
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ show_row(user.username, 'text', 'ekyna_core.field.username', {'label_nb_col': 4}) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ show_row(user.group, 'entity', 'ekyna_core.field.group', {'label_nb_col': 4, 'route': 'ekyna_user_group_admin_show', 'route_params_map': {'groupId': 'id'}, 'field': 'name'}) }}
+                    </div>
+                </div>
+                {% else %}
+                {{ show_row(user.group, 'entity', 'ekyna_core.field.group', {'route': 'ekyna_user_group_admin_show', 'route_params_map': {'groupId': 'id'}, 'field': 'name'}) }}
+                {% endif %}
+                <hr>
+                {{ show_row(user.company, 'text', 'ekyna_core.field.company') }}
+                <div class="row show-row">
+                    <div class="col-md-2 show-label">{{ 'ekyna_core.field.identity'|trans }}</div>
+                    <div class="col-md-10">
+                        <div class="show-widget show-widget-inline">{{ render_identity(user) }}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ show_row(user.phone, 'tel', 'ekyna_core.field.phone', {'label_nb_col': 4}) }}
+                    </div>
+                    <div class="col-md-6">
                         {{ show_row(user.mobile, 'tel', 'ekyna_core.field.mobile', {'label_nb_col': 4}) }}
-	                </div>
-	            </div>
-		    </div>
+                    </div>
+                </div>
+            </div>
             <div class="tab-pane" id="user-user-informations">
                 {% if admin_resource_access(user, 'EDIT') %}
                 <div class="actions">
@@ -70,37 +70,37 @@
                     }) }}
                 </div>
                 {% endif %}
-		        <div class="row">
-	                <div class="col-md-6">
-	                    {{ show_row(user.expired, 'checkbox', 'ekyna_core.field.expired', {'label_nb_col': 4}) }}
-	                </div>
-	                <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ show_row(user.expired, 'checkbox', 'ekyna_core.field.expired', {'label_nb_col': 4}) }}
+                    </div>
+                    <div class="col-md-6">
                         {{ show_row(user.expiresAt, 'datetime', 'ekyna_core.field.expires_at', {'label_nb_col': 4}) }}
-	                </div>
-	            </div>
-		        <div class="row">
-	                <div class="col-md-6">
-	                    {{ show_row(user.passwordRequestedAt, 'datetime', 'ekyna_user.user.field.password_request_at', {'label_nb_col': 4}) }}
-	                </div>
-	                <div class="col-md-6">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ show_row(user.passwordRequestedAt, 'datetime', 'ekyna_user.user.field.password_request_at', {'label_nb_col': 4}) }}
+                    </div>
+                    <div class="col-md-6">
                         {{ show_row(user.confirmationToken|truncate(64), 'text', 'ekyna_user.user.field.confirmation_token', {'label_nb_col': 4}) }}
-	                </div>
-	            </div>
-		        {#<div class="row">
-	                <div class="col-md-6">
-	                    {{ show_row(user.credentialsExpired, 'checkbox', 'ekyna_user.user.field.credentials_expired', {'label_nb_col': 4}) }}
-	                </div>
-	                <div class="col-md-6">
+                    </div>
+                </div>
+                {#<div class="row">
+                    <div class="col-md-6">
+                        {{ show_row(user.credentialsExpired, 'checkbox', 'ekyna_user.user.field.credentials_expired', {'label_nb_col': 4}) }}
+                    </div>
+                    <div class="col-md-6">
                         {{ show_row(user.credentialsExpireAt, 'datetime', 'ekyna_user.user.field.credentials_expires_at', {'label_nb_col': 4}) }}
-	                </div>
-	            </div>#}
+                    </div>
+                </div>#}
             </div>
             {% for name, tab in tabs %}
             <div class="tab-pane" id="user-user-{{ name }}">
                 {% include tab.template with tab.data %}
             </div>
             {% endfor %}
-	    </div>
-	</div>
+        </div>
+    </div>
 </div>
 {% endblock %}

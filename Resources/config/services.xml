@@ -37,41 +37,41 @@
         <!-- Form types -->
         <service id="ekyna_user.gender.form_type" class="%ekyna_user.gender.form_type.class%">
             <argument>%ekyna_user.gender_class%</argument>
-            <tag name="form.type" alias="ekyna_user_gender" />
+            <tag name="form.type" />
         </service>
         <service id="ekyna_user.identity.form_type" class="%ekyna_user.identity.form_type.class%">
             <argument>%ekyna_user.gender_class%</argument>
-            <tag name="form.type" alias="ekyna_user_identity" />
+            <tag name="form.type" />
         </service>
         <service id="ekyna_user.user.form_type" class="%ekyna_user.user.form_type.class%">
             <argument type="service" id="security.token_storage" />
             <argument>%ekyna_user.user.class%</argument>
             <argument>%ekyna_user.group.class%</argument>
             <argument>%ekyna_user.config%</argument>
-            <tag name="form.type" alias="ekyna_user_user" />
+            <tag name="form.type" />
         </service>
         <service id="ekyna_user.address.form_type" class="%ekyna_user.address.form_type.class%">
             <argument>%ekyna_user.address.class%</argument>
-            <tag name="form.type" alias="ekyna_user_address" />
+            <tag name="form.type" />
         </service>
         <service id="ekyna_user.cart_address_choice.form_type" class="%ekyna_user.address_choice.form_type.class%">
             <argument>%ekyna_user.address.class%</argument>
-            <tag name="form.type" alias="ekyna_user_address_choice" />
+            <tag name="form.type" />
         </service>
         <service id="ekyna_user.profile.form_type" class="%ekyna_user.profile.form_type.class%">
             <argument>%ekyna_user.user.class%</argument>
             <argument>%ekyna_user.config%</argument>
-            <tag name="form.type" alias="ekyna_user_profile" />
+            <tag name="form.type" />
         </service>
         <service id="ekyna_user.registration.form_type" class="%ekyna_user.registration.form_type.class%">
             <argument>%ekyna_user.user.class%</argument>
             <argument>%ekyna_user.config%</argument>
             <argument>%kernel.environment%</argument>
-            <tag name="form.type" alias="ekyna_user_registration" />
+            <tag name="form.type" />
         </service>
         <service id="ekyna_user.user_search.form_type" class="%ekyna_user.user_search.form_type.class%">
             <argument>%ekyna_user.user.class%</argument>
-            <tag name="form.type" alias="ekyna_user_search" />
+            <tag name="form.type" />
         </service>
 
         <!-- Table types -->

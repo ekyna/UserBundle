@@ -11,15 +11,15 @@
 {% endblock %}
 
 {% block main %}
-<form action="{{ path('ekyna_user_group_admin_edit_permissions', identifiers|merge({'groupId': group.id})) }}" {{ form_enctype(form) }} method="post" class="form-horizontal">
+{{ form_start(form) }}
     <div class="form-body">
         {% form_theme form "EkynaUserBundle:Admin/Group:_form_theme.html.twig" %}
-	    {{ bootstrap_set_style('horizontal') }}
+        {{ bootstrap_set_style('horizontal') }}
         {{ bootstrap_set_col_size('md') }}
         <div class="acl-table ekyna-table">
             {{ form_widget(form.acls) }}
         </div>
         {{ form_rest(form) }}
-	</div>
-</form>
+    </div>
+{{ form_end(form) }}
 {% endblock %}

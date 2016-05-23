@@ -199,7 +199,11 @@ class Mailer extends BaseMailer
     {
         /** @var \Ekyna\Bundle\UserBundle\Model\UserInterface $user */
         $template = $this->parameters['confirmation.template'];
-        $url = $this->router->generate('fos_user_registration_confirm', ['token' => $user->getConfirmationToken()], true);
+        $url = $this->router->generate(
+            'fos_user_registration_confirm',
+            ['token' => $user->getConfirmationToken()],
+            UrlGeneratorInterface::ABSOLUTE_URL
+        );
         $siteName = $this->settingsManager->getParameter('general.site_name');
         $username = sprintf('%s %s', $user->getFirstName(), $user->getLastName());
 
@@ -224,7 +228,11 @@ class Mailer extends BaseMailer
     {
         /** @var \Ekyna\Bundle\UserBundle\Model\UserInterface $user */
         $template = $this->parameters['resetting.template'];
-        $url = $this->router->generate('fos_user_resetting_reset', ['token' => $user->getConfirmationToken()], true);
+        $url = $this->router->generate(
+            'fos_user_resetting_reset',
+            ['token' => $user->getConfirmationToken()],
+            UrlGeneratorInterface::ABSOLUTE_URL
+        );
         $siteName = $this->settingsManager->getParameter('general.site_name');
         $username = sprintf('%s %s', $user->getFirstName(), $user->getLastName());
 
