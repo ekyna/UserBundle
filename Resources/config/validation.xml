@@ -37,7 +37,7 @@
         <property name="postalCode">
             <constraint name="NotBlank" />
             <constraint name="Regex">
-                <option name="pattern">/^[0-9]{5}$/</option><!-- TODO fix for other countries (Ex: Monreal H3W2L3) -->
+                <option name="pattern">/^[0-9a-zA-Z]+$/</option><!-- TODO fix for other countries (Ex: Monreal H3W2L3) -->
             </constraint>
         </property>
         <property name="city">
