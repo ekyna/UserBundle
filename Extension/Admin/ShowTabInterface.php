@@ -6,6 +6,7 @@ namespace Ekyna\Bundle\UserBundle\Extension\Admin;
  * Interface ShowTabInterface
  * @package Ekyna\Bundle\UserBundle\Extension\Admin
  * @author Étienne Dauvergne <contact@ekyna.com>
+ * @deprecated
  */
 interface ShowTabInterface
 {

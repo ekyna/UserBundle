@@ -9,6 +9,7 @@ use Ekyna\Bundle\CoreBundle\Model\TimestampableInterface;
  * Interface AddressInterface
  * @package Ekyna\Bundle\UserBundle\Model
  * @author Étienne Dauvergne <contact@ekyna.com>
+ * @deprecated
  */
 interface AddressInterface extends BaseInterface, IdentityInterface, TimestampableInterface
 {

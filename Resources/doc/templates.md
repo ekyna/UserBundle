@@ -22,14 +22,3 @@ To override them, they may be copied in *app/Resources/EkynaUserBundle/views*.
 | My informations | fos_user_profile_show | /account/profile/ | *Profile/show.html.twig* |
 | Edit my informations | fos_user_profile_edit | /account/profile/edit | *Profile/edit.html.twig* |
 | Change my password | fos_user_change_password | /account/profile/change-password | *ChangePassword/changePassword.html.twig* |
-| My addresses | ekyna_user_address_list | /account/address/ | *Address/list.html.twig* |
-| Create a new address | ekyna_user_address_new | /account/address/new | *Address/new.html.twig* | 
-| Edit the address | ekyna_user_address_edit | /account/address/{addressId}/edit | *Address/edit.html.twig* |
-| Remove the address | ekyna_user_address_remove | /account/address/{addressId}/remove | *Address/remove.html.twig* |
-
-### Twig extension
-
-You can render an address with *Address/_render.html.twig* template by using the **render_adress** twig funtion.
-```twig
-{{ render_address(address) }}
-```

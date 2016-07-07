@@ -14,7 +14,7 @@ use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface
 /**
  * Class AuthenticationListener
  * @package Ekyna\Bundle\UserBundle\EventListener
- * @author Étienne Dauvergne <contact@ekyna.com>
+ * @author  Étienne Dauvergne <contact@ekyna.com>
  */
 class AuthenticationListener implements EventSubscriberInterface
 {
@@ -38,8 +38,8 @@ class AuthenticationListener implements EventSubscriberInterface
      * Constructor.
      *
      * @param AccessDecisionManagerInterface $accessDecisionManager
-     * @param Mailer $mailer
-     * @param array $config
+     * @param Mailer                         $mailer
+     * @param array                          $config
      */
     public function __construct(AccessDecisionManagerInterface $accessDecisionManager, Mailer $mailer, array $config)
     {

@@ -1,12 +1,12 @@
 {% extends "EkynaAdminBundle:Entity:sided.html.twig" %}
 
 {% block title %}
-<h1>{{ 'ekyna_user.user.header.show'|trans({'%name%': user.email})|raw }}</h1>
+    <h1>{{ 'ekyna_user.user.header.show'|trans({'%name%': user.email})|raw }}</h1>
 {% endblock %}
 
 {% block actions %}
-{{ admin_resource_btn(user, 'list') }}
-{{ admin_resource_btn(user, 'new') }}
+    {{ admin_resource_btn(user, 'list') }}
+    {{ admin_resource_btn(user, 'new') }}
 {% endblock %}
 
 {% block main %}
@@ -16,10 +16,16 @@
 </div>
 <div class="show show-with-tabs">
     <ul class="nav nav-tabs">
-        <li class="active"><a href="#user-user-general" data-toggle="tab">{{ 'ekyna_core.field.general'|trans }}</a></li>
-        <li><a href="#user-user-informations" data-toggle="tab">{{ 'ekyna_core.field.informations'|trans }}</a></li>
+        <li class="active">
+            <a href="#user-user-general" data-toggle="tab">{{ 'ekyna_core.field.general'|trans }}</a>
+        </li>
+        <li>
+            <a href="#user-user-informations" data-toggle="tab">{{ 'ekyna_core.field.informations'|trans }}</a>
+        </li>
         {% for name, tab in tabs %}
-        <li><a href="#user-user-{{ name }}" data-toggle="tab">{{ tab.label|trans }}</a></li>
+        <li>
+            <a href="#user-user-{{ name }}" data-toggle="tab">{{ tab.label|trans }}</a>
+        </li>
         {% endfor %}
     </ul>
     <div class="show-body">
@@ -32,26 +38,30 @@
                         {{ show_row(user.username, 'text', 'ekyna_core.field.username', {'label_nb_col': 4}) }}
                     </div>
                     <div class="col-md-6">
-                        {{ show_row(user.group, 'entity', 'ekyna_core.field.group', {'label_nb_col': 4, 'route': 'ekyna_user_group_admin_show', 'route_params_map': {'groupId': 'id'}, 'field': 'name'}) }}
+                        {{ show_row(user.group, 'entity', 'ekyna_core.field.group', {
+                            'label_nb_col': 4,
+                            'route': 'ekyna_user_group_admin_show',
+                            'route_params_map': {'groupId': 'id'},
+                            'field': 'name'
+                        }) }}
                     </div>
                 </div>
                 {% else %}
-                {{ show_row(user.group, 'entity', 'ekyna_core.field.group', {'route': 'ekyna_user_group_admin_show', 'route_params_map': {'groupId': 'id'}, 'field': 'name'}) }}
+                    {{ show_row(user.group, 'entity', 'ekyna_core.field.group', {
+                        'route': 'ekyna_user_group_admin_show',
+                        'route_params_map': {'groupId': 'id'},
+                        'field': 'name'
+                    }) }}
                 {% endif %}
                 <hr>
-                {{ show_row(user.company, 'text', 'ekyna_core.field.company') }}
                 <div class="row show-row">
-                    <div class="col-md-2 show-label">{{ 'ekyna_core.field.identity'|trans }}</div>
+                    <div class="col-md-2 show-label">
+                        {{ 'ekyna_core.field.identity'|trans }}
+                    </div>
                     <div class="col-md-10">
-                        <div class="show-widget show-widget-inline">{{ render_identity(user) }}</div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        {{ show_row(user.phone, 'tel', 'ekyna_core.field.phone', {'label_nb_col': 4}) }}
-                    </div>
-                    <div class="col-md-6">
-                        {{ show_row(user.mobile, 'tel', 'ekyna_core.field.mobile', {'label_nb_col': 4}) }}
+                        <div class="show-widget show-widget-inline">
+                            {{ render_identity(user) }}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -80,10 +90,14 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        {{ show_row(user.passwordRequestedAt, 'datetime', 'ekyna_user.user.field.password_request_at', {'label_nb_col': 4}) }}
+                        {{ show_row(user.passwordRequestedAt, 'datetime', 'ekyna_user.user.field.password_request_at', {
+                            'label_nb_col': 4
+                        }) }}
                     </div>
                     <div class="col-md-6">
-                        {{ show_row(user.confirmationToken|truncate(64), 'text', 'ekyna_user.user.field.confirmation_token', {'label_nb_col': 4}) }}
+                        {{ show_row(user.confirmationToken|truncate(64), 'text', 'ekyna_user.user.field.confirmation_token', {
+                            'label_nb_col': 4
+                        }) }}
                     </div>
                 </div>
                 {#<div class="row">

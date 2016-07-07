@@ -1,9 +1,9 @@
 ekyna_user_account_home: /my-account
 
-ekyna_user_address_list: /my-account/my-addresses
-ekyna_user_address_new: /my-account/my-addresses/new
-ekyna_user_address_edit: /my-account/my-addresses/{addressId}/edit
-ekyna_user_address_remove: /my-account/my-addresses/{addressId}/delete
+#ekyna_user_address_list: /my-account/my-addresses
+#ekyna_user_address_new: /my-account/my-addresses/new
+#ekyna_user_address_edit: /my-account/my-addresses/{addressId}/edit
+#ekyna_user_address_remove: /my-account/my-addresses/{addressId}/delete
 
 fos_user_change_password: /my-account/change-password
 

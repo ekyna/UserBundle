@@ -5,5 +5,9 @@
 {% endblock subject %}
 
 {% block body %}
-{{ 'ekyna_user.email.registration.message'|trans({'%username%': username, '%confirmationUrl%': confirmationUrl, '%sitename%': sitename})|raw }}
+{{ 'ekyna_user.email.registration.message'|trans({
+    '%username%': username,
+    '%confirmationUrl%': confirmationUrl,
+    '%sitename%': sitename
+})|raw }}
 {% endblock body %}

@@ -10,7 +10,7 @@ use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
 /**
  * Class Group
  * @package Ekyna\Bundle\UserBundle\Entity
- * @author Étienne Dauvergne <contact@ekyna.com>
+ * @author  Étienne Dauvergne <contact@ekyna.com>
  */
 class Group extends BaseGroup implements GroupInterface
 {
@@ -25,7 +25,7 @@ class Group extends BaseGroup implements GroupInterface
      * Constructor
      *
      * @param string $name
-     * @param array $roles
+     * @param array  $roles
      */
     public function __construct($name = null, array $roles = [])
     {
@@ -40,7 +40,7 @@ class Group extends BaseGroup implements GroupInterface
      */
     public function __toString()
     {
-        return (string) $this->getName();
+        return (string)$this->getName();
     }
 
     /**
@@ -49,6 +49,7 @@ class Group extends BaseGroup implements GroupInterface
     public function setDefault($default)
     {
         $this->default = $default;
+
         return $this;
     }
 

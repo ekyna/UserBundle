@@ -10,7 +10,7 @@ fos_elastica:
                             mapping: {type: string, search_analyzer: search, index_analyzer: index}
                     persistence:
                         driver: orm
-                        model: %ekyna_user.user.class%
+                        model: "%ekyna_user.user.class%"
                         provider:
                             batch_size: 25
                         listener: ~

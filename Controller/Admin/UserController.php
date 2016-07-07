@@ -13,11 +13,12 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 /**
  * Class UserController
  * @package Ekyna\Bundle\UserBundle\Controller\Admin
- * @author Étienne Dauvergne <contact@ekyna.com>
+ * @author  Étienne Dauvergne <contact@ekyna.com>
  */
 class UserController extends ResourceController
 {
     use ToggleableTrait;
+
 
     /**
      * {@inheritdoc}
@@ -44,6 +45,7 @@ class UserController extends ResourceController
      * Generates a new password for the user.
      *
      * @param Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function generatePasswordAction(Request $request)
@@ -68,8 +70,7 @@ class UserController extends ResourceController
                 sprintf('Generated password : "%s".', $password),
                 ResourceMessage::TYPE_INFO
             ))
-            ->addData('password', $password)
-        ;
+            ->addData('password', $password);
 
         // TODO use ResourceManager
         $this->getOperator()->update($event);
@@ -82,6 +83,7 @@ class UserController extends ResourceController
      * Clears the user password request.
      *
      * @param Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function clearPasswordRequestAction(Request $request)
@@ -96,8 +98,7 @@ class UserController extends ResourceController
         if ($resource->isPasswordRequestNonExpired($this->container->getParameter('fos_user.resetting.token_ttl'))) {
             $resource
                 ->setConfirmationToken(null)
-                ->setPasswordRequestedAt(null)
-            ;
+                ->setPasswordRequestedAt(null);
 
             // TODO use ResourceManager
             $event = $this->getOperator()->update($resource);

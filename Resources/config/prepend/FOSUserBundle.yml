@@ -1,11 +1,11 @@
 fos_user:
     db_driver: orm
     firewall_name: admin
-    user_class: %ekyna_user.user.class%
+    user_class: "%ekyna_user.user.class%"
     use_flash_notifications: false
     use_username_form_type: false
     group:
-        group_class: %ekyna_user.group.class%
+        group_class: "%ekyna_user.group.class%"
     service:
         mailer: ekyna_user.mailer.default
         user_manager: ekyna_user.user_manager.default

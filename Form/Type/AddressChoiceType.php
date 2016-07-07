@@ -12,6 +12,7 @@ use Symfony\Component\Form\AbstractType;
  * Class AddressChoiceType
  * @package Ekyna\Bundle\UserBundle\Form\Type
  * @author  Étienne Dauvergne <contact@ekyna.com>
+ * @deprecated
  */
 class AddressChoiceType extends AbstractType
 {

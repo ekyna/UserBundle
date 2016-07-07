@@ -1,9 +1,9 @@
 ekyna_user_account_home: /mon-compte
 
-ekyna_user_address_list: /mon-compte/mes-adresses
-ekyna_user_address_new: /mon-compte/mes-adresses/nouvelle
-ekyna_user_address_edit: /mon-compte/mes-adresses/{addressId}/modifier
-ekyna_user_address_remove: /mon-compte/mes-adresses/{addressId}/supprimer
+#ekyna_user_address_list: /mon-compte/mes-adresses
+#ekyna_user_address_new: /mon-compte/mes-adresses/nouvelle
+#ekyna_user_address_edit: /mon-compte/mes-adresses/{addressId}/modifier
+#ekyna_user_address_remove: /mon-compte/mes-adresses/{addressId}/supprimer
 
 fos_user_change_password: /mon-compte/changer-mot-de-passe
 

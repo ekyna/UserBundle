@@ -8,24 +8,27 @@
 </dl>
 <hr>
 <dl class="dl-horizontal">
-    <dt>{{ 'ekyna_core.field.company'|trans }}</dt>
-    <dd>{{ user.company|default('&nbsp;')|raw }}</dd>
+    {#<dt>{{ 'ekyna_core.field.company'|trans }}</dt>
+    <dd>{{ user.company|default('&nbsp;')|raw }}</dd>#}
+
     <dt>{{ 'ekyna_core.field.identity'|trans }}</dt>
     <dd>{{ render_identity(user) }}</dd>
-    <dt>{{ 'ekyna_core.field.phone'|trans }}</dt>
+
+    {#<dt>{{ 'ekyna_core.field.phone'|trans }}</dt>
     <dd>
         {%- if user.phone|length > 0 -%}
             {{ phone_number_format(user.phone, 'NATIONAL') }}
         {%- else -%}
             &nbsp;
         {%- endif -%}
-    </dd>
-    <dt>{{ 'ekyna_core.field.mobile'|trans }}</dt>
+    </dd>#}
+
+    {#<dt>{{ 'ekyna_core.field.mobile'|trans }}</dt>
     <dd>
         {%- if user.mobile|length > 0 -%}
             {{ phone_number_format(user.mobile, 'NATIONAL') }}
         {%- else -%}
             &nbsp;
         {%- endif -%}
-    </dd>
+    </dd>#}
 </dl>

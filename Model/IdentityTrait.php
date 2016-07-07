@@ -5,7 +5,7 @@ namespace Ekyna\Bundle\UserBundle\Model;
 /**
  * Trait IdentityTrait|$this
  * @package Ekyna\Bundle\UserBundle\Model
- * @author Étienne Dauvergne <contact@ekyna.com>
+ * @author  Étienne Dauvergne <contact@ekyna.com>
  */
 trait IdentityTrait
 {
@@ -24,6 +24,7 @@ trait IdentityTrait
      */
     protected $lastName;
 
+
     /**
      * Returns the gender.
      *
@@ -38,11 +39,13 @@ trait IdentityTrait
      * Sets the gender.
      *
      * @param string $gender
+     *
      * @return IdentityInterface|$this
      */
     public function setGender($gender)
     {
         $this->gender = $gender;
+
         return $this;
     }
 
@@ -60,11 +63,13 @@ trait IdentityTrait
      * Sets the firstName.
      *
      * @param string $firstName
+     *
      * @return IdentityInterface|$this
      */
     public function setFirstName($firstName)
     {
         $this->firstName = $firstName;
+
         return $this;
     }
 
@@ -82,11 +87,13 @@ trait IdentityTrait
      * Sets the lastName.
      *
      * @param string $lastName
+     *
      * @return IdentityInterface|$this
      */
     public function setLastName($lastName)
     {
         $this->lastName = $lastName;
+
         return $this;
     }
 }

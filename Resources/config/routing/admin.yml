@@ -5,7 +5,3 @@ ekyna_user_group_admin:
 ekyna_user_user_admin:
     resource: "admin/user.yml"
     prefix:   /users
-
-ekyna_user_address_admin:
-    resource: "admin/address.yml"
-    prefix:   /users/{userId}/addresses

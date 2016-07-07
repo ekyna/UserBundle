@@ -10,7 +10,7 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 /**
  * Class AddressController
  * @package Ekyna\Bundle\UserBundle\Controller
- * @author Étienne Dauvergne <contact@ekyna.com>
+ * @author  Étienne Dauvergne <contact@ekyna.com>
  */
 class AddressController extends Controller
 {
@@ -21,13 +21,15 @@ class AddressController extends Controller
      */
     public function listAction()
     {
+        throw new AccessDeniedHttpException('Addresse management though UserBundle has been disabled');
+
         $user = $this->getUser();
         $repository = $this->get('ekyna_user.address.repository');
 
         $addresses = $repository->findByUser($user);
 
         return $this->render('EkynaUserBundle:Address:list.html.twig', [
-            'addresses' => $addresses
+            'addresses' => $addresses,
         ]);
     }
 
@@ -40,6 +42,8 @@ class AddressController extends Controller
      */
     public function newAction(Request $request)
     {
+        throw new AccessDeniedHttpException('Addresse management though UserBundle has been disabled');
+
         $user = $this->getUser();
         $repository = $this->get('ekyna_user.address.repository');
 
@@ -55,30 +59,29 @@ class AddressController extends Controller
             ])
             ->add('actions', 'form_actions', [
                 'buttons' => [
-                    'save' => [
+                    'save'   => [
                         'type' => 'submit', 'options' => [
                             'button_class' => 'primary',
-                            'label' => 'ekyna_core.button.save',
-                            'attr' => [
+                            'label'        => 'ekyna_core.button.save',
+                            'attr'         => [
                                 'icon' => 'ok',
                             ],
                         ],
                     ],
                     'cancel' => [
                         'type' => 'button', 'options' => [
-                            'label' => 'ekyna_core.button.cancel',
+                            'label'        => 'ekyna_core.button.cancel',
                             'button_class' => 'default',
-                            'as_link' => true,
-                            'attr' => [
+                            'as_link'      => true,
+                            'attr'         => [
                                 'class' => 'form-cancel-btn',
-                                'icon' => 'remove',
-                                'href' => $cancelPath,
+                                'icon'  => 'remove',
+                                'href'  => $cancelPath,
                             ],
                         ],
                     ],
                 ],
-            ])
-        ;
+            ]);
 
         $form->handleRequest($request);
         if ($form->isValid()) {
@@ -88,13 +91,14 @@ class AddressController extends Controller
                 if (null !== $redirectPath = $form->get('_redirect')->getData()) {
                     return $this->redirect($redirectPath);
                 }
+
                 return $this->redirect($cancelPath);
             }
             $this->addFlash('ekyna_user.address.message.create.failure', 'danger');
         }
 
         return $this->render('EkynaUserBundle:Address:new.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
@@ -110,6 +114,8 @@ class AddressController extends Controller
      */
     public function editAction(Request $request)
     {
+        throw new AccessDeniedHttpException('Addresse management though UserBundle has been disabled');
+
         $user = $this->getUser();
         $repository = $this->get('ekyna_user.address.repository');
 
@@ -129,30 +135,29 @@ class AddressController extends Controller
             ])
             ->add('actions', 'form_actions', [
                 'buttons' => [
-                    'save' => [
+                    'save'   => [
                         'type' => 'submit', 'options' => [
                             'button_class' => 'primary',
-                            'label' => 'ekyna_core.button.save',
-                            'attr' => [
+                            'label'        => 'ekyna_core.button.save',
+                            'attr'         => [
                                 'icon' => 'ok',
                             ],
                         ],
                     ],
                     'cancel' => [
                         'type' => 'button', 'options' => [
-                            'label' => 'ekyna_core.button.cancel',
+                            'label'        => 'ekyna_core.button.cancel',
                             'button_class' => 'default',
-                            'as_link' => true,
-                            'attr' => [
+                            'as_link'      => true,
+                            'attr'         => [
                                 'class' => 'form-cancel-btn',
-                                'icon' => 'remove',
-                                'href' => $cancelPath,
+                                'icon'  => 'remove',
+                                'href'  => $cancelPath,
                             ],
                         ],
                     ],
                 ],
-            ])
-        ;
+            ]);
 
         $form->handleRequest($request);
         if ($form->isValid()) {
@@ -162,6 +167,7 @@ class AddressController extends Controller
                 if (null !== $redirectPath = $form->get('_redirect')->getData()) {
                     return $this->redirect($redirectPath);
                 }
+
                 return $this->redirect($cancelPath);
             }
             $this->addFlash('ekyna_user.address.message.edit.failure', 'danger');
@@ -169,7 +175,7 @@ class AddressController extends Controller
 
         return $this->render('EkynaUserBundle:Address:edit.html.twig', [
             'address' => $address,
-            'form' => $form->createView()
+            'form'    => $form->createView(),
         ]);
     }
 
@@ -185,6 +191,8 @@ class AddressController extends Controller
      */
     public function removeAction(Request $request)
     {
+        throw new AccessDeniedHttpException('Addresse management though UserBundle has been disabled');
+
         $user = $this->getUser();
         $repository = $this->get('ekyna_user.address.repository');
 
@@ -197,41 +205,41 @@ class AddressController extends Controller
 
         $cancelPath = $this->generateUrl('ekyna_user_address_list');
 
-        $form = $this->createFormBuilder(null, [
+        $form = $this
+            ->createFormBuilder(null, [
                 '_redirect_enabled' => true,
             ])
             ->add('confirm', 'checkbox', [
-                'label' => 'ekyna_user.address.message.remove.confirm',
-                'attr' => ['align_with_widget' => true],
-                'required' => true
+                'label'    => 'ekyna_user.address.message.remove.confirm',
+                'attr'     => ['align_with_widget' => true],
+                'required' => true,
             ])
             ->add('actions', 'form_actions', [
                 'buttons' => [
                     'remove' => [
                         'type' => 'submit', 'options' => [
                             'button_class' => 'danger',
-                            'label' => 'ekyna_core.button.remove',
-                            'attr' => [
+                            'label'        => 'ekyna_core.button.remove',
+                            'attr'         => [
                                 'icon' => 'trash',
                             ],
                         ],
                     ],
                     'cancel' => [
                         'type' => 'button', 'options' => [
-                            'label' => 'ekyna_core.button.cancel',
+                            'label'        => 'ekyna_core.button.cancel',
                             'button_class' => 'default',
-                            'as_link' => true,
-                            'attr' => [
+                            'as_link'      => true,
+                            'attr'         => [
                                 'class' => 'form-cancel-btn',
-                                'icon' => 'remove',
-                                'href' => $cancelPath,
+                                'icon'  => 'remove',
+                                'href'  => $cancelPath,
                             ],
                         ],
                     ],
                 ],
             ])
-            ->getForm()
-        ;
+            ->getForm();
 
         $form->handleRequest($request);
         if ($form->isValid()) {
@@ -241,6 +249,7 @@ class AddressController extends Controller
                 if (null !== $redirectPath = $form->get('_redirect')->getData()) {
                     return $this->redirect($redirectPath);
                 }
+
                 return $this->redirect($cancelPath);
             }
             $this->addFlash('ekyna_user.address.message.remove.failure', 'danger');
@@ -248,7 +257,7 @@ class AddressController extends Controller
 
         return $this->render('EkynaUserBundle:Address:remove.html.twig', [
             'address' => $address,
-            'form' => $form->createView()
+            'form'    => $form->createView(),
         ]);
     }
 }

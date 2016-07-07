@@ -8,8 +8,8 @@
     <parameters>
         <parameter key="ekyna_user.gender.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\GenderType</parameter>
         <parameter key="ekyna_user.identity.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\IdentityType</parameter>
-        <parameter key="ekyna_user.address.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\AddressType</parameter>
-        <parameter key="ekyna_user.address_choice.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\AddressChoiceType</parameter>
+        <!--<parameter key="ekyna_user.address.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\AddressType</parameter>-->
+        <!--<parameter key="ekyna_user.address_choice.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\AddressChoiceType</parameter>-->
         <parameter key="ekyna_user.user.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\UserType</parameter>
         <parameter key="ekyna_user.user_search.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\UserSearchType</parameter>
         <parameter key="ekyna_user.profile.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\ProfileType</parameter>
@@ -19,6 +19,12 @@
     </parameters>
 
     <services>
+
+        <!-- Helper -->
+        <service id="ekyna_user.helper.identity" class="Ekyna\Bundle\UserBundle\Helper\IdentityHelper">
+            <argument type="service" id="translator" />
+            <argument>%ekyna_user.gender_class%</argument>
+        </service>
 
         <!-- Events listeners -->
         <service id="ekyna_user.authentication_listener" class="Ekyna\Bundle\UserBundle\EventListener\AuthenticationListener">
@@ -50,14 +56,14 @@
             <argument>%ekyna_user.config%</argument>
             <tag name="form.type" />
         </service>
-        <service id="ekyna_user.address.form_type" class="%ekyna_user.address.form_type.class%">
+        <!--<service id="ekyna_user.address.form_type" class="%ekyna_user.address.form_type.class%">
             <argument>%ekyna_user.address.class%</argument>
             <tag name="form.type" />
         </service>
         <service id="ekyna_user.cart_address_choice.form_type" class="%ekyna_user.address_choice.form_type.class%">
             <argument>%ekyna_user.address.class%</argument>
             <tag name="form.type" />
-        </service>
+        </service>-->
         <service id="ekyna_user.profile.form_type" class="%ekyna_user.profile.form_type.class%">
             <argument>%ekyna_user.user.class%</argument>
             <argument>%ekyna_user.config%</argument>
@@ -88,10 +94,10 @@
 
         <!-- User extensions -->
         <service id="ekyna_user.extension.registry" class="Ekyna\Bundle\UserBundle\Extension\ExtensionRegistry" />
-        <service id="ekyna_user.extension.address" class="Ekyna\Bundle\UserBundle\Extension\AddressExtension">
+        <!--<service id="ekyna_user.extension.address" class="Ekyna\Bundle\UserBundle\Extension\AddressExtension">
             <argument>%ekyna_user.config%</argument>
             <tag name="ekyna_user.extension" />
-        </service>
+        </service>-->
 
         <!-- Routing loader -->
         <service id="ekyna_user.routing_loader" class="Ekyna\Bundle\UserBundle\Routing\AccountLoader">
@@ -125,12 +131,11 @@
         </service>
 
         <!-- Twig extensions -->
-	    <service id="ekyna_user.twig.user_extension" class="Ekyna\Bundle\UserBundle\Twig\UserExtension">
-	        <argument type="service" id="translator" />
-	        <argument type="service" id="ekyna_user.address.repository" />
+        <service id="ekyna_user.twig.user_extension" class="Ekyna\Bundle\UserBundle\Twig\UserExtension">
+            <argument type="service" id="ekyna_user.helper.identity" />
             <argument>%ekyna_user.config%</argument>
-	        <tag name="twig.extension" />
-	    </service>
+            <tag name="twig.extension" />
+        </service>
 
         <!-- (FOS) User manager -->
         <service id="ekyna_user.user_manager.default" class="Ekyna\Bundle\UserBundle\Doctrine\UserManager" public="false">

@@ -11,11 +11,12 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Class GroupController
  * @package Ekyna\Bundle\UserBundle\Controller\Admin
- * @author Étienne Dauvergne <contact@ekyna.com>
+ * @author  Étienne Dauvergne <contact@ekyna.com>
  */
 class GroupController extends ResourceController
 {
     use SortableTrait;
+
 
     /**
      * {@inheritdoc}
@@ -30,7 +31,7 @@ class GroupController extends ResourceController
         $this->isGranted('VIEW', $resource);
 
         $datas = [
-            'acl_datas' => $this->get('ekyna_admin.acl_operator')->generateGroupViewDatas($resource)
+            'acl_datas' => $this->get('ekyna_admin.acl_operator')->generateGroupViewDatas($resource),
         ];
 
         return $this->render(
@@ -43,6 +44,7 @@ class GroupController extends ResourceController
      * Edit permissions action.
      *
      * @param Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function editPermissionsAction(Request $request)
@@ -59,16 +61,16 @@ class GroupController extends ResourceController
         $aclOperator = $this->get('ekyna_admin.acl_operator');
         $builder = $this->createFormBuilder(
             [
-                'acls' => $aclOperator->generateGroupFormDatas($resource)
+                'acls' => $aclOperator->generateGroupFormDatas($resource),
             ],
             [
-                'action' => $this->generateUrl('ekyna_user_group_admin_edit_permissions', [
+                'action'            => $this->generateUrl('ekyna_user_group_admin_edit_permissions', [
                     'groupId' => $resource->getId(),
                 ]),
-                'method' => 'POST',
-                'attr' => ['class' => 'form-horizontal form-with-tabs'],
-                'admin_mode' => true,
-                '_redirect_enabled' => true
+                'method'            => 'POST',
+                'attr'              => ['class' => 'form-horizontal form-with-tabs'],
+                'admin_mode'        => true,
+                '_redirect_enabled' => true,
             ]
         );
         $aclOperator->buildGroupForm($builder);
@@ -76,24 +78,24 @@ class GroupController extends ResourceController
         $form = $builder->getForm();
         $form->add('actions', FormActionsType::class, [
             'buttons' => [
-                'save' => [
+                'save'   => [
                     'type' => Type\SubmitType::class, 'options' => [
                         'button_class' => 'primary',
-                        'label' => 'ekyna_core.button.save',
-                        'attr' => [
+                        'label'        => 'ekyna_core.button.save',
+                        'attr'         => [
                             'icon' => 'ok',
                         ],
                     ],
                 ],
                 'cancel' => [
                     'type' => Type\ButtonType::class, 'options' => [
-                        'label' => 'ekyna_core.button.cancel',
+                        'label'        => 'ekyna_core.button.cancel',
                         'button_class' => 'default',
-                        'as_link' => true,
-                        'attr' => [
+                        'as_link'      => true,
+                        'attr'         => [
                             'class' => 'form-cancel-btn',
-                            'icon' => 'remove',
-                            'href' => $cancelPath,
+                            'icon'  => 'remove',
+                            'href'  => $cancelPath,
                         ],
                     ],
                 ],
@@ -111,8 +113,8 @@ class GroupController extends ResourceController
                     return $this->redirect($redirectPath);
                 }
 
-                return $this->redirect($cancelPath );
-            } catch(\Exception $e) {
+                return $this->redirect($cancelPath);
+            } catch (\Exception $e) {
                 $this->addFlash('Erreur lors de la mise à jour des permissions :<br>' . $e->getMessage(), 'danger');
             }
         }
@@ -124,7 +126,7 @@ class GroupController extends ResourceController
 
         $datas = [
             'permissions' => $aclOperator->getPermissions(),
-            'form' => $form->createView(),
+            'form'        => $form->createView(),
         ];
 
         return $this->render(

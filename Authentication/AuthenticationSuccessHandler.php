@@ -9,7 +9,7 @@ use Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessH
 /**
  * Class AuthenticationSuccessHandler
  * @package Ekyna\Bundle\UserBundle\Authentication
- * @author Étienne Dauvergne <contact@ekyna.com>
+ * @author  Étienne Dauvergne <contact@ekyna.com>
  */
 class AuthenticationSuccessHandler extends DefaultAuthenticationSuccessHandler
 {
@@ -22,7 +22,7 @@ class AuthenticationSuccessHandler extends DefaultAuthenticationSuccessHandler
         if ($session->has('_ekyna.login_success.target_path')) {
             $targetUrl = $session->get('_ekyna.login_success.target_path');
             $session->remove('_ekyna.login_success.target_path');
-        
+
             return $this->httpUtils->createRedirectResponse($request, $targetUrl);
         }
 

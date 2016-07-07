@@ -13,6 +13,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  * Class AddressType
  * @package Ekyna\Bundle\UserBundle\Form\Type
  * @author  Étienne Dauvergne <contact@ekyna.com>
+ * @deprecated
  */
 class AddressType extends ResourceFormType
 {

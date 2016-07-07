@@ -1,11 +1,11 @@
 ekyna_user:
-    address:
-        user_is_mandatory: L'utilisateur doit être assigné.
-        gender_is_mandatory: Veuillez choisir la civilité.
-        first_name_is_mandatory: Veuillez saisir le prénom.
-        last_name_is_mandatory: Veuillez saisir le nom.
-        company_is_mandatory: Veuillez saisir le nom de l'entreprise.
-        phone_is_mandatory: Veuillez saisir le numéro de téléphone.
-        mobile_is_mandatory: Veuillez saisir le numéro de téléphone mobile.
+#    address:
+#        user_is_mandatory: L'utilisateur doit être assigné.
+#        gender_is_mandatory: Veuillez choisir la civilité.
+#        first_name_is_mandatory: Veuillez saisir le prénom.
+#        last_name_is_mandatory: Veuillez saisir le nom.
+#        company_is_mandatory: Veuillez saisir le nom de l'entreprise.
+#        phone_is_mandatory: Veuillez saisir le numéro de téléphone.
+#        mobile_is_mandatory: Veuillez saisir le numéro de téléphone mobile.
     gender:
         invalid: Cet titre n'est pas un titre valide.

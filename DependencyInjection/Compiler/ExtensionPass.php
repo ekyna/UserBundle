@@ -9,7 +9,7 @@ use Symfony\Component\DependencyInjection\Reference;
 /**
  * Class ExtensionPass
  * @package Ekyna\Bundle\UserBundle\DependencyInjection\Compiler
- * @author Étienne Dauvergne <contact@ekyna.com>
+ * @author  Étienne Dauvergne <contact@ekyna.com>
  */
 class ExtensionPass implements CompilerPassInterface
 {
@@ -18,6 +18,8 @@ class ExtensionPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
+        throw new \RuntimeException('User extensions has been disabled');
+
         if (!$container->hasDefinition('ekyna_user.extension.registry')) {
             return;
         }

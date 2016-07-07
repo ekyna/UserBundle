@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 /**
  * Class UserType
  * @package Ekyna\Bundle\UserBundle\Table\Type
- * @author Étienne Dauvergne <contact@ekyna.com>
+ * @author  Étienne Dauvergne <contact@ekyna.com>
  */
 class UserType extends ResourceTableType
 {
@@ -60,6 +60,7 @@ class UserType extends ResourceTableType
                 return $user->getGroup();
             }
         }
+
         return null;
     }
 
@@ -75,10 +76,10 @@ class UserType extends ResourceTableType
                 'sortable' => true,
             ])
             ->addColumn('email', 'anchor', [
-                'label' => 'ekyna_user.user.label.singular',
-                'property_path' => null,
-                'sortable' => true,
-                'route_name' => 'ekyna_user_user_admin_show',
+                'label'                => 'ekyna_user.user.label.singular',
+                'property_path'        => null,
+                'sortable'             => true,
+                'route_name'           => 'ekyna_user_user_admin_show',
                 'route_parameters_map' => ['userId' => 'id'],
             ])
             /*->addColumn('username', 'text', array(
@@ -102,75 +103,73 @@ class UserType extends ResourceTableType
                     'sortable'             => false,
                     'route_name'           => 'ekyna_user_group_admin_show',
                     'route_parameters_map' => ['groupId' => 'group.id'],
-                ])
-            ;
+                ]);
         }
         $builder
             ->addColumn('enabled', 'boolean', [
-                'label' => 'ekyna_core.field.enabled',
-                'sortable' => true,
-                'route_name' => 'ekyna_user_user_admin_toggle',
-                'route_parameters' => ['field' => 'enabled'],
+                'label'                => 'ekyna_core.field.enabled',
+                'sortable'             => true,
+                'route_name'           => 'ekyna_user_user_admin_toggle',
+                'route_parameters'     => ['field' => 'enabled'],
                 'route_parameters_map' => ['userId' => 'id'],
             ])
             ->addColumn('locked', 'boolean', [
-                'label' => 'ekyna_core.field.locked',
-                'sortable' => true,
-                'true_class'  => 'label-danger',
-                'false_class' => 'label-success',
-                'route_name' => 'ekyna_user_user_admin_toggle',
-                'route_parameters' => ['field' => 'locked'],
+                'label'                => 'ekyna_core.field.locked',
+                'sortable'             => true,
+                'true_class'           => 'label-danger',
+                'false_class'          => 'label-success',
+                'route_name'           => 'ekyna_user_user_admin_toggle',
+                'route_parameters'     => ['field' => 'locked'],
                 'route_parameters_map' => ['userId' => 'id'],
             ])
             ->addColumn('expired', 'boolean', [
-                'label' => 'ekyna_core.field.expired',
-                'sortable' => true,
-                'true_class'  => 'label-danger',
-                'false_class' => 'label-success',
-                'route_name' => 'ekyna_user_user_admin_toggle',
-                'route_parameters' => ['field' => 'expired'],
+                'label'                => 'ekyna_core.field.expired',
+                'sortable'             => true,
+                'true_class'           => 'label-danger',
+                'false_class'          => 'label-success',
+                'route_name'           => 'ekyna_user_user_admin_toggle',
+                'route_parameters'     => ['field' => 'expired'],
                 'route_parameters_map' => ['userId' => 'id'],
             ])
             ->addColumn('expiresAt', 'datetime', [
-                'label' => 'ekyna_core.field.expires_at',
+                'label'    => 'ekyna_core.field.expires_at',
                 'sortable' => true,
             ])
             ->addColumn('createdAt', 'datetime', [
-                'label' => 'ekyna_core.field.created_at',
+                'label'    => 'ekyna_core.field.created_at',
                 'sortable' => true,
             ])
             ->addColumn('actions', 'admin_actions', [
                 'buttons' => [
                     [
-                        'label' => 'ekyna_core.button.edit',
-                        'class' => 'warning',
-                        'route_name' => 'ekyna_user_user_admin_edit',
+                        'label'                => 'ekyna_core.button.edit',
+                        'class'                => 'warning',
+                        'route_name'           => 'ekyna_user_user_admin_edit',
                         'route_parameters_map' => ['userId' => 'id'],
-                        'permission' => 'edit',
+                        'permission'           => 'edit',
                     ],
                     [
-                        'label' => 'ekyna_core.button.remove',
-                        'class' => 'danger',
-                        'route_name' => 'ekyna_user_user_admin_remove',
+                        'label'                => 'ekyna_core.button.remove',
+                        'class'                => 'danger',
+                        'route_name'           => 'ekyna_user_user_admin_remove',
                         'route_parameters_map' => ['userId' => 'id'],
-                        'permission' => 'delete',
+                        'permission'           => 'delete',
                     ],
                 ],
             ])
             ->addFilter('id', 'number')
             ->addFilter('email', 'text', [
-            	'label' => 'ekyna_core.field.email',
+                'label' => 'ekyna_core.field.email',
             ])
             /*->addFilter('username', 'text', array(
-            	'label' => 'ekyna_core.field.username',
+                'label' => 'ekyna_core.field.username',
             ))*/
             ->addFilter('firstName', 'text', [
-            	'label' => 'ekyna_core.field.first_name',
+                'label' => 'ekyna_core.field.first_name',
             ])
             ->addFilter('lastName', 'text', [
-            	'label' => 'ekyna_core.field.last_name',
-            ])
-        ;
+                'label' => 'ekyna_core.field.last_name',
+            ]);
         if (null !== $group) {
             $builder
                 ->addFilter('group', 'entity', [
@@ -179,10 +178,10 @@ class UserType extends ResourceTableType
                     'property'      => 'name',
                     'query_builder' => function (EntityRepository $er) use ($group) {
                         $qb = $er->createQueryBuilder('g');
+
                         return $qb->andWhere($qb->expr()->gte('g.position', $group->getPosition()));
                     },
-                ])
-            ;
+                ]);
         }
         $builder
             ->addFilter('enabled', 'boolean', [
@@ -199,8 +198,7 @@ class UserType extends ResourceTableType
             ])
             ->addFilter('createdAt', 'datetime', [
                 'label' => 'ekyna_core.field.created_at',
-            ])
-        ;
+            ]);
     }
 
     /**

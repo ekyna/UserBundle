@@ -4,8 +4,8 @@ namespace Ekyna\Bundle\UserBundle\Form\Type;
 
 use Doctrine\ORM\EntityRepository;
 use Ekyna\Bundle\AdminBundle\Form\Type\ResourceFormType;
-use libphonenumber\PhoneNumberFormat;
-use Misd\PhoneNumberBundle\Form\Type\PhoneNumberType;
+//use libphonenumber\PhoneNumberFormat;
+//use Misd\PhoneNumberBundle\Form\Type\PhoneNumberType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -14,8 +14,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * Class UserType
@@ -79,12 +77,11 @@ class UserType extends ResourceFormType
             ->add('email', EmailType::class, [
                 'label' => 'ekyna_core.field.email',
             ])
-            ->add('company', TextType::class, [
+            /*->add('company', TextType::class, [
                 'label'    => 'ekyna_core.field.company',
                 'required' => false,
-            ])
-            ->add('identity', IdentityType::class)
-            ->add('phone', PhoneNumberType::class, [
+            ])*/
+            ->add('identity', IdentityType::class)/*->add('phone', PhoneNumberType::class, [
                 'label'          => 'ekyna_core.field.phone',
                 'required'       => false,
                 'default_region' => 'FR', // TODO get user locale
@@ -95,7 +92,8 @@ class UserType extends ResourceFormType
                 'required'       => false,
                 'default_region' => 'FR', // TODO get user locale
                 'format'         => PhoneNumberFormat::NATIONAL,
-            ]);
+            ])*/
+        ;
 
         if ($this->usernameEnabled) {
             $builder->add('username', TextType::class, [

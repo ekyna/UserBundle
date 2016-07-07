@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Class LoadUserData
  * @package Ekyna\Bundle\UserBundle\DataFixtures\ORM
- * @author Étienne Dauvergne <contact@ekyna.com>
+ * @author  Étienne Dauvergne <contact@ekyna.com>
  */
 class LoadUserData extends AbstractFixture implements FixtureInterface, OrderedFixtureInterface, ContainerAwareInterface
 {
@@ -41,20 +41,19 @@ class LoadUserData extends AbstractFixture implements FixtureInterface, OrderedF
 
         $userManager = $this->container->get('fos_user.user_manager');
 
-        $genders = call_user_func($this->container->getParameter('ekyna_user.gender_class').'::getConstants');
+        $genders = call_user_func($this->container->getParameter('ekyna_user.gender_class') . '::getConstants');
 
         // Creates 3 surveys
         for ($s = 0; $s < 16; $s++) {
             $user = $userManager->createUser();
             $user
-                ->setCompany($faker->company)
+//                ->setCompany($faker->company)
                 ->setGender($faker->randomElement($genders))
                 ->setFirstName($faker->firstName)
                 ->setLastName($faker->lastName)
-                ->setPhone($util->parse($faker->phoneNumber, 'FR'))
-                ->setMobile(50 < rand(0,100) ? $util->parse($faker->phoneNumber, 'FR') : null)
-                ->setEmail($faker->safeEmail)
-            ;
+//                ->setPhone($util->parse($faker->phoneNumber, 'FR'))
+//                ->setMobile(50 < rand(0,100) ? $util->parse($faker->phoneNumber, 'FR') : null)
+                ->setEmail($faker->safeEmail);
 
             $userManager->generatePassword($user);
             $userManager->updateUser($user, true);

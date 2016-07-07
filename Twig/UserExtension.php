@@ -2,59 +2,37 @@
 
 namespace Ekyna\Bundle\UserBundle\Twig;
 
-use Ekyna\Bundle\UserBundle\Entity\AddressRepository;
-use Ekyna\Bundle\UserBundle\Model\AddressInterface;
+use Ekyna\Bundle\UserBundle\Helper\IdentityHelper;
 use Ekyna\Bundle\UserBundle\Model\IdentityInterface;
-use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * Class UserExtension
  * @package Ekyna\Bundle\UserBundle\Twig
- * @author Étienne Dauvergne <contact@ekyna.com>
+ * @author  Étienne Dauvergne <contact@ekyna.com>
  */
 class UserExtension extends \Twig_Extension
 {
+    /**
+     * @var IdentityHelper
+     */
+    protected $helper;
+
     /**
      * @var array
      */
     protected $config;
 
-    /**
-     * @var TranslatorInterface
-     */
-    protected $translator;
-
-    /**
-     * @var AddressRepository
-     */
-    protected $repository;
-
-    /**
-     * @var \Twig_Template
-     */
-    protected $addressTemplate;
-
 
     /**
      * Constructor.
      *
-     * @param TranslatorInterface $translator
-     * @param AddressRepository   $repository
-     * @param array               $config
+     * @param IdentityHelper $helper
+     * @param array          $config
      */
-    public function __construct(TranslatorInterface $translator, AddressRepository $repository, array $config)
+    public function __construct(IdentityHelper $helper, array $config)
     {
-        $this->translator = $translator;
-        $this->repository = $repository;
+        $this->helper = $helper;
         $this->config = $config;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function initRuntime(\Twig_Environment $twig)
-    {
-        $this->addressTemplate = $twig->loadTemplate($this->config['templates']['address']);
     }
 
     /**
@@ -73,8 +51,8 @@ class UserExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('render_identity',  [$this, 'renderIdentity'], ['is_safe' => ['html']]),
-            new \Twig_SimpleFunction('render_address',   [$this, 'renderAddress'],  ['is_safe' => ['html']]),
+            // TODO remove
+            new \Twig_SimpleFunction('render_identity', [$this, 'renderIdentity'], ['is_safe' => ['html']]),
         ];
     }
 
@@ -85,6 +63,7 @@ class UserExtension extends \Twig_Extension
     {
         return [
             new \Twig_SimpleFilter('gender', [$this, 'getGenderLabel']),
+            new \Twig_SimpleFilter('identity', [$this, 'renderIdentity'], ['is_safe' => ['html']]),
         ];
     }
 
@@ -93,37 +72,12 @@ class UserExtension extends \Twig_Extension
      *
      * @param IdentityInterface $identity
      * @param bool              $long
+     *
      * @return string
      */
     public function renderIdentity(IdentityInterface $identity, $long = false)
     {
-        return sprintf(
-            '%s %s %s',
-            $this->translator->trans($this->getGenderLabel($identity->getGender(), $long)),
-            $identity->getFirstName(),
-            $identity->getLastName()
-        );
-    }
-
-    /**
-     * Renders the address.
-     *
-     * @param AddressInterface|int $addressOrId
-     * @param bool $displayPhones
-     * @return string
-     */
-    public function renderAddress($addressOrId, $displayPhones = true)
-    {
-        if ($addressOrId instanceOf AddressInterface) {
-            $address = $addressOrId;
-        } else {
-            $addressOrId = intval($addressOrId);
-            if (0 >= $addressOrId || null === $address = $this->repository->find($addressOrId)) {
-                return '';
-            }
-        }
-
-        return $this->addressTemplate->render(['address' => $address, 'display_phones' => $displayPhones]);
+        return $this->helper->renderIdentity($identity, $long);
     }
 
     /**
@@ -131,11 +85,12 @@ class UserExtension extends \Twig_Extension
      *
      * @param string $gender
      * @param bool   $long
+     *
      * @return string
      */
     public function getGenderLabel($gender, $long = false)
     {
-        return call_user_func($this->config['gender_class'].'::getLabel', $gender, $long);
+        return $this->helper->getGenderLabel($gender, $long);
     }
 
     /**

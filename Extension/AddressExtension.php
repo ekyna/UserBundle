@@ -8,6 +8,7 @@ use Ekyna\Bundle\UserBundle\Model\UserInterface;
  * Class AddressExtension
  * @package Ekyna\Bundle\UserBundle\Extension
  * @author Étienne Dauvergne <contact@ekyna.com>
+ * @deprecated
  */
 class AddressExtension extends AbstractExtension
 {

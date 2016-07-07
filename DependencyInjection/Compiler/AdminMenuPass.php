@@ -8,7 +8,7 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 /**
  * Class AdminMenuPass
  * @package Ekyna\Bundle\UserBundle\DependencyInjection\Compiler
- * @author Étienne Dauvergne <contact@ekyna.com>
+ * @author  Étienne Dauvergne <contact@ekyna.com>
  */
 class AdminMenuPass implements CompilerPassInterface
 {
@@ -29,7 +29,7 @@ class AdminMenuPass implements CompilerPassInterface
             'icon'     => 'users',
             'position' => 99,
         ]]);
-        $pool->addMethodCall('createEntry', ['users', [ 
+        $pool->addMethodCall('createEntry', ['users', [
             'name'     => 'users',
             'route'    => 'ekyna_user_user_admin_home',
             'label'    => 'ekyna_user.user.label.plural',
@@ -37,8 +37,8 @@ class AdminMenuPass implements CompilerPassInterface
             'position' => 1,
         ]]);
         $pool->addMethodCall('createEntry', ['users', [
-            'name'     => 'groups', 
-            'route'    => 'ekyna_user_group_admin_home', 
+            'name'     => 'groups',
+            'route'    => 'ekyna_user_group_admin_home',
             'label'    => 'ekyna_user.group.label.plural',
             'resource' => 'ekyna_user_group',
             'position' => 2,

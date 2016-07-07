@@ -27,7 +27,7 @@ ekyna_user:
             clear_password_request: Annuler la demande de réinitilisation
             remove: Supprimer l'utilisateur
         field:
-            send_creation_email: Notification l'utilisateur de la création de son compte.
+            send_creation_email: Notifier l'utilisateur de la création de son compte.
             password_request_at: Date réinitialisation du mot de passe
             confirmation_token: Jeton de confirmation
             credentials_expired: Mot de passe expérié
@@ -58,35 +58,35 @@ ekyna_user:
             remove: Supprimer le groupe
         alert:
             empty_list: Aucun groupe configuré
-    address:
-        label:
-            singular: Adresse
-            plural: Adresses
-        header:
-            list: Adresses <small>Liste des adresses</small>
-            show: Détail de l'adresse
-            new: Créer une nouvelle adresse
-            edit: Modifier l'adresse
-            remove: Supprimer l'adresse
-        button:
-            list: Liste des adresses
-            show: Détail de l'adresse
-            new: Nouvelle adresse
-            edit: Modifier l'adresse
-            remove: Supprimer l'adresse
-        alert:
-            empty_list: Aucune adresse configuré
-        message:
-            create:
-                success: L'adresse a été créée avec succès.
-                failure: L'application a rencontré une erreur lors de la création de votre adresse.
-            edit:
-                success: L'adresse a été modifiée avec succès.
-                failure: L'application a rencontré une erreur lors de l'enregistrement de votre adresse.
-            remove:
-                confirm: Souhaitez-vous réellement supprimer cette adresse ?
-                success: L'adresse a été supprimée avec succès.
-                failure: L'application a rencontré une erreur lors de la suppression de votre adresse.
+#    address:
+#        label:
+#            singular: Adresse
+#            plural: Adresses
+#        header:
+#            list: Adresses <small>Liste des adresses</small>
+#            show: Détail de l'adresse
+#            new: Créer une nouvelle adresse
+#            edit: Modifier l'adresse
+#            remove: Supprimer l'adresse
+#        button:
+#            list: Liste des adresses
+#            show: Détail de l'adresse
+#            new: Nouvelle adresse
+#            edit: Modifier l'adresse
+#            remove: Supprimer l'adresse
+#        alert:
+#            empty_list: Aucune adresse configuré
+#        message:
+#            create:
+#                success: L'adresse a été créée avec succès.
+#                failure: L'application a rencontré une erreur lors de la création de votre adresse.
+#            edit:
+#                success: L'adresse a été modifiée avec succès.
+#                failure: L'application a rencontré une erreur lors de l'enregistrement de votre adresse.
+#            remove:
+#                confirm: Souhaitez-vous réellement supprimer cette adresse ?
+#                success: L'adresse a été supprimée avec succès.
+#                failure: L'application a rencontré une erreur lors de la suppression de votre adresse.
     account:
         title: Espace client
         menu:

@@ -40,7 +40,7 @@ class UserInputInteract
      */
     public function interact(InputInterface $input, OutputInterface $output, QuestionHelper $helper)
     {
-        $questions = array();
+        $questions = [];
 
         $repository = $this->userRepository;
 
@@ -53,6 +53,7 @@ class UserInputInteract
                 if (null !== $repository->findOneBy(['email' => $answer])) {
                     throw new \RuntimeException('This email address is already used.');
                 }
+
                 return $answer;
             });
             $question->setMaxAttempts(3);
@@ -66,6 +67,7 @@ class UserInputInteract
                 if (!(preg_match('#^[a-zA-Z0-9]+$#', $answer) && strlen($answer) > 5)) {
                     throw new \RuntimeException('Password should be composed of at least 6 letters and numbers.');
                 }
+
                 return $answer;
             });
             $question->setMaxAttempts(3);
@@ -77,6 +79,7 @@ class UserInputInteract
             if (0 === strlen($answer)) {
                 throw new \RuntimeException('This cannot be blank.');
             }
+
             return $answer;
         };
 

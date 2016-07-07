@@ -9,12 +9,11 @@ use Ekyna\Bundle\UserBundle\Model\UserManagerInterface;
 use FOS\UserBundle\Doctrine\UserManager as BaseManager;
 use FOS\UserBundle\Util\CanonicalizerInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
-use Symfony\Component\Security\Core\Util\SecureRandom;
 
 /**
  * Class UserManager
  * @package Ekyna\Bundle\UserBundle\Doctrine
- * @author Étienne Dauvergne <contact@ekyna.com>
+ * @author  Étienne Dauvergne <contact@ekyna.com>
  */
 class UserManager extends BaseManager implements UserManagerInterface
 {
@@ -65,8 +64,7 @@ class UserManager extends BaseManager implements UserManagerInterface
      */
     public function generatePassword(UserInterface $user)
     {
-        $generator = new SecureRandom();
-        $password = bin2hex($generator->nextBytes(4));
+        $password = bin2hex(random_bytes(4));
         $user->setPlainPassword($password);
     }
 }

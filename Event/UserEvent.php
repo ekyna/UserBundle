@@ -8,7 +8,7 @@ use Ekyna\Bundle\UserBundle\Model\UserInterface;
 /**
  * Class UserEvent
  * @package Ekyna\Bundle\UserBundle\Event
- * @author Étienne Dauvergne <contact@ekyna.com>
+ * @author  Étienne Dauvergne <contact@ekyna.com>
  */
 class UserEvent extends ResourceEvent
 {

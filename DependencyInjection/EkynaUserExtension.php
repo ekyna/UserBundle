@@ -8,7 +8,7 @@ use Ekyna\Bundle\AdminBundle\DependencyInjection\AbstractExtension;
 /**
  * Class EkynaUserExtension
  * @package Ekyna\Bundle\UserBundle\DependencyInjection
- * @author Étienne Dauvergne <contact@ekyna.com>
+ * @author  Étienne Dauvergne <contact@ekyna.com>
  */
 class EkynaUserExtension extends AbstractExtension
 {
@@ -30,14 +30,14 @@ class EkynaUserExtension extends AbstractExtension
         if ($accountConfig['enable']) {
             if ($accountConfig['profile']) {
                 $menu->addMethodCall('addAccountEntry', ['profile', [
-                    'label' => 'ekyna_user.account.menu.profile',
-                    'route' => 'fos_user_profile_show',
+                    'label'    => 'ekyna_user.account.menu.profile',
+                    'route'    => 'fos_user_profile_show',
                     'position' => -3,
                 ]]);
             }
             $menu->addMethodCall('addAccountEntry', ['password', [
-                'label' => 'ekyna_user.account.menu.password',
-                'route' => 'fos_user_change_password',
+                'label'    => 'ekyna_user.account.menu.password',
+                'route'    => 'fos_user_change_password',
                 'position' => -2,
             ]]);
         }
@@ -76,7 +76,7 @@ class EkynaUserExtension extends AbstractExtension
                 'directories' => [
                     'FOSUserBundle' => [
                         'namespace_prefix' => 'FOS\\UserBundle',
-                        'path' => realpath(__DIR__.'/../Resources/serializer/FOSUserBundle'),
+                        'path'             => realpath(__DIR__ . '/../Resources/serializer/FOSUserBundle'),
                     ],
                 ],
             ],

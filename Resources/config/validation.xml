@@ -5,14 +5,14 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping
                         http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
 
-    <class name="Ekyna\Bundle\UserBundle\Entity\Address">
+    <!--<class name="Ekyna\Bundle\UserBundle\Entity\Address">
         <property name="user">
             <constraint name="Valid" />
         </property>
 
-	    <property name="gender">
-	        <constraint name="Ekyna\Bundle\UserBundle\Validator\Constraints\Gender" />
-	    </property>
+        <property name="gender">
+            <constraint name="Ekyna\Bundle\UserBundle\Validator\Constraints\Gender" />
+        </property>
         <property name="firstName">
             <constraint name="Length">
                 <option name="min">2</option>
@@ -32,13 +32,13 @@
         <property name="mobile">
             <constraint name="Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber" />
         </property>
-    </class>
+    </class>-->
 
     <class name="Ekyna\Bundle\UserBundle\Entity\User">
-	    <property name="gender">
+        <property name="gender">
             <constraint name="NotBlank" />
             <constraint name="Ekyna\Bundle\UserBundle\Validator\Constraints\Gender" />
-	    </property>
+        </property>
         <property name="firstName">
             <constraint name="NotBlank">
                 <option name="groups">
@@ -76,12 +76,22 @@
             </constraint>
         </property>
 
-        <property name="phone">
+        <property name="group">
+            <constraint name="NotNull">
+                <option name="groups">
+                    <value>Default</value>
+                    <value>Registration</value>
+                    <value>Profile</value>
+                </option>
+            </constraint>
+        </property>
+
+        <!--<property name="phone">
             <constraint name="Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber" />
         </property>
         <property name="mobile">
             <constraint name="Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber" />
-        </property>
+        </property>-->
     </class>
 
 </constraint-mapping>

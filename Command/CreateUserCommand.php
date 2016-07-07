@@ -10,7 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 /**
  * Class CreateUserCommand
  * @package Ekyna\Bundle\UserBundle\Command
- * @author Étienne Dauvergne <contact@ekyna.com>
+ * @author  Étienne Dauvergne <contact@ekyna.com>
  */
 class CreateUserCommand extends ContainerAwareCommand
 {
@@ -35,8 +35,7 @@ You can also optionally specify the user datas (email, password, first name and 
 
   <info>php app/console ekyna:user:create john.doe@example.org password John Doe</info>
 EOT
-            )
-        ;
+            );
     }
 
     /**
@@ -68,8 +67,7 @@ EOT
             ->setLastName($input->getArgument('lastName'))
             ->setPlainPassword($input->getArgument('password'))
             ->setEmail($input->getArgument('email'))
-            ->setEnabled(true)
-        ;
+            ->setEnabled(true);
         $userManager->updateUser($user);
 
         $output->writeln('User has been successfully created.');

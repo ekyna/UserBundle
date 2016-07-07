@@ -6,6 +6,7 @@ namespace Ekyna\Bundle\UserBundle\Extension\Admin;
  * Class ShowTab
  * @package Ekyna\Bundle\UserBundle\Extension\Admin
  * @author Étienne Dauvergne <contact@ekyna.com>
+ * @deprecated
  */
 class ShowTab implements ShowTabInterface
 {

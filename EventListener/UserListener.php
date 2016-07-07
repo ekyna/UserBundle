@@ -13,7 +13,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 /**
  * Class UserListener
  * @package Ekyna\Bundle\UserBundle\EventListener
- * @author Étienne Dauvergne <contact@ekyna.com>
+ * @author  Étienne Dauvergne <contact@ekyna.com>
  */
 class UserListener implements EventSubscriberInterface
 {
@@ -42,8 +42,8 @@ class UserListener implements EventSubscriberInterface
     public function __construct(EntityRepository $groupRepository, UserManagerInterface $fosUserManager, Mailer $mailer)
     {
         $this->groupRepository = $groupRepository;
-        $this->userManager  = $fosUserManager;
-        $this->mailer          = $mailer;
+        $this->userManager = $fosUserManager;
+        $this->mailer = $mailer;
     }
 
     /**
@@ -68,8 +68,7 @@ class UserListener implements EventSubscriberInterface
                     sprintf('Generated password : "%s".', $password),
                     ResourceMessage::TYPE_INFO
                 ))
-                ->addData('password', $password)
-            ;
+                ->addData('password', $password);
         }
 
         $this->userManager->updatePassword($user);
@@ -140,7 +139,7 @@ class UserListener implements EventSubscriberInterface
             UserEvents::PRE_CREATE  => ['onPreCreate', 0],
             UserEvents::POST_CREATE => ['onPostCreate', 0],
             UserEvents::PRE_UPDATE  => ['onPreUpdate', 0],
-            UserEvents::POST_UPDATE  => ['onPostUpdate', 0],
+            UserEvents::POST_UPDATE => ['onPostUpdate', 0],
         ];
     }
 }
