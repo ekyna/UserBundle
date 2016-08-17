@@ -2,7 +2,7 @@
 
 namespace Ekyna\Bundle\UserBundle\Entity;
 
-use Ekyna\Bundle\AdminBundle\Doctrine\ORM\ResourceRepository;
+use Ekyna\Component\Resource\Doctrine\ORM\ResourceRepository;
 
 /**
  * Class UserRepository

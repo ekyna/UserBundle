@@ -3,7 +3,7 @@
 namespace Ekyna\Bundle\UserBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Ekyna\Bundle\AdminBundle\DependencyInjection\AbstractExtension;
+use Ekyna\Bundle\ResourceBundle\DependencyInjection\AbstractExtension;
 
 /**
  * Class EkynaUserExtension
