@@ -49,37 +49,4 @@ class EkynaUserExtension extends AbstractExtension
 
         $container->setParameter('ekyna_user.config', $exposedConfig);
     }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function prepend(ContainerBuilder $container)
-    {
-        parent::prepend($container);
-
-        $bundles = $container->getParameter('kernel.bundles');
-
-        if (array_key_exists('JMSSerializerBundle', $bundles)) {
-            $this->configureJMSSerializerBundle($container);
-        }
-    }
-
-    /**
-     * Configures the JMS serializer bundle.
-     *
-     * @param ContainerBuilder $container
-     */
-    protected function configureJMSSerializerBundle(ContainerBuilder $container)
-    {
-        $container->prependExtensionConfig('jms_serializer', [
-            'metadata' => [
-                'directories' => [
-                    'FOSUserBundle' => [
-                        'namespace_prefix' => 'FOS\\UserBundle',
-                        'path'             => realpath(__DIR__ . '/../Resources/serializer/FOSUserBundle'),
-                    ],
-                ],
-            ],
-        ]);
-    }
 }

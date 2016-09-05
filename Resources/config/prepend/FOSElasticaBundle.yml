@@ -3,7 +3,8 @@ fos_elastica:
         search:
             types:
                 ekyna_user_user:
-                    _all: {enabled: false}
+                    serializer:
+                        groups: [Search]
                     dynamic_templates:
                         default:
                             match_mapping_type: string

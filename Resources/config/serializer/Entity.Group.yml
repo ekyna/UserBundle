@@ -1,7 +1,0 @@
-Ekyna\Bundle\UserBundle\Entity\Group:
-    exclusion_policy: ALL
-    properties:
-        id:
-            expose: true
-        name:
-            expose: true
