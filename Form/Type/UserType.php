@@ -4,8 +4,6 @@ namespace Ekyna\Bundle\UserBundle\Form\Type;
 
 use Doctrine\ORM\EntityRepository;
 use Ekyna\Bundle\AdminBundle\Form\Type\ResourceFormType;
-//use libphonenumber\PhoneNumberFormat;
-//use Misd\PhoneNumberBundle\Form\Type\PhoneNumberType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -77,22 +75,6 @@ class UserType extends ResourceFormType
             ->add('email', EmailType::class, [
                 'label' => 'ekyna_core.field.email',
             ])
-            /*->add('company', TextType::class, [
-                'label'    => 'ekyna_core.field.company',
-                'required' => false,
-            ])*/
-            ->add('identity', IdentityType::class)/*->add('phone', PhoneNumberType::class, [
-                'label'          => 'ekyna_core.field.phone',
-                'required'       => false,
-                'default_region' => 'FR', // TODO get user locale
-                'format'         => PhoneNumberFormat::NATIONAL,
-            ])
-            ->add('mobile', PhoneNumberType::class, [
-                'label'          => 'ekyna_core.field.mobile',
-                'required'       => false,
-                'default_region' => 'FR', // TODO get user locale
-                'format'         => PhoneNumberFormat::NATIONAL,
-            ])*/
         ;
 
         if ($this->usernameEnabled) {

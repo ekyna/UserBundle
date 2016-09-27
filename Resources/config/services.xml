@@ -6,10 +6,6 @@
                         http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="ekyna_user.gender.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\GenderType</parameter>
-        <parameter key="ekyna_user.identity.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\IdentityType</parameter>
-        <!--<parameter key="ekyna_user.address.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\AddressType</parameter>-->
-        <!--<parameter key="ekyna_user.address_choice.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\AddressChoiceType</parameter>-->
         <parameter key="ekyna_user.user.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\UserType</parameter>
         <parameter key="ekyna_user.user_search.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\UserSearchType</parameter>
         <parameter key="ekyna_user.profile.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\ProfileType</parameter>
@@ -19,13 +15,6 @@
     </parameters>
 
     <services>
-
-        <!-- Helper -->
-        <service id="ekyna_user.helper.identity" class="Ekyna\Bundle\UserBundle\Helper\IdentityHelper">
-            <argument type="service" id="translator" />
-            <argument>%ekyna_user.gender_class%</argument>
-        </service>
-
         <!-- Events listeners -->
         <service id="ekyna_user.authentication_listener" class="Ekyna\Bundle\UserBundle\EventListener\AuthenticationListener">
             <argument type="service" id="security.access.decision_manager" />
@@ -41,14 +30,6 @@
         </service>
 
         <!-- Form types -->
-        <service id="ekyna_user.gender.form_type" class="%ekyna_user.gender.form_type.class%">
-            <argument>%ekyna_user.gender_class%</argument>
-            <tag name="form.type" />
-        </service>
-        <service id="ekyna_user.identity.form_type" class="%ekyna_user.identity.form_type.class%">
-            <argument>%ekyna_user.gender_class%</argument>
-            <tag name="form.type" />
-        </service>
         <service id="ekyna_user.user.form_type" class="%ekyna_user.user.form_type.class%">
             <argument type="service" id="security.token_storage" />
             <argument>%ekyna_user.user.class%</argument>
@@ -56,14 +37,6 @@
             <argument>%ekyna_user.config%</argument>
             <tag name="form.type" />
         </service>
-        <!--<service id="ekyna_user.address.form_type" class="%ekyna_user.address.form_type.class%">
-            <argument>%ekyna_user.address.class%</argument>
-            <tag name="form.type" />
-        </service>
-        <service id="ekyna_user.cart_address_choice.form_type" class="%ekyna_user.address_choice.form_type.class%">
-            <argument>%ekyna_user.address.class%</argument>
-            <tag name="form.type" />
-        </service>-->
         <service id="ekyna_user.profile.form_type" class="%ekyna_user.profile.form_type.class%">
             <argument>%ekyna_user.user.class%</argument>
             <argument>%ekyna_user.config%</argument>
@@ -124,15 +97,8 @@
             <tag name="knp_menu.menu" alias="user" />
         </service>
 
-        <!-- Constraint validators -->
-        <service id="ekyna_user.gender.validator" class="Ekyna\Bundle\UserBundle\Validator\Constraints\GenderValidator">
-            <argument>%ekyna_user.gender_class%</argument>
-            <tag name="validator.constraint_validator" alias="ekyna_user_gender" />
-        </service>
-
         <!-- Twig extensions -->
         <service id="ekyna_user.twig.user_extension" class="Ekyna\Bundle\UserBundle\Twig\UserExtension">
-            <argument type="service" id="ekyna_user.helper.identity" />
             <argument>%ekyna_user.config%</argument>
             <tag name="twig.extension" />
         </service>

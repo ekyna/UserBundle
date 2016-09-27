@@ -75,30 +75,6 @@ class UserInputInteract
             $questions['password'] = $question;
         }
 
-        $notBlankValidator = function ($answer) {
-            if (0 === strlen($answer)) {
-                throw new \RuntimeException('This cannot be blank.');
-            }
-
-            return $answer;
-        };
-
-        if (!$input->getArgument('firstName')) {
-            $question = new Question('First name: ');
-            $question->setValidator($notBlankValidator);
-            $question->setMaxAttempts(3);
-
-            $questions['firstName'] = $question;
-        }
-
-        if (!$input->getArgument('lastName')) {
-            $question = new Question('Last name: ');
-            $question->setValidator($notBlankValidator);
-            $question->setMaxAttempts(3);
-
-            $questions['lastName'] = $question;
-        }
-
         foreach ($questions as $name => $question) {
             $input->setArgument($name, $helper->ask($input, $output, $question));
         }

@@ -15,9 +15,6 @@
             <generator strategy="AUTO" />
         </id>
 
-        <field name="gender" type="string" column="gender" length="8" />
-        <field name="firstName" type="string" column="first_name" length="32" />
-        <field name="lastName" type="string" column="last_name" length="32" />
         <field name="createdAt" type="datetime" column="created_at">
             <gedmo:timestampable on="create"/>
         </field>

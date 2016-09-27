@@ -13,7 +13,7 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  */
 class Configuration implements ConfigurationInterface
 {
-    const DEFAULT_GENDER_CLASS = 'Ekyna\Bundle\UserBundle\Model\Genders';
+    const DEFAULT_GENDER_CLASS = 'Ekyna\Bundle\CommerceBundle\Model\Genders';
 
     /**
      * {@inheritDoc}

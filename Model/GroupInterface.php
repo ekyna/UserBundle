@@ -2,7 +2,7 @@
 
 namespace Ekyna\Bundle\UserBundle\Model;
 
-use Ekyna\Bundle\CoreBundle\Model\SortableInterface;
+use Ekyna\Component\Resource\Model\SortableInterface;
 use FOS\UserBundle\Model\GroupInterface as BaseGroupInterface;
 
 /**
@@ -10,7 +10,7 @@ use FOS\UserBundle\Model\GroupInterface as BaseGroupInterface;
  * @package Ekyna\Bundle\UserBundle\Model
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
-interface GroupInterface extends BaseGroupInterface, SortableInterface
+interface GroupInterface extends BaseGroupInterface, \Ekyna\Component\Resource\Model\SortableInterface
 {
     /**
      * Set whether the group is the default one

@@ -86,14 +86,6 @@ class UserType extends ResourceTableType
                 'label' => 'ekyna_core.field.username',
                 'sortable' => true,
             ))*/
-            /*->addColumn('firstName', 'text', array(
-                'label' => 'ekyna_core.field.first_name',
-                'sortable' => true,
-            ))
-            ->addColumn('lastName', 'text', array(
-                'label' => 'ekyna_core.field.last_name',
-                'sortable' => true,
-            ))*/
         ;
         if (null !== $group) {
             $builder
@@ -163,13 +155,8 @@ class UserType extends ResourceTableType
             ])
             /*->addFilter('username', 'text', array(
                 'label' => 'ekyna_core.field.username',
-            ))*/
-            ->addFilter('firstName', 'text', [
-                'label' => 'ekyna_core.field.first_name',
-            ])
-            ->addFilter('lastName', 'text', [
-                'label' => 'ekyna_core.field.last_name',
-            ]);
+            ))*/;
+
         if (null !== $group) {
             $builder
                 ->addFilter('group', 'entity', [
@@ -183,6 +170,7 @@ class UserType extends ResourceTableType
                     },
                 ]);
         }
+
         $builder
             ->addFilter('enabled', 'boolean', [
                 'label' => 'ekyna_core.field.enabled',

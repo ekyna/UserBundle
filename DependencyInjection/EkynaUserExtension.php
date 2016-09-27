@@ -12,7 +12,7 @@ use Ekyna\Bundle\ResourceBundle\DependencyInjection\AbstractExtension;
  */
 class EkynaUserExtension extends AbstractExtension
 {
-    const DEFAULT_GENDER_CLASS = 'Ekyna\Bundle\UserBundle\Model\Genders';
+    const DEFAULT_GENDER_CLASS = 'Ekyna\Bundle\CommerceBundle\Model\Genders';
 
     /**
      * {@inheritdoc}

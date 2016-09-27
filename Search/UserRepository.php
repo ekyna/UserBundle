@@ -29,7 +29,7 @@ class UserRepository extends Repository implements SearchRepositoryInterface
             $query = new Query\MultiMatch();
             $query
                 ->setQuery($expression)
-                ->setFields(array('email', 'first_name', 'last_name'));
+                ->setFields(array('email', 'username'));
         }
 
         return $this->find($query, $limit);

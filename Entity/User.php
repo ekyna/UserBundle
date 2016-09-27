@@ -2,9 +2,8 @@
 
 namespace Ekyna\Bundle\UserBundle\Entity;
 
-use Ekyna\Bundle\CoreBundle\Model\TimestampableTrait;
+use Ekyna\Component\Resource\Model\TimestampableTrait;
 use Ekyna\Bundle\UserBundle\Model\GroupInterface;
-use Ekyna\Bundle\UserBundle\Model\IdentityTrait;
 use Ekyna\Bundle\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\User as BaseUser;
 
@@ -15,23 +14,12 @@ use FOS\UserBundle\Model\User as BaseUser;
  */
 class User extends BaseUser implements UserInterface
 {
-    use IdentityTrait,
-        TimestampableTrait;
+    use TimestampableTrait;
 
     /**
      * @var Group
      */
     protected $group;
-
-    /**
-     * @var \DateTime
-     */
-    protected $createdAt;
-
-    /**
-     * @var \DateTime
-     */
-    protected $updatedAt;
 
     /**
      * @var bool (non mapped)
@@ -46,7 +34,7 @@ class User extends BaseUser implements UserInterface
      */
     public function __toString()
     {
-        return sprintf('%s %s - %s', $this->firstName, $this->lastName, $this->email);
+        return $this->getEmail();
     }
 
     /**
