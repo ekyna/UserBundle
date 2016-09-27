@@ -10,7 +10,7 @@ use FOS\UserBundle\Model\GroupInterface as BaseGroupInterface;
  * @package Ekyna\Bundle\UserBundle\Model
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
-interface GroupInterface extends BaseGroupInterface, \Ekyna\Component\Resource\Model\SortableInterface
+interface GroupInterface extends BaseGroupInterface, SortableInterface
 {
     /**
      * Set whether the group is the default one
