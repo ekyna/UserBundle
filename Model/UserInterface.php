@@ -2,6 +2,7 @@
 
 namespace Ekyna\Bundle\UserBundle\Model;
 
+use Ekyna\Component\Resource\Model\ResourceInterface;
 use Ekyna\Component\Resource\Model\TimestampableInterface;
 use FOS\UserBundle\Model\UserInterface as BaseUserInterface;
 
@@ -10,7 +11,7 @@ use FOS\UserBundle\Model\UserInterface as BaseUserInterface;
  * @package Ekyna\Bundle\UserBundle\Model
  * @author Étienne Dauvergne <contact@ekyna.com>
  */
-interface UserInterface extends BaseUserInterface, TimestampableInterface
+interface UserInterface extends BaseUserInterface, ResourceInterface, TimestampableInterface
 {
     /**
      * Returns the identifier.

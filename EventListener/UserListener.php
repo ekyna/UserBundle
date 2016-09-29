@@ -3,11 +3,13 @@
 namespace Ekyna\Bundle\UserBundle\EventListener;
 
 use Doctrine\ORM\EntityRepository;
-use Ekyna\Bundle\AdminBundle\Event\ResourceMessage;
-use Ekyna\Bundle\UserBundle\Event\UserEvent;
+use Ekyna\Bundle\UserBundle\Model\UserInterface;
+use Ekyna\Component\Resource\Event\ResourceEventInterface;
+use Ekyna\Component\Resource\Event\ResourceMessage;
 use Ekyna\Bundle\UserBundle\Event\UserEvents;
 use Ekyna\Bundle\UserBundle\Mailer\Mailer;
 use Ekyna\Bundle\UserBundle\Model\UserManagerInterface;
+use Ekyna\Component\Resource\Exception\InvalidArgumentException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -47,14 +49,31 @@ class UserListener implements EventSubscriberInterface
     }
 
     /**
+     * Returns the user form the event.
+     *
+     * @param ResourceEventInterface $event
+     *
+     * @return UserInterface
+     */
+    private function getUserFromEvent(ResourceEventInterface $event)
+    {
+        $resource = $event->getResource();
+
+        if (!$resource instanceof UserInterface) {
+            throw new InvalidArgumentException("Expected instance of UserInterface");
+        }
+
+        return $resource;
+    }
+
+    /**
      * Pre create resource event handler.
      *
-     * @param UserEvent $event
+     * @param ResourceEventInterface $event
      */
-    public function onPreCreate(UserEvent $event)
+    public function onPreCreate(ResourceEventInterface $event)
     {
-        /** @var \Ekyna\Bundle\UserBundle\Model\UserInterface $user */
-        $user = $event->getResource();
+        $user = $this->getUserFromEvent($event);
 
         // Generates a secured password.
         if (0 === strlen($user->getPlainPassword())) {
@@ -78,16 +97,15 @@ class UserListener implements EventSubscriberInterface
     /**
      * Post create resource event handler.
      *
-     * @param UserEvent $event
+     * @param ResourceEventInterface $event
      */
-    public function onPostCreate(UserEvent $event)
+    public function onPostCreate(ResourceEventInterface $event)
     {
         if (!$event->hasData('password')) {
             return;
         }
 
-        /** @var \Ekyna\Bundle\UserBundle\Model\UserInterface $user */
-        $user = $event->getResource();
+        $user = $this->getUserFromEvent($event);
         if (!$user->getSendCreationEmail()) {
             return;
         }
@@ -100,12 +118,11 @@ class UserListener implements EventSubscriberInterface
     /**
      * Pre update resource event handler.
      *
-     * @param UserEvent $event
+     * @param ResourceEventInterface $event
      */
-    public function onPreUpdate(UserEvent $event)
+    public function onPreUpdate(ResourceEventInterface $event)
     {
-        /** @var \Ekyna\Bundle\UserBundle\Model\UserInterface $user */
-        $user = $event->getResource();
+        $user = $this->getUserFromEvent($event);
 
         $this->userManager->updatePassword($user);
         $this->userManager->updateCanonicalFields($user);
@@ -114,16 +131,15 @@ class UserListener implements EventSubscriberInterface
     /**
      * Post update resource event handler.
      *
-     * @param UserEvent $event
+     * @param ResourceEventInterface $event
      */
-    public function onPostUpdate(UserEvent $event)
+    public function onPostUpdate(ResourceEventInterface $event)
     {
         if (!$event->hasData('password')) {
             return;
         }
 
-        /** @var \Ekyna\Bundle\UserBundle\Model\UserInterface $user */
-        $user = $event->getResource();
+        $user = $this->getUserFromEvent($event);
 
         if (0 < $this->mailer->sendNewPasswordEmailMessage($user, $event->getData('password'))) {
             $event->addMessage(new ResourceMessage('ekyna_user.user.event.credentials_sent'));

@@ -5,8 +5,7 @@ namespace Ekyna\Bundle\UserBundle\Controller\Admin;
 use Ekyna\Bundle\AdminBundle\Controller\Context;
 use Ekyna\Bundle\AdminBundle\Controller\Resource\ToggleableTrait;
 use Ekyna\Bundle\AdminBundle\Controller\ResourceController;
-use Ekyna\Bundle\AdminBundle\Event\ResourceMessage;
-use Ekyna\Bundle\UserBundle\Event\UserEvent;
+use Ekyna\Component\Resource\Event\ResourceMessage;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
@@ -64,7 +63,9 @@ class UserController extends ResourceController
         $this->get('fos_user.user_manager')->generatePassword($resource);
         $password = $resource->getPlainPassword();
 
-        $event = new UserEvent($resource);
+        $operator = $this->getOperator();
+
+        $event = $operator->createResourceEvent($resource);
         $event
             ->addMessage(new ResourceMessage(
                 sprintf('Generated password : "%s".', $password),
@@ -73,7 +74,8 @@ class UserController extends ResourceController
             ->addData('password', $password);
 
         // TODO use ResourceManager
-        $this->getOperator()->update($event);
+        $operator->update($event);
+
         $event->toFlashes($this->getFlashBag());
 
         return $this->redirect($this->generateResourcePath($resource));

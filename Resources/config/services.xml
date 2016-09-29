@@ -26,7 +26,7 @@
             <argument type="service" id="ekyna_user.group.repository" />
             <argument type="service" id="fos_user.user_manager" />
             <argument type="service" id="ekyna_user.mailer.default" />
-            <tag name="kernel.event_subscriber" />
+            <tag name="resource.event_subscriber" />
         </service>
 
         <!-- Form types -->
