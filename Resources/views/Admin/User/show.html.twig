@@ -32,7 +32,7 @@
         <div class="tab-content">
             <div class="tab-pane active" id="user-user-general">
                 {{ show_row(user.email, 'text', 'ekyna_core.field.email') }}
-                {% if ekyna_user_config.account.username %}
+                {% if ekyna_user_account_var('username') %}
                 <div class="row">
                     <div class="col-md-6">
                         {{ show_row(user.username, 'text', 'ekyna_core.field.username', {'label_nb_col': 4}) }}

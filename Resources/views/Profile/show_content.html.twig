@@ -1,5 +1,5 @@
 <dl class="dl-horizontal">
-    {% if ekyna_user_config.account.username %}
+    {% if ekyna_user_account_var('username') %}
         <dt>{{ 'ekyna_core.field.username'|trans }}</dt>
         <dd>{{ user.username|default('&nbsp;')|raw }}</dd>
     {% endif %}

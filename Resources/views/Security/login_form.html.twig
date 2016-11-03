@@ -38,7 +38,7 @@
             <button type="submit" class="btn btn-primary" name="_submit">
                 {{ 'ekyna_core.button.login'|trans }}
             </button>
-            {% if ekyna_user_config.account.resetting -%}
+            {% if ekyna_user_account_var('resetting') -%}
             <br>
             <a href="{{ path('fos_user_resetting_request') }}" class="btn btn-link">
                 {{ 'ekyna_user.account.resetting.button'|trans }}
