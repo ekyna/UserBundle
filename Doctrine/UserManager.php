@@ -7,7 +7,9 @@ use Ekyna\Bundle\UserBundle\Entity\GroupRepository;
 use Ekyna\Bundle\UserBundle\Model\UserInterface;
 use Ekyna\Bundle\UserBundle\Model\UserManagerInterface;
 use FOS\UserBundle\Doctrine\UserManager as BaseManager;
+use FOS\UserBundle\Util\CanonicalFieldsUpdater;
 use FOS\UserBundle\Util\CanonicalizerInterface;
+use FOS\UserBundle\Util\PasswordUpdaterInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 /**
@@ -22,27 +24,26 @@ class UserManager extends BaseManager implements UserManagerInterface
      */
     protected $groupRepository;
 
+
     /**
      * Constructor.
      *
-     * @param EncoderFactoryInterface $encoderFactory
-     * @param CanonicalizerInterface  $usernameCanonicalizer
-     * @param CanonicalizerInterface  $emailCanonicalizer
-     * @param ObjectManager           $om
-     * @param string                  $userClass
-     * @param string                  $groupClass
+     * @param PasswordUpdaterInterface $passwordUpdater
+     * @param CanonicalFieldsUpdater   $canonicalFieldsUpdater
+     * @param ObjectManager            $om
+     * @param GroupRepository          $groupRepository
+     * @param string                   $userClass
      */
     public function __construct(
-        EncoderFactoryInterface $encoderFactory,
-        CanonicalizerInterface $usernameCanonicalizer,
-        CanonicalizerInterface $emailCanonicalizer,
+        PasswordUpdaterInterface $passwordUpdater,
+        CanonicalFieldsUpdater $canonicalFieldsUpdater,
         ObjectManager $om,
-        $userClass,
-        $groupClass
+        GroupRepository $groupRepository,
+        $userClass
     ) {
-        parent::__construct($encoderFactory, $usernameCanonicalizer, $emailCanonicalizer, $om, $userClass);
+        parent::__construct($passwordUpdater, $canonicalFieldsUpdater, $om, $userClass);
 
-        $this->groupRepository = $om->getRepository($groupClass);
+        $this->groupRepository = $groupRepository;
     }
 
     /**

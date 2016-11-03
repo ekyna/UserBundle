@@ -105,12 +105,11 @@
 
         <!-- (FOS) User manager -->
         <service id="ekyna_user.user_manager.default" class="Ekyna\Bundle\UserBundle\Doctrine\UserManager" public="false">
-            <argument type="service" id="security.encoder_factory" />
-            <argument type="service" id="fos_user.util.username_canonicalizer" />
-            <argument type="service" id="fos_user.util.email_canonicalizer" />
+            <argument type="service" id="fos_user.util.password_updater" />
+            <argument type="service" id="fos_user.util.canonical_fields_updater" />
             <argument type="service" id="fos_user.object_manager" />
+            <argument type="service" id="ekyna_user.group.repository"/>
             <argument>%ekyna_user.user.class%</argument>
-            <argument>%ekyna_user.group.class%</argument>
         </service>
 
         <!-- Mailer -->
