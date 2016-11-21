@@ -53,17 +53,6 @@
                         'field': 'name'
                     }) }}
                 {% endif %}
-                <hr>
-                <div class="row show-row">
-                    <div class="col-md-2 show-label">
-                        {{ 'ekyna_core.field.identity'|trans }}
-                    </div>
-                    <div class="col-md-10">
-                        <div class="show-widget show-widget-inline">
-                            {{ render_identity(user) }}
-                        </div>
-                    </div>
-                </div>
             </div>
             <div class="tab-pane" id="user-user-informations">
                 {% if admin_resource_access(user, 'EDIT') %}
