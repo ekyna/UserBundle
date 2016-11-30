@@ -2,36 +2,23 @@
 
 namespace Ekyna\Bundle\UserBundle\Search;
 
-use Ekyna\Bundle\AdminBundle\Search\SearchRepositoryInterface;
-use Elastica\Query;
-use FOS\ElasticaBundle\Repository;
+use Ekyna\Component\Resource\Search\Elastica\ResourceRepository;
 
 /**
  * Class UserRepository
  * @package Ekyna\Bundle\UserBundle\Search
  * @author  Étienne Dauvergne <contact@ekyna.com>
  */
-class UserRepository extends Repository implements SearchRepositoryInterface
+class UserRepository extends ResourceRepository
 {
     /**
-     * Search users.
-     *
-     * @param string  $expression
-     * @param integer $limit
-     *
-     * @return \Ekyna\Bundle\UserBundle\Model\UserInterface[]
+     * @inheritdoc
      */
-    public function defaultSearch($expression, $limit = 10)
+    protected function getDefaultMatchFields()
     {
-        if (0 == strlen($expression)) {
-            $query = new Query\MatchAll();
-        } else {
-            $query = new Query\MultiMatch();
-            $query
-                ->setQuery($expression)
-                ->setFields(array('email', 'username'));
-        }
-
-        return $this->find($query, $limit);
+        return [
+            'email',
+            'username',
+        ];
     }
 }
