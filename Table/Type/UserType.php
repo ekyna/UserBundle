@@ -72,7 +72,7 @@ class UserType extends ResourceTableType
         $group = $this->getUserGroup();
 
         $builder
-            ->addColumn('id', 'number', [
+            ->addColumn('id', 'id', [
                 'sortable' => true,
             ])
             ->addColumn('email', 'anchor', [
@@ -81,6 +81,7 @@ class UserType extends ResourceTableType
                 'sortable'             => true,
                 'route_name'           => 'ekyna_user_user_admin_show',
                 'route_parameters_map' => ['userId' => 'id'],
+                'position' => 10,
             ])
             /*->addColumn('username', 'text', array(
                 'label' => 'ekyna_core.field.username',
@@ -95,6 +96,7 @@ class UserType extends ResourceTableType
                     'sortable'             => false,
                     'route_name'           => 'ekyna_user_group_admin_show',
                     'route_parameters_map' => ['groupId' => 'group.id'],
+                    'position' => 20,
                 ]);
         }
         $builder
@@ -104,6 +106,7 @@ class UserType extends ResourceTableType
                 'route_name'           => 'ekyna_user_user_admin_toggle',
                 'route_parameters'     => ['field' => 'enabled'],
                 'route_parameters_map' => ['userId' => 'id'],
+                'position' => 30,
             ])
             ->addColumn('locked', 'boolean', [
                 'label'                => 'ekyna_core.field.locked',
@@ -113,6 +116,7 @@ class UserType extends ResourceTableType
                 'route_name'           => 'ekyna_user_user_admin_toggle',
                 'route_parameters'     => ['field' => 'locked'],
                 'route_parameters_map' => ['userId' => 'id'],
+                'position' => 40,
             ])
             ->addColumn('expired', 'boolean', [
                 'label'                => 'ekyna_core.field.expired',
@@ -122,14 +126,17 @@ class UserType extends ResourceTableType
                 'route_name'           => 'ekyna_user_user_admin_toggle',
                 'route_parameters'     => ['field' => 'expired'],
                 'route_parameters_map' => ['userId' => 'id'],
+                'position' => 50,
             ])
             ->addColumn('expiresAt', 'datetime', [
                 'label'    => 'ekyna_core.field.expires_at',
                 'sortable' => true,
+                'position' => 60,
             ])
             ->addColumn('createdAt', 'datetime', [
                 'label'    => 'ekyna_core.field.created_at',
                 'sortable' => true,
+                'position' => 70,
             ])
             ->addColumn('actions', 'admin_actions', [
                 'buttons' => [
@@ -152,6 +159,7 @@ class UserType extends ResourceTableType
             ->addFilter('id', 'number')
             ->addFilter('email', 'text', [
                 'label' => 'ekyna_core.field.email',
+                'position' => 10,
             ])
             /*->addFilter('username', 'text', array(
                 'label' => 'ekyna_core.field.username',
@@ -168,24 +176,30 @@ class UserType extends ResourceTableType
 
                         return $qb->andWhere($qb->expr()->gte('g.position', $group->getPosition()));
                     },
+                    'position' => 20,
                 ]);
         }
 
         $builder
             ->addFilter('enabled', 'boolean', [
                 'label' => 'ekyna_core.field.enabled',
+                'position' => 30,
             ])
             ->addFilter('locked', 'boolean', [
                 'label' => 'ekyna_core.field.locked',
+                'position' => 40,
             ])
             ->addFilter('expired', 'boolean', [
                 'label' => 'ekyna_core.field.expired',
+                'position' => 50,
             ])
             ->addFilter('expiresAt', 'datetime', [
                 'label' => 'ekyna_core.field.expires_at',
+                'position' => 60,
             ])
             ->addFilter('createdAt', 'datetime', [
                 'label' => 'ekyna_core.field.created_at',
+                'position' => 70,
             ]);
     }
 

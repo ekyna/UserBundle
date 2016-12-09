@@ -18,7 +18,7 @@ class GroupType extends ResourceTableType
     public function buildTable(TableBuilderInterface $builder, array $options)
     {
         $builder
-            ->addColumn('id', 'number', [
+            ->addColumn('id', 'id', [
                 'sortable' => true,
             ])
             ->addColumn('name', 'anchor', [
@@ -28,6 +28,7 @@ class GroupType extends ResourceTableType
                 'route_parameters_map' => [
                     'groupId' => 'id',
                 ],
+                'position'             => 10,
             ])
             ->addColumn('actions', 'admin_actions', [
                 'buttons' => [
@@ -35,9 +36,7 @@ class GroupType extends ResourceTableType
                         'label'                => 'ekyna_user.group.button.edit_permissions',
                         'class'                => 'warning',
                         'route_name'           => 'ekyna_user_group_admin_edit_permissions',
-                        'route_parameters_map' => [
-                            'groupId' => 'id',
-                        ],
+                        'route_parameters_map' => ['groupId' => 'id'],
                         'permission'           => 'edit',
                     ],
                     [
@@ -45,9 +44,7 @@ class GroupType extends ResourceTableType
                         'icon'                 => 'arrow-up',
                         'class'                => 'primary',
                         'route_name'           => 'ekyna_user_group_admin_move_up',
-                        'route_parameters_map' => [
-                            'groupId' => 'id',
-                        ],
+                        'route_parameters_map' => ['groupId' => 'id'],
                         'permission'           => 'edit',
                     ],
                     [
@@ -55,34 +52,29 @@ class GroupType extends ResourceTableType
                         'icon'                 => 'arrow-down',
                         'class'                => 'primary',
                         'route_name'           => 'ekyna_user_group_admin_move_down',
-                        'route_parameters_map' => [
-                            'groupId' => 'id',
-                        ],
+                        'route_parameters_map' => ['groupId' => 'id'],
                         'permission'           => 'edit',
                     ],
                     [
                         'label'                => 'ekyna_core.button.edit',
                         'class'                => 'warning',
                         'route_name'           => 'ekyna_user_group_admin_edit',
-                        'route_parameters_map' => [
-                            'groupId' => 'id',
-                        ],
+                        'route_parameters_map' => ['groupId' => 'id'],
                         'permission'           => 'edit',
                     ],
                     [
                         'label'                => 'ekyna_core.button.remove',
                         'class'                => 'danger',
                         'route_name'           => 'ekyna_user_group_admin_remove',
-                        'route_parameters_map' => [
-                            'groupId' => 'id',
-                        ],
+                        'route_parameters_map' => ['groupId' => 'id'],
                         'permission'           => 'delete',
                     ],
                 ],
             ])
             ->addFilter('id', 'number')
             ->addFilter('name', 'text', [
-                'label' => 'ekyna_core.field.name',
+                'label'    => 'ekyna_core.field.name',
+                'position' => 10,
             ]);
     }
 
