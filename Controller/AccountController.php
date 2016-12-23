@@ -13,22 +13,22 @@ use Symfony\Component\HttpFoundation\Request;
 class AccountController extends Controller
 {
     /**
-     * Home action.
+     * Account index action.
      *
      * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function homeAction(Request $request)
+    public function indexAction(Request $request)
     {
         // TODO check if AuthenticationCredentialsNotFoundException is raised without a cookie.
         if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            $request->getSession()->set('_ekyna.login_success.target_path', 'fos_user_profile_show');
+            $request->getSession()->set('_ekyna.login_success.target_path', 'ekyna_user_account_index');
 
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
 
-        return $this->redirect($this->generateUrl('fos_user_profile_show'));
+        return $this->render('EkynaUserBundle::account.html.twig');
     }
 
     /**

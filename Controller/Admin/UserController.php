@@ -28,19 +28,6 @@ class UserController extends ResourceController
     }
 
     /**
-     * {@inheritdoc}
-     */
-    protected function buildShowData(array &$data, Context $context)
-    {
-        /** @var \Ekyna\Bundle\UserBundle\Model\UserInterface $user */
-        $user = $context->getResource();
-
-        $data['tabs'] = $this->get('ekyna_user.extension.registry')->getShowAdminTabs($user);
-
-        return null;
-    }
-
-    /**
      * Generates a new password for the user.
      *
      * @param Request $request

@@ -6,7 +6,7 @@ fos_user_resetting_request:
     options:
         _cms:
             name: "Réinitialisez votre mot de passe"
-            parent: ekyna_user_account_home
+            parent: ekyna_user_account_index
             seo:
                 follow: false
                 index: false

@@ -1,7 +1,7 @@
-ekyna_user_account_home:
+ekyna_user_account_index:
     path: ""
     defaults:
-        _controller: EkynaUserBundle:Account:home
+        _controller: EkynaUserBundle:Account:index
     methods: [GET]
     options:
         _cms:
@@ -23,7 +23,7 @@ fos_user_change_password:
     options:
         _cms:
             name: "Modifiez votre mot de passe"
-            parent: fos_user_profile_show
+            parent: ekyna_user_account_index
             seo:
                 follow: false
                 index: false

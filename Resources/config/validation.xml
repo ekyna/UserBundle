@@ -35,47 +35,6 @@
     </class>-->
 
     <class name="Ekyna\Bundle\UserBundle\Entity\User">
-        <property name="gender">
-            <constraint name="NotBlank" />
-            <constraint name="Ekyna\Component\Commerce\Bridge\Symfony\Validator\Constraints\Gender" />
-        </property>
-        <property name="firstName">
-            <constraint name="NotBlank">
-                <option name="groups">
-                    <value>Default</value>
-                    <value>Registration</value>
-                    <value>Profile</value>
-                </option>
-            </constraint>
-            <constraint name="Length">
-                <option name="min">2</option>
-                <option name="max">32</option>
-                <option name="groups">
-                    <value>Default</value>
-                    <value>Registration</value>
-                    <value>Profile</value>
-                </option>
-            </constraint>
-        </property>
-        <property name="lastName">
-            <constraint name="NotBlank">
-                <option name="groups">
-                    <value>Default</value>
-                    <value>Registration</value>
-                    <value>Profile</value>
-                </option>
-            </constraint>
-            <constraint name="Length">
-                <option name="min">2</option>
-                <option name="max">32</option>
-                <option name="groups">
-                    <value>Default</value>
-                    <value>Registration</value>
-                    <value>Profile</value>
-                </option>
-            </constraint>
-        </property>
-
         <property name="group">
             <constraint name="NotNull">
                 <option name="groups">
@@ -85,13 +44,6 @@
                 </option>
             </constraint>
         </property>
-
-        <!--<property name="phone">
-            <constraint name="Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber" />
-        </property>
-        <property name="mobile">
-            <constraint name="Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber" />
-        </property>-->
     </class>
 
 </constraint-mapping>

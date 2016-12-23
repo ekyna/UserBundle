@@ -2,23 +2,28 @@
 
 namespace Ekyna\Bundle\UserBundle\Menu;
 
-use Ekyna\Bundle\UserBundle\Extension\ExtensionRegistry;
+use Ekyna\Bundle\UserBundle\Event\MenuEvent;
 use Knp\Menu\FactoryInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
  * Class MenuBuilder
  * @package Ekyna\Bundle\UserBundle\Menu
- * @author Étienne Dauvergne <contact@ekyna.com>
+ * @author  Étienne Dauvergne <contact@ekyna.com>
  */
 class MenuBuilder
 {
     /**
+     * @var EventDispatcherInterface
+     */
+    protected $dispatcher;
+
+    /**
      * @var FactoryInterface
      */
-    private $factory;
+    protected $factory;
 
     /**
      * @var AuthorizationCheckerInterface
@@ -31,76 +36,33 @@ class MenuBuilder
     protected $tokenStorage;
 
     /**
-     * @var ExtensionRegistry
-     */
-    protected $extensionRegistry;
-
-    /**
      * @var bool
      */
-    private $accountEnabled;
-
-    /**
-     * @var OptionsResolver
-     */
-    private $optionResolver;
-
-    /**
-     * @var array
-     */
-    private $accountEntries;
+    protected $accountEnabled;
 
 
     /**
      * Constructor.
      *
+     * @param EventDispatcherInterface      $dispatcher
      * @param FactoryInterface              $factory
      * @param AuthorizationCheckerInterface $authorization
      * @param TokenStorageInterface         $tokenStorage
-     * @param ExtensionRegistry             $extensionRegistry
      * @param array                         $config
      */
     public function __construct(
+        EventDispatcherInterface $dispatcher,
         FactoryInterface $factory,
         AuthorizationCheckerInterface $authorization,
         TokenStorageInterface $tokenStorage,
-        ExtensionRegistry $extensionRegistry,
         array $config
     ) {
+        $this->dispatcher = $dispatcher;
         $this->factory = $factory;
         $this->authorization = $authorization;
-        $this->tokenStorage  = $tokenStorage;
-        $this->extensionRegistry = $extensionRegistry;
+        $this->tokenStorage = $tokenStorage;
+
         $this->accountEnabled = $config['account']['enable'];
-
-        $this->optionResolver = new OptionsResolver();
-        $this->optionResolver
-            ->setDefaults([
-                'label' => null,
-                'route' => null,
-                'position' => 0,
-            ])
-            ->setRequired(['label', 'route', 'position'])
-            ->setAllowedTypes('label',  'string')
-            ->setAllowedTypes('route',  'string')
-            ->setAllowedTypes('position',  'int')
-        ;
-
-        $this->accountEntries = [];
-        foreach ($this->extensionRegistry->getAccountEntries() as $name => $options) {
-            $this->addAccountEntry($name, $options);
-        }
-    }
-
-    /**
-     * Adds the entry to he account menu.
-     * 
-     * @param string $name
-     * @param array $options
-     */
-    public function addAccountEntry($name, array $options)
-    {
-        $this->accountEntries[$name] = $this->optionResolver->resolve($options);
     }
 
     /**
@@ -112,16 +74,17 @@ class MenuBuilder
     {
         $menu = $this->factory->createItem('root');
 
-        uasort($this->accountEntries, function($a, $b) {
-            if ($a['position'] == $b['position']) {
-                return 0;
-            }
-            return $a['position'] < $b['position'] ? -1 : 1;
-        });
+        $this->dispatcher->dispatch(MenuEvent::CONFIGURE, new MenuEvent($this->factory, $menu));
 
-        foreach($this->accountEntries as $name => $options) {
-            $menu->addChild($name, $options);
-        }
+        // Change password
+        $menu->addChild('ekyna_user.account.menu.password', [
+            'route' => 'fos_user_change_password',
+        ]);
+
+        // Logout
+        $menu->addChild('ekyna_user.account.menu.logout', [
+            'route' => 'fos_user_security_logout',
+        ]);
 
         return $menu;
     }
@@ -146,6 +109,7 @@ class MenuBuilder
                         $item->addChild('ekyna_user.account.menu.backend', ['route' => 'ekyna_admin']);
                     }
                     $item->addChild('ekyna_user.account.menu.logout', ['route' => 'fos_user_security_logout']);
+
                     return $menu;
                 }
             }

@@ -6,7 +6,7 @@ fos_user_security_login:
     options:
         _cms:
             name: "Connexion"
-            parent: ekyna_user_account_home
+            parent: ekyna_user_account_index
             seo:
                 follow: false
                 index: false

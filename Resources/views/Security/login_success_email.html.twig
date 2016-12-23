@@ -1,13 +1,13 @@
-{% extends ekyna_user_template_name('email') %}
+{% extends 'EkynaUserBundle::email.html.twig' %}
 
 {% block subject %}
-{{ 'ekyna_user.email.login_success.title'|trans }}
+    {{ 'ekyna_user.email.login_success.title'|trans }}
 {% endblock subject %}
 
 {% block body %}
-{{ 'ekyna_user.email.login_success.message'|trans({
-    '%username%': username,
-    '%sitename%': sitename,
-    '%date%': date|localizeddate('medium', 'none')
-})|raw }}
+    {{ 'ekyna_user.email.login_success.message'|trans({
+        '%username%': username,
+        '%sitename%': sitename,
+        '%date%': date|localizeddate('medium', 'none')
+    })|raw }}
 {% endblock body %}

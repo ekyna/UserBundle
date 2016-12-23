@@ -11,12 +11,12 @@ fos_user:
         user_manager: ekyna_user.user_manager.default
     profile:
         form:
-            type: ekyna_user_profile
+            type: Ekyna\Bundle\UserBundle\Form\Type\ProfileType
     registration:
         confirmation:
             template: EkynaUserBundle:Registration:email.html.twig
         form:
-            type: ekyna_user_registration
+            type: Ekyna\Bundle\UserBundle\Form\Type\RegistrationType
     resetting:
         email:
             template: EkynaUserBundle:Resetting:email.html.twig

@@ -22,7 +22,6 @@ class EkynaUserBundle extends AbstractBundle
         parent::build($container);
 
         $container->addCompilerPass(new AdminMenuPass());
-//        $container->addCompilerPass(new ExtensionPass());
     }
 
     /**
@@ -32,7 +31,6 @@ class EkynaUserBundle extends AbstractBundle
     {
         return [
             'Ekyna\Bundle\UserBundle\Model\UserInterface' => 'ekyna_user.user.class',
-//            'Ekyna\Bundle\UserBundle\Model\AddressInterface' => 'ekyna_user.address.class',
         ];
     }
 

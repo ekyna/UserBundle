@@ -13,7 +13,7 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  */
 class Configuration implements ConfigurationInterface
 {
-    const DEFAULT_GENDER_CLASS = 'Ekyna\Bundle\CommerceBundle\Model\Genders';
+    //const DEFAULT_GENDER_CLASS = 'Ekyna\Bundle\CommerceBundle\Model\Genders';
 
     /**
      * {@inheritDoc}
@@ -25,7 +25,7 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode('gender_class')
+                /*->scalarNode('gender_class')
                     ->validate()
                         ->ifTrue(function ($class) {
                             if (!class_exists($class)) {
@@ -40,15 +40,15 @@ class Configuration implements ConfigurationInterface
                         ->thenInvalid('%s must extend '.self::DEFAULT_GENDER_CLASS)
                     ->end()
                     ->defaultValue(self::DEFAULT_GENDER_CLASS)
-                ->end()
-                ->arrayNode('templates')
+                ->end()*/
+                /*->arrayNode('templates')
                     ->addDefaultsIfNotSet()
                     ->children()
                         ->scalarNode('base')->defaultValue('EkynaUserBundle::base.html.twig')->end()
                         ->scalarNode('email')->defaultValue('EkynaUserBundle::email.html.twig')->end()
 //                        ->scalarNode('address')->defaultValue('EkynaUserBundle:Address:_render.html.twig')->end()
                     ->end()
-                ->end()
+                ->end()*/
                 ->arrayNode('account')
                     ->addDefaultsIfNotSet()
                     ->children()

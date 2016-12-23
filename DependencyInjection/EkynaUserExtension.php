@@ -21,31 +21,13 @@ class EkynaUserExtension extends AbstractExtension
     {
         $config = $this->configure($configs, 'ekyna_user', new Configuration(), $container);
 
-        $container->setParameter('ekyna_user.gender_class', $config['gender_class']);
+//        $container->setParameter('ekyna_user.gender_class', $config['gender_class']);
         $container->setParameter('ekyna_user.notification_config', $config['notification']);
-
-        $accountConfig = $config['account'];
-
-        $menu = $container->getDefinition('ekyna_user.menu_builder');
-        if ($accountConfig['enable']) {
-            if ($accountConfig['profile']) {
-                $menu->addMethodCall('addAccountEntry', ['profile', [
-                    'label'    => 'ekyna_user.account.menu.profile',
-                    'route'    => 'fos_user_profile_show',
-                    'position' => -3,
-                ]]);
-            }
-            $menu->addMethodCall('addAccountEntry', ['password', [
-                'label'    => 'ekyna_user.account.menu.password',
-                'route'    => 'fos_user_change_password',
-                'position' => -2,
-            ]]);
-        }
 
         $exposedConfig = [];
         $exposedConfig['account'] = $config['account'];
-        $exposedConfig['templates'] = $config['templates'];
-        $exposedConfig['gender_class'] = $config['gender_class'];
+//        $exposedConfig['templates'] = $config['templates'];
+//        $exposedConfig['gender_class'] = $config['gender_class'];
 
         $container->setParameter('ekyna_user.config', $exposedConfig);
     }

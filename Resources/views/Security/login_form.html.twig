@@ -34,7 +34,8 @@
     </div>
     <div class="form-group">
         <div class="col-sm-offset-5 col-sm-7">
-            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+            <input type="hidden" name="_target_path" value="{{ target_path|default(path('ekyna_user_account_index')) }}"/>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
             <button type="submit" class="btn btn-primary" name="_submit">
                 {{ 'ekyna_core.button.login'|trans }}
             </button>

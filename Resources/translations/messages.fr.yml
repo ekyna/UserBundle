@@ -52,6 +52,7 @@ ekyna_user:
     account:
         title: Espace client
         menu:
+            dashboard: Tableau de bord
             my_profile: Mon profil
             backend: Administration
             login: Connexion

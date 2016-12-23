@@ -1,13 +1,15 @@
-{% extends ekyna_user_template_name('base') %}
+{% extends 'EkynaUserBundle::layout.html.twig' %}
 
 {% block content %}
-<div class="row">
-    <div class="col-md-4">
-        {{ cms_title('h3') }}
-        {{ cms_content() }}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                {{ cms_title('h3') }}
+                {{ cms_content() }}
+            </div>
+            <div class="col-md-8">
+                {% include "EkynaUserBundle:Registration:register_content.html.twig" %}
+            </div>
+        </div>
     </div>
-    <div class="col-md-8">
-        {% include "EkynaUserBundle:Registration:register_content.html.twig" %}
-    </div>
-</div>
 {% endblock content %}

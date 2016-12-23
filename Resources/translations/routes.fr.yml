@@ -1,4 +1,4 @@
-ekyna_user_account_home: /mon-compte
+ekyna_user_account_index: /mon-compte
 
 #ekyna_user_address_list: /mon-compte/mes-adresses
 #ekyna_user_address_new: /mon-compte/mes-adresses/nouvelle
@@ -7,13 +7,13 @@ ekyna_user_account_home: /mon-compte
 
 fos_user_change_password: /mon-compte/changer-mot-de-passe
 
-fos_user_profile_show: /mon-compte/mon-profil
-fos_user_profile_edit: /mon-compte/mon-profil/modifier
+#fos_user_profile_show: /mon-compte/mon-profil
+#fos_user_profile_edit: /mon-compte/mon-profil/modifier
 
-fos_user_registration_register: /mon-compte/creation
-fos_user_registration_check_email: /mon-compte/creation/verifier-email
-fos_user_registration_confirm: /mon-compte/creation/confirmer/{token}
-fos_user_registration_confirmed: /mon-compte/creation/confirmation
+fos_user_registration_register: /mon-compte/inscription
+fos_user_registration_check_email: /mon-compte/inscription/verifier-email
+fos_user_registration_confirm: /mon-compte/inscription/confirmer/{token}
+fos_user_registration_confirmed: /mon-compte/inscription/confirmation
 
 fos_user_resetting_request: /mon-compte/reinitialisation
 fos_user_resetting_send_email: /mon-compte/reinitialisation/envoi-email

@@ -13,7 +13,7 @@ To override them, they may be copied in *app/Resources/EkynaUserBundle/views*.
 
 | Page | Route | Default Uri | Template  |
 | --- | --- | --- | --- |
-| Home | ekyna_user_account_home | /account/ | - |
+| Home | ekyna_user_account_index | /account/ | - |
 | Login | fos_user_security_login | /account/login | *Security/login.html.twig* |
 | Logout | fos_user_security_logout | /account/logout | - |
 | Register | fos_user_registration_register | /account/register/ | *Registration/register.html.twig* |

@@ -1,23 +1,23 @@
-{% extends ekyna_user_template_name('base') %}
+{% extends 'EkynaUserBundle::base.html.twig' %}
 
 {% block content %}
-<div class="row">
-    <div class="col-md-12">
-        <h1>{{ 'ekyna_user.account.title'|trans }}</h1>
-        <hr>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>{{ 'ekyna_user.account.title'|trans }}</h1>
+            <hr>
+        </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-md-3">
-        {{ knp_menu_render('account', {'template': 'EkynaUserBundle::menu.html.twig', 'style': 'stacked-pills'}) }}
-        <p style="text-align:center; margin-top:20px;">
-            <a href="{{ path('fos_user_security_logout') }}">
-                <span class="glyphicon glyphicon-off"></span> Se déconnecter {# TODO translation #}
-            </a>
-        </p>
-    </div>
-    <div class="col-md-9">
-        {% block account %}{% endblock account %}
+    <div class="row">
+        <div class="col-md-3">
+            {{ knp_menu_render('account', {
+                'template': 'EkynaUserBundle::menu.html.twig',
+                'style': 'stacked-pills'
+            }) }}
+        </div>
+        <div class="col-md-9">
+            {% block account %}{% endblock account %}
+        </div>
     </div>
 </div>
 {% endblock content %}

@@ -6,7 +6,7 @@ fos_user_registration_register:
     options:
         _cms:
             name: "Créer un compte client"
-            parent: ekyna_user_account_home
+            parent: ekyna_user_account_index
             seo:
                 follow: false
                 index: false
