@@ -1,0 +1,6 @@
+config:
+    paths:
+        'ekyna-user/user-widget': 'bundles/ekynauser/js/user-widget'
+build:
+    include:
+        - 'ekyna-user/user-widget'

@@ -1,0 +1,26 @@
+{% spaceless %}
+{{ form_start(form) }}
+
+    {{ form_errors(form, {'global_errors': true}) }}
+
+    {{ form_row(form._username) }}
+    {{ form_row(form._password) }}
+    {% if form._remember_me is defined %}
+    <div class="text-center">
+        {{ form_row(form._remember_me) }}
+    </div>
+    {% endif %}
+    {{ form_row(form._target_path) }}
+
+    {{ form_rest(form) }}
+
+    {% if ekyna_user_account_var('resetting') -%}
+    <p class="text-center">
+        <a href="{{ path('fos_user_resetting_request') }}">
+            {{ 'ekyna_user.account.resetting.button'|trans }}
+        </a>
+    </p>
+    {%- endif %}
+
+{{ form_end(form) }}
+{% endspaceless %}

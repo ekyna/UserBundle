@@ -72,19 +72,28 @@ class MenuBuilder
      */
     public function createAccountMenu()
     {
+        // TODO user context / caching
+
         $menu = $this->factory->createItem('root');
+        $user = $this->getUser();
 
-        $this->dispatcher->dispatch(MenuEvent::CONFIGURE, new MenuEvent($this->factory, $menu));
+        if (null !== $user) {
+            // Configure menu event
+            $this->dispatcher->dispatch(
+                MenuEvent::CONFIGURE_ACCOUNT,
+                new MenuEvent($this->factory, $menu, $user)
+            );
 
-        // Change password
-        $menu->addChild('ekyna_user.account.menu.password', [
-            'route' => 'fos_user_change_password',
-        ]);
+            // Change password
+            $menu->addChild('ekyna_user.account.menu.password', [
+                'route' => 'fos_user_change_password',
+            ]);
 
-        // Logout
-        $menu->addChild('ekyna_user.account.menu.logout', [
-            'route' => 'fos_user_security_logout',
-        ]);
+            // Logout
+            $menu->addChild('ekyna_user.account.menu.logout', [
+                'route' => 'fos_user_security_logout',
+            ]);
+        }
 
         return $menu;
     }
@@ -94,28 +103,56 @@ class MenuBuilder
      *
      * @return \Knp\Menu\ItemInterface
      */
-    public function createUserMenu()
+    public function createWidgetMenu()
     {
+        // TODO user context / caching
+
         $menu = $this->factory->createItem('root');
+        $user = $this->getUser();
 
-        if ($this->accountEnabled) {
-            if (null !== $token = $this->tokenStorage->getToken()) {
-                if ($this->authorization->isGranted('IS_AUTHENTICATED_FULLY') || $this->authorization->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-                    /** @var \Ekyna\Bundle\UserBundle\Model\UserInterface $user */
-                    $user = $token->getUser();
-                    $item = $menu->addChild($user->getEmail(), ['uri' => '#']);
-                    $item->addChild('ekyna_user.account.menu.my_profile', ['route' => 'fos_user_profile_show']);
-                    if ($this->authorization->isGranted('ROLE_ADMIN')) {
-                        $item->addChild('ekyna_user.account.menu.backend', ['route' => 'ekyna_admin']);
-                    }
-                    $item->addChild('ekyna_user.account.menu.logout', ['route' => 'fos_user_security_logout']);
+        if (null !== $user) {
+            if ($this->authorization->isGranted('IS_AUTHENTICATED_FULLY') || $this->authorization->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+                // User email
+                $menu->addChild($user->getEmail(), ['uri' => null]);
 
-                    return $menu;
+                // Configure menu event
+                $this->dispatcher->dispatch(
+                    MenuEvent::CONFIGURE_WIDGET,
+                    new MenuEvent($this->factory, $menu, $user)
+                );
+
+                // Administration
+                if ($this->authorization->isGranted('ROLE_ADMIN')) {
+                    $menu->addChild('ekyna_user.account.menu.backend', ['route' => 'ekyna_admin']);
                 }
+
+                // Logout
+                $menu->addChild('ekyna_user.account.menu.logout', [
+                    'route' => 'fos_user_security_logout'
+                ]);
+
+                return $menu;
             }
-            $menu->addChild('ekyna_user.account.menu.login', ['route' => 'fos_user_security_login']);
+        } else {
+            $menu->addChild('ekyna_user.account.menu.login', [
+                'route' => 'fos_user_security_login'
+            ]);
         }
 
         return $menu;
+    }
+
+    /**
+     * Returns the user.
+     *
+     * @return \Ekyna\Bundle\UserBundle\Model\UserInterface|null
+     */
+    protected function getUser()
+    {
+        if (null !== $token = $this->tokenStorage->getToken()) {
+            return $token->getUser();
+        }
+
+        return null;
     }
 }

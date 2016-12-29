@@ -2,7 +2,10 @@
 
 namespace Ekyna\Bundle\UserBundle\Authentication;
 
+use Ekyna\Bundle\UserBundle\Service\Account\WidgetRenderer;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessHandler;
 
@@ -11,19 +14,40 @@ use Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessH
  * @package Ekyna\Bundle\UserBundle\Authentication
  * @author  Étienne Dauvergne <contact@ekyna.com>
  */
-class AuthenticationSuccessHandler extends DefaultAuthenticationSuccessHandler
+final class AuthenticationSuccessHandler extends DefaultAuthenticationSuccessHandler
 {
     /**
-     * {@inheritDoc}
+     * @var WidgetRenderer
+     */
+    private $widgetRenderer;
+
+    /**
+     * Sets the widgetRenderer.
+     *
+     * @param WidgetRenderer $widgetRenderer
+     */
+    public function setWidgetRenderer(WidgetRenderer $widgetRenderer)
+    {
+        $this->widgetRenderer = $widgetRenderer;
+    }
+
+    /**
+     * @inheritdoc
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token)
     {
-        $session = $request->getSession();
-        if ($session->has('_ekyna.login_success.target_path')) {
-            $targetUrl = $session->get('_ekyna.login_success.target_path');
-            $session->remove('_ekyna.login_success.target_path');
+        if ($request->isXmlHttpRequest()) {
+            if (in_array('application/json', $request->getAcceptableContentTypes())) {
+                return new JsonResponse([
+                    'success'  => true,
+                    'username' => $token->getUsername(),
+                ]);
+            }
 
-            return $this->httpUtils->createRedirectResponse($request, $targetUrl);
+            // Widget XHR response
+            $response = new Response($this->widgetRenderer->render($token->getUser()));
+            $response->headers->set('Content-Type', 'application/xml');
+            return $response;
         }
 
         return parent::onAuthenticationSuccess($request, $token);

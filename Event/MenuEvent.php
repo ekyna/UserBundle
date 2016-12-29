@@ -2,6 +2,7 @@
 
 namespace Ekyna\Bundle\UserBundle\Event;
 
+use Ekyna\Bundle\UserBundle\Model\UserInterface;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 use Symfony\Component\EventDispatcher\Event;
@@ -13,7 +14,8 @@ use Symfony\Component\EventDispatcher\Event;
  */
 class MenuEvent extends Event
 {
-    const CONFIGURE = 'ekyna_user.menu.configure';
+    const CONFIGURE_ACCOUNT = 'ekyna_user.menu.configure_account';
+    const CONFIGURE_WIDGET  = 'ekyna_user.menu.configure_widget';
 
     /**
      * @var FactoryInterface
@@ -25,17 +27,24 @@ class MenuEvent extends Event
      */
     private $menu;
 
+    /**
+     * @var UserInterface
+     */
+    private $user;
+
 
     /**
      * Constructor.
      *
      * @param FactoryInterface $factory
      * @param ItemInterface    $menu
+     * @param UserInterface    $user
      */
-    public function __construct(FactoryInterface $factory, ItemInterface $menu)
+    public function __construct(FactoryInterface $factory, ItemInterface $menu, UserInterface $user = null)
     {
         $this->factory = $factory;
         $this->menu = $menu;
+        $this->user = $user;
     }
 
     /**
@@ -56,5 +65,15 @@ class MenuEvent extends Event
     public function getMenu()
     {
         return $this->menu;
+    }
+
+    /**
+     * Returns the user.
+     *
+     * @return UserInterface
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

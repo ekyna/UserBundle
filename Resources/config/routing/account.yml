@@ -12,6 +12,12 @@ ekyna_user_account_index:
                 follow: false
                 index: false
 
+ekyna_user_account_widget:
+    path: /widget
+    defaults:
+        _controller: EkynaUserBundle:Account:widget
+    methods: [GET]
+
 fos_user_security:
     resource: "account/security.yml"
 

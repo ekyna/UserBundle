@@ -1,50 +1,37 @@
-<form action="{{ path('fos_user_security_check') }}" method="post" class="form-horizontal" role="form">
-    {% if error %}
-        <div class="alert alert-danger">
-            {{ error.messageKey|trans(error.messageData, 'security') }}
-        </div>
-    {% endif %}
-    <div class="form-group">
-        <label for="username" class="col-sm-5 control-label">
-            {{ 'ekyna_core.field.email_address'|trans }}
-        </label>
-        <div class="col-sm-7">
-            <input type="text" class="form-control" id="email" name="_username"
-                   value="{{ last_username }}" placeholder="{{ 'ekyna_core.field.email_address'|trans }}">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="password" class="col-sm-5 control-label">
-            {{ 'ekyna_core.field.password'|trans }}
-        </label>
-        <div class="col-sm-7">
-            <input type="password" class="form-control" id="password"
-                   name="_password" placeholder="{{ 'ekyna_core.field.password'|trans }}">
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-offset-5 col-sm-7">
-            <div class="checkbox">
-                <label for="remember_me">
-                    <input type="checkbox" id="remember_me" name="_remember_me">
-                    {{ 'ekyna_core.field.remember_me'|trans }}
-                </label>
+{% spaceless %}
+{{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+    {{ bootstrap_set_style('horizontal') }}
+    {{ bootstrap_set_col_size('md') }}
+    {{ bootstrap_set_label_col(4) }}
+    {{ bootstrap_set_widget_col(8) }}
+
+    <div class="form-body">
+        {{ form_errors(form, {'global_errors': true}) }}
+
+        {{ form_row(form._username) }}
+        {{ form_row(form._password) }}
+        {% if form._remember_me is defined %}
+            {{ form_row(form._remember_me) }}
+        {% endif %}
+        {{ form_row(form._target_path) }}
+
+        {{ form_rest(form) }}
+
+        <div class="form-footer">
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-8">
+                    <button type="submit" class="btn btn-primary" name="_submit">
+                        {{ 'ekyna_core.button.login'|trans }}
+                    </button>
+                    {% if ekyna_user_account_var('resetting') -%}
+                        <br>
+                        <a href="{{ path('fos_user_resetting_request') }}">
+                            {{ 'ekyna_user.account.resetting.button'|trans }}
+                        </a>
+                    {%- endif %}
+                </div>
             </div>
         </div>
     </div>
-    <div class="form-group">
-        <div class="col-sm-offset-5 col-sm-7">
-            <input type="hidden" name="_target_path" value="{{ target_path|default(path('ekyna_user_account_index')) }}"/>
-            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
-            <button type="submit" class="btn btn-primary" name="_submit">
-                {{ 'ekyna_core.button.login'|trans }}
-            </button>
-            {% if ekyna_user_account_var('resetting') -%}
-            <br>
-            <a href="{{ path('fos_user_resetting_request') }}" class="btn btn-link">
-                {{ 'ekyna_user.account.resetting.button'|trans }}
-            </a>
-            {%- endif %}
-        </div>
-    </div>
-</form>
+{{ form_end(form) }}
+{% endspaceless %}
