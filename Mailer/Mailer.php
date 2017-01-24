@@ -91,12 +91,10 @@ class Mailer extends BaseMailer
     {
         /** @var \Ekyna\Bundle\UserBundle\Model\UserInterface $user */
         $siteName  = $this->settingsManager->getParameter('general.site_name');
-        $userName = sprintf('%s %s', $user->getFirstName(), $user->getLastName());
 
         $rendered = $this->templating->render(
             'EkynaUserBundle:Security:login_success_email.html.twig',
             [
-                'username' => $userName,
                 'sitename' => $siteName,
                 'date' => new \DateTime()
             ]
@@ -107,7 +105,7 @@ class Mailer extends BaseMailer
             ['%sitename%' => $siteName]
         );
 
-        $this->sendEmail($rendered, $user->getEmail(), $userName, $subject);
+        $this->sendEmail($rendered, $user->getEmail(), $subject);
     }
 
     /**
@@ -121,7 +119,6 @@ class Mailer extends BaseMailer
     {
         /** @var \Ekyna\Bundle\UserBundle\Model\UserInterface $user */
         $siteName  = $this->settingsManager->getParameter('general.site_name');
-        $userName = sprintf('%s %s', $user->getFirstName(), $user->getLastName());
         $login = $user->getUsername();
 
         if (0 === strlen($password)) {
@@ -135,7 +132,6 @@ class Mailer extends BaseMailer
         $rendered = $this->templating->render(
             'EkynaUserBundle:Admin/User:creation_email.html.twig',
             [
-                'username'  => $userName,
                 'sitename'  => $siteName,
                 'login_url' => $loginUrl,
                 'login'     => $login,
@@ -148,7 +144,7 @@ class Mailer extends BaseMailer
             ['%sitename%' => $siteName]
         );
 
-        return $this->sendEmail($rendered, $user->getEmail(), $userName, $subject);
+        return $this->sendEmail($rendered, $user->getEmail(), $subject);
     }
 
     /**
@@ -162,7 +158,6 @@ class Mailer extends BaseMailer
     {
         /** @var \Ekyna\Bundle\UserBundle\Model\UserInterface $user */
         $siteName  = $this->settingsManager->getParameter('general.site_name');
-        $userName = sprintf('%s %s', $user->getFirstName(), $user->getLastName());
         $login = $user->getUsername();
 
         if (0 === strlen($password)) {
@@ -176,7 +171,6 @@ class Mailer extends BaseMailer
         $rendered = $this->templating->render(
             'EkynaUserBundle:Admin/User:new_password_email.html.twig',
             [
-                'username'  => $userName,
                 'sitename'  => $siteName,
                 'login_url' => $loginUrl,
                 'login'     => $login,
@@ -189,7 +183,7 @@ class Mailer extends BaseMailer
             ['%sitename%' => $siteName]
         );
 
-        return $this->sendEmail($rendered, $user->getEmail(), $userName, $subject);
+        return $this->sendEmail($rendered, $user->getEmail(), $subject);
     }
 
     /**
@@ -205,10 +199,8 @@ class Mailer extends BaseMailer
             UrlGeneratorInterface::ABSOLUTE_URL
         );
         $siteName = $this->settingsManager->getParameter('general.site_name');
-        $username = sprintf('%s %s', $user->getFirstName(), $user->getLastName());
 
         $rendered = $this->templating->render($template, [
-            'username' => $username,
             'confirmationUrl' => $url,
             'sitename' => $siteName,
         ]);
@@ -218,7 +210,7 @@ class Mailer extends BaseMailer
             ['%sitename%' => $siteName]
         );
 
-        $this->sendEmail($rendered, $user->getEmail(), $username, $subject);
+        $this->sendEmail($rendered, $user->getEmail(), $subject);
     }
 
     /**
@@ -234,10 +226,8 @@ class Mailer extends BaseMailer
             UrlGeneratorInterface::ABSOLUTE_URL
         );
         $siteName = $this->settingsManager->getParameter('general.site_name');
-        $username = sprintf('%s %s', $user->getFirstName(), $user->getLastName());
 
         $rendered = $this->templating->render($template, [
-            'username' => $username,
             'confirmationUrl' => $url,
             'sitename' => $siteName,
         ]);
@@ -247,7 +237,7 @@ class Mailer extends BaseMailer
             ['%sitename%' => $siteName]
         );
 
-        $this->sendEmail($rendered, $user->getEmail(), $username, $subject);
+        $this->sendEmail($rendered, $user->getEmail(), $subject);
     }
 
     /**
@@ -272,12 +262,11 @@ class Mailer extends BaseMailer
      *
      * @param string $renderedTemplate
      * @param string $toEmail
-     * @param string $toName
      * @param string $subject
      *
      * @return integer
      */
-    protected function sendEmail($renderedTemplate, $toEmail, $toName, $subject)
+    protected function sendEmail($renderedTemplate, $toEmail, $subject)
     {
         $fromEmail = $this->settingsManager->getParameter('notification.from_email');
         $fromName = $this->settingsManager->getParameter('notification.from_name');
@@ -286,7 +275,7 @@ class Mailer extends BaseMailer
         $message = \Swift_Message::newInstance()
             ->setSubject($subject)
             ->setFrom($fromEmail, $fromName)
-            ->setTo($toEmail, $toName)
+            ->setTo($toEmail)
             ->setBody($renderedTemplate, 'text/html')
         ;
 

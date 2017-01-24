@@ -6,7 +6,6 @@
 
 {% block body %}
     {{ 'ekyna_user.email.login_success.message'|trans({
-        '%username%': username,
         '%sitename%': sitename,
         '%date%': date|localizeddate('medium', 'none')
     })|raw }}

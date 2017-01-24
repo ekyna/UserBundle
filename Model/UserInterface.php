@@ -36,13 +36,6 @@ interface UserInterface extends BaseUserInterface, ResourceInterface, Timestampa
     public function getGroup();
 
     /**
-     * Returns the expiresAt.
-     *
-     * @return \DateTime
-     */
-    public function getExpiresAt();
-
-    /**
      * Sets whether to send the creation email or not.
      *
      * @param bool $send

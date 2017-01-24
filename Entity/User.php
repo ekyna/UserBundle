@@ -107,14 +107,6 @@ class User extends BaseUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function getExpiresAt()
-    {
-        return $this->expiresAt;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function setSendCreationEmail($send)
     {
         $this->sendCreationEmail = (bool)$send;

@@ -108,7 +108,7 @@ class UserType extends ResourceTableType
                 'route_parameters_map' => ['userId' => 'id'],
                 'position' => 30,
             ])
-            ->addColumn('locked', 'boolean', [
+            /*->addColumn('locked', 'boolean', [
                 'label'                => 'ekyna_core.field.locked',
                 'sortable'             => true,
                 'true_class'           => 'label-danger',
@@ -132,7 +132,7 @@ class UserType extends ResourceTableType
                 'label'    => 'ekyna_core.field.expires_at',
                 'sortable' => true,
                 'position' => 60,
-            ])
+            ])*/
             ->addColumn('createdAt', 'datetime', [
                 'label'    => 'ekyna_core.field.created_at',
                 'sortable' => true,
@@ -185,7 +185,7 @@ class UserType extends ResourceTableType
                 'label' => 'ekyna_core.field.enabled',
                 'position' => 30,
             ])
-            ->addFilter('locked', 'boolean', [
+            /*->addFilter('locked', 'boolean', [
                 'label' => 'ekyna_core.field.locked',
                 'position' => 40,
             ])
@@ -196,7 +196,7 @@ class UserType extends ResourceTableType
             ->addFilter('expiresAt', 'datetime', [
                 'label' => 'ekyna_core.field.expires_at',
                 'position' => 60,
-            ])
+            ])*/
             ->addFilter('createdAt', 'datetime', [
                 'label' => 'ekyna_core.field.created_at',
                 'position' => 70,

@@ -64,14 +64,14 @@
                     }) }}
                 </div>
                 {% endif %}
-                <div class="row">
+                {#<div class="row">
                     <div class="col-md-6">
                         {{ show_row(user.expired, 'checkbox', 'ekyna_core.field.expired', {'label_nb_col': 4}) }}
                     </div>
                     <div class="col-md-6">
                         {{ show_row(user.expiresAt, 'datetime', 'ekyna_core.field.expires_at', {'label_nb_col': 4}) }}
                     </div>
-                </div>
+                </div>#}
                 <div class="row">
                     <div class="col-md-6">
                         {{ show_row(user.passwordRequestedAt, 'datetime', 'ekyna_user.user.field.password_request_at', {
