@@ -2,8 +2,7 @@
 
 namespace Ekyna\Bundle\UserBundle;
 
-use Ekyna\Bundle\CoreBundle\AbstractBundle;
-use Ekyna\Bundle\UserBundle\DependencyInjection\Compiler\ExtensionPass;
+use Ekyna\Bundle\ResourceBundle\AbstractBundle;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Ekyna\Bundle\UserBundle\DependencyInjection\Compiler\AdminMenuPass;
 
