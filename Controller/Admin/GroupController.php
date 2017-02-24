@@ -103,7 +103,8 @@ class GroupController extends ResourceController
         ]);
 
         $form->handleRequest($request);
-        if ($form->isValid()) {
+
+        if ($form->isSubmitted() && $form->isValid()) {
             try {
                 $aclOperator->updateGroup($resource, $form->get('acls')->getData());
 
