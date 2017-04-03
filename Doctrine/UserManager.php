@@ -8,9 +8,7 @@ use Ekyna\Bundle\UserBundle\Model\UserInterface;
 use Ekyna\Bundle\UserBundle\Model\UserManagerInterface;
 use FOS\UserBundle\Doctrine\UserManager as BaseManager;
 use FOS\UserBundle\Util\CanonicalFieldsUpdater;
-use FOS\UserBundle\Util\CanonicalizerInterface;
 use FOS\UserBundle\Util\PasswordUpdaterInterface;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 
 /**
  * Class UserManager

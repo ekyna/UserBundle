@@ -58,7 +58,7 @@ ekyna_user:
             login: Connexion
             logout: Se déconnecter
             profile: Mes informations
-            password: Changer mon mot de passe
+            password: Mon mot de passe
             address: Mes adresses
         address:
             list: Mon carnet d'adresses
