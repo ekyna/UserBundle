@@ -1,0 +1,12 @@
+{% extends "email.html.twig" %}
+
+{% block subject %}
+{{ 'email.resetting.title'|trans({}, 'EkynaUser') }}
+{% endblock subject %}
+
+{% block body %}
+{{ 'email.resetting.message'|trans({
+    '%sitename%': sitename,
+    '%reset_url%': reset_url,
+}, 'EkynaUser')|raw }}
+{% endblock body %}

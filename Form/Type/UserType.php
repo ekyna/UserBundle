@@ -1,64 +1,34 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ekyna\Bundle\UserBundle\Form\Type;
 
-use Ekyna\Bundle\AdminBundle\Form\Type\ResourceFormType;
-use Ekyna\Bundle\UserBundle\Form\EventListener\UserFormSubscriber;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Ekyna\Bundle\ResourceBundle\Form\Type\AbstractResourceType;
+use Ekyna\Bundle\UserBundle\Model\UserInterface;
+use Symfony\Component\Form\Extension\Core\Type;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+
+use function Symfony\Component\Translation\t;
 
 /**
  * Class UserType
  * @package Ekyna\Bundle\UserBundle\Form\Type
  * @author  Étienne Dauvergne <contact@ekyna.com>
  */
-class UserType extends ResourceFormType
+class UserType extends AbstractResourceType
 {
-    /**
-     * @var string
-     */
-    protected $groupClass;
-
-
-    /**
-     * Constructor.
-     *
-     * @param string                        $userClass
-     * @param string                        $groupClass
-     */
-    public function __construct($userClass, $groupClass)
-    {
-        parent::__construct($userClass);
-
-        $this->groupClass = $groupClass;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('group', EntityType::class, [
-                'label'        => 'ekyna_core.field.group',
-                'class'        => $this->groupClass,
-                'choice_label' => 'name',
+            ->add('email', Type\EmailType::class, [
+                'label' => t('field.email', [], 'EkynaUi'),
             ])
-            ->add('email', EmailType::class, [
-                'label' => 'ekyna_core.field.email',
-            ])
-            ->add('username', TextType::class, [
-                'label'    => 'ekyna_core.field.username',
-                'required' => false,
-            ])
-            ->add('enabled', CheckboxType::class, [
-                'label'    => 'ekyna_core.field.enabled',
+            ->add('enabled', Type\CheckboxType::class, [
+                'label'    => t('field.enabled', [], 'EkynaUi'),
                 'required' => false,
                 'attr'     => [
                     'align_with_widget' => true,
@@ -68,13 +38,13 @@ class UserType extends ResourceFormType
         $builder->addEventListener(
             FormEvents::PRE_SET_DATA,
             function (FormEvent $event) {
-                /** @var \Ekyna\Bundle\UserBundle\Model\UserInterface $user */
+                /** @var UserInterface $user */
                 $user = $event->getData();
 
                 if (null === $user || null === $user->getId()) {
                     $form = $event->getForm();
-                    $form->add('sendCreationEmail', CheckboxType::class, [
-                        'label'    => 'ekyna_user.user.field.send_creation_email',
+                    $form->add('sendCreationEmail', Type\CheckboxType::class, [
+                        'label'    => t('user.field.send_creation_email', [], 'EkynaUser'),
                         'required' => false,
                         'attr'     => [
                             'align_with_widget' => true,
@@ -83,26 +53,9 @@ class UserType extends ResourceFormType
                 }
             }
         );
-
-        $builder->addEventListener(
-            FormEvents::SUBMIT,
-            function (FormEvent $event) {
-                /** @var \Ekyna\Bundle\UserBundle\Model\UserInterface $user */
-                $user = $event->getData();
-
-                if (empty($user->getUsername())) {
-                    $user->setUsername($user->getEmail());
-                }
-            }
-        );
-
-        $builder->addEventSubscriber(new UserFormSubscriber());
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
 

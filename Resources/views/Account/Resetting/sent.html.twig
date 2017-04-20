@@ -1,0 +1,13 @@
+{% extends '@EkynaUser/base.html.twig' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>{{ 'account.resetting.sent.title'|trans({}, 'EkynaUser') }}</h1>
+                <hr>
+                {{ 'account.resetting.sent.content'|trans({}, 'EkynaUser')|raw }}
+            </div>
+        </div>
+    </div>
+{% endblock content %}

@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ekyna\Bundle\UserBundle\EventListener;
 
+use Ekyna\Bundle\UserBundle\Event\UserEvents;
 use Ekyna\Bundle\UserBundle\Model\UserInterface;
+use Ekyna\Bundle\UserBundle\Service\Mailer\UserMailer;
 use Ekyna\Component\Resource\Event\ResourceEventInterface;
 use Ekyna\Component\Resource\Event\ResourceMessage;
-use Ekyna\Bundle\UserBundle\Event\UserEvents;
-use Ekyna\Bundle\UserBundle\Mailer\Mailer;
-use Ekyna\Bundle\UserBundle\Model\UserManagerInterface;
-use Ekyna\Component\Resource\Exception\InvalidArgumentException;
+use Ekyna\Component\Resource\Exception\UnexpectedTypeException;
+use Ekyna\Component\User\EventListener\UserEventSubscriber as BaseListener;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -16,142 +18,70 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
  * @package Ekyna\Bundle\UserBundle\EventListener
  * @author  Étienne Dauvergne <contact@ekyna.com>
  */
-class UserEventSubscriber implements EventSubscriberInterface
+class UserEventSubscriber extends BaseListener implements EventSubscriberInterface
 {
-    /**
-     * @var UserManagerInterface
-     */
-    protected $userManager;
+    protected UserMailer $mailer;
 
-    /**
-     * @var Mailer
-     */
-    protected $mailer;
-
-
-    /**
-     * Constructor.
-     *
-     * @param UserManagerInterface          $fosUserManager
-     * @param Mailer                        $mailer
-     */
-    public function __construct(UserManagerInterface $fosUserManager, Mailer $mailer)
+    public function __construct(UserMailer $mailer)
     {
-        $this->userManager = $fosUserManager;
         $this->mailer = $mailer;
     }
 
-    /**
-     * Pre create event handler.
-     *
-     * @param ResourceEventInterface $event
-     */
-    public function onPreCreate(ResourceEventInterface $event)
+    public function onPostCreate(ResourceEventInterface $event): void
     {
-        $user = $this->getUserFromEvent($event);
-
-        // Generates a secured password.
-        if (0 === strlen($user->getPlainPassword())) {
-            $this->userManager->generatePassword($user);
-            $user->setEnabled(true);
-
-            // Warn about the generated password
-            $password = $user->getPlainPassword();
-            $event
-                ->addMessage(new ResourceMessage(
-                    sprintf('Generated password : "%s".', $password),
-                    ResourceMessage::TYPE_INFO
-                ))
-                ->addData('password', $password);
-        }
-
-        $this->userManager->updateUsername($user);
-        // TODO remove ? (done by the fos user listener)
-        $this->userManager->updatePassword($user);
-        $this->userManager->updateCanonicalFields($user);
-    }
-
-    /**
-     * Post create event handler.
-     *
-     * @param ResourceEventInterface $event
-     */
-    public function onPostCreate(ResourceEventInterface $event)
-    {
-        if (!$event->hasData('password')) {
-            return;
-        }
-
         $user = $this->getUserFromEvent($event);
         if (!$user->getSendCreationEmail()) {
             return;
         }
 
-        if (0 < $this->mailer->sendCreationEmailMessage($user, $event->getData('password'))) {
-            $event->addMessage(new ResourceMessage('ekyna_user.user.message.credentials_sent'));
-        }
+        $this->sendCredentials($event);
     }
 
-    /**
-     * Pre update resource event handler.
-     *
-     * @param ResourceEventInterface $event
-     */
-    public function onPreUpdate(ResourceEventInterface $event)
+    public function onPostGeneratePassword(ResourceEventInterface $event): void
     {
-        $user = $this->getUserFromEvent($event);
-
-        $this->userManager->updateUsername($user);
-        // TODO remove ? (done by the fos user listener)
-        $this->userManager->updatePassword($user);
-        $this->userManager->updateCanonicalFields($user);
+        $this->sendCredentials($event);
     }
 
     /**
-     * Post generate password event handler.
-     *
-     * @param ResourceEventInterface $event
+     * Sends the user credentials by email.
      */
-    public function onPostGeneratePassword(ResourceEventInterface $event)
+    private function sendCredentials(ResourceEventInterface $event): void
     {
         if (!$event->hasData('password')) {
             return;
         }
 
+        if (empty($password = $event->getData('password'))) {
+            return;
+        }
+
         $user = $this->getUserFromEvent($event);
 
-        if (0 < $this->mailer->sendNewPasswordEmailMessage($user, $event->getData('password'))) {
-            $event->addMessage(new ResourceMessage('ekyna_user.user.message.credentials_sent'));
-        }
+        $this->mailer->sendCreation($user, $password);
+
+        $event->addMessage(
+            ResourceMessage::create('user.message.credentials_sent')->setDomain('EkynaUser')
+        );
     }
 
-    /**
-     * Returns the user form the event.
-     *
-     * @param ResourceEventInterface $event
-     *
-     * @return UserInterface
-     */
-    protected function getUserFromEvent(ResourceEventInterface $event)
+    protected function getUserFromEvent(ResourceEventInterface $event): UserInterface
     {
         $resource = $event->getResource();
 
         if (!$resource instanceof UserInterface) {
-            throw new InvalidArgumentException("Expected instance of " . UserInterface::class);
+            throw new UnexpectedTypeException($resource, UserInterface::class);
         }
 
         return $resource;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
             UserEvents::PRE_CREATE             => ['onPreCreate', 0],
             UserEvents::POST_CREATE            => ['onPostCreate', 0],
-            UserEvents::PRE_UPDATE             => ['onPreUpdate', 0],
+            UserEvents::INSERT                 => ['onInsert', 0],
+            UserEvents::UPDATE                 => ['onUpdate', 0],
             UserEvents::POST_GENERATE_PASSWORD => ['onPostGeneratePassword', 0],
         ];
     }

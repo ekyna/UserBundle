@@ -5,18 +5,18 @@
         {%- if redirect is not empty %} redirect="{{ redirect }}"{% endif %}><![CDATA[
     {% if user is not same as(null) %}
         <div class="user-widget-menu">
-        {{ knp_menu_render('user_widget', {
-            'template': '@EkynaUser/menu.html.twig',
+        {{ knp_menu_render('ekyna_user.widget', {
+            'template': '@EkynaUi/Menu/menu.html.twig',
             'style': 'stacked-pills'
         }) }}
         </div>
     {% else %}
         <div class="sign-in-or-register">
-            <a href="{{ path('fos_user_security_login') }}" class="btn btn-primary" data-user-modal>
-                {{ 'ekyna_core.button.login'|trans }}
+            <a href="{{ path('ekyna_user_security_login') }}" class="btn btn-primary" data-user-modal>
+                {{ 'button.login'|trans({}, 'EkynaUi') }}
             </a>
-            <a href="{{ path('fos_user_registration_register') }}" class="btn btn-default">
-                {{ 'ekyna_user.account.registration.button'|trans }}
+            <a href="{{ path('ekyna_user_account_registration') }}" class="btn btn-default">
+                {{ 'account.registration.button'|trans({}, 'EkynaUser') }}
             </a>
         </div>
     {% endif %}

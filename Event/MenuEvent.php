@@ -1,45 +1,28 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ekyna\Bundle\UserBundle\Event;
 
 use Ekyna\Bundle\UserBundle\Model\UserInterface;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 /**
  * Class MenuEvent
  * @package Ekyna\Bundle\UserBundle\Event
  * @author  Etienne Dauvergne <contact@ekyna.com>
  */
-class MenuEvent extends Event
+final class MenuEvent extends Event
 {
-    const CONFIGURE_ACCOUNT = 'ekyna_user.menu.configure_account';
-    const CONFIGURE_WIDGET  = 'ekyna_user.menu.configure_widget';
+    public const CONFIGURE_ACCOUNT = 'ekyna_user.menu.configure_account';
+    public const CONFIGURE_WIDGET  = 'ekyna_user.menu.configure_widget';
 
-    /**
-     * @var FactoryInterface
-     */
-    private $factory;
+    private FactoryInterface $factory;
+    private ItemInterface    $menu;
+    private ?UserInterface   $user;
 
-    /**
-     * @var ItemInterface
-     */
-    private $menu;
-
-    /**
-     * @var UserInterface
-     */
-    private $user;
-
-
-    /**
-     * Constructor.
-     *
-     * @param FactoryInterface $factory
-     * @param ItemInterface    $menu
-     * @param UserInterface    $user
-     */
     public function __construct(FactoryInterface $factory, ItemInterface $menu, UserInterface $user = null)
     {
         $this->factory = $factory;
@@ -47,32 +30,17 @@ class MenuEvent extends Event
         $this->user = $user;
     }
 
-    /**
-     * Returns the menu factory.
-     *
-     * @return \Knp\Menu\FactoryInterface
-     */
-    public function getFactory()
+    public function getFactory(): FactoryInterface
     {
         return $this->factory;
     }
 
-    /**
-     * Returns the menu item.
-     *
-     * @return \Knp\Menu\ItemInterface
-     */
-    public function getMenu()
+    public function getMenu(): ItemInterface
     {
         return $this->menu;
     }
 
-    /**
-     * Returns the user.
-     *
-     * @return UserInterface
-     */
-    public function getUser()
+    public function getUser(): ?UserInterface
     {
         return $this->user;
     }

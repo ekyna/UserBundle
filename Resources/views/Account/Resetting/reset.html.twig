@@ -1,0 +1,35 @@
+{% extends '@EkynaUser/base.html.twig' %}
+
+{% block content %}
+    <div class="container">
+        {% block title -%}
+        <h1>{{ 'account.resetting.title'|trans({}, 'EkynaUser') }}</h1>
+        <hr>
+        {%- endblock title %}
+
+        {{ bootstrap_set_style('horizontal') }}
+        {{ bootstrap_set_col_size('md') }}
+        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+        <div class="row">
+            <div class="col-md-6">
+                {{ form_row(form.plainPassword.first, {'label_col': 4, 'widget_col': 8}) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_row(form.plainPassword.second, {'label_col': 4, 'widget_col': 8}) }}
+            </div>
+        </div>
+
+        {% block form_rest %}{% endblock form_rest %}
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn btn-primary">
+                    {{- 'account.resetting.button'|trans({}, 'EkynaUser') -}}
+                </button>
+            </div>
+        </div>
+
+        {{ form_end(form) }}
+    </div>
+{% endblock content %}

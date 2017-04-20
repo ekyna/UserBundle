@@ -1,0 +1,40 @@
+namespaces:
+    ekyna_user:
+        label: label
+        trans_domain: EkynaUser
+        prefix: /user
+
+resources:
+    ekyna_user:
+        user:
+            driver: doctrine/orm
+            entity:
+                interface: Ekyna\Bundle\UserBundle\Model\UserInterface
+                class: Ekyna\Bundle\UserBundle\Entity\User
+            repository:
+                interface: Ekyna\Bundle\UserBundle\Repository\UserRepositoryInterface
+                class: Ekyna\Bundle\UserBundle\Repository\UserRepository
+            manager:
+                interface: Ekyna\Bundle\UserBundle\Manager\UserManagerInterface
+                class: Ekyna\Bundle\UserBundle\Manager\UserManager
+            factory:
+                interface: Ekyna\Bundle\UserBundle\Factory\UserFactoryInterface
+                class: Ekyna\Bundle\UserBundle\Factory\UserFactory
+            normalizer: Ekyna\Bundle\UserBundle\Service\Serializer\UserNormalizer
+            search:
+                class: Ekyna\Bundle\UserBundle\Service\Search\UserRepository
+            form: Ekyna\Bundle\UserBundle\Form\Type\UserType
+            table: Ekyna\Bundle\UserBundle\Table\Type\UserType
+            trans_domain: EkynaUser
+            actions:
+                api_crud:
+                    search:
+                        parameters: [roles]
+                admin_crud:
+                    read: '@EkynaUser/Admin/User/read.html.twig'
+                    form: '@EkynaUser/Admin/User/_form.html.twig'
+                admin_toggle:
+                    properties: enabled
+                Ekyna\Bundle\UserBundle\Action\User\GeneratePasswordAction: ~
+                Ekyna\Bundle\UserBundle\Action\User\ClearPasswordRequestAction: ~
+                Ekyna\Bundle\UserBundle\Action\User\UseSessionAction: ~

@@ -1,0 +1,27 @@
+{% extends '@EkynaUser/base.html.twig' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>{{ 'account.registration.title'|trans({}, 'EkynaUser') }}</h1>
+                <hr>
+                {{ bootstrap_set_style('horizontal') }}
+                {{ bootstrap_set_col_size('md') }}
+                {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+                {{ form_row(form.email) }}
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <button type="submit" class="btn btn-primary">
+                            {{- 'account.registration.button'|trans({}, 'EkynaUser') -}}
+                        </button>
+                    </div>
+                </div>
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock content %}

@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ekyna\Bundle\UserBundle\Service\Account;
 
 use Ekyna\Bundle\UserBundle\Model\UserInterface;
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
+use Twig\Environment;
 
 /**
  * Class WidgetRenderer
@@ -12,33 +14,31 @@ use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
  */
 class WidgetRenderer
 {
-    /**
-     * @var EngineInterface
-     */
-    private $templating;
+    private Environment $twig;
 
 
     /**
      * Constructor.
      *
-     * @param EngineInterface $templating
+     * @param Environment $twig
      */
-    public function __construct(EngineInterface $templating)
+    public function __construct(Environment $twig)
     {
-        $this->templating = $templating;
+        $this->twig = $twig;
     }
 
     /**
      * Renders the XHR response content.
      *
-     * @param UserInterface $user
-     * @param string        $redirect
+     * @param UserInterface|null $user
+     * @param string|null        $redirect
      *
      * @return string
      */
-    public function render(UserInterface $user = null, string $redirect = null)
+    public function render(UserInterface $user = null, string $redirect = null): string
     {
-        return $this->templating->render('@EkynaUser/widget.xml.twig', [
+        /** @noinspection PhpUnhandledExceptionInspection */
+        return $this->twig->render('@EkynaUser/widget.xml.twig', [
             'user'     => $user,
             'redirect' => $redirect,
         ]);

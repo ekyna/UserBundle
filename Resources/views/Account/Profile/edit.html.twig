@@ -1,0 +1,25 @@
+{% extends '@EkynaUser/layout.html.twig' %}
+
+{% block account %}
+    {% block title -%}
+    <h1>{{ 'account.profile.edit'|trans({}, 'EkynaUser') }}</h1>
+    <hr>
+    {%- endblock title %}
+
+    {{ bootstrap_set_style('horizontal') }}
+    {{ bootstrap_set_col_size('md') }}
+    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+    {{ form_row(form.email, {'label_col': 4, 'widget_col': 8}) }}
+    {{ form_row(form.currentPassword, {'label_col': 4, 'widget_col': 8}) }}
+
+    <div class="form-group">
+        <div class="col-md-offset-4 col-md-8">
+            <button type="submit" class="btn btn-primary">
+                {{- 'button.save'|trans({}, 'EkynaUi') -}}
+            </button>
+        </div>
+    </div>
+
+    {{ form_end(form) }}
+{% endblock account %}

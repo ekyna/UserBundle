@@ -1,0 +1,85 @@
+ekyna_user_account_registration:
+    path:
+        en: ''
+        fr: ''
+        es: ''
+    controller: Ekyna\Bundle\UserBundle\Controller\Account\RegistrationController::index
+    methods: GET|POST
+    options:
+        ekyna_i18n: ~
+        _cms:
+            name: Inscription
+            parent: ekyna_user_account_index
+            seo:
+                follow: false
+                index: false
+
+ekyna_user_account_registration_email:
+    path:
+        en: /check-email
+        fr: /verification-email
+        es: /verificacion-email
+    controller: Ekyna\Bundle\UserBundle\Controller\Account\RegistrationController::email
+    methods: GET|POST
+    options:
+        ekyna_i18n: ~
+        _cms:
+            name: Confirmez votre adresse email
+            parent: ekyna_user_account_registration
+            seo:
+                follow: false
+                index: false
+
+ekyna_user_account_registration_check:
+    path:
+        en: /check-email/{token}
+        fr: /verification-email/{token}
+        es: /verificacion-email/{token}
+    controller: Ekyna\Bundle\UserBundle\Controller\Account\RegistrationController::check
+    methods: GET
+    requirements:
+        token: '[a-zA-Z0-9]{64}'
+    options:
+        ekyna_i18n: ~
+        _cms:
+            name: Consultez votre boite mail
+            parent: ekyna_user_account_registration
+            seo:
+                follow: false
+                index: false
+
+ekyna_user_account_registration_register:
+    path:
+        en: /register/{token}
+        fr: /inscrire/{token}
+        es: /registrarse/{token}
+    controller: Ekyna\Bundle\UserBundle\Controller\Account\RegistrationController::register
+    methods: GET|POST
+    requirements:
+        token: '[a-zA-Z0-9]{64}'
+    options:
+        ekyna_i18n: ~
+        _cms:
+            name: Créer un compte client
+            parent: ekyna_user_account_registration
+            seo:
+                follow: false
+                index: false
+
+ekyna_user_account_registration_confirmed:
+    path:
+        en: /confirmed/{token}
+        fr: /confirmation/{token}
+        es: /confirmado/{token}
+    controller: Ekyna\Bundle\UserBundle\Controller\Account\RegistrationController::confirmed
+    methods: GET
+    requirements:
+        token: '[a-zA-Z0-9]{64}'
+    options:
+        ekyna_i18n: ~
+        _cms:
+            name: Confirmation
+            parent: ekyna_user_account_registration
+            seo:
+                follow: false
+                index: false

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ekyna\Bundle\UserBundle\Event;
 
 /**
@@ -10,25 +12,22 @@ namespace Ekyna\Bundle\UserBundle\Event;
 final class UserEvents
 {
     // Persistence
-    const INSERT      = 'ekyna_user.user.insert';
-    const UPDATE      = 'ekyna_user.user.update';
-    const DELETE      = 'ekyna_user.user.delete';
+    public const INSERT      = 'ekyna_user.user.insert';
+    public const UPDATE      = 'ekyna_user.user.update';
+    public const DELETE      = 'ekyna_user.user.delete';
 
     // Domain
-    const INITIALIZE  = 'ekyna_user.user.initialize';
+    public const PRE_CREATE  = 'ekyna_user.user.pre_create';
+    public const POST_CREATE = 'ekyna_user.user.post_create';
 
-    const PRE_CREATE  = 'ekyna_user.user.pre_create';
-    const POST_CREATE = 'ekyna_user.user.post_create';
+    public const PRE_UPDATE  = 'ekyna_user.user.pre_update';
+    public const POST_UPDATE = 'ekyna_user.user.post_update';
 
-    const PRE_UPDATE  = 'ekyna_user.user.pre_update';
-    const POST_UPDATE = 'ekyna_user.user.post_update';
+    public const PRE_DELETE  = 'ekyna_user.user.pre_delete';
+    public const POST_DELETE = 'ekyna_user.user.post_delete';
 
-    const PRE_DELETE  = 'ekyna_user.user.pre_delete';
-    const POST_DELETE = 'ekyna_user.user.post_delete';
-
-    const PRE_GENERATE_PASSWORD  = 'ekyna_user.user.pre_generate_password';
-    const POST_GENERATE_PASSWORD = 'ekyna_user.user.post_generate_password';
-
+    public const PRE_GENERATE_PASSWORD  = 'ekyna_user.user.pre_generate_password';
+    public const POST_GENERATE_PASSWORD = 'ekyna_user.user.post_generate_password';
 
     /**
      * Disabled constructor.

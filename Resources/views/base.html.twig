@@ -15,21 +15,21 @@
 
     {% block stylesheets -%}
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
-        <link href="{{ absolute_url(asset('bundles/ekynacore/css/fontawesome.css')) }}" rel="stylesheet" type="text/css" />
-        <link href="{{ absolute_url(asset('bundles/ekynacore/css/glyphicons.css')) }}" rel="stylesheet" type="text/css" />
+        <link href="{{ absolute_url(asset('bundles/ekynaui/css/fontawesome.css')) }}" rel="stylesheet" type="text/css" />
+        <link href="{{ absolute_url(asset('bundles/ekynaui/css/glyphicons.css')) }}" rel="stylesheet" type="text/css" />
     {%- endblock stylesheets %}
 
     {{ ui_fonts_stylesheets() }}
     {{ ui_forms_stylesheets() }}
 
-    {% include '@EkynaCore/Ui/ie-fix.html.twig' %}
+    {% include '@EkynaUi/Fix/ie.html.twig' %}
 
     {{ require_js(not app.debug) }}
 </head>
 <body>
 {% block body %}
 
-    {%- include '@EkynaCore/Ui/flashes.html.twig' -%}
+    {%- include '@EkynaUi/flashes.html.twig' -%}
 
     {% block content %}{% endblock content %}
 

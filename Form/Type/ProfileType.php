@@ -1,46 +1,59 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ekyna\Bundle\UserBundle\Form\Type;
 
-use Ekyna\Bundle\UserBundle\Form\EventListener\UserFormSubscriber;
-use FOS\UserBundle\Form\Type\ProfileFormType;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
+use Symfony\Component\Validator\Constraints\NotBlank;
+
+use function Symfony\Component\Translation\t;
 
 /**
  * Class ProfileType
  * @package Ekyna\Bundle\UserBundle\Form\Type
  * @author  Étienne Dauvergne <contact@ekyna.com>
  */
-class ProfileType extends ProfileFormType
+class ProfileType extends AbstractType
 {
-    /**
-     * @var bool
-     */
-    private $usernameEnabled;
+    private string $userClass;
 
-
-    /**
-     * @param string $class
-     * @param array  $config
-     */
-    public function __construct($class, array $config)
+    public function __construct(string $userClass)
     {
-        parent::__construct($class);
-
-        $this->usernameEnabled = $config['account']['username'];
+        $this->userClass = $userClass;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        parent::buildForm($builder, $options);
+        $builder
+            ->add('email', EmailType::class, [
+                'label' => t('field.email_address', [], 'EkynaUi'),
+            ])
+            ->add('currentPassword', PasswordType::class, [
+                'label'       => t('account.change_password.current', [], 'EkynaUser'),
+                'mapped'      => false,
+                'constraints' => [
+                    new NotBlank(),
+                    new UserPassword([
+                        'message' => 'ekyna_user.current_password.invalid',
+                    ]),
+                ],
+                'attr'        => [
+                    'autocomplete' => 'current-password',
+                ],
+            ]);
+    }
 
-        if (!$this->usernameEnabled) {
-            $builder->remove('username');
-
-            $builder->addEventSubscriber(new UserFormSubscriber());
-        }
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class'        => $this->userClass,
+            'validation_groups' => ['Default', 'Profile'],
+        ]);
     }
 }

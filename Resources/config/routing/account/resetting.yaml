@@ -1,0 +1,67 @@
+ekyna_user_account_resetting:
+    path:
+        en: ''
+        fr: ''
+        es: ''
+    controller: Ekyna\Bundle\UserBundle\Controller\Account\ResettingController::index
+    methods: GET|POST
+    options:
+        ekyna_i18n: ~
+        _cms:
+            name: Réinitialisez votre mot de passe
+            parent: ekyna_user_account_index
+            seo:
+                follow: false
+                index: false
+
+ekyna_user_account_resetting_sent:
+    path:
+        en: /email-sent
+        fr: /email-envoye
+        es: /email-enviado
+    controller: Ekyna\Bundle\UserBundle\Controller\Account\ResettingController::sent
+    methods: GET
+    options:
+        ekyna_i18n: ~
+        _cms:
+            name: Consultez votre boite mail
+            parent: ekyna_user_account_resetting
+            seo:
+                follow: false
+                index: false
+
+ekyna_user_account_resetting_reset:
+    path:
+        en: /reset/{token}
+        fr: /reinitialiser/{token}
+        es: /reiniciar/{token}
+    controller: Ekyna\Bundle\UserBundle\Controller\Account\ResettingController::reset
+    methods: GET|POST
+    requirements:
+        token: '[a-zA-Z0-9-_]+'
+    options:
+        ekyna_i18n: ~
+        _cms:
+            name: Changez votre mot de passe
+            parent: ekyna_user_account_resetting
+            seo:
+                follow: false
+                index: false
+
+ekyna_user_account_resetting_confirmed:
+    path:
+        en: /confirmed/{token}
+        fr: /confirmation/{token}
+        es: /confirmado/{token}
+    controller: Ekyna\Bundle\UserBundle\Controller\Account\ResettingController::confirmed
+    methods: GET
+    requirements:
+        token: '[a-zA-Z0-9-_]+'
+    options:
+        ekyna_i18n: ~
+        _cms:
+            name: Confirmation du changement de mot de passe
+            parent: ekyna_user_account_resetting
+            seo:
+                follow: false
+                index: false

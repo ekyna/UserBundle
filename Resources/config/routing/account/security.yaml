@@ -1,0 +1,38 @@
+ekyna_user_security_login:
+    path:
+        en: /login
+        fr: /connexion
+        es: /iniciar-sesion
+    controller: Ekyna\Bundle\UserBundle\Controller\SecurityController::login
+    methods: GET|POST
+    options:
+        expose: true
+        ekyna_i18n: ~
+        _cms:
+            name: Connexion
+            parent: ekyna_user_account_index
+            seo:
+                follow: false
+                index: false
+
+ekyna_user_security_check:
+    path: /check
+    controller: Ekyna\Bundle\UserBundle\Controller\SecurityController::check
+
+ekyna_user_security_logout:
+    path:
+        en: /logout
+        fr: /deconnection
+        es: /cerrar-la-sesion
+    controller: Ekyna\Bundle\UserBundle\Controller\SecurityController::logout
+    options:
+        ekyna_i18n: ~
+
+ekyna_user_security_login_link_check:
+    path:
+        en: /login/token
+        fr: /connexion/jeton
+        es: /iniciar-sesion/senal
+    methods: GET
+    options:
+        ekyna_i18n: ~

@@ -1,6 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ekyna\Bundle\UserBundle\Model;
+
+use Symfony\Contracts\Translation\TranslatableInterface;
 
 /**
  * Class DashboardWidgetButton
@@ -9,79 +13,39 @@ namespace Ekyna\Bundle\UserBundle\Model;
  */
 class DashboardWidgetButton
 {
-    /**
-     * @var string
-     */
-    private $title;
+    private TranslatableInterface $title;
+    private string                $route;
+    private array                 $parameters;
+    private string                $theme;
 
-    /**
-     * @var string
-     */
-    private $route;
-
-    /**
-     * @var array
-     */
-    private $parameters;
-
-    /**
-     * @var string
-     */
-    private $theme;
-
-
-    /**
-     * Constructor.
-     *
-     * @param string $title
-     * @param string $route
-     * @param array  $parameters
-     * @param string $theme
-     */
-    public function __construct($title, $route, array $parameters = [], $theme = 'default')
-    {
+    public function __construct(
+        TranslatableInterface $title,
+        string                $route,
+        array                 $parameters = [],
+        string                $theme = 'default'
+    ) {
         $this->title = $title;
         $this->route = $route;
         $this->parameters = $parameters;
         $this->theme = $theme;
     }
 
-    /**
-     * Returns the title.
-     *
-     * @return string
-     */
-    public function getTitle()
+    public function getTitle(): TranslatableInterface
     {
         return $this->title;
     }
 
-    /**
-     * Returns the route.
-     *
-     * @return string
-     */
-    public function getRoute()
+    public function getRoute(): string
     {
         return $this->route;
     }
 
-    /**
-     * Returns the parameters.
-     *
-     * @return array
-     */
-    public function getParameters()
+    public function getParameters(): array
     {
         return $this->parameters;
     }
 
-    /**
-     * Returns the theme.
-     *
-     * @return string
-     */
-    public function getTheme()
+    public function getTheme(): string
     {
         return $this->theme;
     }

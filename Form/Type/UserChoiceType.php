@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ekyna\Bundle\UserBundle\Form\Type;
 
 use Doctrine\ORM\EntityRepository;
@@ -8,38 +10,31 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+use function Symfony\Component\Translation\t;
+
 /**
  * Class UserChoiceType
- * @package Ekyna\Bundle\UserBundle\Form\Type
- * @author  Etienne Dauvergne <contact@ekyna.com>
+ * @package    Ekyna\Bundle\UserBundle\Form\Type
+ * @author     Etienne Dauvergne <contact@ekyna.com>
+ *
+ * @deprecated User resource choice type (?)
+ * @TODO Remove
  */
 class UserChoiceType extends AbstractType
 {
-    /**
-     * @var string
-     */
-    private $userClass;
+    private string $userClass;
 
-
-    /**
-     * Constructor.
-     *
-     * @param string $userClass
-     */
-    public function __construct($userClass)
+    public function __construct(string $userClass)
     {
         $this->userClass = $userClass;
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setDefaults([
-                'label'         => 'ekyna_user.user.label.singular',
-                'placeholder'   => 'ekyna_core.value.choose',
+                'label'         => t('user.label.singular', [], 'EkynaUser'),
+                'placeholder'   => 'value.choose',
                 'class'         => $this->userClass,
                 'roles'         => [],
                 'select2'       => false,
@@ -74,10 +69,7 @@ class UserChoiceType extends AbstractType
             ->setAllowedTypes('roles', 'array');
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function getParent()
+    public function getParent(): ?string
     {
         return EntityType::class;
     }

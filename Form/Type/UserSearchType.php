@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ekyna\Bundle\UserBundle\Form\Type;
 
-use Ekyna\Bundle\CoreBundle\Form\Type\EntitySearchType;
+use Ekyna\Bundle\ResourceBundle\Form\Type\ResourceSearchType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -14,38 +16,16 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class UserSearchType extends AbstractType
 {
-    /**
-     * @var string
-     */
-    private $userClass;
-
-
-    /**
-     * Constructor.
-     *
-     * @param string $userClass
-     */
-    public function __construct($userClass)
-    {
-        $this->userClass = $userClass;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
             ->setDefaults([
-                'label'     => 'ekyna_user.user.label.singular',
-                'class'     => $this->userClass,
-                'route'     => 'ekyna_user_user_admin_search',
-                'add_route' => 'ekyna_user_user_admin_new',
-                'required'  => true,
-                'roles'     => [],
+                'resource' => 'ekyna_user.user',
+                'required' => true,
+                'roles'    => [],
             ])
             ->setAllowedTypes('roles', 'array')
-            ->setNormalizer('route_params', function (Options $options, $value) {
+            ->setNormalizer('search_parameters', function (Options $options, $value) {
                 if (!isset($value['roles'])) {
                     $value['roles'] = $options['roles'];
                 }
@@ -54,11 +34,8 @@ class UserSearchType extends AbstractType
             });
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getParent()
+    public function getParent(): ?string
     {
-        return EntitySearchType::class;
+        return ResourceSearchType::class;
     }
 }

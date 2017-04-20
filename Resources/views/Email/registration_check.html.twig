@@ -1,0 +1,12 @@
+{% extends "email.html.twig" %}
+
+{% block subject %}
+{{ 'email.registration.title'|trans({}, 'EkynaUser') }}
+{% endblock subject %}
+
+{% block body %}
+{{ 'email.registration.message'|trans({
+    '%sitename%': sitename,
+    '%register_url%': register_url,
+}, 'EkynaUser')|raw }}
+{% endblock body %}

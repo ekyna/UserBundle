@@ -1,41 +1,81 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ekyna\Bundle\UserBundle\Controller;
 
-use Ekyna\Bundle\CoreBundle\Controller\Controller;
 use Ekyna\Bundle\UserBundle\Event\DashboardEvent;
 use Ekyna\Bundle\UserBundle\Model\UserInterface;
+use Ekyna\Bundle\UserBundle\Service\Account\WidgetRenderer;
+use Ekyna\Component\User\Service\UserProvider;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Twig\Environment;
 
 /**
  * Class AccountController
  * @package Ekyna\Bundle\UserBundle\Controller
  * @author  Étienne Dauvergne <contact@ekyna.com>
  */
-class AccountController extends Controller
+class AccountController
 {
+    private Environment $twig;
+    private UrlGeneratorInterface $urlGenerator;
+    private EventDispatcherInterface $eventDispatcher;
+    private WidgetRenderer $widgetRenderer;
+    private UserProvider $userProvider;
+
+
+    /**
+     * Constructor.
+     *
+     * @param Environment              $twig
+     * @param UrlGeneratorInterface    $urlGenerator
+     * @param EventDispatcherInterface $eventDispatcher
+     * @param WidgetRenderer           $widgetRenderer
+     * @param UserProvider             $userProvider
+     */
+    public function __construct(
+        Environment $twig,
+        UrlGeneratorInterface $urlGenerator,
+        EventDispatcherInterface $eventDispatcher,
+        WidgetRenderer $widgetRenderer,
+        UserProvider $userProvider
+    ) {
+        $this->twig = $twig;
+        $this->urlGenerator = $urlGenerator;
+        $this->eventDispatcher = $eventDispatcher;
+        $this->widgetRenderer = $widgetRenderer;
+        $this->userProvider = $userProvider;
+    }
+
     /**
      * Account index action.
      *
      * @return Response
      */
-    public function indexAction(): Response
+    public function index(): Response
     {
-        $user = $this->getUser();
-        if (!is_object($user) || !$user instanceof UserInterface) {
-            return $this->redirect($this->generateUrl('fos_user_security_login', [
-                'target_path' => 'ekyna_user_account_index'
-            ]));
+        if (!$this->getUser()) {
+            throw new AccessDeniedException();
         }
 
         $event = new DashboardEvent($this->getUser());
 
-        $this->getDispatcher()->dispatch(DashboardEvent::DASHBOARD, $event);
+        $this->eventDispatcher->dispatch($event);
 
-        return $this->render('@EkynaUser/Account/index.html.twig', [
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $content = $this->twig->render('@EkynaUser/Account/index.html.twig', [
             'widgets' => $event->getWidgets(),
         ]);
+
+        $response = new Response($content);
+
+        return $response->setPrivate();
     }
 
     /**
@@ -45,13 +85,15 @@ class AccountController extends Controller
      *
      * @return Response
      */
-    public function widgetAction(Request $request): Response
+    public function widget(Request $request): Response
     {
         if (!$request->isXmlHttpRequest()) {
-            return $this->redirectToRoute('ekyna_user_account_index');
+            return new RedirectResponse(
+                $this->urlGenerator->generate('ekyna_user_account_index')
+            );
         }
 
-        $content = $this->get('ekyna_user.account.widget_renderer')->render($this->getUser());
+        $content = $this->widgetRenderer->render($this->getUser());
 
         $response = new Response($content);
         $response->headers->set('Content-Type', 'application/xml');
@@ -62,8 +104,9 @@ class AccountController extends Controller
     /**
      * @return UserInterface|null
      */
-    public function getUser(): ?UserInterface
+    protected function getUser(): ?UserInterface
     {
-        return $this->get('ekyna_user.user.provider')->getUser();
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
+        return $this->userProvider->getUser();
     }
 }

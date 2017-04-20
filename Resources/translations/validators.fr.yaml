@@ -1,0 +1,9 @@
+ekyna_user:
+    email:
+        mismatch: Les deux adresses email ne sont pas identiques.
+    password:
+        blank: Veuillez saisir un mot de passe et sa confirmation.
+        short: Le mot de passe est trop court.
+        mismatch: Les deux mots de passe ne sont pas identiques.
+    current_password:
+        invalid: Le mot de passe n'est pas valide.

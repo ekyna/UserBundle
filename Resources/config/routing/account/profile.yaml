@@ -1,0 +1,31 @@
+ekyna_user_account_profile:
+    path:
+        en: ''
+        fr: ''
+        es: ''
+    controller: Ekyna\Bundle\UserBundle\Controller\Account\ProfileController::index
+    methods: GET
+    options:
+        ekyna_i18n: ~
+        _cms:
+            name: Mon profil
+            parent: ekyna_user_account_index
+            seo:
+                follow: false
+                index: false
+
+ekyna_user_account_profile_edit:
+    path:
+        en: /edit
+        fr: /modifier
+        es: /modificar
+    controller: Ekyna\Bundle\UserBundle\Controller\Account\ProfileController::edit
+    methods: GET|POST
+    options:
+        ekyna_i18n: ~
+        _cms:
+            name: Modifiez vos informations
+            parent: ekyna_user_account_profile
+            seo:
+                follow: false
+                index: false

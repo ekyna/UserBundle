@@ -1,7 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ekyna\Bundle\UserBundle\Twig;
 
+use Exception;
+use InvalidArgumentException;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -12,10 +16,7 @@ use Twig\TwigFunction;
  */
 class UserExtension extends AbstractExtension
 {
-    /**
-     * @var array
-     */
-    protected $config;
+    protected array $accountConfig;
 
 
     /**
@@ -25,13 +26,13 @@ class UserExtension extends AbstractExtension
      */
     public function __construct(array $config)
     {
-        $this->config = $config;
+        $this->accountConfig = $config;
     }
 
     /**
      * @inheritDoc
      */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction(
@@ -48,12 +49,19 @@ class UserExtension extends AbstractExtension
      *
      * @return mixed
      */
-    public function getAccountVar($key)
+    public function getAccountVar(string $key)
     {
-        if (!isset($this->config['account'][$key])) {
-            throw new \InvalidArgumentException("Account var '$key' is not defined.");
+        $config = $this->accountConfig;
+        $keys = explode('.', $key);
+
+        foreach ($keys as $key) {
+            if (!isset($config[$key])) {
+                throw new InvalidArgumentException("Key '$key' is not defined.");
+            }
+
+            $config = $config[$key];
         }
 
-        return $this->config['account'][$key];
+        return $config;
     }
 }

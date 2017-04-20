@@ -3,19 +3,19 @@
 {% block content %}
 <div class="container">
     <div class="row">
-        <div class="col-md-6{% if not ekyna_user_account_var('register') %} col-md-offset-3{% endif %}">
+        <div class="col-md-6{% if not ekyna_user_account_var('registration.enabled') %} col-md-offset-3{% endif %}">
             <h3>Connectez-vous à votre compte client</h3>
             <hr>
             {% include '@EkynaUser/Security/login_form.html.twig' %}
         </div>
-        {% if ekyna_user_account_var('register') %}
+        {% if ekyna_user_account_var('registration.enabled') %}
         <div class="col-md-6" id="user-account-content">
             <h3>Créez votre compte client</h3>
             <hr>
             <p>Grâce à votre compte client ...</p>
             <p>
-                <a href="{{ path('fos_user_registration_register') }}" class="btn btn-primary">
-                    {{ 'ekyna_user.account.registration.button'|trans }}
+                <a href="{{ path('ekyna_user_account_registration') }}" class="btn btn-primary">
+                    {{ 'account.registration.button'|trans({}, 'EkynaUser') }}
                 </a>
             </p>
         </div>

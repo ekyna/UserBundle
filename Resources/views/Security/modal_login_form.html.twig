@@ -1,38 +1,78 @@
 {% apply spaceless %}
-{%- set owners = hwi_oauth_resource_owners() -%}
-{%- if owners is not empty -%}
-    {%- for owner in hwi_oauth_resource_owners() -%}
-        <div class="form-group">
-            <a href="{{ hwi_oauth_login_url(owner) }}" class="btn btn-block btn-social btn-{{ owner }}">
-                <span class="fa fa-{{ owner }}"></span> {{ owner|capitalize }}
+<form action="{{ path('ekyna_user_security_login') }}" class="modal-form" method="post">
+    {# OAuth providers #}
+    {%- set owners = oauth_owners('ekyna_user') -%}
+    {%- if owners is not empty -%}
+        <div class="form-group" style="padding:0 15px;">
+            {%- for owner, route in owners -%}
+                {%- if loop.index0 % 2 == 0 %}<div class="row">{% endif -%}
+                <div class="col-md-6">
+                    <a href="{{ path(route) }}" class="btn btn-block btn-social btn-{{ owner }}">
+                        <span class="fa fa-{{ owner }}"></span> {{ owner|capitalize }}
+                    </a>
+                </div>
+                {%- if loop.last or loop.index % 2 == 0 %}</div>{% endif -%}
+            {%- endfor -%}
+        </div>
+        <hr>
+    {%- endif -%}
+
+    {# Alerts #}
+    {% if app.user %}
+        <div class="alert alert-info">
+            {{ 'field.logged_in_as'|trans({'{user}': app.user.userIdentifier}, 'EkynaUi')|raw }}<br>
+            <a href="{{ path('ekyna_user_security_logout') }}">
+                {{ 'button.logout'|trans({}, 'EkynaUi') }}
             </a>
         </div>
-    {%- endfor -%}
-    <hr>
-{%- endif -%}
-
-{{ form_start(form) }}
-
-    {{ form_errors(form, {'global_errors': true}) }}
-
-    {{ form_row(form._username) }}
-    {{ form_row(form._password) }}
-    {% if form.vars.remember_me %}
-    <div class="text-center">
-        {{ form_row(form[form.vars.remember_me]) }}
-    </div>
     {% endif %}
-    {{ form_row(form._target_path) }}
+    {% if error %}
+        <div class="alert alert-danger">
+            {{ error.messageKey|trans(error.messageData, 'security') }}
+        </div>
+    {% endif %}
 
-    {{ form_rest(form) }}
+    {# Email #}
+    <div class="form-group">
+        <label class="control-label required" for="email">
+            {{ 'field.email_address'|trans({}, 'EkynaUi') }}
+        </label>
+        <input type="text" id="email" name="email" required="required" class="form-control">
+    </div>
+
+    {# Password #}
+    <div class="form-group">
+        <label class="control-label required" for="password">
+            {{ 'field.password'|trans({}, 'EkynaUi') }}
+        </label>
+        <input type="password" id="password" name="password" required="required" class="form-control">
+    </div>
+
+    {# Remember me #}
+    <div class="form-group">
+        <div class="checkbox text-center">
+            <label for="remember_me">
+                <input type="checkbox" id="remember_me" name="{{ remember_me }}" value="1">
+                {{ 'field.remember_me'|trans({}, 'EkynaUi') }}
+            </label>
+        </div>
+    </div>
+
+    {# Target path #}
+    {% if target_path is not empty %}
+        <input type="hidden" id="target_path" name="target_path" class="form-control" value="{{ target_path }}">
+    {% endif %}
+
+    {# CSRF #}
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
 
     {% if ekyna_user_account_var('resetting') -%}
     <p class="text-center">
-        <a href="{{ path('fos_user_resetting_request') }}">
-            {{ 'ekyna_user.account.resetting.button'|trans }}
+        <a href="{{ path('ekyna_user_account_resetting') }}">
+            {{ 'account.resetting.button'|trans({}, 'EkynaUser') }}
         </a>
     </p>
     {%- endif %}
 
-{{ form_end(form) }}
+</form>
 {% endapply %}

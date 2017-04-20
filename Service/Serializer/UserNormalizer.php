@@ -1,35 +1,35 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ekyna\Bundle\UserBundle\Service\Serializer;
 
 use Ekyna\Bundle\UserBundle\Model;
-use Ekyna\Component\Resource\Serializer\AbstractResourceNormalizer;
+use Ekyna\Component\Resource\Bridge\Symfony\Serializer\ResourceNormalizer;
 
 /**
  * Class UserNormalizer
  * @package Ekyna\Bundle\UserBundle\Service\Serializer
  * @author  Etienne Dauvergne <contact@ekyna.com>
  */
-class UserNormalizer extends AbstractResourceNormalizer
+class UserNormalizer extends ResourceNormalizer
 {
     /**
-     * @inheritdoc
+     * @inheritDoc
      *
-     * @param Model\UserInterface $user
+     * @param Model\UserInterface $object
      */
-    public function normalize($user, $format = null, array $context = [])
+    public function normalize($object, string $format = null, array $context = [])
     {
         if ($format === 'csv' && $this->contextHasGroup('TableExport', $context)) {
-            return (string)$user;
+            return (string)$object;
         }
 
-        $data = parent::normalize($user, $format, $context);
+        $data = parent::normalize($object, $format, $context);
 
         if ($this->contextHasGroup(['Default', 'User', 'Search'], $context)) {
             $data = array_replace([
-                'username' => $user->getUsername(),
-                'email'    => $user->getEmail(),
-                'group'    => $user->getGroup()->getId(),
+                'email' => $object->getEmail(),
             ], $data);
         }
 
@@ -37,28 +37,12 @@ class UserNormalizer extends AbstractResourceNormalizer
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
-    public function denormalize($data, $class, $format = null, array $context = [])
+    public function denormalize($data, string $type, string $format = null, array $context = [])
     {
         //$resource = parent::denormalize($data, $class, $format, $context);
 
         throw new \Exception('Not yet implemented');
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function supportsNormalization($data, $format = null)
-    {
-        return $data instanceof Model\UserInterface;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function supportsDenormalization($data, $type, $format = null)
-    {
-        return class_exists($type) && is_subclass_of($type, Model\UserInterface::class);
     }
 }

@@ -1,7 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ekyna\Bundle\UserBundle\DependencyInjection;
 
+use Ekyna\Bundle\UserBundle\Entity\Token;
+use Ekyna\Bundle\UserBundle\Form\Type\ProfileType;
+use Ekyna\Bundle\UserBundle\Form\Type\RegistrationType;
+use Ekyna\Bundle\UserBundle\Form\Type\ResettingType;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -14,75 +20,141 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 class Configuration implements ConfigurationInterface
 {
     /**
-     * {@inheritDoc}
+     * @inheritDoc
      */
-    public function getConfigTreeBuilder()
+    public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('ekyna_user');
+        $builder = new TreeBuilder('ekyna_user');
 
-        $rootNode
+        $root = $builder->getRootNode();
+
+        $this->addAccountSection($root);
+        $this->addSecuritySection($root);
+
+        return $builder;
+    }
+
+    /**
+     * Adds the `account` section.
+     *
+     * @param ArrayNodeDefinition $node
+     */
+    private function addAccountSection(ArrayNodeDefinition $node)
+    {
+        $node
             ->children()
                 ->arrayNode('account')
-                    ->addDefaultsIfNotSet()
+                    ->canBeDisabled()
                     ->children()
-                        ->booleanNode('enable')->defaultFalse()->end()
-                        ->booleanNode('username')->defaultFalse()->end()
-                        ->booleanNode('register')->defaultFalse()->end()
-                        ->booleanNode('resetting')->defaultFalse()->end()
-                        ->booleanNode('profile')->defaultFalse()->end()
+                        ->arrayNode('registration')
+                            ->canBeDisabled()
+                            ->children()
+                                ->scalarNode('form')
+                                    ->defaultValue(RegistrationType::class)
+                                    ->cannotBeEmpty()
+                                ->end()
+                                ->arrayNode('template')
+                                    ->addDefaultsIfNotSet()
+                                    ->children()
+                                        ->scalarNode('email')
+                                            ->defaultValue('@EkynaUser/Account/Registration/email.html.twig')
+                                            ->cannotBeEmpty()
+                                        ->end()
+                                        ->scalarNode('check')
+                                            ->defaultValue('@EkynaUser/Account/Registration/check.html.twig')
+                                            ->cannotBeEmpty()
+                                        ->end()
+                                        ->scalarNode('register')
+                                            ->defaultValue('@EkynaUser/Account/Registration/register.html.twig')
+                                            ->cannotBeEmpty()
+                                        ->end()
+                                        ->scalarNode('confirmed')
+                                            ->defaultValue('@EkynaUser/Account/Registration/confirmed.html.twig')
+                                            ->cannotBeEmpty()
+                                        ->end()
+                                    ->end()
+                                ->end()
+                                ->scalarNode('email')
+                                    ->defaultValue('@EkynaUser/Email/registration_check.html.twig')
+                                    ->cannotBeEmpty()
+                                ->end()
+                                ->booleanNode('check')
+                                    ->defaultFalse()
+                                ->end()
+                            ->end()
+                        ->end()
+                        ->arrayNode('resetting')
+                            ->canBeDisabled()
+                            ->children()
+                                ->scalarNode('form')
+                                    ->defaultValue(ResettingType::class)
+                                    ->cannotBeEmpty()
+                                ->end()
+                                ->scalarNode('template')
+                                    ->defaultValue('@EkynaUser/Account/Resetting/reset.html.twig')
+                                    ->cannotBeEmpty()
+                                ->end()
+                                ->scalarNode('email')
+                                    ->defaultValue('@EkynaUser/Email/resetting_check.html.twig')
+                                    ->cannotBeEmpty()
+                                ->end()
+                            ->end()
+                        ->end()
+                        ->arrayNode('profile')
+                            ->canBeDisabled()
+                            ->children()
+                                ->scalarNode('form')
+                                    ->defaultValue(ProfileType::class)
+                                    ->cannotBeEmpty()
+                                ->end()
+                                ->arrayNode('template')
+                                    ->addDefaultsIfNotSet()
+                                    ->children()
+                                        ->scalarNode('index')
+                                            ->defaultValue('@EkynaUser/Account/Profile/index.html.twig')
+                                            ->cannotBeEmpty()
+                                        ->end()
+                                        ->scalarNode('edit')
+                                            ->defaultValue('@EkynaUser/Account/Profile/edit.html.twig')
+                                            ->cannotBeEmpty()
+                                        ->end()
+                                    ->end()
+                                ->end()
+                            ->end()
+                        ->end()
                     ->end()
                 ->end()
             ->end()
         ;
-
-        $this->addPoolsSection($rootNode);
-
-        return $treeBuilder;
     }
 
     /**
-     * Adds `pools` section.
+     * Adds the `security` section.
      *
      * @param ArrayNodeDefinition $node
      */
-    private function addPoolsSection(ArrayNodeDefinition $node)
+    private function addSecuritySection(ArrayNodeDefinition $node)
     {
         $node
             ->children()
-                ->arrayNode('pools')
+                ->arrayNode('security')
                     ->addDefaultsIfNotSet()
                     ->children()
-                        ->arrayNode('user')
-                            ->addDefaultsIfNotSet()
-                            ->children()
-                                ->variableNode('templates')->defaultValue([
-                                    '_form.html' => '@EkynaUser/Admin/User/_form.html',
-                                    'show.html'  => '@EkynaUser/Admin/User/show.html',
-                                ])->end()
-                                ->scalarNode('entity')->defaultValue('Ekyna\Bundle\UserBundle\Entity\User')->end()
-                                ->scalarNode('controller')->defaultValue('Ekyna\Bundle\UserBundle\Controller\Admin\UserController')->end()
-                                ->scalarNode('repository')->defaultValue('Ekyna\Bundle\UserBundle\Repository\UserRepository')->end()
-                                ->scalarNode('form')->defaultValue('Ekyna\Bundle\UserBundle\Form\Type\UserType')->end()
-                                ->scalarNode('table')->defaultValue('Ekyna\Bundle\UserBundle\Table\Type\UserType')->end()
-                                ->scalarNode('parent')->end()
-                                ->scalarNode('event')->end()
-                            ->end()
+                        ->scalarNode('remember_me')
+                            ->defaultValue('_user_remember_me')
+                            ->cannotBeEmpty()
                         ->end()
-                        ->arrayNode('group')
+                        ->arrayNode('token_expiration')
                             ->addDefaultsIfNotSet()
                             ->children()
-                                ->variableNode('templates')->defaultValue([
-                                    '_form.html' => '@EkynaUser/Admin/Group/_form.html',
-                                    'show.html'  => '@EkynaUser/Admin/Group/show.html',
-                                ])->end()
-                                ->scalarNode('entity')->defaultValue('Ekyna\Bundle\UserBundle\Entity\Group')->end()
-                                ->scalarNode('controller')->defaultValue('Ekyna\Bundle\UserBundle\Controller\Admin\GroupController')->end()
-                                ->scalarNode('repository')->defaultValue('Ekyna\Bundle\UserBundle\Repository\GroupRepository')->end()
-                                ->scalarNode('form')->defaultValue('Ekyna\Bundle\UserBundle\Form\Type\GroupType')->end()
-                                ->scalarNode('table')->defaultValue('Ekyna\Bundle\UserBundle\Table\Type\GroupType')->end()
-                                ->scalarNode('parent')->end()
-                                ->scalarNode('event')->end()
+                                ->scalarNode(Token::TYPE_REGISTRATION)
+                                    ->defaultValue('1 hour')
+                                    ->cannotBeEmpty()
+                                ->end()
+                                ->scalarNode(Token::TYPE_RESETTING)
+                                    ->defaultValue('10 mins')
+                                    ->cannotBeEmpty()
+                                ->end()
                             ->end()
                         ->end()
                     ->end()

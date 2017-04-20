@@ -1,0 +1,24 @@
+{% extends '@EkynaUser/layout.html.twig' %}
+
+{% block account %}
+    <h1>{{ 'account.change_password.title'|trans({}, 'EkynaUser') }}</h1>
+    <hr>
+
+    {{ bootstrap_set_style('horizontal') }}
+    {{ bootstrap_set_col_size('md') }}
+    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+    {{ form_row(form.currentPassword, {'label_col': 4, 'widget_col': 8}) }}
+    {{ form_row(form.plainPassword.first, {'label_col': 4, 'widget_col': 8}) }}
+    {{ form_row(form.plainPassword.second, {'label_col': 4, 'widget_col': 8}) }}
+
+    <div class="form-group">
+        <div class="col-md-offset-4 col-md-8">
+            <button type="submit" class="btn btn-primary">
+                {{- 'account.change_password.submit'|trans({}, 'EkynaUser') -}}
+            </button>
+        </div>
+    </div>
+
+    {{ form_end(form) }}
+{% endblock account %}

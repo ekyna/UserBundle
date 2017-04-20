@@ -5,15 +5,15 @@
     <div class="row">
         <div class="col-md-12">
             {% block title %}
-            <h1>{{ 'ekyna_user.account.title'|trans }}</h1>
+            <h1>{{ 'account.title'|trans({}, 'EkynaUser') }}</h1>
             {% endblock title %}
             <hr>
         </div>
     </div>
     <div class="row">
         <div class="col-md-3">
-            {{ knp_menu_render('user_account', {
-                'template': '@EkynaUser/menu.html.twig',
+            {{ knp_menu_render('ekyna_user.account', {
+                'template': '@EkynaUi/Menu/menu.html.twig',
                 'style': 'stacked-pills'
             }) }}
         </div>

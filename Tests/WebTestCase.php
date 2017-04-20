@@ -19,7 +19,7 @@ abstract class WebTestCase extends BaseTestCase
      */
     protected function logIn($username = 'user@example.org', $password = 'test')
     {
-        $crawler = $this->client->request('GET', $this->generatePath('fos_user_security_login'));
+        $crawler = $this->client->request('GET', $this->generatePath('ekyna_user_security_login'));
 
         $form = $crawler->selectButton('_submit')->form([
             '_username'  => $username,

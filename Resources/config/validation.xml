@@ -6,23 +6,21 @@
                         http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
 
     <class name="Ekyna\Bundle\UserBundle\Entity\User">
-        <property name="group">
-            <constraint name="NotNull">
+        <property name="plainPassword">
+            <constraint name="NotBlank">
+                <option name="message">ekyna_user.password.blank</option>
                 <option name="groups">
-                    <value>Default</value>
                     <value>Registration</value>
-                    <value>Profile</value>
+                    <value>Resetting</value>
+                    <value>ChangePassword</value>
                 </option>
             </constraint>
-        </property>
-        <property name="plainPassword">
             <constraint name="Length">
                 <option name="min">6</option>
-                <option name="minMessage">fos_user.password.short</option>
+                <option name="minMessage">ekyna_user.password.short</option>
                 <option name="groups">
                     <value>Registration</value>
-                    <value>Profile</value>
-                    <value>ResetPassword</value>
+                    <value>Resetting</value>
                     <value>ChangePassword</value>
                 </option>
             </constraint>
@@ -32,17 +30,16 @@
             <option name="groups">
                 <value>Default</value>
                 <value>Registration</value>
+                <value>Resetting</value>
+                <value>ChangePassword</value>
                 <value>Profile</value>
             </option>
         </constraint>
-        <constraint name="Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity">
-            <option name="fields">username</option>
-            <option name="groups">
-                <value>Default</value>
-                <value>Registration</value>
-                <value>Profile</value>
-            </option>
-        </constraint>
+    </class>
+
+    <class name="Ekyna\Bundle\UserBundle\Entity\Token">
+        <!-- TODO Login and resetting tokens must have a user -->
+        <!-- TODO Registration token must not have a user -->
     </class>
 
 </constraint-mapping>

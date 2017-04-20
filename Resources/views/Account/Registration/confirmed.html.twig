@@ -1,0 +1,15 @@
+{% extends '@EkynaUser/base.html.twig' %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>{{ 'account.registration.confirmed.title'|trans({}, 'EkynaUser') }}</h1>
+                <hr>
+                {{ 'account.registration.confirmed.content'|trans({
+                    '{url}': path('ekyna_user_security_login')
+                }, 'EkynaUser')|raw }}
+            </div>
+        </div>
+    </div>
+{% endblock content %}

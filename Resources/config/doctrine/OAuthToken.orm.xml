@@ -12,13 +12,14 @@
             <generator strategy="AUTO" />
         </id>
 
-        <field name="owner" column="owner" type="string" length="255"/>
-        <field name="identifier" column="identifier" type="string" length="255"/>
-        <field name="token" column="token" type="string" length="255" nullable="true"/>
-        <field name="expiresAt" type="datetime" column="expires_at" nullable="true"/>
+        <field name="hash" column="hash" type="string" length="255" nullable="false"/>
+        <field name="owner" column="owner" type="string" length="32" nullable="true"/>
+        <field name="identifier" column="identifier" type="string" length="64" nullable="true"/>
+        <field name="createdAt" type="datetime" column="created_at" nullable="false"/>
+        <field name="expiresAt" type="datetime" column="expires_at" nullable="false"/>
 
         <many-to-one field="user" target-entity="Ekyna\Bundle\UserBundle\Model\UserInterface">
-            <join-column name="user_id" referenced-column-name="id" nullable="false" on-delete="CASCADE"/>
+            <join-column name="user_id" referenced-column-name="id" nullable="true" on-delete="CASCADE"/>
         </many-to-one>
 
     </entity>

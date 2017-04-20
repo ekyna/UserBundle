@@ -1,0 +1,54 @@
+ekyna_user_account:
+    path:
+        en: ''
+        fr: ''
+        es: ''
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController::redirectAction
+    defaults:
+        route: ekyna_user_account_index
+        permanent: true
+    options:
+        ekyna_i18n: ~
+
+ekyna_user_account_index:
+    path:
+        en: /dashboard
+        fr: /tableau-de-bord
+        es: /panel-de-control
+    controller: Ekyna\Bundle\UserBundle\Controller\AccountController::index
+    methods: GET
+    options:
+        ekyna_i18n: ~
+        _cms:
+            name: Espace client
+            menus: [footer]
+            position: 99
+            seo:
+                follow: false
+                index: false
+
+ekyna_user_account_widget:
+    path: /widget
+    controller: Ekyna\Bundle\UserBundle\Controller\AccountController::widget
+    methods: GET
+    options:
+        ekyna_i18n: ~
+
+ekyna_user_security:
+    resource: "account/security.yaml"
+
+ekyna_user_account_change_password:
+    path:
+        en: /change-password
+        fr: /changer-mot-de-passe
+        es: /cambiar-la-contrasena
+    controller: Ekyna\Bundle\UserBundle\Controller\Account\ChangePasswordController::index
+    methods: GET|POST
+    options:
+        ekyna_i18n: ~
+        _cms:
+            name: "Modifiez votre mot de passe"
+            parent: ekyna_user_account_index
+            seo:
+                follow: false
+                index: false

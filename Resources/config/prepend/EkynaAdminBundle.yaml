@@ -1,0 +1,11 @@
+ekyna_admin:
+    menus:
+        users:
+            label: user.label.plural
+            domain: EkynaUser
+            icon: users
+            position: 99
+            entries:
+                users:
+                    resource: ekyna_user.user
+                    position: 1

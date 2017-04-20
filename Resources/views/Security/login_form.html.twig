@@ -1,18 +1,14 @@
 {% apply spaceless %}
-{{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
-    {{ bootstrap_set_style('horizontal') }}
-    {{ bootstrap_set_col_size('md') }}
-    {{ bootstrap_set_label_col(4) }}
-    {{ bootstrap_set_widget_col(8) }}
-
+<form action="{{ path('ekyna_user_security_login') }}" method="post" class="form-horizontal">
     <div class="form-body">
-        {%- set owners = hwi_oauth_resource_owners() -%}
+        {# OAuth providers #}
+        {%- set owners = oauth_owners('ekyna_user') -%}
         {%- if owners is not empty -%}
         <div class="form-group" style="padding:0 15px;">
-        {%- for owner in hwi_oauth_resource_owners() -%}
+        {%- for owner, route in owners -%}
             {%- if loop.index0 % 2 == 0 %}<div class="row">{% endif -%}
             <div class="col-md-6">
-                <a href="{{ hwi_oauth_login_url(owner) }}" class="btn btn-block btn-social btn-{{ owner }}">
+                <a href="{{ path(route) }}" class="btn btn-block btn-social btn-{{ owner }}">
                     <span class="fa fa-{{ owner }}"></span> {{ owner|capitalize }}
                 </a>
             </div>
@@ -22,32 +18,77 @@
         <hr>
         {%- endif -%}
 
-        {{ form_errors(form, {'global_errors': true}) }}
-
-        {{ form_row(form._username) }}
-        {{ form_row(form._password) }}
-        {% if form.vars.remember_me %}
-            {{ form_row(form[form.vars.remember_me]) }}
+        {# Alerts #}
+        {% if app.user %}
+            <div class="alert alert-info">
+                {{ 'field.logged_in_as'|trans({'{user}': app.user.userIdentifier}, 'EkynaUi')|raw }}<br>
+                <a href="{{ path('ekyna_user_security_logout') }}">
+                    {{ 'button.logout'|trans({}, 'EkynaUi') }}
+                </a>
+            </div>
         {% endif %}
-        {{ form_row(form._target_path) }}
+        {% if error %}
+            <div class="alert alert-danger">
+                {{ error.messageKey|trans(error.messageData, 'security') }}
+            </div>
+        {% endif %}
 
-        {{ form_rest(form) }}
+        {# Email #}
+        <div class="form-group">
+            <label class="control-label col-md-4 required" for="email">
+                {{ 'field.email_address'|trans({}, 'EkynaUi') }}
+            </label>
+            <div class="col-md-8">
+                <input type="text" id="email" name="email" required="required" class="form-control">
+            </div>
+        </div>
 
+        {# Password #}
+        <div class="form-group">
+            <label class="control-label col-md-4 required" for="password">
+                {{ 'field.password'|trans({}, 'EkynaUi') }}
+            </label>
+            <div class="col-md-8">
+                <input type="password" id="password" name="password" required="required" class="form-control">
+            </div>
+        </div>
+
+        {# Remember me #}
+        <div class="form-group">
+            <div class="col-md-8 col-md-offset-4">
+                <div class="checkbox">
+                    <label for="remember_me">
+                        <input type="checkbox" id="remember_me" name="{{ remember_me }}" value="1">
+                        {{ 'field.remember_me'|trans({}, 'EkynaUi') }}
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        {# Target path #}
+        {% if target_path is not empty %}
+        <input type="hidden" id="target_path" name="target_path" class="form-control" value="{{ target_path }}">
+        {% endif %}
+
+        {# CSRF #}
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
+
+        {# Buttons #}
         <div class="form-footer">
             <div class="form-group">
                 <div class="col-sm-offset-4 col-sm-8">
                     <button type="submit" class="btn btn-primary" name="_submit">
-                        {{ 'ekyna_core.button.login'|trans }}
+                        {{ 'button.login'|trans({}, 'EkynaUi') }}
                     </button>
                     {% if ekyna_user_account_var('resetting') -%}
                         <br>
-                        <a href="{{ path('fos_user_resetting_request') }}">
-                            {{ 'ekyna_user.account.resetting.button'|trans }}
+                        <a href="{{ path('ekyna_user_account_resetting') }}">
+                            {{ 'account.resetting.button'|trans({}, 'EkynaUser') }}
                         </a>
                     {%- endif %}
                 </div>
             </div>
         </div>
     </div>
-{{ form_end(form) }}
+</form>
 {% endapply %}

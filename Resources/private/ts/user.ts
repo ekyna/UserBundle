@@ -1,10 +1,10 @@
-/// <reference path="../../../../../../typings/index.d.ts" />
+/// <reference path="../../../../../../../assets/typings/index.d.ts" />
 
 import * as $ from 'jquery';
 import * as _ from 'underscore';
 import * as Bootstrap from 'bootstrap';
 import * as Modal from 'ekyna-modal';
-import * as Ui from 'ekyna-ui';
+import * as Ui from 'ekyna-spinner';
 import * as Dispatcher from 'ekyna-dispatcher';
 
 //noinspection JSUnusedLocalSymbols
@@ -42,7 +42,7 @@ class User {
     onXhrError(event: JQueryEventObject, jqXHR: JQueryXHR):void {
         if (403 === jqXHR.status) {
             this.setAuthenticated(false);
-            this.openModal(Router.generate('fos_user_security_login'));
+            this.openModal(Router.generate('ekyna_user_security_login'));
         }
     }
 

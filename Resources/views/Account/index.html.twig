@@ -1,11 +1,11 @@
 {% extends '@EkynaUser/layout.html.twig' %}
 
 {%- block metas -%}
-    {{ cms_metas() }}
+     {{ cms_metas() }}
 {%- endblock metas -%}
 
 {%- block account -%}
-    <h3>{{ 'ekyna_user.account.dashboard.title'|trans }}</h3>
+    <h3>{{ 'account.dashboard.title'|trans({}, 'EkynaUser') }}</h3>
     <hr>
     {% for widget in widgets -%}
     {% if widget.panel -%}

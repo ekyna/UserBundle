@@ -1,10 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ekyna\Bundle\UserBundle\Command;
 
-use Ekyna\Bundle\UserBundle\Model\UserManagerInterface;
+use Ekyna\Bundle\UserBundle\Factory\UserFactoryInterface;
+use Ekyna\Bundle\UserBundle\Manager\UserManagerInterface;
 use Ekyna\Bundle\UserBundle\Repository\UserRepositoryInterface;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -16,82 +20,74 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class CreateUserCommand extends Command
 {
-    protected static $defaultName = 'ekyna:user:create';
+    protected static $defaultName = 'ekyna:user:create-user';
 
-    /**
-     * @var UserRepositoryInterface
-     */
-    private $userRepository;
-
-    /**
-     * @var UserManagerInterface
-     */
-    private $userManager;
+    private UserRepositoryInterface $repository;
+    private UserManagerInterface $manager;
+    private UserFactoryInterface $factory;
 
 
-    /**
-     * Constructor.
-     *
-     * @param UserRepositoryInterface $userRepository
-     * @param UserManagerInterface    $userManager
-     */
-    public function __construct(UserRepositoryInterface $userRepository, UserManagerInterface $userManager)
-    {
+    public function __construct(
+        UserRepositoryInterface $repository,
+        UserManagerInterface $manager,
+        UserFactoryInterface $factory
+    ) {
         parent::__construct();
 
-        $this->userRepository = $userRepository;
-        $this->userManager    = $userManager;
+        $this->repository = $repository;
+        $this->manager = $manager;
+        $this->factory = $factory;
     }
 
-    /**
-     * @inheritdoc
-     */
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('ekyna:user:create')
             ->setDescription('Creates a user.')
             ->addArgument('email', InputArgument::OPTIONAL, 'The email address.')
             ->addArgument('password', InputArgument::OPTIONAL, 'The password.')
-            ->setHelp(<<<EOT
-The <info>ekyna:user:create</info> command creates a super admin user:
+            ->setHelp(
+                <<<EOT
+The <info>ekyna:user:create</info> command creates a new user:
 
   <info>php app/console ekyna:user:create</info>
 
-You can also optionally specify the user datas (email, password):
+You can also optionally specify the user data (email, password):
 
   <info>php app/console ekyna:user:create john.doe@example.org password</info>
 EOT
             );
     }
 
-    /**
-     * @inheritdoc
-     */
-    protected function interact(InputInterface $input, OutputInterface $output)
+    protected function interact(InputInterface $input, OutputInterface $output): void
     {
-        $userInput = new UserInputInteract($this->userRepository);
+        $userInput = new UserInputInteract($this->repository);
 
-        /** @var \Symfony\Component\Console\Helper\QuestionHelper $helper */
+        /** @var QuestionHelper $helper */
         $helper = $this->getHelperSet()->get('question');
 
         $userInput->interact($input, $output, $helper);
     }
 
-    /**
-     * @inheritdoc
-     */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        /** @var \Ekyna\Bundle\UserBundle\Model\UserInterface $user */
-        $user = $this->userManager->createUser();
+        $user = $this->factory->create();
+
         $user
-            ->setPlainPassword($input->getArgument('password'))
             ->setEmail($input->getArgument('email'))
+            ->setPlainPassword($input->getArgument('password'))
             ->setEnabled(true);
 
-        $this->userManager->updateUser($user);
+        $event = $this->manager->save($user);
 
-        $output->writeln('User has been successfully created.');
+        if ($event->hasErrors()) {
+            $output->writeln('<error>Failed to create user</error>');
+
+            return 1;
+        }
+
+        $output->writeln('<info>User has been successfully created</info>');
+
+        return 0;
     }
 }

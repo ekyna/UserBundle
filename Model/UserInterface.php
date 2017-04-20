@@ -1,47 +1,29 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Ekyna\Bundle\UserBundle\Model;
 
-use Ekyna\Component\Resource\Model\ResourceInterface;
-use Ekyna\Component\Resource\Model\TimestampableInterface;
-use FOS\UserBundle\Model\UserInterface as BaseUserInterface;
+use Ekyna\Component\User\Model\UserInterface as BaseUser;
 
 /**
  * Interface UserInterface
  * @package Ekyna\Bundle\UserBundle\Model
  * @author  Étienne Dauvergne <contact@ekyna.com>
  */
-interface UserInterface extends BaseUserInterface, ResourceInterface, TimestampableInterface
+interface UserInterface extends BaseUser
 {
     /**
-     * Set group
-     *
-     * @param GroupInterface|null $group
+     * Sets whether to send the creation email or not.
+     * (non mapped)
      *
      * @return $this|UserInterface
      */
-    public function setGroup(GroupInterface $group = null);
-
-    /**
-     * Get group
-     *
-     * @return GroupInterface
-     */
-    public function getGroup(): ?GroupInterface;
-
-    /**
-     * Sets whether to send the creation email or not.
-     *
-     * @param bool $send
-     *
-     * @return UserInterface|$this
-     */
-    public function setSendCreationEmail($send);
+    public function setSendCreationEmail(bool $send): UserInterface;
 
     /**
      * Returns whether to send the creation email or not.
-     *
-     * @return bool
+     * (non mapped)
      */
-    public function getSendCreationEmail();
+    public function getSendCreationEmail(): bool;
 }

@@ -1,0 +1,9 @@
+ekyna_user:
+    email:
+        mismatch: The entered email addresses don't match.
+    password:
+        blank: Please enter a password.
+        short: The password is too short.
+        mismatch: The entered passwords don't match.
+    current_password:
+        invalid: The entered password is invalid.

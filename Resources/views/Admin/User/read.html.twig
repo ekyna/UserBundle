@@ -1,0 +1,62 @@
+{% extends '@EkynaAdmin/Entity/Crud/read.html.twig' %}
+
+{% block main_actions %}
+    {# {% if is_granted(constant('Ekyna\\Component\\Resource\\Action\\Permission::READ'), user) %} #}
+    {{- admin_resource_btn(user, 'Ekyna\\Bundle\\UserBundle\\Action\\User\\UseSessionAction', {} , {
+        'onclick': ('return confirm(\'' ~ ('user.alert.use_session'|trans({
+            '{email}': user.email
+        }, 'EkynaUser')) ~ '\')'),
+        'target': '_blank'
+    }) -}}
+    {# {% endif %} #}
+    {{ parent() }}
+{% endblock main_actions %}
+
+
+{% block main_tabs %}
+    {{ parent() }}
+    <li>
+        <a href="#user-user-information" data-toggle="tab">{{ 'field.information'|trans({}, 'EkynaUi') }}</a>
+    </li>
+{% endblock main_tabs %}
+
+
+{% block main_contents %}
+    <div class="tab-pane active" id="user-user-general">
+        <div class="row">
+            <div class="col-md-6">
+                {{ show_row(user.email, 'text', {
+                    'label': 'field.email',
+                    'label_trans_domain': 'EkynaUi',
+                    'label_col': 4
+                }) }}
+            </div>
+            <div class="col-md-6">
+                {{ show_row(user.enabled, 'boolean', {
+                    'label': 'field.enabled',
+                    'label_trans_domain': 'EkynaUi',
+                    'color': true,
+                    'label_col': 4
+                }) }}
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane" id="user-user-information">
+        {# {% if admin_resource_access(user, constant('Ekyna\\Component\\Resource\\Action\\Permission::UPDATE')) -%} #}
+        <div class="actions">
+            {{- admin_resource_btn(user, 'Ekyna\\Bundle\\UserBundle\\Action\\User\\GeneratePasswordAction', {'size': 'sm'}) -}}
+            {{- admin_resource_btn(user, 'Ekyna\\Bundle\\UserBundle\\Action\\User\\ClearPasswordRequestAction', {'size': 'sm'}) -}}
+        </div>
+        {# {%- endif %} #}
+        {# TODO {{ show_row(user.passwordRequestedAt, 'datetime', {
+            'label': 'user.field.password_request_at',
+            'label_trans_domain': 'EkynaUser',
+            'label_col': 4
+        }) }}#}
+        {# TODO {{ show_row(user.confirmationToken|truncate(64), 'text', {
+            'label': 'user.field.confirmation_token',
+            'label_trans_domain': 'EkynaUser',
+            'label_col': 4
+        }) }}#}
+    </div>
+{% endblock main_contents %}

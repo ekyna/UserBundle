@@ -1,12 +1,16 @@
 <?php
+declare(strict_types=1);
 
 namespace Ekyna\Bundle\UserBundle\Command;
 
 use Ekyna\Bundle\UserBundle\Repository\UserRepositoryInterface;
+use RuntimeException;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
+
+use function filter_var;
 
 /**
  * Class UserInputInteract
@@ -15,20 +19,17 @@ use Symfony\Component\Console\Question\Question;
  */
 class UserInputInteract
 {
-    /**
-     * @var UserRepositoryInterface
-     */
-    private $userRepository;
+    private UserRepositoryInterface $repository;
 
 
     /**
      * Constructor.
      *
-     * @param UserRepositoryInterface $userRepository
+     * @param UserRepositoryInterface $repository
      */
-    public function __construct(UserRepositoryInterface $userRepository)
+    public function __construct(UserRepositoryInterface $repository)
     {
-        $this->userRepository = $userRepository;
+        $this->repository = $repository;
     }
 
     /**
@@ -38,20 +39,20 @@ class UserInputInteract
      * @param OutputInterface $output
      * @param QuestionHelper  $helper
      */
-    public function interact(InputInterface $input, OutputInterface $output, QuestionHelper $helper)
+    public function interact(InputInterface $input, OutputInterface $output, QuestionHelper $helper): void
     {
         $questions = [];
 
-        $repository = $this->userRepository;
+        $repository = $this->repository;
 
         if (!$input->getArgument('email')) {
             $question = new Question('Email: ');
             $question->setValidator(function ($answer) use ($repository) {
                 if (!filter_var($answer, FILTER_VALIDATE_EMAIL)) {
-                    throw new \RuntimeException('This is not a valid email address.');
+                    throw new RuntimeException('This is not a valid email address.');
                 }
                 if (null !== $repository->findOneBy(['email' => $answer])) {
-                    throw new \RuntimeException('This email address is already used.');
+                    throw new RuntimeException('This email address is already used.');
                 }
 
                 return $answer;
@@ -62,10 +63,12 @@ class UserInputInteract
         }
 
         if (!$input->getArgument('password')) {
-            $question = new Question('Password: ');
+            $question = new Question('Password (hidden): ');
+            $question->setHidden(true);
+            $question->setHiddenFallback(false);
             $question->setValidator(function ($answer) {
-                if (!(preg_match('#^[a-zA-Z0-9]+$#', $answer) && strlen($answer) > 5)) {
-                    throw new \RuntimeException('Password should be composed of at least 6 letters and numbers.');
+                if (6 > strlen($answer)) {
+                    throw new RuntimeException('Password should be composed of at least 6 characters.');
                 }
 
                 return $answer;
