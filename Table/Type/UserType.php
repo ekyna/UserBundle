@@ -5,7 +5,12 @@ namespace Ekyna\Bundle\UserBundle\Table\Type;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Ekyna\Bundle\AdminBundle\Table\Type\ResourceTableType;
+use Ekyna\Bundle\TableBundle\Extension\Type as BType;
+use Ekyna\Component\Table\Bridge\Doctrine\ORM\Source\EntitySource;
+use Ekyna\Component\Table\Bridge\Doctrine\ORM\Type\Filter\EntityType;
+use Ekyna\Component\Table\Extension\Core\Type as CType;
 use Ekyna\Component\Table\TableBuilderInterface;
+use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
@@ -71,44 +76,36 @@ class UserType extends ResourceTableType
     {
         $group = $this->getUserGroup();
 
-        $builder
-            ->addColumn('id', 'id', [
-                'sortable' => true,
-            ])
-            ->addColumn('email', 'anchor', [
-                'label'                => 'ekyna_user.user.label.singular',
-                'property_path'        => null,
-                'sortable'             => true,
-                'route_name'           => 'ekyna_user_user_admin_show',
-                'route_parameters_map' => ['userId' => 'id'],
-                'position' => 10,
-            ])
-            /*->addColumn('username', 'text', array(
-                'label' => 'ekyna_core.field.username',
-                'sortable' => true,
-            ))*/
-        ;
+        $builder->addColumn('email', BType\Column\AnchorType::class, [
+            'label'                => 'ekyna_user.user.label.singular',
+            'property_path'        => null,
+            'sortable'             => true,
+            'route_name'           => 'ekyna_user_user_admin_show',
+            'route_parameters_map' => ['userId' => 'id'],
+            'position'             => 10,
+        ]);
+
         if (null !== $group) {
-            $builder
-                ->addColumn('group', 'anchor', [
-                    'label'                => 'ekyna_core.field.group',
-                    'property_path'        => 'group.name',
-                    'sortable'             => false,
-                    'route_name'           => 'ekyna_user_group_admin_show',
-                    'route_parameters_map' => ['groupId' => 'group.id'],
-                    'position' => 20,
-                ]);
+            $builder->addColumn('group', BType\Column\AnchorType::class, [
+                'label'                => 'ekyna_core.field.group',
+                'property_path'        => 'group.name',
+                'sortable'             => false,
+                'route_name'           => 'ekyna_user_group_admin_show',
+                'route_parameters_map' => ['groupId' => 'group.id'],
+                'position'             => 20,
+            ]);
         }
+
         $builder
-            ->addColumn('enabled', 'boolean', [
+            ->addColumn('enabled', CType\Column\BooleanType::class, [
                 'label'                => 'ekyna_core.field.enabled',
                 'sortable'             => true,
                 'route_name'           => 'ekyna_user_user_admin_toggle',
                 'route_parameters'     => ['field' => 'enabled'],
                 'route_parameters_map' => ['userId' => 'id'],
-                'position' => 30,
+                'position'             => 30,
             ])
-            /*->addColumn('locked', 'boolean', [
+            /*->addColumn('locked', CType\Column\BooleanType::class, [
                 'label'                => 'ekyna_core.field.locked',
                 'sortable'             => true,
                 'true_class'           => 'label-danger',
@@ -118,7 +115,7 @@ class UserType extends ResourceTableType
                 'route_parameters_map' => ['userId' => 'id'],
                 'position' => 40,
             ])
-            ->addColumn('expired', 'boolean', [
+            ->addColumn('expired', CType\Column\BooleanType::class, [
                 'label'                => 'ekyna_core.field.expired',
                 'sortable'             => true,
                 'true_class'           => 'label-danger',
@@ -128,17 +125,17 @@ class UserType extends ResourceTableType
                 'route_parameters_map' => ['userId' => 'id'],
                 'position' => 50,
             ])
-            ->addColumn('expiresAt', 'datetime', [
+            ->addColumn('expiresAt', CType\Column\DateTimeType::class, [
                 'label'    => 'ekyna_core.field.expires_at',
                 'sortable' => true,
                 'position' => 60,
             ])*/
-            ->addColumn('createdAt', 'datetime', [
+            ->addColumn('createdAt', CType\Column\DateTimeType::class, [
                 'label'    => 'ekyna_core.field.created_at',
                 'sortable' => true,
                 'position' => 70,
             ])
-            ->addColumn('actions', 'admin_actions', [
+            ->addColumn('actions', BType\Column\ActionsType::class, [
                 'buttons' => [
                     [
                         'label'                => 'ekyna_core.button.edit',
@@ -156,49 +153,45 @@ class UserType extends ResourceTableType
                     ],
                 ],
             ])
-            ->addFilter('id', 'number')
-            ->addFilter('email', 'text', [
-                'label' => 'ekyna_core.field.email',
+            ->addFilter('email', CType\Filter\TextType::class, [
+                'label'    => 'ekyna_core.field.email',
                 'position' => 10,
-            ])
-            /*->addFilter('username', 'text', array(
-                'label' => 'ekyna_core.field.username',
-            ))*/;
+            ]);
 
         if (null !== $group) {
             $builder
-                ->addFilter('group', 'entity', [
+                ->addFilter('group', EntityType::class, [
                     'label'         => 'ekyna_core.field.group',
                     'class'         => $this->groupClass,
-                    'property'      => 'name',
+                    'entity_label'  => 'name',
                     'query_builder' => function (EntityRepository $er) use ($group) {
                         $qb = $er->createQueryBuilder('g');
 
                         return $qb->andWhere($qb->expr()->gte('g.position', $group->getPosition()));
                     },
-                    'position' => 20,
+                    'position'      => 20,
                 ]);
         }
 
         $builder
-            ->addFilter('enabled', 'boolean', [
-                'label' => 'ekyna_core.field.enabled',
+            ->addFilter('enabled', CType\Filter\BooleanType::class, [
+                'label'    => 'ekyna_core.field.enabled',
                 'position' => 30,
             ])
-            /*->addFilter('locked', 'boolean', [
+            /*->addFilter('locked', CType\Filter\BooleanType::class, [
                 'label' => 'ekyna_core.field.locked',
                 'position' => 40,
             ])
-            ->addFilter('expired', 'boolean', [
+            ->addFilter('expired', CType\Filter\BooleanType::class, [
                 'label' => 'ekyna_core.field.expired',
                 'position' => 50,
             ])
-            ->addFilter('expiresAt', 'datetime', [
+            ->addFilter('expiresAt', CType\Filter\DateTimeType::class, [
                 'label' => 'ekyna_core.field.expires_at',
                 'position' => 60,
             ])*/
-            ->addFilter('createdAt', 'datetime', [
-                'label' => 'ekyna_core.field.created_at',
+            ->addFilter('createdAt', CType\Filter\DateTimeType::class, [
+                'label'    => 'ekyna_core.field.created_at',
                 'position' => 70,
             ]);
     }
@@ -210,22 +203,19 @@ class UserType extends ResourceTableType
     {
         parent::configureOptions($resolver);
 
-        if (null !== $group = $this->getUserGroup()) {
-            $resolver->setDefaults([
-                'customize_qb' => function (QueryBuilder $qb, $alias) use ($group) {
-                    $qb
-                        ->join($alias . '.group', 'g')
-                        ->andWhere($qb->expr()->gte('g.position', $group->getPosition()));
-                },
-            ]);
-        }
-    }
+        /** @noinspection PhpUnusedParameterInspection */
+        $resolver->setNormalizer('source', function (Options $options, $value) {
+            if (null !== $group = $this->getUserGroup()) {
+                if ($value instanceof EntitySource) {
+                    $value->setQueryBuilderInitializer(function (QueryBuilder $qb, $alias) use ($group) {
+                        $qb
+                            ->join($alias . '.group', 'g')
+                            ->andWhere($qb->expr()->gte('g.position', $group->getPosition()));
+                    });
+                }
+            }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'ekyna_user_user';
+            return $value;
+        });
     }
 }

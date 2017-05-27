@@ -83,7 +83,7 @@
             <call method="setGroupClass">
                 <argument>%ekyna_user.group.class%</argument>
             </call>
-            <tag name="table.type" alias="ekyna_user_user"/>
+            <tag name="table.type"/>
         </service>
 
         <!-- Routing loader -->
