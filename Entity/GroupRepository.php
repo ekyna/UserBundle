@@ -20,6 +20,7 @@ class GroupRepository extends ResourceRepository
      */
     public function findDefault()
     {
+        /** @var GroupInterface $group */
         if (null === $group = $this->findOneBy(['default' => true])) {
             throw new \RuntimeException('Default user group not found.');
         }
@@ -33,7 +34,6 @@ class GroupRepository extends ResourceRepository
      * @param string $role
      *
      * @return GroupInterface|null
-     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function findOneByRole($role)
     {

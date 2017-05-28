@@ -2,7 +2,6 @@
 
 namespace Ekyna\Bundle\UserBundle\Form\Type;
 
-use Ekyna\Bundle\CoreBundle\Form\Type\CaptchaType;
 use FOS\UserBundle\Form\Type\RegistrationFormType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -49,9 +48,5 @@ class RegistrationType extends RegistrationFormType
         if (!$this->usernameEnabled) {
             $builder->remove('username');
         }
-
-        /*if ($this->kernelEnvironment !== 'test') {
-            $builder->add('captcha', CaptchaType::class);
-        }*/
     }
 }
