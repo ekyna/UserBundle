@@ -1,29 +1,28 @@
 {
-    "name" : "ekyna/user-bundle",
-    "description" : "User management",
-    "type" : "symfony-bundle",
-    "authors" : [{
-            "name" : "Etienne Dauvergne",
-            "homepage" : "http://ekyna.com"
+    "name": "ekyna/user-bundle",
+    "description": "User management",
+    "type": "symfony-bundle",
+    "authors": [
+        {
+            "name": "Etienne Dauvergne",
+            "homepage": "http://ekyna.com"
         }
     ],
-    "keywords" : [
-        "symfony2",
+    "keywords": [
+        "symfony",
         "user",
         "bundle"
     ],
-    "homepage" : "https://github.com/ekyna/UserBundle",
-    "license" : [
-        "MIT"
-    ],
-    "require" : {
-        "php" : ">=5.5.9",
-        "friendsofsymfony/user-bundle" : "2.0.*@dev",
-        "ekyna/admin-bundle" : "0.6.x-dev"
+    "homepage": "https://github.com/ekyna/UserBundle",
+    "license": "MIT",
+    "require": {
+        "php": ">=7.0",
+        "friendsofsymfony/user-bundle": "^2.0",
+        "ekyna/admin-bundle": "0.7.x-dev"
     },
-    "autoload" : {
-        "psr-4" : {
-            "Ekyna\\Bundle\\UserBundle\\" : ""
+    "autoload": {
+        "psr-4": {
+            "Ekyna\\Bundle\\UserBundle\\": ""
         }
     }
 }
