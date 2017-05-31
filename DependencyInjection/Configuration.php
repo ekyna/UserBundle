@@ -25,30 +25,6 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                /*->scalarNode('gender_class')
-                    ->validate()
-                        ->ifTrue(function ($class) {
-                            if (!class_exists($class)) {
-                                return true;
-                            }
-                            if ($class !== self::DEFAULT_GENDER_CLASS &&
-                                !in_array(self::DEFAULT_GENDER_CLASS, class_parents($class))) {
-                                return true;
-                            }
-                            return false;
-                        })
-                        ->thenInvalid('%s must extend '.self::DEFAULT_GENDER_CLASS)
-                    ->end()
-                    ->defaultValue(self::DEFAULT_GENDER_CLASS)
-                ->end()*/
-                /*->arrayNode('templates')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->scalarNode('base')->defaultValue('EkynaUserBundle::base.html.twig')->end()
-                        ->scalarNode('email')->defaultValue('EkynaUserBundle::email.html.twig')->end()
-//                        ->scalarNode('address')->defaultValue('EkynaUserBundle:Address:_render.html.twig')->end()
-                    ->end()
-                ->end()*/
                 ->arrayNode('account')
                     ->addDefaultsIfNotSet()
                     ->children()
@@ -57,7 +33,6 @@ class Configuration implements ConfigurationInterface
                         ->booleanNode('register')->defaultValue(false)->end()
                         ->booleanNode('resetting')->defaultValue(false)->end()
                         ->booleanNode('profile')->defaultValue(false)->end()
-//                        ->booleanNode('address')->defaultValue(false)->end()
                     ->end()
                 ->end()
                 ->arrayNode('notification')
