@@ -32,12 +32,4 @@ class EkynaUserBundle extends AbstractBundle
             'Ekyna\Bundle\UserBundle\Model\UserInterface' => 'ekyna_user.user.class',
         ];
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getParent()
-    {
-        return 'FOSUserBundle';
-    }
 }
