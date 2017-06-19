@@ -90,6 +90,7 @@ class UserListener implements EventSubscriberInterface
                 ->addData('password', $password);
         }
 
+        $this->updateUsername($user);
         $this->userManager->updatePassword($user);
         $this->userManager->updateCanonicalFields($user);
     }
@@ -124,6 +125,7 @@ class UserListener implements EventSubscriberInterface
     {
         $user = $this->getUserFromEvent($event);
 
+        $this->updateUsername($user);
         $this->userManager->updatePassword($user);
         $this->userManager->updateCanonicalFields($user);
     }
@@ -143,6 +145,13 @@ class UserListener implements EventSubscriberInterface
 
         if (0 < $this->mailer->sendNewPasswordEmailMessage($user, $event->getData('password'))) {
             $event->addMessage(new ResourceMessage('ekyna_user.user.event.credentials_sent'));
+        }
+    }
+
+    private function updateUsername(UserInterface $user)
+    {
+        if (0 == strlen($user->getUsername())) {
+            $user->setUsername($user->getEmail());
         }
     }
 

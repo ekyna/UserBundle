@@ -30,11 +30,6 @@ class UserType extends ResourceFormType
      */
     protected $groupClass;
 
-    /**
-     * @var bool
-     */
-    private $usernameEnabled;
-
 
     /**
      * Constructor.
@@ -42,15 +37,13 @@ class UserType extends ResourceFormType
      * @param TokenStorageInterface $tokenStorage
      * @param string                $userClass
      * @param string                $groupClass
-     * @param array                 $config
      */
-    public function __construct(TokenStorageInterface $tokenStorage, $userClass, $groupClass, array $config)
+    public function __construct(TokenStorageInterface $tokenStorage, $userClass, $groupClass)
     {
         parent::__construct($userClass);
 
         $this->tokenStorage = $tokenStorage;
         $this->groupClass = $groupClass;
-        $this->usernameEnabled = $config['account']['username'];
     }
 
     /**
@@ -75,13 +68,9 @@ class UserType extends ResourceFormType
             ->add('email', EmailType::class, [
                 'label' => 'ekyna_core.field.email',
             ])
-        ;
-
-        if ($this->usernameEnabled) {
-            $builder->add('username', TextType::class, [
+            ->add('username', TextType::class, [
                 'label' => 'ekyna_core.field.username',
             ]);
-        }
 
         $builder->addEventListener(
             FormEvents::PRE_SET_DATA,

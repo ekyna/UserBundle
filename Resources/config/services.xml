@@ -50,7 +50,6 @@
             <argument type="service" id="security.token_storage"/>
             <argument>%ekyna_user.user.class%</argument>
             <argument>%ekyna_user.group.class%</argument>
-            <argument>%ekyna_user.config%</argument>
             <tag name="form.type"/>
         </service>
         <service id="ekyna_user.profile.form_type" class="%ekyna_user.profile.form_type.class%">

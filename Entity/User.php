@@ -43,9 +43,6 @@ class User extends BaseUser implements UserInterface
     public function setEmail($email)
     {
         $this->email = $email;
-        if ($this->username != $email) {
-            $this->username = $email;
-        }
 
         return $this;
     }
@@ -56,9 +53,6 @@ class User extends BaseUser implements UserInterface
     public function setEmailCanonical($emailCanonical)
     {
         $this->emailCanonical = $emailCanonical;
-        if (empty($this->usernameCanonical)) {
-            $this->usernameCanonical = $emailCanonical;
-        }
 
         return $this;
     }

@@ -76,23 +76,25 @@ class UserType extends ResourceTableType
     {
         $group = $this->getUserGroup();
 
-        $builder->addColumn('email', BType\Column\AnchorType::class, [
-            'label'                => 'ekyna_user.user.label.singular',
-            'property_path'        => null,
-            'sortable'             => true,
-            'route_name'           => 'ekyna_user_user_admin_show',
-            'route_parameters_map' => ['userId' => 'id'],
-            'position'             => 10,
-        ]);
+        $builder
+            ->addColumn('email', BType\Column\AnchorType::class, [
+                'label'                => 'ekyna_user.user.label.singular',
+                'route_name'           => 'ekyna_user_user_admin_show',
+                'route_parameters_map' => ['userId' => 'id'],
+                'position'             => 10,
+            ])
+            ->addColumn('username', CType\Column\TextType::class, [
+                'label'                => 'ekyna_core.field.username',
+                'position'             => 20,
+            ]);
 
         if (null !== $group) {
             $builder->addColumn('group', BType\Column\AnchorType::class, [
                 'label'                => 'ekyna_core.field.group',
                 'property_path'        => 'group.name',
-                'sortable'             => false,
                 'route_name'           => 'ekyna_user_group_admin_show',
                 'route_parameters_map' => ['groupId' => 'group.id'],
-                'position'             => 20,
+                'position'             => 30,
             ]);
         }
 
@@ -103,7 +105,7 @@ class UserType extends ResourceTableType
                 'route_name'           => 'ekyna_user_user_admin_toggle',
                 'route_parameters'     => ['field' => 'enabled'],
                 'route_parameters_map' => ['userId' => 'id'],
-                'position'             => 30,
+                'position'             => 40,
             ])
             /*->addColumn('locked', CType\Column\BooleanType::class, [
                 'label'                => 'ekyna_core.field.locked',
@@ -113,7 +115,7 @@ class UserType extends ResourceTableType
                 'route_name'           => 'ekyna_user_user_admin_toggle',
                 'route_parameters'     => ['field' => 'locked'],
                 'route_parameters_map' => ['userId' => 'id'],
-                'position' => 40,
+                'position' => 50,
             ])
             ->addColumn('expired', CType\Column\BooleanType::class, [
                 'label'                => 'ekyna_core.field.expired',
@@ -123,17 +125,17 @@ class UserType extends ResourceTableType
                 'route_name'           => 'ekyna_user_user_admin_toggle',
                 'route_parameters'     => ['field' => 'expired'],
                 'route_parameters_map' => ['userId' => 'id'],
-                'position' => 50,
+                'position' => 60,
             ])
             ->addColumn('expiresAt', CType\Column\DateTimeType::class, [
                 'label'    => 'ekyna_core.field.expires_at',
                 'sortable' => true,
-                'position' => 60,
+                'position' => 70,
             ])*/
             ->addColumn('createdAt', CType\Column\DateTimeType::class, [
                 'label'    => 'ekyna_core.field.created_at',
                 'sortable' => true,
-                'position' => 70,
+                'position' => 80,
             ])
             ->addColumn('actions', BType\Column\ActionsType::class, [
                 'buttons' => [
@@ -156,6 +158,10 @@ class UserType extends ResourceTableType
             ->addFilter('email', CType\Filter\TextType::class, [
                 'label'    => 'ekyna_core.field.email',
                 'position' => 10,
+            ])
+            ->addFilter('username', CType\Filter\TextType::class, [
+                'label'    => 'ekyna_core.field.username',
+                'position' => 20,
             ]);
 
         if (null !== $group) {
@@ -169,30 +175,30 @@ class UserType extends ResourceTableType
 
                         return $qb->andWhere($qb->expr()->gte('g.position', $group->getPosition()));
                     },
-                    'position'      => 20,
+                    'position'      => 30,
                 ]);
         }
 
         $builder
             ->addFilter('enabled', CType\Filter\BooleanType::class, [
                 'label'    => 'ekyna_core.field.enabled',
-                'position' => 30,
+                'position' => 40,
             ])
             /*->addFilter('locked', CType\Filter\BooleanType::class, [
                 'label' => 'ekyna_core.field.locked',
-                'position' => 40,
+                'position' => 50,
             ])
             ->addFilter('expired', CType\Filter\BooleanType::class, [
                 'label' => 'ekyna_core.field.expired',
-                'position' => 50,
+                'position' => 60,
             ])
             ->addFilter('expiresAt', CType\Filter\DateTimeType::class, [
                 'label' => 'ekyna_core.field.expires_at',
-                'position' => 60,
+                'position' => 70,
             ])*/
             ->addFilter('createdAt', CType\Filter\DateTimeType::class, [
                 'label'    => 'ekyna_core.field.created_at',
-                'position' => 70,
+                'position' => 80,
             ]);
     }
 
