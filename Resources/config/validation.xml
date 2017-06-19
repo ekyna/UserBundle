@@ -15,6 +15,22 @@
                 </option>
             </constraint>
         </property>
+        <constraint name="Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity">
+            <option name="fields">email</option>
+            <option name="groups">
+                <value>Default</value>
+                <value>Registration</value>
+                <value>Profile</value>
+            </option>
+        </constraint>
+        <constraint name="Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity">
+            <option name="fields">username</option>
+            <option name="groups">
+                <value>Default</value>
+                <value>Registration</value>
+                <value>Profile</value>
+            </option>
+        </constraint>
     </class>
 
 </constraint-mapping>

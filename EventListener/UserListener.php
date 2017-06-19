@@ -148,6 +148,11 @@ class UserListener implements EventSubscriberInterface
         }
     }
 
+    /**
+     * Copy email to username if empty.
+     *
+     * @param UserInterface $user
+     */
     private function updateUsername(UserInterface $user)
     {
         if (0 == strlen($user->getUsername())) {
