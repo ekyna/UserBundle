@@ -29,6 +29,8 @@ class GroupRepository extends ResourceRepository implements GroupRepositoryInter
      */
     public function findOneByRole($role)
     {
+        $this->validateRole($role);
+
         $qb = $this->createQueryBuilder('g');
 
         return $qb
@@ -44,6 +46,8 @@ class GroupRepository extends ResourceRepository implements GroupRepositoryInter
      */
     public function findByRole($role)
     {
+        $this->validateRole($role);
+
         $qb = $this->createQueryBuilder('g');
 
         return $qb
@@ -51,5 +55,47 @@ class GroupRepository extends ResourceRepository implements GroupRepositoryInter
             ->orderBy('g.position', 'DESC')
             ->getQuery()
             ->getResult();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function findByRoles($roles)
+    {
+        if (empty($roles)) {
+            return [];
+        }
+
+        if (!is_array($roles)) {
+            $roles = [$roles];
+        }
+
+        $qb = $this->createQueryBuilder('g');
+        $orRoles = $qb->expr()->orX();
+        foreach ($roles as $role) {
+            $this->validateRole($role);
+
+            $orRoles->add($qb->expr()->like('g.roles', $qb->expr()->literal('%"' . strtoupper($role) . '"%')));
+        }
+
+        return $qb
+            ->andWhere($orRoles)
+            ->orderBy('g.position', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * Validates the given role.
+     *
+     * @param string $role
+     *
+     * @throws \InvalidArgumentException
+     */
+    private function validateRole($role)
+    {
+        if (!preg_match('~^ROLE_([A-Z_]+)~', $role)) {
+            throw new \InvalidArgumentException("Role must start with 'ROLE_'.");
+        }
     }
 }

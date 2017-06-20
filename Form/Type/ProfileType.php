@@ -2,6 +2,7 @@
 
 namespace Ekyna\Bundle\UserBundle\Form\Type;
 
+use Ekyna\Bundle\UserBundle\Form\EventListener\UserFormSubscriber;
 use FOS\UserBundle\Form\Type\ProfileFormType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -38,6 +39,8 @@ class ProfileType extends ProfileFormType
 
         if (!$this->usernameEnabled) {
             $builder->remove('username');
+
+            $builder->addEventSubscriber(new UserFormSubscriber());
         }
     }
 }

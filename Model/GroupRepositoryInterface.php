@@ -34,4 +34,13 @@ interface GroupRepositoryInterface
      * @return GroupInterface[]
      */
     public function findByRole($role);
+
+    /**
+     * Finds the groups having at least one of the given roles.
+     *
+     * @param string|string[] $roles
+     *
+     * @return GroupInterface[]
+     */
+    public function findByRoles($roles);
 }

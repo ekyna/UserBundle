@@ -2,6 +2,7 @@
 
 namespace Ekyna\Bundle\UserBundle\Form\Type;
 
+use Ekyna\Bundle\UserBundle\Form\EventListener\UserFormSubscriber;
 use FOS\UserBundle\Form\Type\RegistrationFormType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -47,6 +48,8 @@ class RegistrationType extends RegistrationFormType
 
         if (!$this->usernameEnabled) {
             $builder->remove('username');
+
+            $builder->addEventSubscriber(new UserFormSubscriber());
         }
     }
 }

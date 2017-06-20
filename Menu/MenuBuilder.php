@@ -115,6 +115,11 @@ class MenuBuilder
                 // User email
                 $menu->addChild($user->getEmail(), ['uri' => null]);
 
+                // Account
+                $menu->addChild('ekyna_user.account.title', [
+                    'route' => 'ekyna_user_account_index'
+                ]);
+
                 // Configure menu event
                 $this->dispatcher->dispatch(
                     MenuEvent::CONFIGURE_WIDGET,

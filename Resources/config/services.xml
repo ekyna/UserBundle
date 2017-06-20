@@ -13,6 +13,8 @@
         <parameter key="ekyna_user.registration.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\RegistrationType</parameter>
 
         <parameter key="ekyna_user.user.table_type.class">Ekyna\Bundle\UserBundle\Table\Type\UserType</parameter>
+
+        <parameter key="ekyna_user.user.search_repository.class">Ekyna\Bundle\UserBundle\Service\Search\UserRepository</parameter>
     </parameters>
 
     <services>
@@ -157,6 +159,14 @@
             <call method="setConfig">
                 <argument>%ekyna_user.config%</argument>
             </call>
+        </service>
+
+        <!-- Serialization -->
+        <service id="ekyna_user.user.normalizer"
+                 class="Ekyna\Bundle\UserBundle\Service\Serializer\UserNormalizer"
+                 parent="ekyna_resource.serializer.resource_normalizer">
+            <tag name="serializer.normalizer"/>
+            <tag name="serializer.denormalizer"/>
         </service>
 
     </services>

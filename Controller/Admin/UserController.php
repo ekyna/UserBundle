@@ -5,8 +5,10 @@ namespace Ekyna\Bundle\UserBundle\Controller\Admin;
 use Ekyna\Bundle\AdminBundle\Controller\Context;
 use Ekyna\Bundle\AdminBundle\Controller\Resource\ToggleableTrait;
 use Ekyna\Bundle\AdminBundle\Controller\ResourceController;
+use Ekyna\Bundle\UserBundle\Service\Search\UserRepository;
 use Ekyna\Component\Resource\Event\ResourceMessage;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /**
@@ -25,6 +27,40 @@ class UserController extends ResourceController
     protected function createNew(Context $context)
     {
         return $this->get('fos_user.user_manager')->createUser();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function searchAction(Request $request)
+    {
+        //$callback = $request->query->get('callback');
+        $limit = intval($request->query->get('limit'));
+        $query = trim($request->query->get('query'));
+        $roles = $request->query->get('roles');
+
+        $repository = $this->get('fos_elastica.manager')->getRepository($this->config->getResourceClass());
+        if (!$repository instanceOf UserRepository) {
+            throw new \RuntimeException('Expected instance of ' . UserRepository::class);
+        }
+
+        if (!empty($roles)) {
+            $groups = $this->get('ekyna_user.group.repository')->findByRoles($roles);
+
+            $results = $repository->searchByGroups($query, $groups, $limit);
+        } else {
+            $results = $repository->defaultSearch($query, $limit);
+        }
+
+        $data = $this->container->get('serializer')->serialize([
+            'results'     => $results,
+            'total_count' => count($results),
+        ], 'json', ['groups' => ['Default']]);
+
+        $response = new Response($data);
+        $response->headers->set('Content-Type', 'text/javascript');
+
+        return $response;
     }
 
     /**

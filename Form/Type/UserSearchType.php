@@ -4,6 +4,7 @@ namespace Ekyna\Bundle\UserBundle\Form\Type;
 
 use Ekyna\Bundle\CoreBundle\Form\Type\EntitySearchType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -36,13 +37,20 @@ class UserSearchType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'label'        => 'ekyna_user.user.label.singular',
-                'required'     => true,
-                'entity'       => $this->userClass,
-                'search_route' => 'ekyna_user_user_admin_search',
-                'find_route'   => 'ekyna_user_user_admin_find',
-                'allow_clear'  => false,
-            ]);
+                'label'    => 'ekyna_user.user.label.singular',
+                'class'    => $this->userClass,
+                'route'    => 'ekyna_user_user_admin_search',
+                'required' => true,
+                'roles'    => ['ROLE_USER'],
+            ])
+            ->setAllowedTypes('roles', 'array')
+            ->setNormalizer('route_params', function (Options $options, $value) {
+                if (!isset($value['roles'])) {
+                    $value['roles'] = $options['roles'];
+                }
+
+                return $value;
+            });;
     }
 
     /**

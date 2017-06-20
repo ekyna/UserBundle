@@ -1,8 +1,0 @@
-Ekyna\Bundle\UserBundle\Entity\User:
-    attributes:
-        id:
-            groups: [Default, Search]
-        username:
-            groups: [Default, Search]
-        email:
-            groups: [Default, Search]

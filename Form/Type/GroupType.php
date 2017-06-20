@@ -28,7 +28,9 @@ class GroupType extends ResourceFormType
                 'multiple' => true,
                 'choices'  => [
                     'ekyna_core.auth.allowed_to_switch' => 'ROLE_ALLOWED_TO_SWITCH',
+                    'ekyna_core.auth.super_admin'       => 'ROLE_SUPER_ADMIN',
                     'ekyna_core.auth.admin'             => 'ROLE_ADMIN',
+                    'ekyna_core.auth.user'              => 'ROLE_USER',
                 ],
             ]);
     }

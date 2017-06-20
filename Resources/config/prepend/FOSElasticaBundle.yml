@@ -5,10 +5,10 @@ fos_elastica:
                 ekyna_user_user:
                     serializer:
                         groups: [Search]
-                    dynamic_templates:
-                        default:
-                            match_mapping_type: string
-                            mapping: {type: string, search_analyzer: search, index_analyzer: index}
+                    mappings:
+                        email: {type: string, search_analyzer: search, index_analyzer: index}
+                        username: {type: string, search_analyzer: search, index_analyzer: index}
+                        group: {type: long}
                     persistence:
                         driver: orm
                         model: "%ekyna_user.user.class%"
@@ -16,4 +16,4 @@ fos_elastica:
                             batch_size: 25
                         listener: ~
                         finder: ~
-                        repository: Ekyna\Bundle\UserBundle\Search\UserRepository
+                        repository: "%ekyna_user.user.search_repository.class%"

@@ -4,6 +4,7 @@ namespace Ekyna\Bundle\UserBundle\Form\Type;
 
 use Doctrine\ORM\EntityRepository;
 use Ekyna\Bundle\AdminBundle\Form\Type\ResourceFormType;
+use Ekyna\Bundle\UserBundle\Form\EventListener\UserFormSubscriber;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -70,7 +71,8 @@ class UserType extends ResourceFormType
                 'label' => 'ekyna_core.field.email',
             ])
             ->add('username', TextType::class, [
-                'label' => 'ekyna_core.field.username',
+                'label'    => 'ekyna_core.field.username',
+                'required' => false,
             ]);
 
         $builder->addEventListener(
@@ -91,6 +93,20 @@ class UserType extends ResourceFormType
                 }
             }
         );
+
+        $builder->addEventListener(
+            FormEvents::SUBMIT,
+            function (FormEvent $event) {
+                /** @var \Ekyna\Bundle\UserBundle\Model\UserInterface $user */
+                $user = $event->getData();
+
+                if (0 == strlen($user->getUsername())) {
+                    $user->setUsername($user->getEmail());
+                }
+            }
+        );
+
+        $builder->addEventSubscriber(new UserFormSubscriber());
     }
 
     /**
