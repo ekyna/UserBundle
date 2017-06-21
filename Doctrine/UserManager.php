@@ -4,9 +4,9 @@ namespace Ekyna\Bundle\UserBundle\Doctrine;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Ekyna\Bundle\UserBundle\Entity\GroupRepository;
-use Ekyna\Bundle\UserBundle\Model\UserInterface;
 use Ekyna\Bundle\UserBundle\Model\UserManagerInterface;
 use FOS\UserBundle\Doctrine\UserManager as BaseManager;
+use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Util\CanonicalFieldsUpdater;
 use FOS\UserBundle\Util\PasswordUpdaterInterface;
 
@@ -50,12 +50,34 @@ class UserManager extends BaseManager implements UserManagerInterface
     public function createUser()
     {
         $class = $this->getClass();
-        /** @var UserInterface $user */
-        $user = new $class;
 
+        /** @var \Ekyna\Bundle\UserBundle\Model\UserInterface $user */
+        $user = new $class;
         $user->setGroup($this->groupRepository->findDefault());
 
         return $user;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function updateUser(UserInterface $user, $andFlush = true)
+    {
+        $this->updateUsername($user);
+
+        parent::updateUser($user, $andFlush);
+    }
+
+    /**
+     * Copy email to username if empty.
+     *
+     * @param UserInterface $user
+     */
+    public function updateUsername(UserInterface $user)
+    {
+        if (0 == strlen($user->getUsername())) {
+            $user->setUsername($user->getEmail());
+        }
     }
 
     /**
