@@ -129,6 +129,7 @@ class UserWidget {
 
                 if (modalEvent.content.success) {
                     this.loadContent();
+                    modal.close();
                 }
             }
         });
