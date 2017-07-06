@@ -91,6 +91,7 @@ class UserListener implements EventSubscriberInterface
         }
 
         $this->userManager->updateUsername($user);
+        // TODO remove ? (done by the fos user listener)
         $this->userManager->updatePassword($user);
         $this->userManager->updateCanonicalFields($user);
     }
@@ -126,6 +127,7 @@ class UserListener implements EventSubscriberInterface
         $user = $this->getUserFromEvent($event);
 
         $this->userManager->updateUsername($user);
+        // TODO remove ? (done by the fos user listener)
         $this->userManager->updatePassword($user);
         $this->userManager->updateCanonicalFields($user);
     }

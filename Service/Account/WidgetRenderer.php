@@ -15,17 +15,17 @@ class WidgetRenderer
     /**
      * @var EngineInterface
      */
-    private $engine;
+    private $templating;
 
 
     /**
      * Constructor.
      *
-     * @param EngineInterface $engine
+     * @param EngineInterface $templating
      */
-    public function __construct(EngineInterface $engine)
+    public function __construct(EngineInterface $templating)
     {
-        $this->engine = $engine;
+        $this->templating = $templating;
     }
 
     /**
@@ -37,7 +37,7 @@ class WidgetRenderer
      */
     public function render(UserInterface $user = null)
     {
-        return $this->engine->render('EkynaUserBundle::widget.xml.twig', [
+        return $this->templating->render('EkynaUserBundle::widget.xml.twig', [
             'user' => $user,
         ]);
     }

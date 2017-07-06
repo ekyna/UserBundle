@@ -15,6 +15,18 @@
                 </option>
             </constraint>
         </property>
+        <property name="plainPassword">
+            <constraint name="Length">
+                <option name="min">6</option>
+                <option name="minMessage">fos_user.password.short</option>
+                <option name="groups">
+                    <value>Registration</value>
+                    <value>Profile</value>
+                    <value>ResetPassword</value>
+                    <value>ChangePassword</value>
+                </option>
+            </constraint>
+        </property>
         <constraint name="Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity">
             <option name="fields">email</option>
             <option name="groups">

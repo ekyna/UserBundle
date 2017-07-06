@@ -73,10 +73,9 @@ class SecurityController extends Controller
      */
     protected function createLoginModal(FormInterface $form)
     {
-        $modal = new Modal('Connexion à l\'espace client'); // TODO trans
-        $modal->setSize(Modal::SIZE_SMALL);
-
+        $modal = new Modal('ekyna_user.account.login.title');
         $modal
+            ->setSize(Modal::SIZE_SMALL)
             ->setContent($form->createView())
             ->setVars([
                 'form_template' => 'EkynaUserBundle:Security:modal_login_form.html.twig',
@@ -96,8 +95,6 @@ class SecurityController extends Controller
                     'cssClass' => 'btn-default',
                 ]
             ]);
-
-
 
         return $modal;
     }

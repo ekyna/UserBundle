@@ -50,7 +50,7 @@ class UserSearchType extends AbstractType
                 }
 
                 return $value;
-            });;
+            });
     }
 
     /**

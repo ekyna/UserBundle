@@ -6,13 +6,9 @@
                         http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <parameters>
-        <parameter key="ekyna_user.user.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\UserType</parameter>
-        <parameter key="ekyna_user.user_search.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\UserSearchType</parameter>
         <parameter key="ekyna_user.login.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\LoginType</parameter>
         <parameter key="ekyna_user.profile.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\ProfileType</parameter>
         <parameter key="ekyna_user.registration.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\RegistrationType</parameter>
-
-        <parameter key="ekyna_user.user.table_type.class">Ekyna\Bundle\UserBundle\Table\Type\UserType</parameter>
 
         <parameter key="ekyna_user.user.search_repository.class">Ekyna\Bundle\UserBundle\Service\Search\UserRepository</parameter>
     </parameters>
@@ -48,12 +44,6 @@
         </service>
 
         <!-- Form types -->
-        <service id="ekyna_user.user.form_type" class="%ekyna_user.user.form_type.class%">
-            <argument type="service" id="security.token_storage"/>
-            <argument>%ekyna_user.user.class%</argument>
-            <argument>%ekyna_user.group.class%</argument>
-            <tag name="form.type"/>
-        </service>
         <service id="ekyna_user.profile.form_type" class="%ekyna_user.profile.form_type.class%">
             <argument>%ekyna_user.user.class%</argument>
             <argument>%ekyna_user.config%</argument>
@@ -70,13 +60,24 @@
             <argument>%kernel.environment%</argument>
             <tag name="form.type"/>
         </service>
-        <service id="ekyna_user.user_search.form_type" class="%ekyna_user.user_search.form_type.class%">
+
+        <service id="ekyna_user.user.form_type" class="Ekyna\Bundle\UserBundle\Form\Type\UserType">
+            <argument type="service" id="security.token_storage"/>
+            <argument>%ekyna_user.user.class%</argument>
+            <argument>%ekyna_user.group.class%</argument>
+            <tag name="form.type"/>
+        </service>
+        <service id="ekyna_user.user_search.form_type" class="Ekyna\Bundle\UserBundle\Form\Type\UserSearchType">
+            <argument>%ekyna_user.user.class%</argument>
+            <tag name="form.type"/>
+        </service>
+        <service id="ekyna_user.user_choice.form_type" class="Ekyna\Bundle\UserBundle\Form\Type\UserChoiceType">
             <argument>%ekyna_user.user.class%</argument>
             <tag name="form.type"/>
         </service>
 
         <!-- Table types -->
-        <service id="ekyna_user.user.table_type" class="%ekyna_user.user.table_type.class%">
+        <service id="ekyna_user.user.table_type" class="Ekyna\Bundle\UserBundle\Table\Type\UserType">
             <argument>%ekyna_user.user.class%</argument>
             <call method="setTokenStorage">
                 <argument type="service" id="security.token_storage"/>
@@ -91,6 +92,15 @@
         <service id="ekyna_user.routing_loader" class="Ekyna\Bundle\UserBundle\Routing\AccountLoader">
             <argument>%ekyna_user.config%</argument>
             <tag name="routing.loader"/>
+        </service>
+
+        <!-- Account controller -->
+        <service id="ekyna_user.controller.account" class="Ekyna\Bundle\UserBundle\Controller\AccountController">
+             <argument type="service" id="security.authorization_checker"/>
+             <argument type="service" id="security.token_storage"/>
+             <argument type="service" id="router"/>
+             <argument type="service" id="templating"/>
+             <argument type="service" id="ekyna_user.account.widget_renderer"/>
         </service>
 
         <!-- Account Menu -->

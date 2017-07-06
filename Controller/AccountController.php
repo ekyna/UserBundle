@@ -3,6 +3,7 @@
 namespace Ekyna\Bundle\UserBundle\Controller;
 
 use Ekyna\Bundle\CoreBundle\Controller\Controller;
+use Ekyna\Bundle\UserBundle\Event\DashboardEvent;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -26,7 +27,13 @@ class AccountController extends Controller
             ]));
         }
 
-        return $this->render('EkynaUserBundle::account.html.twig');
+        $event = new DashboardEvent($this->getUser());
+
+        $this->getDispatcher()->dispatch(DashboardEvent::DASHBOARD, $event);
+
+        return $this->render('EkynaUserBundle::account.html.twig', [
+            'widgets' => $event->getWidgets(),
+        ]);
     }
 
     /**

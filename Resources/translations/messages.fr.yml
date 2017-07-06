@@ -51,6 +51,10 @@ ekyna_user:
             empty_list: Aucun groupe configuré
     account:
         title: Espace client
+        login:
+            title: Connexion à l'espace client
+        dashboard:
+            title: Tableau de bord
         menu:
             dashboard: Tableau de bord
             my_profile: Mon profil

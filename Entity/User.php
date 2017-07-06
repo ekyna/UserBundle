@@ -34,6 +34,10 @@ class User extends BaseUser implements UserInterface
      */
     public function __toString()
     {
+        if ($this->username !== $this->email) {
+            return sprintf('%s (%s)', $this->username, $this->email);
+        }
+
         return $this->getEmail();
     }
 
