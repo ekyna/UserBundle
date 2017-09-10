@@ -31,8 +31,8 @@ ekyna_user:
             credentials_sent: Un e-mail contenant les informations de connection a été envoyé à l'utilisateur.
     group:
         label:
-            singular: Groupe
-            plural: Groupes
+            singular: Groupe d'utilisateurs
+            plural: Groupes d'utilisateurs
         header:
             list: Groupes <small>Liste des groupes</small>
             show: Détail du groupe <small>%name%</small>

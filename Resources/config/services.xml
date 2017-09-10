@@ -122,6 +122,12 @@
             <tag name="knp_menu.menu" alias="user_widget"/>
         </service>
 
+        <!-- User provider -->
+        <service id="ekyna_user.user_provider"
+                 class="Ekyna\Bundle\UserBundle\Service\Provider\UserProvider">
+            <argument type="service" id="security.token_storage"/>
+        </service>
+
         <!-- Account widget renderer -->
         <service id="ekyna_user.account.widget_renderer"
                  class="Ekyna\Bundle\UserBundle\Service\Account\WidgetRenderer">
