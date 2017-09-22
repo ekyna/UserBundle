@@ -1,6 +1,6 @@
 <?php
 
-namespace Ekyna\Bundle\UserBundle\Authentication;
+namespace Ekyna\Bundle\UserBundle\Service\Security;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -9,7 +9,7 @@ use Symfony\Component\Security\Http\Authentication\DefaultAuthenticationFailureH
 
 /**
  * Class AuthenticationFailureHandler
- * @package Ekyna\Bundle\UserBundle\Authentication
+ * @package Ekyna\Bundle\UserBundle\Service\Security
  * @author  Etienne Dauvergne <contact@ekyna.com>
  */
 class AuthenticationFailureHandler extends DefaultAuthenticationFailureHandler

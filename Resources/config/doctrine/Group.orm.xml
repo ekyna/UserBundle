@@ -7,7 +7,7 @@
                             http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
     <entity name="Ekyna\Bundle\UserBundle\Entity\Group"
-            repository-class="Ekyna\Bundle\UserBundle\Entity\GroupRepository"
+            repository-class="Ekyna\Bundle\UserBundle\Repository\GroupRepository"
             table="user_group">
 
         <id name="id" type="integer" column="id">

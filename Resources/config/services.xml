@@ -15,28 +15,44 @@
 
     <services>
         <!-- Authentication handlers -->
-        <service id="ekyna_user.authentication.success_handler"
-                 class="Ekyna\Bundle\UserBundle\Authentication\AuthenticationSuccessHandler"
+        <service id="ekyna_user.security.authentication_success_handler"
+                 class="Ekyna\Bundle\UserBundle\Service\Security\AuthenticationSuccessHandler"
                  parent="security.authentication.success_handler"
                  public="false">
             <call method="setWidgetRenderer">
                 <argument type="service" id="ekyna_user.account.widget_renderer"/>
             </call>
         </service>
-        <service id="ekyna_user.authentication.failure_handler"
-                 class="Ekyna\Bundle\UserBundle\Authentication\AuthenticationFailureHandler"
+        <service id="ekyna_user.security.authentication_failure_handler"
+                 class="Ekyna\Bundle\UserBundle\Service\Security\AuthenticationFailureHandler"
                  parent="security.authentication.failure_handler"
                  public="false"/>
 
+        <!-- OAuth FOS bridge -->
+        <service id="ekyna_user.oauth.token_manager"
+                 class="Ekyna\Bundle\UserBundle\Service\OAuth\TokenManager"
+                 public="false">
+            <argument type="service" id="doctrine.orm.default_entity_manager"/>
+        </service>
+        <service id="ekyna_user.oauth.fos_provider"
+                 class="Ekyna\Bundle\UserBundle\Service\OAuth\FOSUserProvider"
+                 public="false">
+            <argument type="service" id="fos_user.user_manager"/>
+            <argument type="service" id="ekyna_user.oauth.token_manager"/>
+        </service>
+
         <!-- Events listeners -->
-        <service id="ekyna_user.security_listener" class="Ekyna\Bundle\UserBundle\EventListener\SecurityListener">
-            <argument type="service" id="security.access.decision_manager"/>
+        <service id="ekyna_user.security_listener"
+                 class="Ekyna\Bundle\UserBundle\EventListener\SecurityListener">
             <argument type="service" id="security.authorization_checker"/>
+            <argument type="service" id="ekyna_user.user_provider"/>
+            <argument type="service" id="ekyna_core.flash_helper"/>
             <argument type="service" id="ekyna_user.mailer.default"/>
             <argument>%ekyna_user.notification_config%</argument>
             <tag name="kernel.event_subscriber"/>
         </service>
-        <service id="ekyna_user.user.listener" class="Ekyna\Bundle\UserBundle\EventListener\UserListener">
+        <service id="ekyna_user.user.listener"
+                 class="Ekyna\Bundle\UserBundle\EventListener\UserListener">
             <argument type="service" id="ekyna_user.group.repository"/>
             <argument type="service" id="fos_user.user_manager"/>
             <argument type="service" id="ekyna_user.mailer.default"/>
@@ -49,35 +65,41 @@
             <argument>%ekyna_user.config%</argument>
             <tag name="form.type"/>
         </service>
-        <service id="ekyna_user.login.form_type" class="%ekyna_user.login.form_type.class%">
+        <service id="ekyna_user.login.form_type"
+                 class="%ekyna_user.login.form_type.class%">
             <argument type="service" id="router"/>
             <argument type="service" id="request_stack"/>
             <tag name="form.type"/>
         </service>
-        <service id="ekyna_user.registration.form_type" class="%ekyna_user.registration.form_type.class%">
+        <service id="ekyna_user.registration.form_type"
+                 class="%ekyna_user.registration.form_type.class%">
             <argument>%ekyna_user.user.class%</argument>
             <argument>%ekyna_user.config%</argument>
             <argument>%kernel.environment%</argument>
             <tag name="form.type"/>
         </service>
 
-        <service id="ekyna_user.user.form_type" class="Ekyna\Bundle\UserBundle\Form\Type\UserType">
+        <service id="ekyna_user.user.form_type"
+                 class="Ekyna\Bundle\UserBundle\Form\Type\UserType">
             <argument type="service" id="security.token_storage"/>
             <argument>%ekyna_user.user.class%</argument>
             <argument>%ekyna_user.group.class%</argument>
             <tag name="form.type"/>
         </service>
-        <service id="ekyna_user.user_search.form_type" class="Ekyna\Bundle\UserBundle\Form\Type\UserSearchType">
+        <service id="ekyna_user.user_search.form_type"
+                 class="Ekyna\Bundle\UserBundle\Form\Type\UserSearchType">
             <argument>%ekyna_user.user.class%</argument>
             <tag name="form.type"/>
         </service>
-        <service id="ekyna_user.user_choice.form_type" class="Ekyna\Bundle\UserBundle\Form\Type\UserChoiceType">
+        <service id="ekyna_user.user_choice.form_type"
+                 class="Ekyna\Bundle\UserBundle\Form\Type\UserChoiceType">
             <argument>%ekyna_user.user.class%</argument>
             <tag name="form.type"/>
         </service>
 
         <!-- Table types -->
-        <service id="ekyna_user.user.table_type" class="Ekyna\Bundle\UserBundle\Table\Type\UserType">
+        <service id="ekyna_user.user.table_type"
+                 class="Ekyna\Bundle\UserBundle\Table\Type\UserType">
             <argument>%ekyna_user.user.class%</argument>
             <call method="setTokenStorage">
                 <argument type="service" id="security.token_storage"/>
@@ -89,18 +111,20 @@
         </service>
 
         <!-- Routing loader -->
-        <service id="ekyna_user.routing_loader" class="Ekyna\Bundle\UserBundle\Routing\AccountLoader">
+        <service id="ekyna_user.routing_loader"
+                 class="Ekyna\Bundle\UserBundle\Routing\AccountLoader">
             <argument>%ekyna_user.config%</argument>
             <tag name="routing.loader"/>
         </service>
 
         <!-- Account controller -->
-        <service id="ekyna_user.controller.account" class="Ekyna\Bundle\UserBundle\Controller\AccountController">
-             <argument type="service" id="security.authorization_checker"/>
-             <argument type="service" id="security.token_storage"/>
-             <argument type="service" id="router"/>
-             <argument type="service" id="templating"/>
-             <argument type="service" id="ekyna_user.account.widget_renderer"/>
+        <service id="ekyna_user.controller.account"
+                 class="Ekyna\Bundle\UserBundle\Controller\AccountController">
+            <argument type="service" id="security.authorization_checker"/>
+            <argument type="service" id="security.token_storage"/>
+            <argument type="service" id="router"/>
+            <argument type="service" id="templating"/>
+            <argument type="service" id="ekyna_user.account.widget_renderer"/>
         </service>
 
         <!-- Account Menu -->
@@ -135,13 +159,15 @@
         </service>
 
         <!-- Twig extensions -->
-        <service id="ekyna_user.twig.user_extension" class="Ekyna\Bundle\UserBundle\Twig\UserExtension">
+        <service id="ekyna_user.twig.user_extension"
+                 class="Ekyna\Bundle\UserBundle\Twig\UserExtension">
             <argument>%ekyna_user.config%</argument>
             <tag name="twig.extension"/>
         </service>
 
         <!-- (FOS) User manager -->
-        <service id="ekyna_user.user_manager.default" class="Ekyna\Bundle\UserBundle\Doctrine\UserManager"
+        <service id="ekyna_user.user_manager.default"
+                 class="Ekyna\Bundle\UserBundle\Doctrine\UserManager"
                  public="false">
             <argument type="service" id="fos_user.util.password_updater"/>
             <argument type="service" id="fos_user.util.canonical_fields_updater"/>
@@ -151,7 +177,9 @@
         </service>
 
         <!-- Mailer -->
-        <service id="ekyna_user.mailer.default" class="Ekyna\Bundle\UserBundle\Mailer\Mailer" public="false">
+        <service id="ekyna_user.mailer.default"
+                 class="Ekyna\Bundle\UserBundle\Mailer\Mailer"
+                 public="false">
             <argument type="service" id="mailer"/>
             <argument type="service" id="router"/>
             <argument type="service" id="templating"/>

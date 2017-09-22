@@ -2,7 +2,7 @@
 
 namespace Ekyna\Bundle\UserBundle\Mailer;
 
-use Ekyna\Bundle\SettingBundle\Manager\SettingsManager;
+use Ekyna\Bundle\SettingBundle\Manager\SettingsManagerInterface;
 use FOS\UserBundle\Mailer\Mailer as BaseMailer;
 use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -13,17 +13,12 @@ use Symfony\Component\Translation\TranslatorInterface;
 /**
  * Class Mailer
  * @package Ekyna\Bundle\UserBundle\Mailer
- * @author Étienne Dauvergne <contact@ekyna.com>
+ * @author  Étienne Dauvergne <contact@ekyna.com>
  */
 class Mailer extends BaseMailer
 {
     /**
-     * @var \Swift_Mailer $mailer
-     */
-    protected $mailer;
-
-    /**
-     * @var SettingsManager
+     * @var SettingsManagerInterface
      */
     protected $settingsManager;
 
@@ -42,12 +37,13 @@ class Mailer extends BaseMailer
      */
     protected $config;
 
+
     /**
      * Sets the settings manager.
      *
-     * @param SettingsManager $settingsManager
+     * @param SettingsManagerInterface $settingsManager
      */
-    public function setSettingsManager(SettingsManager $settingsManager)
+    public function setSettingsManager(SettingsManagerInterface $settingsManager)
     {
         $this->settingsManager = $settingsManager;
     }
@@ -90,13 +86,13 @@ class Mailer extends BaseMailer
     public function sendSuccessfulLoginEmailMessage(UserInterface $user)
     {
         /** @var \Ekyna\Bundle\UserBundle\Model\UserInterface $user */
-        $siteName  = $this->settingsManager->getParameter('general.site_name');
+        $siteName = $this->settingsManager->getParameter('general.site_name');
 
         $rendered = $this->templating->render(
             'EkynaUserBundle:Security:login_success_email.html.twig',
             [
                 'sitename' => $siteName,
-                'date' => new \DateTime()
+                'date'     => new \DateTime(),
             ]
         );
 
@@ -113,12 +109,13 @@ class Mailer extends BaseMailer
      *
      * @param UserInterface $user
      * @param string        $password
+     *
      * @return integer
      */
     public function sendCreationEmailMessage(UserInterface $user, $password)
     {
         /** @var \Ekyna\Bundle\UserBundle\Model\UserInterface $user */
-        $siteName  = $this->settingsManager->getParameter('general.site_name');
+        $siteName = $this->settingsManager->getParameter('general.site_name');
         $login = $user->getUsername();
 
         if (0 === strlen($password)) {
@@ -152,12 +149,13 @@ class Mailer extends BaseMailer
      *
      * @param UserInterface $user
      * @param string        $password
+     *
      * @return integer
      */
     public function sendNewPasswordEmailMessage(UserInterface $user, $password)
     {
         /** @var \Ekyna\Bundle\UserBundle\Model\UserInterface $user */
-        $siteName  = $this->settingsManager->getParameter('general.site_name');
+        $siteName = $this->settingsManager->getParameter('general.site_name');
         $login = $user->getUsername();
 
         if (0 === strlen($password)) {
@@ -202,7 +200,7 @@ class Mailer extends BaseMailer
 
         $rendered = $this->templating->render($template, [
             'confirmationUrl' => $url,
-            'sitename' => $siteName,
+            'sitename'        => $siteName,
         ]);
 
         $subject = $this->translator->trans(
@@ -229,7 +227,7 @@ class Mailer extends BaseMailer
 
         $rendered = $this->templating->render($template, [
             'confirmationUrl' => $url,
-            'sitename' => $siteName,
+            'sitename'        => $siteName,
         ]);
 
         $subject = $this->translator->trans(
@@ -244,6 +242,7 @@ class Mailer extends BaseMailer
      * Returns the login url.
      *
      * @param UserInterface $user
+     *
      * @return null|string
      */
     protected function getLoginUrl(UserInterface $user)
@@ -254,6 +253,7 @@ class Mailer extends BaseMailer
         } else if ($this->config['account']['enable']) {
             return $this->router->generate('fos_user_security_login', [], UrlGeneratorInterface::ABSOLUTE_URL);
         }
+
         return null;
     }
 
@@ -276,8 +276,7 @@ class Mailer extends BaseMailer
             ->setSubject($subject)
             ->setFrom($fromEmail, $fromName)
             ->setTo($toEmail)
-            ->setBody($renderedTemplate, 'text/html')
-        ;
+            ->setBody($renderedTemplate, 'text/html');
 
         return $this->mailer->send($message);
     }

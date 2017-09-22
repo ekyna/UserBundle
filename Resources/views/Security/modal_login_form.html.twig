@@ -1,4 +1,17 @@
 {% spaceless %}
+
+{%- set owners = hwi_oauth_resource_owners() -%}
+{%- if owners is not empty -%}
+    {%- for owner in hwi_oauth_resource_owners() -%}
+        <div class="form-group">
+            <a href="{{ hwi_oauth_login_url(owner) }}" class="btn btn-block btn-social btn-{{ owner }}">
+                <span class="fa fa-{{ owner }}"></span> {{ owner|capitalize }}
+            </a>
+        </div>
+    {%- endfor -%}
+    <hr>
+{%- endif -%}
+
 {{ form_start(form) }}
 
     {{ form_errors(form, {'global_errors': true}) }}

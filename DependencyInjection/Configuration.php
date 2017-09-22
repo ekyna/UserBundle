@@ -13,8 +13,6 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  */
 class Configuration implements ConfigurationInterface
 {
-    //const DEFAULT_GENDER_CLASS = 'Ekyna\Bundle\CommerceBundle\Model\Genders';
-
     /**
      * {@inheritDoc}
      */
@@ -70,7 +68,7 @@ class Configuration implements ConfigurationInterface
                                 ])->end()
                                 ->scalarNode('entity')->defaultValue('Ekyna\Bundle\UserBundle\Entity\User')->end()
                                 ->scalarNode('controller')->defaultValue('Ekyna\Bundle\UserBundle\Controller\Admin\UserController')->end()
-                                ->scalarNode('repository')->defaultValue('Ekyna\Bundle\UserBundle\Entity\UserRepository')->end()
+                                ->scalarNode('repository')->defaultValue('Ekyna\Bundle\UserBundle\Repository\UserRepository')->end()
                                 ->scalarNode('form')->defaultValue('Ekyna\Bundle\UserBundle\Form\Type\UserType')->end()
                                 ->scalarNode('table')->defaultValue('Ekyna\Bundle\UserBundle\Table\Type\UserType')->end()
                                 ->scalarNode('parent')->end()
@@ -86,7 +84,7 @@ class Configuration implements ConfigurationInterface
                                 ])->end()
                                 ->scalarNode('entity')->defaultValue('Ekyna\Bundle\UserBundle\Entity\Group')->end()
                                 ->scalarNode('controller')->defaultValue('Ekyna\Bundle\UserBundle\Controller\Admin\GroupController')->end()
-                                ->scalarNode('repository')->defaultValue('Ekyna\Bundle\UserBundle\Entity\GroupRepository')->end()
+                                ->scalarNode('repository')->defaultValue('Ekyna\Bundle\UserBundle\Repository\GroupRepository')->end()
                                 ->scalarNode('form')->defaultValue('Ekyna\Bundle\UserBundle\Form\Type\GroupType')->end()
                                 ->scalarNode('table')->defaultValue('Ekyna\Bundle\UserBundle\Table\Type\GroupType')->end()
                                 ->scalarNode('parent')->end()

@@ -2,6 +2,7 @@
 
 namespace Ekyna\Bundle\UserBundle\Service\Provider;
 
+use Ekyna\Bundle\UserBundle\Model\UserInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
@@ -15,6 +16,16 @@ class UserProvider implements UserProviderInterface
      * @var TokenStorageInterface
      */
     private $tokenStorage;
+
+    /**
+     * @var UserInterface
+     */
+    private $user;
+
+    /**
+     * @var bool
+     */
+    private $initialized = false;
 
 
     /**
@@ -30,14 +41,52 @@ class UserProvider implements UserProviderInterface
     /**
      * @inheritdoc
      */
+    public function hasUser()
+    {
+        $this->initialize();
+
+        return null !== $this->user;
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function getUser()
     {
-        if (null !== $token = $this->tokenStorage->getToken()) {
-            if (is_object($user = $token->getUser())) {
-                return $user;
-            }
+        $this->initialize();
+
+        return $this->user;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function reset()
+    {
+        $this->user = null;
+        $this->initialized = false;
+    }
+
+    /**
+     * Loads the user once.
+     */
+    private function initialize()
+    {
+        if ($this->initialized) {
+            return;
         }
 
-        return null;
+        $this->initialized = true;
+
+        if (null === $token = $this->tokenStorage->getToken()) {
+            return;
+        }
+
+        $user = $token->getUser();
+        if (!is_object($user) || !$user instanceof UserInterface) {
+            return;
+        }
+
+        $this->user = $user;
     }
 }

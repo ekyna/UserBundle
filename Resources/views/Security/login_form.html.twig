@@ -6,6 +6,22 @@
     {{ bootstrap_set_widget_col(8) }}
 
     <div class="form-body">
+        {%- set owners = hwi_oauth_resource_owners() -%}
+        {%- if owners is not empty -%}
+        <div class="form-group" style="padding:0 15px;">
+        {%- for owner in hwi_oauth_resource_owners() -%}
+            {%- if loop.index0 % 2 == 0 %}<div class="row">{% endif -%}
+            <div class="col-md-6">
+                <a href="{{ hwi_oauth_login_url(owner) }}" class="btn btn-block btn-social btn-{{ owner }}">
+                    <span class="fa fa-{{ owner }}"></span> {{ owner|capitalize }}
+                </a>
+            </div>
+            {%- if loop.last or loop.index % 2 == 0 %}</div>{% endif -%}
+        {%- endfor -%}
+        </div>
+        <hr>
+        {%- endif -%}
+
         {{ form_errors(form, {'global_errors': true}) }}
 
         {{ form_row(form._username) }}

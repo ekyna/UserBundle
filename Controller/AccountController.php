@@ -4,6 +4,7 @@ namespace Ekyna\Bundle\UserBundle\Controller;
 
 use Ekyna\Bundle\CoreBundle\Controller\Controller;
 use Ekyna\Bundle\UserBundle\Event\DashboardEvent;
+use Ekyna\Bundle\UserBundle\Model\UserInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -21,7 +22,8 @@ class AccountController extends Controller
      */
     public function indexAction()
     {
-        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+        $user = $this->getUser();
+        if (!is_object($user) || !$user instanceof UserInterface) {
             return $this->redirect($this->generateUrl('fos_user_security_login', [
                 'target_path' => 'ekyna_user_account_index'
             ]));
@@ -31,7 +33,7 @@ class AccountController extends Controller
 
         $this->getDispatcher()->dispatch(DashboardEvent::DASHBOARD, $event);
 
-        return $this->render('EkynaUserBundle::account.html.twig', [
+        return $this->render('EkynaUserBundle:Account:index.html.twig', [
             'widgets' => $event->getWidgets(),
         ]);
     }
@@ -55,5 +57,13 @@ class AccountController extends Controller
         $response->headers->set('Content-Type', 'application/xml');
 
         return $response->setPrivate();
+    }
+
+    /**
+     * @return UserInterface|null
+     */
+    public function getUser()
+    {
+        return $this->get('ekyna_user.user_provider')->getUser();
     }
 }

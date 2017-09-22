@@ -1,6 +1,6 @@
 <?php
 
-namespace Ekyna\Bundle\UserBundle\Authentication;
+namespace Ekyna\Bundle\UserBundle\Service\Security;
 
 use Ekyna\Bundle\UserBundle\Service\Account\WidgetRenderer;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -11,7 +11,7 @@ use Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessH
 
 /**
  * Class AuthenticationSuccessHandler
- * @package Ekyna\Bundle\UserBundle\Authentication
+ * @package Ekyna\Bundle\UserBundle\Service\Security
  * @author  Étienne Dauvergne <contact@ekyna.com>
  */
 final class AuthenticationSuccessHandler extends DefaultAuthenticationSuccessHandler

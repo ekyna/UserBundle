@@ -1,6 +1,6 @@
 <?php
 
-namespace Ekyna\Bundle\UserBundle\Entity;
+namespace Ekyna\Bundle\UserBundle\Repository;
 
 use Ekyna\Bundle\UserBundle\Model\GroupRepositoryInterface;
 use Ekyna\Component\Resource\Doctrine\ORM\ResourceRepository;

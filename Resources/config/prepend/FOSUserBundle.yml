@@ -9,14 +9,11 @@ fos_user:
     service:
         mailer: ekyna_user.mailer.default
         user_manager: ekyna_user.user_manager.default
-    profile:
-        form:
-            type: Ekyna\Bundle\UserBundle\Form\Type\ProfileType
     registration:
-        confirmation:
-            template: EkynaUserBundle:Registration:email.html.twig
         form:
             type: Ekyna\Bundle\UserBundle\Form\Type\RegistrationType
+        confirmation:
+            template: FOSUserBundle:Registration:email.html.twig
     resetting:
         email:
-            template: EkynaUserBundle:Resetting:email.html.twig
+            template: FOSUserBundle:Resetting:email.html.twig

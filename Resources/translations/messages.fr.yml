@@ -53,6 +53,7 @@ ekyna_user:
         title: Espace client
         login:
             title: Connexion à l'espace client
+            oauth: Vous êtes connecté via votre compte <strong>%owner%</strong>
         dashboard:
             title: Tableau de bord
         menu:
@@ -118,7 +119,7 @@ ekyna_user:
             title: Création de votre compte utilisateur
             message: |
                 <p>Bonjour,</p>
-                <p>Pour valider votre compte utilisateur, merci de vous rendre sur <a href="%confirmationUrl%"> cette page</a>.</p>
+                <p>Pour valider votre compte client, veuillez cliquer sur le lien suivant : <a href="%confirmationUrl%">Confirmer mon adresse email</a>.</p>
                 <p>Cordialement,<br>L'équipe %sitename%.</p>
         resetting:
             subject: "[%sitename%] Réinitialisation de votre mot de passe"

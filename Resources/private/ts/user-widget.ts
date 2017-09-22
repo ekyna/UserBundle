@@ -22,6 +22,8 @@ class UserEvent {
     authenticated:boolean;
 }
 
+// TODO Reload after page visibility changed (visible)
+
 class UserWidget {
 
     private config:Config;

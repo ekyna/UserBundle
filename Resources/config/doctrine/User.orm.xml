@@ -8,7 +8,7 @@
 
     <mapped-superclass
             name="Ekyna\Bundle\UserBundle\Entity\User"
-            repository-class="Ekyna\Bundle\UserBundle\Entity\UserRepository"
+            repository-class="Ekyna\Bundle\UserBundle\Repository\UserRepository"
             table="user_user">
 
         <id name="id" type="integer" column="id">

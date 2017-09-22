@@ -3,7 +3,7 @@
 namespace Ekyna\Bundle\UserBundle\Doctrine;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Ekyna\Bundle\UserBundle\Entity\GroupRepository;
+use Ekyna\Bundle\UserBundle\Repository\GroupRepository;
 use Ekyna\Bundle\UserBundle\Model\UserManagerInterface;
 use FOS\UserBundle\Doctrine\UserManager as BaseManager;
 use FOS\UserBundle\Model\UserInterface;
