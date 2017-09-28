@@ -9,6 +9,14 @@ namespace Ekyna\Bundle\UserBundle\Event;
  */
 final class UserEvents
 {
+    // Persistence
+    const INSERT      = 'ekyna_user.user.insert';
+    const UPDATE      = 'ekyna_user.user.update';
+    const DELETE      = 'ekyna_user.user.delete';
+
+    // Domain
+    const INITIALIZE  = 'ekyna_user.user.initialize';
+
     const PRE_CREATE  = 'ekyna_user.user.pre_create';
     const POST_CREATE = 'ekyna_user.user.post_create';
 
