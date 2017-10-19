@@ -1,5 +1,5 @@
 ekyna_user_account_index:
-    path: ""
+    path: /dashboard
     defaults:
         _controller: EkynaUserBundle:Account:index
     methods: [GET]

@@ -78,6 +78,11 @@ class MenuBuilder
         $user = $this->getUser();
 
         if (null !== $user) {
+            // Change password
+            $menu->addChild('ekyna_user.account.menu.dashboard', [
+                'route' => 'ekyna_user_account_index',
+            ]);
+
             // Configure menu event
             $this->dispatcher->dispatch(
                 MenuEvent::CONFIGURE_ACCOUNT,
