@@ -3,10 +3,12 @@
 <response>
     <user-widget status="{{ user is same as (null) ? "0" : "1" }}"><![CDATA[
     {% if user is not same as(null) %}
+        <div class="user-widget-menu">
         {{ knp_menu_render('user_widget', {
             'template': 'EkynaUserBundle::menu.html.twig',
             'style': 'stacked-pills'
         }) }}
+        </div>
     {% else %}
         <div class="sign-in-or-register">
             <a href="{{ path('fos_user_security_login') }}" class="btn btn-primary" data-user-modal>

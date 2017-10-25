@@ -4,6 +4,7 @@ fos_user_security_login:
         _controller: EkynaUserBundle:Security:login
     methods: [GET]
     options:
+        expose: true
         _cms:
             name: "Connexion"
             parent: ekyna_user_account_index

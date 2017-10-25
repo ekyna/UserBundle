@@ -90,7 +90,7 @@ class SecurityController extends Controller
                 ],
                 'close' => [
                     'id'       => 'close',
-                    'label'    => 'ekyna_core.button.cancel',
+                    'label'    => 'ekyna_core.button.close',
                     'icon'     => 'glyphicon glyphicon-remove',
                     'cssClass' => 'btn-default',
                 ]
