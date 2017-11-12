@@ -25,4 +25,12 @@ final class UserEvents
 
     const PRE_DELETE  = 'ekyna_user.user.pre_delete';
     const POST_DELETE = 'ekyna_user.user.post_delete';
+
+
+    /**
+     * Disabled constructor.
+     */
+    private function __construct()
+    {
+    }
 }

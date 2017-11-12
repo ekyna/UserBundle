@@ -27,7 +27,8 @@ ekyna_user:
             empty_list: Aucun utilisateur configuré
             no_password_request: Aucune demande de réinitialisation du mot de passe trouvée.
             password_request_cleared: La demande de réinitialisation a bien été annulée.
-        event:
+        message:
+            delete_access_denied: Vous n'êtes pas autorisé à supprimer cet utilisateur.
             credentials_sent: Un e-mail contenant les informations de connection a été envoyé à l'utilisateur.
     group:
         label:
@@ -49,6 +50,8 @@ ekyna_user:
             remove: Supprimer le groupe
         alert:
             empty_list: Aucun groupe configuré
+        message:
+            delete_access_denied: Vous n'êtes pas autorisé à supprimer ce groupe d'utilisateurs.
     account:
         title: Espace client
         login:

@@ -20,7 +20,8 @@ class GroupType extends ResourceFormType
     {
         $builder
             ->add('name', Type\TextType::class, [
-                'label' => 'ekyna_core.field.name',
+                'label'    => 'ekyna_core.field.name',
+                'disabled' => true,
             ])
             ->add('roles', Type\ChoiceType::class, [
                 'label'    => 'ekyna_core.field.roles',

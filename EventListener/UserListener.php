@@ -11,6 +11,7 @@ use Ekyna\Bundle\UserBundle\Mailer\Mailer;
 use Ekyna\Bundle\UserBundle\Model\UserManagerInterface;
 use Ekyna\Component\Resource\Exception\InvalidArgumentException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
  * Class UserListener
@@ -35,39 +36,33 @@ class UserListener implements EventSubscriberInterface
     protected $mailer;
 
     /**
+     * @var AuthorizationCheckerInterface
+     */
+    protected $authorizationChecker;
+
+
+    /**
      * Constructor.
      *
-     * @param EntityRepository     $groupRepository
-     * @param UserManagerInterface $fosUserManager
-     * @param Mailer               $mailer
+     * @param EntityRepository              $groupRepository
+     * @param UserManagerInterface          $fosUserManager
+     * @param Mailer                        $mailer
+     * @param AuthorizationCheckerInterface $authorizationChecker
      */
-    public function __construct(EntityRepository $groupRepository, UserManagerInterface $fosUserManager, Mailer $mailer)
-    {
+    public function __construct(
+        EntityRepository $groupRepository,
+        UserManagerInterface $fosUserManager,
+        Mailer $mailer,
+        AuthorizationCheckerInterface $authorizationChecker
+    ) {
         $this->groupRepository = $groupRepository;
         $this->userManager = $fosUserManager;
         $this->mailer = $mailer;
+        $this->authorizationChecker = $authorizationChecker;
     }
 
     /**
-     * Returns the user form the event.
-     *
-     * @param ResourceEventInterface $event
-     *
-     * @return UserInterface
-     */
-    private function getUserFromEvent(ResourceEventInterface $event)
-    {
-        $resource = $event->getResource();
-
-        if (!$resource instanceof UserInterface) {
-            throw new InvalidArgumentException("Expected instance of UserInterface");
-        }
-
-        return $resource;
-    }
-
-    /**
-     * Pre create resource event handler.
+     * Pre create event handler.
      *
      * @param ResourceEventInterface $event
      */
@@ -97,7 +92,7 @@ class UserListener implements EventSubscriberInterface
     }
 
     /**
-     * Post create resource event handler.
+     * Post create event handler.
      *
      * @param ResourceEventInterface $event
      */
@@ -113,7 +108,7 @@ class UserListener implements EventSubscriberInterface
         }
 
         if (0 < $this->mailer->sendCreationEmailMessage($user, $event->getData('password'))) {
-            $event->addMessage(new ResourceMessage('ekyna_user.user.event.credentials_sent'));
+            $event->addMessage(new ResourceMessage('ekyna_user.user.message.credentials_sent'));
         }
     }
 
@@ -146,8 +141,43 @@ class UserListener implements EventSubscriberInterface
         $user = $this->getUserFromEvent($event);
 
         if (0 < $this->mailer->sendNewPasswordEmailMessage($user, $event->getData('password'))) {
-            $event->addMessage(new ResourceMessage('ekyna_user.user.event.credentials_sent'));
+            $event->addMessage(new ResourceMessage('ekyna_user.user.message.credentials_sent'));
         }
+    }
+
+    /**
+     * Pre delete event handler.
+     *
+     * @param ResourceEventInterface $event
+     */
+    public function onPreDelete(ResourceEventInterface $event)
+    {
+        $this->getUserFromEvent($event);
+
+        if (!$this->authorizationChecker->isGranted('ROLE_SUPER_ADMIN')) {
+            $event->addMessage(new ResourceMessage(
+                'ekyna_user.user.message.delete_access_denied',
+                ResourceMessage::TYPE_ERROR
+            ));
+        }
+    }
+
+    /**
+     * Returns the user form the event.
+     *
+     * @param ResourceEventInterface $event
+     *
+     * @return UserInterface
+     */
+    protected function getUserFromEvent(ResourceEventInterface $event)
+    {
+        $resource = $event->getResource();
+
+        if (!$resource instanceof UserInterface) {
+            throw new InvalidArgumentException("Expected instance of " . UserInterface::class);
+        }
+
+        return $resource;
     }
 
     /**
@@ -160,6 +190,7 @@ class UserListener implements EventSubscriberInterface
             UserEvents::POST_CREATE => ['onPostCreate', 0],
             UserEvents::PRE_UPDATE  => ['onPreUpdate', 0],
             UserEvents::POST_UPDATE => ['onPostUpdate', 0],
+            UserEvents::PRE_DELETE  => ['onPreDelete', 0],
         ];
     }
 }
