@@ -13,6 +13,7 @@ let bs = Bootstrap;
 let ui = Ui;
 
 interface Config {
+    debug: boolean
     widgetSelector: string
     contentSelector: string
     toggleSelector: string
@@ -23,7 +24,6 @@ class UserEvent {
 }
 
 class UserWidget {
-
     private config:Config;
     private enabled:boolean;
     private authenticated:boolean;
@@ -46,6 +46,7 @@ class UserWidget {
 
     initialize(config?:Config):UserWidget {
         this.config = _.defaults(config || {}, {
+            debug: false,
             widgetSelector: '#user-widget',
             toggleSelector: '> a',
             contentSelector: '> div'
@@ -86,7 +87,9 @@ class UserWidget {
 
         $(document).on('click', '[data-user-modal]', this.modalLinkClickHandler);
         $(document).on('ajaxError', this.xhrErrorHandler);
-        $(window).on('focus', this.windowFocusHandler);
+        if (!this.config.debug) {
+            $(window).on('focus', this.windowFocusHandler);
+        }
 
         return this;
     }
@@ -102,7 +105,9 @@ class UserWidget {
 
         $(document).off('click', '[data-user-modal]', this.modalLinkClickHandler);
         $(document).off('ajaxError', this.xhrErrorHandler);
-        $(window).off('focus', this.windowFocusHandler);
+        if (!this.config.debug) {
+            $(window).off('focus', this.windowFocusHandler);
+        }
 
         return this;
     }

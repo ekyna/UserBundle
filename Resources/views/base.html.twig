@@ -3,13 +3,17 @@
 <html>
 <head>
     <title>User account</title>
+    {% block stylesheets %}
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    {% endblock stylesheets %}
 </head>
 <body>
     {# Flashes ? #}
     {% block content %}{% endblock content %}
+    {% block javascripts %}
     <script src="//code.jquery.com/jquery-1.12.4.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    {% endblock javascripts %}
 </body>
 </html>
 {% endspaceless %}
