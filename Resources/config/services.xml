@@ -45,7 +45,7 @@
         <service id="ekyna_user.security_listener"
                  class="Ekyna\Bundle\UserBundle\EventListener\SecurityListener">
             <argument type="service" id="security.authorization_checker"/>
-            <argument type="service" id="ekyna_user.user_provider"/>
+            <argument type="service" id="ekyna_user.user.provider"/>
             <argument type="service" id="ekyna_core.flash_helper"/>
             <argument type="service" id="ekyna_user.mailer.default"/>
             <argument>%ekyna_user.notification_config%</argument>
@@ -153,7 +153,7 @@
         </service>
 
         <!-- User provider -->
-        <service id="ekyna_user.user_provider"
+        <service id="ekyna_user.user.provider"
                  class="Ekyna\Bundle\UserBundle\Service\Provider\UserProvider">
             <argument type="service" id="security.token_storage"/>
         </service>

@@ -64,6 +64,6 @@ class AccountController extends Controller
      */
     public function getUser()
     {
-        return $this->get('ekyna_user.user_provider')->getUser();
+        return $this->get('ekyna_user.user.provider')->getUser();
     }
 }
