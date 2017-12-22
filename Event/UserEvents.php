@@ -26,6 +26,9 @@ final class UserEvents
     const PRE_DELETE  = 'ekyna_user.user.pre_delete';
     const POST_DELETE = 'ekyna_user.user.post_delete';
 
+    const PRE_GENERATE_PASSWORD  = 'ekyna_user.user.pre_generate_password';
+    const POST_GENERATE_PASSWORD = 'ekyna_user.user.post_generate_password';
+
 
     /**
      * Disabled constructor.

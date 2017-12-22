@@ -271,8 +271,8 @@ class Mailer extends BaseMailer
         $fromEmail = $this->settingsManager->getParameter('notification.from_email');
         $fromName = $this->settingsManager->getParameter('notification.from_name');
 
-        /** @var \Swift_Mime_Message $message */
-        $message = \Swift_Message::newInstance()
+        $message = new \Swift_Message();
+        $message
             ->setSubject($subject)
             ->setFrom($fromEmail, $fromName)
             ->setTo($toEmail)

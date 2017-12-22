@@ -128,24 +128,6 @@ class UserListener implements EventSubscriberInterface
     }
 
     /**
-     * Post update resource event handler.
-     *
-     * @param ResourceEventInterface $event
-     */
-    public function onPostUpdate(ResourceEventInterface $event)
-    {
-        if (!$event->hasData('password')) {
-            return;
-        }
-
-        $user = $this->getUserFromEvent($event);
-
-        if (0 < $this->mailer->sendNewPasswordEmailMessage($user, $event->getData('password'))) {
-            $event->addMessage(new ResourceMessage('ekyna_user.user.message.credentials_sent'));
-        }
-    }
-
-    /**
      * Pre delete event handler.
      *
      * @param ResourceEventInterface $event
@@ -159,6 +141,24 @@ class UserListener implements EventSubscriberInterface
                 'ekyna_user.user.message.delete_access_denied',
                 ResourceMessage::TYPE_ERROR
             ));
+        }
+    }
+
+    /**
+     * Post generate password event handler.
+     *
+     * @param ResourceEventInterface $event
+     */
+    public function onPostGeneratePassword(ResourceEventInterface $event)
+    {
+        if (!$event->hasData('password')) {
+            return;
+        }
+
+        $user = $this->getUserFromEvent($event);
+
+        if (0 < $this->mailer->sendNewPasswordEmailMessage($user, $event->getData('password'))) {
+            $event->addMessage(new ResourceMessage('ekyna_user.user.message.credentials_sent'));
         }
     }
 
@@ -186,11 +186,11 @@ class UserListener implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            UserEvents::PRE_CREATE  => ['onPreCreate', 0],
-            UserEvents::POST_CREATE => ['onPostCreate', 0],
-            UserEvents::PRE_UPDATE  => ['onPreUpdate', 0],
-            UserEvents::POST_UPDATE => ['onPostUpdate', 0],
-            UserEvents::PRE_DELETE  => ['onPreDelete', 0],
+            UserEvents::PRE_CREATE             => ['onPreCreate', 0],
+            UserEvents::POST_CREATE            => ['onPostCreate', 0],
+            UserEvents::PRE_UPDATE             => ['onPreUpdate', 0],
+            UserEvents::PRE_DELETE             => ['onPreDelete', 0],
+            UserEvents::POST_GENERATE_PASSWORD => ['onPostGeneratePassword', 0],
         ];
     }
 }

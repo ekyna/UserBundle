@@ -5,6 +5,7 @@ namespace Ekyna\Bundle\UserBundle\Controller\Admin;
 use Ekyna\Bundle\AdminBundle\Controller\Context;
 use Ekyna\Bundle\AdminBundle\Controller\Resource\ToggleableTrait;
 use Ekyna\Bundle\AdminBundle\Controller\ResourceController;
+use Ekyna\Bundle\UserBundle\Event\UserEvents;
 use Ekyna\Bundle\UserBundle\Service\Search\UserRepository;
 use Ekyna\Component\Resource\Event\ResourceMessage;
 use Symfony\Component\HttpFoundation\Request;
@@ -79,16 +80,29 @@ class UserController extends ResourceController
 
         $this->isGranted('EDIT', $resource);
 
+        // Prevent changing password of super admin
         if (in_array('ROLE_SUPER_ADMIN', $resource->getGroup()->getRoles())) {
             throw new AccessDeniedHttpException();
         }
 
-        $this->get('fos_user.user_manager')->generatePassword($resource);
-        $password = $resource->getPlainPassword();
+        $redirect = $this->generateResourcePath($resource);
 
         $operator = $this->getOperator();
-
         $event = $operator->createResourceEvent($resource);
+
+        $dispatcher = $this->get('ekyna_resource.event_dispatcher');
+
+        // Pre generate event
+        $dispatcher->dispatch(UserEvents::PRE_GENERATE_PASSWORD, $event);
+        if ($event->isPropagationStopped()) {
+            $event->toFlashes($this->getFlashBag());
+
+            return $this->redirect($redirect);
+        }
+
+        // New password
+        $this->get('fos_user.user_manager')->generatePassword($resource);
+        $password = $resource->getPlainPassword();
         $event
             ->addMessage(new ResourceMessage(
                 sprintf('Generated password : "%s".', $password),
@@ -97,11 +111,21 @@ class UserController extends ResourceController
             ->addData('password', $password);
 
         // TODO use ResourceManager
+        // Update event
         $operator->update($event);
+        if ($event->isPropagationStopped()) {
+            $event->toFlashes($this->getFlashBag());
 
+            return $this->redirect($redirect);
+        }
+
+        // Post Generate event
+        $dispatcher->dispatch(UserEvents::POST_GENERATE_PASSWORD, $event);
+
+        // Flashes
         $event->toFlashes($this->getFlashBag());
 
-        return $this->redirect($this->generateResourcePath($resource));
+        return $this->redirect($redirect);
     }
 
     /**
