@@ -8,11 +8,21 @@
     <h3>{{ 'ekyna_user.account.dashboard.title'|trans }}</h3>
     <hr>
     {% for widget in widgets %}
-    <div class="panel panel-default">
+    <div class="panel panel-{{ widget.theme }}">
         <div class="panel-heading">
             {{ widget.title|trans }}
         </div>
-        {% include widget.template with widget.parameters %}
+        {%- include widget.template with widget.parameters -%}
+        {% if widget.buttons is not empty -%}
+        <div class="panel-footer text-right">
+        {% for button in widget.buttons -%}
+            <a href="{{ path(button.route, button.parameters) }}" class="btn btn-sm btn-{{ button.theme }}">
+                {{- button.title|trans -}}
+            </a>
+            {%- if not loop.last %}&nbsp;{% endif -%}
+        {%- endfor %}
+        </div>
+        {%- endif %}
     </div>
     {% endfor %}
 {% endblock account %}

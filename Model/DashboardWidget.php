@@ -20,6 +20,11 @@ class DashboardWidget
     private $template;
 
     /**
+     * @var string
+     */
+    private $theme;
+
+    /**
      * @var array
      */
     private $parameters;
@@ -29,19 +34,27 @@ class DashboardWidget
      */
     private $priority;
 
+    /**
+     * @var DashboardWidgetButton[]
+     */
+    private $buttons;
+
 
     /**
      * Constructor.
      *
      * @param string $title
      * @param string $template
+     * @param string $theme
      */
-    public function __construct($title, $template)
+    public function __construct($title, $template, $theme = 'default')
     {
         $this->title = $title;
         $this->template = $template;
+        $this->theme = $theme;
         $this->parameters = [];
         $this->priority = 0;
+        $this->buttons = [];
     }
 
     /**
@@ -93,6 +106,30 @@ class DashboardWidget
     }
 
     /**
+     * Returns the theme.
+     *
+     * @return string
+     */
+    public function getTheme()
+    {
+        return $this->theme;
+    }
+
+    /**
+     * Sets the theme.
+     *
+     * @param string $theme
+     *
+     * @return DashboardWidget
+     */
+    public function setTheme($theme)
+    {
+        $this->theme = $theme;
+
+        return $this;
+    }
+
+    /**
      * Returns the parameters.
      *
      * @return array
@@ -138,5 +175,29 @@ class DashboardWidget
         $this->priority = intval($priority);
 
         return $this;
+    }
+
+    /**
+     * Returns the buttons.
+     *
+     * @param DashboardWidgetButton $button
+     *
+     * @return $this
+     */
+    public function addButton(DashboardWidgetButton $button)
+    {
+        $this->buttons[] = $button;
+
+        return $this;
+    }
+
+    /**
+     * Returns the buttons.
+     *
+     * @return DashboardWidgetButton[]
+     */
+    public function getButtons()
+    {
+        return $this->buttons;
     }
 }
