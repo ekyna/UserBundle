@@ -46,7 +46,7 @@ class UserController extends ResourceController
         }
 
         if (!empty($roles)) {
-            $groups = $this->get('ekyna_user.group.repository')->findByRoles($roles);
+            $groups = $this->get('ekyna_user.group.repository')->findByRoles((array)$roles);
 
             $results = $repository->searchByGroups($query, $groups, $limit);
         } else {

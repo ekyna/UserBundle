@@ -1,6 +1,6 @@
 <?php
 
-namespace Ekyna\Bundle\UserBundle\Model;
+namespace Ekyna\Bundle\UserBundle\Repository;
 
 /**
  * Interface GroupRepositoryInterface
@@ -12,7 +12,8 @@ interface GroupRepositoryInterface
     /**
      * Returns the default user group.
      *
-     * @return GroupInterface
+     * @return \Ekyna\Bundle\UserBundle\Model\GroupInterface
+     *
      * @throws \RuntimeException
      */
     public function findDefault();
@@ -22,7 +23,7 @@ interface GroupRepositoryInterface
      *
      * @param string $role
      *
-     * @return GroupInterface|null
+     * @return \Ekyna\Bundle\UserBundle\Model\GroupInterface|null
      */
     public function findOneByRole($role);
 
@@ -31,16 +32,16 @@ interface GroupRepositoryInterface
      *
      * @param string $role
      *
-     * @return GroupInterface[]
+     * @return \Ekyna\Bundle\UserBundle\Model\GroupInterface[]
      */
     public function findByRole($role);
 
     /**
      * Finds the groups having at least one of the given roles.
      *
-     * @param string|string[] $roles
+     * @param array $roles
      *
-     * @return GroupInterface[]
+     * @return \Ekyna\Bundle\UserBundle\Model\GroupInterface[]
      */
-    public function findByRoles($roles);
+    public function findByRoles(array $roles);
 }

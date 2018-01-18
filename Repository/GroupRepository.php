@@ -2,7 +2,6 @@
 
 namespace Ekyna\Bundle\UserBundle\Repository;
 
-use Ekyna\Bundle\UserBundle\Model\GroupRepositoryInterface;
 use Ekyna\Component\Resource\Doctrine\ORM\ResourceRepository;
 
 /**
@@ -60,14 +59,10 @@ class GroupRepository extends ResourceRepository implements GroupRepositoryInter
     /**
      * @inheritdoc
      */
-    public function findByRoles($roles)
+    public function findByRoles(array $roles)
     {
         if (empty($roles)) {
             return [];
-        }
-
-        if (!is_array($roles)) {
-            $roles = [$roles];
         }
 
         $qb = $this->createQueryBuilder('g');
