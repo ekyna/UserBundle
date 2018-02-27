@@ -35,6 +35,8 @@ fos_user_resetting_reset:
     defaults:
         _controller: FOSUserBundle:Resetting:reset
     methods: [GET|POST]
+    requirements:
+        token: "[a-zA-Z0-9-_]+"
     options:
         _cms:
             name: "Changez votre mot de passe"
