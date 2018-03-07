@@ -19,10 +19,6 @@ interface Config {
     toggleSelector: string
 }
 
-class UserEvent {
-    authenticated:boolean;
-}
-
 class UserWidget {
     private config:Config;
     private enabled:boolean;
@@ -117,9 +113,9 @@ class UserWidget {
             this.authenticated = authenticated;
 
             if (!silent) {
-                let event = new UserEvent();
-                event.authenticated = authenticated;
-                Dispatcher.trigger('ekyna_user.user_status', event);
+                Dispatcher.trigger('ekyna_user.authentication', {
+                    authenticated: this.authenticated
+                });
             }
         }
     }

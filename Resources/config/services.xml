@@ -160,7 +160,8 @@
 
         <!-- Account widget renderer -->
         <service id="ekyna_user.account.widget_renderer"
-                 class="Ekyna\Bundle\UserBundle\Service\Account\WidgetRenderer">
+                 class="Ekyna\Bundle\UserBundle\Service\Account\WidgetRenderer"
+                 lazy="true">
             <argument type="service" id="templating"/>
         </service>
 
