@@ -14,14 +14,20 @@ class UserNormalizer extends AbstractResourceNormalizer
 {
     /**
      * @inheritdoc
+     *
+     * @param Model\UserInterface $user
      */
     public function normalize($user, $format = null, array $context = [])
     {
+        $groups = isset($context['groups']) ? (array)$context['groups'] : [];
+
+        if ($format === 'csv' && in_array('TableExport', $groups)) {
+            return (string)$user;
+        }
+
         $data = parent::normalize($user, $format, $context);
 
         /** @var Model\UserInterface $user */
-
-        $groups = isset($context['groups']) ? (array)$context['groups'] : [];
 
         if (in_array('Default', $groups) || in_array('Search', $groups)) {
             $data = array_replace([
@@ -39,7 +45,7 @@ class UserNormalizer extends AbstractResourceNormalizer
      */
     public function denormalize($data, $class, $format = null, array $context = [])
     {
-        $resource = parent::denormalize($data, $class, $format, $context);
+        //$resource = parent::denormalize($data, $class, $format, $context);
 
         throw new \Exception('Not yet implemented');
     }
