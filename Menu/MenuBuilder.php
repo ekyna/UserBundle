@@ -136,6 +136,11 @@ class MenuBuilder
                     $menu->addChild('ekyna_user.account.menu.backend', ['route' => 'ekyna_admin']);
                 }
 
+                // Exit impersonate
+                if ($this->authorization->isGranted('ROLE_PREVIOUS_ADMIN')) {
+                    $menu->addChild('ekyna_user.account.menu.exit_impersonate', ['uri' => '/?_switch_user=_exit']);
+                }
+
                 // Logout
                 $menu->addChild('ekyna_user.account.menu.logout', [
                     'route' => 'fos_user_security_logout'

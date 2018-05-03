@@ -63,6 +63,7 @@ ekyna_user:
             dashboard: Tableau de bord
             my_profile: Mon profil
             backend: Administration
+            exit_impersonate: Quiter la session
             login: Connexion
             logout: Se déconnecter
             profile: Mes informations
