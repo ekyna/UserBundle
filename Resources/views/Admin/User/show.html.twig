@@ -2,6 +2,16 @@
 
 {% block main %}
 <div class="actions">
+    {% if is_granted('ROLE_ALLOWED_TO_SWITCH') %}
+        {{ ui_button('ekyna_user.user.button.impersonate', {
+            'type': 'link',
+            'path': '/?_switch_user=' ~ user.email,
+            'theme': 'primary',
+            'icon': 'eye-open'
+        }, {
+            'target': '_blank'
+        }) }}
+    {% endif %}
     {{ admin_resource_btn(user, 'edit') }}
     {{ admin_resource_btn(user, 'remove') }}
 </div>

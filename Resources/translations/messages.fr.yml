@@ -17,6 +17,7 @@ ekyna_user:
             generate_password: Générer un nouveau mot de passe
             clear_password_request: Annuler la demande de réinitilisation
             remove: Supprimer l'utilisateur
+            impersonate: Utiliser la session
         field:
             send_creation_email: Notifier l'utilisateur de la création de son compte.
             password_request_at: Date réinitialisation du mot de passe
@@ -63,7 +64,7 @@ ekyna_user:
             dashboard: Tableau de bord
             my_profile: Mon profil
             backend: Administration
-            exit_impersonate: Quiter la session
+            exit_impersonate: Quitter la session
             login: Connexion
             logout: Se déconnecter
             profile: Mes informations
