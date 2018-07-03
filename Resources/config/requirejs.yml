@@ -4,6 +4,6 @@ config:
             name: 'ekyna-user'
             location: 'bundles/ekynauser/js'
             main: 'user'
-#build:
-#    include:
-#        - 'ekyna-user'
+build:
+    include:
+        - 'ekyna-user'

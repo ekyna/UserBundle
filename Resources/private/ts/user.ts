@@ -15,8 +15,8 @@ let ui = Ui;
 class User {
     private authenticated:boolean;
 
-    private modalLinkClickHandler:(e:JQueryEventObject) => boolean;
-    private xhrErrorHandler:() => void;
+    private readonly modalLinkClickHandler:(e:JQueryEventObject) => boolean;
+    private readonly xhrErrorHandler:() => void;
 
     constructor() {
         this.modalLinkClickHandler = _.bind(this.onModalLinkClick, this);
@@ -105,4 +105,6 @@ class User {
     }
 }
 
-export = new User();
+export function init() {
+    return new User;
+}

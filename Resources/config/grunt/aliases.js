@@ -7,7 +7,7 @@ module.exports = {
     'build:user_js': [
         'ts:user',
         'uglify:user_ts',
-        'uglify:user_js',
+        //'uglify:user_js',
         'clean:user_ts'
     ],
     'build:user': [
