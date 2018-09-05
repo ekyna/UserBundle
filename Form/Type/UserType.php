@@ -65,6 +65,13 @@ class UserType extends ResourceFormType
             ->add('username', TextType::class, [
                 'label'    => 'ekyna_core.field.username',
                 'required' => false,
+            ])
+            ->add('enabled', CheckboxType::class, [
+                'label'    => 'ekyna_core.field.enabled',
+                'required' => false,
+                'attr'     => [
+                    'align_with_widget' => true,
+                ],
             ]);
 
         $builder->addEventListener(

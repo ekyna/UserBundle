@@ -27,9 +27,21 @@
     <div class="show-body">
         <div class="tab-content">
             <div class="tab-pane active" id="user-user-general">
-                {{ show_row(user.email, 'text', {
-                    'label': 'ekyna_core.field.email'
-                }) }}
+                <div class="row">
+                    <div class="col-md-6">
+                        {{ show_row(user.email, 'text', {
+                            'label': 'ekyna_core.field.email',
+                            'label_col': 4
+                        }) }}
+                    </div>
+                    <div class="col-md-6">
+                        {{ show_row(user.enabled, 'boolean', {
+                            'label': 'ekyna_core.field.enabled',
+                            'color': true,
+                            'label_col': 4,
+                        }) }}
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-6">
                         {{ show_row(user.username, 'text', {
@@ -63,48 +75,14 @@
                     }) }}
                 </div>
                 {% endif %}
-                {#<div class="row">
-                    <div class="col-md-6">
-                        {{ show_row(user.expired, 'boolean', {
-                            'label': 'ekyna_core.field.expired',
-                            'label_col': 4
-                        }) }}
-                    </div>
-                    <div class="col-md-6">
-                        {{ show_row(user.expiresAt, 'datetime', {
-                            'label': 'ekyna_core.field.expires_at',
-                            'label_col': 4
-                        }) }}
-                    </div>
-                </div>#}
-                <div class="row">
-                    <div class="col-md-6">
-                        {{ show_row(user.passwordRequestedAt, 'datetime', {
-                            'label': 'ekyna_user.user.field.password_request_at',
-                            'label_col': 4
-                        }) }}
-                    </div>
-                    <div class="col-md-6">
-                        {{ show_row(user.confirmationToken|truncate(64), 'text', {
-                            'label': 'ekyna_user.user.field.confirmation_token',
-                            'label_col': 4
-                        }) }}
-                    </div>
-                </div>
-                {#<div class="row">
-                    <div class="col-md-6">
-                        {{ show_row(user.credentialsExpired, 'boolean', {
-                            'label': 'ekyna_user.user.field.credentials_expired',
-                            'label_col': 4
-                        }) }}
-                    </div>
-                    <div class="col-md-6">
-                        {{ show_row(user.credentialsExpireAt, 'datetime', {
-                            'label': 'ekyna_user.user.field.credentials_expires_at',
-                            'label_col': 4
-                        }) }}
-                    </div>
-                </div>#}
+                {{ show_row(user.passwordRequestedAt, 'datetime', {
+                    'label': 'ekyna_user.user.field.password_request_at',
+                    'label_col': 4
+                }) }}
+                {{ show_row(user.confirmationToken|truncate(64), 'text', {
+                    'label': 'ekyna_user.user.field.confirmation_token',
+                    'label_col': 4
+                }) }}
             </div>
         </div>
     </div>
