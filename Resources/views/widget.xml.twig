@@ -5,7 +5,7 @@
     {% if user is not same as(null) %}
         <div class="user-widget-menu">
         {{ knp_menu_render('user_widget', {
-            'template': 'EkynaUserBundle::menu.html.twig',
+            'template': '@EkynaUser/menu.html.twig',
             'style': 'stacked-pills'
         }) }}
         </div>

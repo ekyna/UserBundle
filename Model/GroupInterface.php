@@ -26,11 +26,4 @@ interface GroupInterface extends BaseGroupInterface, RM\ResourceInterface, RM\So
      * @return boolean
      */
     public function getDefault();
-
-    /**
-     * Returns the security identity.
-     *
-     * @return \Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity
-     */
-    public function getSecurityIdentity();
 }

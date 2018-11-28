@@ -2,7 +2,6 @@
 
 namespace Ekyna\Bundle\UserBundle\EventListener;
 
-use Doctrine\ORM\EntityRepository;
 use Ekyna\Bundle\UserBundle\Model\UserInterface;
 use Ekyna\Component\Resource\Event\ResourceEventInterface;
 use Ekyna\Component\Resource\Event\ResourceMessage;
@@ -11,20 +10,14 @@ use Ekyna\Bundle\UserBundle\Mailer\Mailer;
 use Ekyna\Bundle\UserBundle\Model\UserManagerInterface;
 use Ekyna\Component\Resource\Exception\InvalidArgumentException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
- * Class UserListener
+ * Class UserEventSubscriber
  * @package Ekyna\Bundle\UserBundle\EventListener
  * @author  Étienne Dauvergne <contact@ekyna.com>
  */
-class UserListener implements EventSubscriberInterface
+class UserEventSubscriber implements EventSubscriberInterface
 {
-    /**
-     * @var EntityRepository
-     */
-    protected $groupRepository;
-
     /**
      * @var UserManagerInterface
      */
@@ -35,30 +28,17 @@ class UserListener implements EventSubscriberInterface
      */
     protected $mailer;
 
-    /**
-     * @var AuthorizationCheckerInterface
-     */
-    protected $authorizationChecker;
-
 
     /**
      * Constructor.
      *
-     * @param EntityRepository              $groupRepository
      * @param UserManagerInterface          $fosUserManager
      * @param Mailer                        $mailer
-     * @param AuthorizationCheckerInterface $authorizationChecker
      */
-    public function __construct(
-        EntityRepository $groupRepository,
-        UserManagerInterface $fosUserManager,
-        Mailer $mailer,
-        AuthorizationCheckerInterface $authorizationChecker
-    ) {
-        $this->groupRepository = $groupRepository;
+    public function __construct(UserManagerInterface $fosUserManager, Mailer $mailer)
+    {
         $this->userManager = $fosUserManager;
         $this->mailer = $mailer;
-        $this->authorizationChecker = $authorizationChecker;
     }
 
     /**
@@ -128,23 +108,6 @@ class UserListener implements EventSubscriberInterface
     }
 
     /**
-     * Pre delete event handler.
-     *
-     * @param ResourceEventInterface $event
-     */
-    public function onPreDelete(ResourceEventInterface $event)
-    {
-        $this->getUserFromEvent($event);
-
-        if (!$this->authorizationChecker->isGranted('ROLE_SUPER_ADMIN')) {
-            $event->addMessage(new ResourceMessage(
-                'ekyna_user.user.message.delete_access_denied',
-                ResourceMessage::TYPE_ERROR
-            ));
-        }
-    }
-
-    /**
      * Post generate password event handler.
      *
      * @param ResourceEventInterface $event
@@ -189,7 +152,6 @@ class UserListener implements EventSubscriberInterface
             UserEvents::PRE_CREATE             => ['onPreCreate', 0],
             UserEvents::POST_CREATE            => ['onPostCreate', 0],
             UserEvents::PRE_UPDATE             => ['onPreUpdate', 0],
-            UserEvents::PRE_DELETE             => ['onPreDelete', 0],
             UserEvents::POST_GENERATE_PASSWORD => ['onPostGeneratePassword', 0],
         ];
     }

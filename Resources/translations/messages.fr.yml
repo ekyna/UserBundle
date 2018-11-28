@@ -17,7 +17,7 @@ ekyna_user:
             generate_password: Générer un nouveau mot de passe
             clear_password_request: Annuler la demande de réinitilisation
             remove: Supprimer l'utilisateur
-            impersonate: Utiliser la session
+            use_session: Utiliser la session
         field:
             send_creation_email: Notifier l'utilisateur de la création de son compte.
             password_request_at: Date réinitialisation du mot de passe
@@ -28,8 +28,10 @@ ekyna_user:
             empty_list: Aucun utilisateur configuré
             no_password_request: Aucune demande de réinitialisation du mot de passe trouvée.
             password_request_cleared: La demande de réinitialisation a bien été annulée.
+            use_session: >
+                Vous allez être redirigé vers la partie publique et connecté en tant que {email}.
+                Pensez à vous déconnecter ensuite.
         message:
-            delete_access_denied: Vous n'êtes pas autorisé à supprimer cet utilisateur.
             credentials_sent: Un e-mail contenant les informations de connection a été envoyé à l'utilisateur.
     group:
         label:
@@ -40,19 +42,15 @@ ekyna_user:
             show: Détail du groupe <small>%name%</small>
             new: Créer un nouveau groupe
             edit: Modifier le groupe <small>%name%</small>
-            edit_permissions: Modifier les permissions du groupe <small>%name%</small>
             remove: Supprimer le groupe <small>%name%</small>
         button:
             list: Liste des groupes
             show: Détail du groupe
             new: Nouveau groupe
             edit: Modifier le groupe
-            edit_permissions: Modifier les permissions
             remove: Supprimer le groupe
         alert:
             empty_list: Aucun groupe configuré
-        message:
-            delete_access_denied: Vous n'êtes pas autorisé à supprimer ce groupe d'utilisateurs.
     account:
         title: Espace client
         login:
@@ -112,13 +110,6 @@ ekyna_user:
                 <p>Vous pouvez dès à présent <a href="%login_url%">vous connecter</a> en utilisant vos nouveaux identifiants :<br>
                 Nom d'utilisateur : <strong>%login%</strong><br>
                 Mot de passe : <strong>%password%</strong>.</p>
-        login_success:
-            subject: "[%sitename%] Notification de connexion"
-            title : Notification de connexion
-            message: |
-                <p>Bonjour,</p>
-                <p>Vous recevez cet email suite à une connexion réussie à votre compte client sur %sitename% le %date%.<br>
-                Si vous n'êtes pas à l'origine de cette connexion, veuillez s'il vous plait changer votre mot de passe et avertir notre adminitrateur.</p>
         registration:
             subject: "[%sitename%] Création de votre compte client"
             title: Création de votre compte utilisateur

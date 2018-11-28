@@ -37,11 +37,12 @@ class UserSearchType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'label'    => 'ekyna_user.user.label.singular',
-                'class'    => $this->userClass,
-                'route'    => 'ekyna_user_user_admin_search',
-                'required' => true,
-                'roles'    => ['ROLE_USER'],
+                'label'     => 'ekyna_user.user.label.singular',
+                'class'     => $this->userClass,
+                'route'     => 'ekyna_user_user_admin_search',
+                'add_route' => 'ekyna_user_user_admin_new',
+                'required'  => true,
+                'roles'     => [],
             ])
             ->setAllowedTypes('roles', 'array')
             ->setNormalizer('route_params', function (Options $options, $value) {

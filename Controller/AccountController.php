@@ -33,7 +33,7 @@ class AccountController extends Controller
 
         $this->getDispatcher()->dispatch(DashboardEvent::DASHBOARD, $event);
 
-        return $this->render('EkynaUserBundle:Account:index.html.twig', [
+        return $this->render('@EkynaUser/Account/index.html.twig', [
             'widgets' => $event->getWidgets(),
         ]);
     }

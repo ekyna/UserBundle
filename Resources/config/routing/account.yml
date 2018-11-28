@@ -1,3 +1,10 @@
+ekyna_user_account_redirect:
+    path: ""
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: ekyna_user_account_index
+        permanent: true
+
 ekyna_user_account_index:
     path: /dashboard
     defaults:

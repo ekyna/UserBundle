@@ -12,11 +12,7 @@ use Ekyna\Component\Resource\Doctrine\ORM\ResourceRepository;
 class UserRepository extends ResourceRepository implements UserRepositoryInterface
 {
     /**
-     * Finds users by role.
-     *
-     * @param string $role
-     *
-     * @return \Ekyna\Bundle\UserBundle\Model\UserInterface[]
+     * @inheritdoc
      */
     public function findByRole($role)
     {
@@ -26,17 +22,13 @@ class UserRepository extends ResourceRepository implements UserRepositoryInterfa
 
         return $qb
             ->join('u.group', 'g')
-            ->andWhere($qb->expr()->like('g.roles', $qb->expr()->literal('%"' . strtoupper($role) . '"%')))
+            ->andWhere($qb->expr()->like('g.roles', $qb->expr()->literal('%"' . $role . '"%')))
             ->getQuery()
             ->getResult();
     }
 
     /**
-     * Finds users by roles.
-     *
-     * @param array $roles
-     *
-     * @return \Ekyna\Bundle\UserBundle\Model\UserInterface[]
+     * @inheritdoc
      */
     public function findByRoles(array $roles)
     {
@@ -50,7 +42,7 @@ class UserRepository extends ResourceRepository implements UserRepositoryInterfa
         $orRoles = $qb->expr()->orX();
         foreach ($roles as $role) {
             $this->validateRole($role);
-            $orRoles->add($qb->expr()->like('g.roles', $qb->expr()->literal('%"' . strtoupper($role) . '"%')));
+            $orRoles->add($qb->expr()->like('g.roles', $qb->expr()->literal('%"' . $role . '"%')));
         }
 
         return $qb

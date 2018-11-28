@@ -1,3 +1,4 @@
+ekyna_user_account: /my-account
 ekyna_user_account_index: /my-account/dashboard
 
 fos_user_change_password: /my-account/change-password

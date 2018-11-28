@@ -34,7 +34,7 @@ class SecurityController extends Controller
         }
 
         return $this
-            ->render('EkynaUserBundle:Security:login.html.twig', [
+            ->render('@EkynaUser/Security/login.html.twig', [
                 'form' => $form->createView(),
             ])
             ->setPrivate();
@@ -78,7 +78,7 @@ class SecurityController extends Controller
             ->setSize(Modal::SIZE_SMALL)
             ->setContent($form->createView())
             ->setVars([
-                'form_template' => 'EkynaUserBundle:Security:modal_login_form.html.twig',
+                'form_template' => '@EkynaUser/Security/modal_login_form.html.twig',
             ])
             ->setButtons([
                 'submit' => [

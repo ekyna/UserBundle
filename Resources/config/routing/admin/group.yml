@@ -47,10 +47,3 @@ ekyna_user_group_admin_remove:
     methods: [GET|POST]
     requirements:
         groupId: \d+
-
-ekyna_user_group_admin_edit_permissions:
-    path: /{groupId}/edit-permissions
-    defaults: { _controller: "ekyna_user.group.controller:editPermissionsAction" }
-    methods: [GET|POST]
-    requirements:
-        groupId: \d+

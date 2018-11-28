@@ -41,7 +41,7 @@ class UserChoiceType extends AbstractType
                 'label'         => 'ekyna_user.user.label.singular',
                 'placeholder'   => 'ekyna_core.value.choose',
                 'class'         => $this->userClass,
-                'roles'         => ['ROLE_USER'],
+                'roles'         => [],
                 'select2'       => false,
                 'query_builder' => function (Options $options, $value) {
                     if (null !== $value) {
@@ -59,7 +59,7 @@ class UserChoiceType extends AbstractType
                         $roles = $options['roles'];
                         if (1 == count($roles)) {
                             $qb->andWhere($expr->like('g.roles', $expr->literal('%"' . $roles[0] . '"%')));
-                        } else {
+                        } elseif (!empty($roles)) {
                             $orRoles = $expr->orX();
                             foreach ($roles as $role) {
                                 $orRoles->add($expr->like('g.roles', $expr->literal('%"' . $role . '"%')));

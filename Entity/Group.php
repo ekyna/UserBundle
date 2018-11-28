@@ -5,7 +5,6 @@ namespace Ekyna\Bundle\UserBundle\Entity;
 use Ekyna\Component\Resource\Model\SortableTrait;
 use Ekyna\Bundle\UserBundle\Model\GroupInterface;
 use FOS\UserBundle\Model\Group as BaseGroup;
-use Symfony\Component\Security\Acl\Domain\RoleSecurityIdentity;
 
 /**
  * Class Group
@@ -59,13 +58,5 @@ class Group extends BaseGroup implements GroupInterface
     public function getDefault()
     {
         return $this->default;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getSecurityIdentity()
-    {
-        return new RoleSecurityIdentity(sprintf('ROLE_GROUP_%d', $this->getId()));
     }
 }

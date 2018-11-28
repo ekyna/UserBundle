@@ -12,7 +12,6 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
  * Class UserType
@@ -22,11 +21,6 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 class UserType extends ResourceFormType
 {
     /**
-     * @var AuthorizationCheckerInterface
-     */
-    private $authorizationChecker;
-
-    /**
      * @var string
      */
     protected $groupClass;
@@ -35,15 +29,13 @@ class UserType extends ResourceFormType
     /**
      * Constructor.
      *
-     * @param AuthorizationCheckerInterface $authorizationChecker
      * @param string                        $userClass
      * @param string                        $groupClass
      */
-    public function __construct(AuthorizationCheckerInterface $authorizationChecker, $userClass, $groupClass)
+    public function __construct($userClass, $groupClass)
     {
         parent::__construct($userClass);
 
-        $this->authorizationChecker = $authorizationChecker;
         $this->groupClass = $groupClass;
     }
 
@@ -57,7 +49,6 @@ class UserType extends ResourceFormType
                 'label'        => 'ekyna_core.field.group',
                 'class'        => $this->groupClass,
                 'choice_label' => 'name',
-                'disabled'     => !$this->authorizationChecker->isGranted('ROLE_SUPER_ADMIN'),
             ])
             ->add('email', EmailType::class, [
                 'label' => 'ekyna_core.field.email',

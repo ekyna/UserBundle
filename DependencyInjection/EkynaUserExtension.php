@@ -12,20 +12,15 @@ use Ekyna\Bundle\ResourceBundle\DependencyInjection\AbstractExtension;
  */
 class EkynaUserExtension extends AbstractExtension
 {
-    const DEFAULT_GENDER_CLASS = 'Ekyna\Bundle\CommerceBundle\Model\Genders';
-
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function load(array $configs, ContainerBuilder $container)
     {
         $config = $this->configure($configs, 'ekyna_user', new Configuration(), $container);
 
-        $container->setParameter('ekyna_user.notification_config', $config['notification']);
-
-        $exposedConfig = [];
-        $exposedConfig['account'] = $config['account'];
-
-        $container->setParameter('ekyna_user.config', $exposedConfig);
+        $container->setParameter('ekyna_user.config', [
+            'account' => $config['account']
+        ]);
     }
 }

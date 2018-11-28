@@ -18,21 +18,9 @@ class GroupType extends ResourceFormType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('name', Type\TextType::class, [
-                'label'    => 'ekyna_core.field.name',
-                'disabled' => true,
-            ])
-            ->add('roles', Type\ChoiceType::class, [
-                'label'    => 'ekyna_core.field.roles',
-                'expanded' => true,
-                'multiple' => true,
-                'choices'  => [
-                    'ekyna_core.auth.allowed_to_switch' => 'ROLE_ALLOWED_TO_SWITCH',
-                    'ekyna_core.auth.super_admin'       => 'ROLE_SUPER_ADMIN',
-                    'ekyna_core.auth.admin'             => 'ROLE_ADMIN',
-                    'ekyna_core.auth.user'              => 'ROLE_USER',
-                ],
-            ]);
+        $builder->add('name', Type\TextType::class, [
+            'label'    => 'ekyna_core.field.name',
+            'disabled' => true,
+        ]);
     }
 }

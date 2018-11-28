@@ -11,6 +11,8 @@
         <parameter key="ekyna_user.registration.form_type.class">Ekyna\Bundle\UserBundle\Form\Type\RegistrationType</parameter>
 
         <parameter key="ekyna_user.user.search_repository.class">Ekyna\Bundle\UserBundle\Service\Search\UserRepository</parameter>
+
+        <parameter key="ekyna_user.security.remember_me">_user_remember_me</parameter>
     </parameters>
 
     <services>
@@ -42,26 +44,16 @@
         </service>
 
         <!-- Events listeners -->
-        <service id="ekyna_user.security_listener"
-                 class="Ekyna\Bundle\UserBundle\EventListener\SecurityListener">
-            <argument type="service" id="security.authorization_checker"/>
+        <service id="ekyna_user.security.event_subscriber"
+                 class="Ekyna\Bundle\UserBundle\EventListener\SecurityEventSubscriber">
             <argument type="service" id="ekyna_user.user.provider"/>
             <argument type="service" id="ekyna_core.flash_helper"/>
-            <argument type="service" id="ekyna_user.mailer.default"/>
-            <argument>%ekyna_user.notification_config%</argument>
             <tag name="kernel.event_subscriber"/>
         </service>
-        <service id="ekyna_user.user.listener"
-                 class="Ekyna\Bundle\UserBundle\EventListener\UserListener">
-            <argument type="service" id="ekyna_user.group.repository"/>
+        <service id="ekyna_user.user.event_subscriber"
+                 class="Ekyna\Bundle\UserBundle\EventListener\UserEventSubscriber">
             <argument type="service" id="fos_user.user_manager"/>
             <argument type="service" id="ekyna_user.mailer.default"/>
-            <argument type="service" id="security.authorization_checker"/>
-            <tag name="resource.event_subscriber"/>
-        </service>
-        <service id="ekyna_user.group.listener"
-                 class="Ekyna\Bundle\UserBundle\EventListener\GroupListener">
-            <argument type="service" id="security.authorization_checker"/>
             <tag name="resource.event_subscriber"/>
         </service>
 
@@ -75,6 +67,7 @@
                  class="%ekyna_user.login.form_type.class%">
             <argument type="service" id="router"/>
             <argument type="service" id="request_stack"/>
+            <argument>%ekyna_user.security.remember_me%</argument>
             <tag name="form.type"/>
         </service>
         <service id="ekyna_user.registration.form_type"
@@ -84,10 +77,8 @@
             <argument>%kernel.environment%</argument>
             <tag name="form.type"/>
         </service>
-
         <service id="ekyna_user.user.form_type"
                  class="Ekyna\Bundle\UserBundle\Form\Type\UserType">
-            <argument type="service" id="security.authorization_checker"/>
             <argument>%ekyna_user.user.class%</argument>
             <argument>%ekyna_user.group.class%</argument>
             <tag name="form.type"/>
@@ -203,9 +194,6 @@
             </call>
             <call method="setTranslator">
                 <argument type="service" id="translator"/>
-            </call>
-            <call method="setAccessDecisionManager">
-                <argument type="service" id="security.access.decision_manager"/>
             </call>
             <call method="setConfig">
                 <argument>%ekyna_user.config%</argument>

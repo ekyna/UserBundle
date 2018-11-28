@@ -1,8 +1,7 @@
-{% extends "EkynaAdminBundle:Entity/Default:show.html.twig" %}
+{% extends '@EkynaAdmin/Entity/Default/show.html.twig' %}
 
 {% block main %}
 <div class="actions">
-    {{ admin_resource_btn(group, 'edit', {'label': 'ekyna_user.group.button.edit_permissions', 'path': path('ekyna_user_group_admin_edit_permissions', identifiers|merge({'groupId': group.id}))}) }}
     {{ admin_resource_btn(group, 'edit') }}
     {{ admin_resource_btn(group, 'remove') }}
 </div>
@@ -20,11 +19,6 @@
                 {{ show_row(group.name, 'text', {
                     'label': 'ekyna_core.field.name'
                 }) }}
-                <br><br>
-                <h4 class="sub-header">{{ 'ekyna_admin.acl.title'|trans }}</h4>
-                <div class="acl-table ekyna-table">
-                {% include "EkynaAdminBundle:Acl:permissions_table.html.twig" %}
-                </div>
             </div>
         </div>
     </div>

@@ -1,14 +1,17 @@
-{% extends "EkynaAdminBundle:Entity/Default:show.html.twig" %}
+{% extends '@EkynaAdmin/Entity/Default/show.html.twig' %}
 
 {% block main %}
 <div class="actions">
-    {% if is_granted('ROLE_ALLOWED_TO_SWITCH') %}
-        {{ ui_button('ekyna_user.user.button.impersonate', {
+    {% if is_granted('VIEW', user) %}
+        {{ ui_button('ekyna_user.user.button.use_session', {
             'type': 'link',
-            'path': '/?_switch_user=' ~ user.email,
+            'path': path('ekyna_user_user_admin_use_session', {'userId': user.id}),
             'theme': 'primary',
             'icon': 'eye-open'
         }, {
+            'onclick': ('return confirm(\'' ~ ('ekyna_user.user.alert.use_session'|trans({
+                '{email}': user.email
+            })) ~ '\')'),
             'target': '_blank'
         }) }}
     {% endif %}

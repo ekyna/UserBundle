@@ -28,8 +28,10 @@ ekyna_user:
             empty_list: No user configured
             no_password_request: No password reset request found
             password_request_cleared: Password reset request has been canceled
+            use_session: >
+                You will be redirected to the public website and logged in as {email}.
+                Remember to log out after.
         message:
-            delete_access_denied: You are not allowed to remove this user.
             credentials_sent: An email with the sign in information has been sent to the user.
     group:
         label:
@@ -40,19 +42,15 @@ ekyna_user:
             show: Users group details <small>%name%</small>
             new: Create a new user group
             edit: Edit the group <small>%name%</small>
-            edit_permissions: Edit group privileges <small>%name%</small>
             remove: Remove the group <small>%name%</small>
         button:
             list: Groups list
             show: Group details
             new: New group
             edit: Edit the group
-            edit_permissions: Edit the permissions
             remove: Remove the group
         alert:
             empty_list: No group configured
-        message:
-            delete_access_denied: You are not allowed to delete this users group.
     account:
         title: Customer area
         login:
@@ -112,13 +110,6 @@ ekyna_user:
                 <p>Now you can <a href="%login_url%">sign in</a> using your new credentials:</p>
                 Username : <strong>%login%</strong><br>
                 Password : <strong>%password%</strong>.</p>
-        login_success:
-            subject: "[%sitename%] Notification de connexion"
-            title : Sign in notification
-            message: |
-                <p>Dear customer,</p>
-                <p>This email about a successfull sign in with your account credentials on %sitename% at %date%.<br>
-                If you did not perform this connection yourself, please change your password and warn our administrator.</p>
         registration:
             subject: "[%sitename%] Your user account creation"
             title: Your user account creation

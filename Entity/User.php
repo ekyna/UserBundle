@@ -82,29 +82,6 @@ class User extends BaseUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function getRoles()
-    {
-        if ($this->group instanceof Group) {
-            return array_merge(
-                [self::ROLE_DEFAULT, $this->group->getSecurityIdentity()->getRole()],
-                $this->group->getRoles()
-            );
-        }
-
-        return [self::ROLE_DEFAULT];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function hasRole($role)
-    {
-        throw new \BadMethodCallException('Please use the AuthorizationChecker service.');
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function setSendCreationEmail($send)
     {
         $this->sendCreationEmail = (bool)$send;

@@ -1,6 +1,0 @@
-Ekyna\Bundle\UserBundle\Entity\Group:
-    attributes:
-        id:
-            groups: [Default]
-        name:
-            groups: [Default]

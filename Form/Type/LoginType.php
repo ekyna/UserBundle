@@ -7,6 +7,8 @@ use Symfony\Component\Form\Extension\Core\Type;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -29,17 +31,27 @@ class LoginType extends AbstractType
      */
     private $requestStack;
 
+    /**
+     * @var string
+     */
+    private $rememberMe;
+
 
     /**
      * Constructor.
      *
      * @param UrlGeneratorInterface $urlGenerator
      * @param RequestStack          $requestStack
+     * @param string                $rememberMe
      */
-    public function __construct(UrlGeneratorInterface $urlGenerator, RequestStack $requestStack)
-    {
+    public function __construct(
+        UrlGeneratorInterface $urlGenerator,
+        RequestStack $requestStack,
+        string $rememberMe = '_remember_me'
+    ) {
         $this->urlGenerator = $urlGenerator;
         $this->requestStack = $requestStack;
+        $this->rememberMe = $rememberMe;
     }
 
     /**
@@ -57,7 +69,7 @@ class LoginType extends AbstractType
             ->add('_target_path', Type\HiddenType::class);
 
         if ($options['remember_me']) {
-            $builder->add('_remember_me', Type\CheckboxType::class, [
+            $builder->add($this->rememberMe, Type\CheckboxType::class, [
                 'label'    => 'ekyna_core.field.remember_me',
                 'required' => false,
                 'attr'     => [
@@ -73,6 +85,14 @@ class LoginType extends AbstractType
 
             $event->setData($data);
         });
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function finishView(FormView $view, FormInterface $form, array $options)
+    {
+        $view->vars['remember_me'] = $options['remember_me'] ? $this->rememberMe : false;
     }
 
     /**
@@ -109,7 +129,7 @@ class LoginType extends AbstractType
                 'method'      => 'POST',
                 'action'      => function (Options $options) {
                     $parameters = [];
-                    if (null !== $targetPath = $this->getTargetPath((array) $options)) {
+                    if (null !== $targetPath = $this->getTargetPath((array)$options)) {
                         $parameters['target_path'] = $targetPath;
                     }
 

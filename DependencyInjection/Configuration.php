@@ -26,17 +26,17 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('account')
                     ->addDefaultsIfNotSet()
                     ->children()
-                        ->booleanNode('enable')->defaultValue(false)->end()
-                        ->booleanNode('username')->defaultValue(false)->end()
-                        ->booleanNode('register')->defaultValue(false)->end()
-                        ->booleanNode('resetting')->defaultValue(false)->end()
-                        ->booleanNode('profile')->defaultValue(false)->end()
+                        ->booleanNode('enable')->defaultFalse()->end()
+                        ->booleanNode('username')->defaultFalse()->end()
+                        ->booleanNode('register')->defaultFalse()->end()
+                        ->booleanNode('resetting')->defaultFalse()->end()
+                        ->booleanNode('profile')->defaultFalse()->end()
                     ->end()
                 ->end()
                 ->arrayNode('notification')
                     ->addDefaultsIfNotSet()
                     ->children()
-                        ->booleanNode('admin_login')->defaultValue(true)->end()
+                        ->booleanNode('admin_login')->defaultTrue()->end()
                     ->end()
                 ->end()
             ->end()
@@ -63,8 +63,8 @@ class Configuration implements ConfigurationInterface
                             ->addDefaultsIfNotSet()
                             ->children()
                                 ->variableNode('templates')->defaultValue([
-                                    '_form.html' => 'EkynaUserBundle:Admin/User:_form.html',
-                                    'show.html'  => 'EkynaUserBundle:Admin/User:show.html',
+                                    '_form.html' => '@EkynaUser/Admin/User/_form.html',
+                                    'show.html'  => '@EkynaUser/Admin/User/show.html',
                                 ])->end()
                                 ->scalarNode('entity')->defaultValue('Ekyna\Bundle\UserBundle\Entity\User')->end()
                                 ->scalarNode('controller')->defaultValue('Ekyna\Bundle\UserBundle\Controller\Admin\UserController')->end()
@@ -79,8 +79,8 @@ class Configuration implements ConfigurationInterface
                             ->addDefaultsIfNotSet()
                             ->children()
                                 ->variableNode('templates')->defaultValue([
-                                    '_form.html' => 'EkynaUserBundle:Admin/Group:_form.html',
-                                    'show.html'  => 'EkynaUserBundle:Admin/Group:show.html',
+                                    '_form.html' => '@EkynaUser/Admin/Group/_form.html',
+                                    'show.html'  => '@EkynaUser/Admin/Group/show.html',
                                 ])->end()
                                 ->scalarNode('entity')->defaultValue('Ekyna\Bundle\UserBundle\Entity\Group')->end()
                                 ->scalarNode('controller')->defaultValue('Ekyna\Bundle\UserBundle\Controller\Admin\GroupController')->end()

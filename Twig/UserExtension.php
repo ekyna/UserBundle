@@ -6,7 +6,6 @@ namespace Ekyna\Bundle\UserBundle\Twig;
  * Class UserExtension
  * @package Ekyna\Bundle\UserBundle\Twig
  * @author  Étienne Dauvergne <contact@ekyna.com>
- * @todo remove
  */
 class UserExtension extends \Twig_Extension
 {
@@ -33,30 +32,10 @@ class UserExtension extends \Twig_Extension
     {
         return [
             new \Twig_SimpleFunction(
-                'ekyna_user_template_name',
-                [$this, 'getTemplateName']
-            ),
-            new \Twig_SimpleFunction(
                 'ekyna_user_account_var',
                 [$this, 'getAccountVar']
             ),
         ];
-    }
-
-    /**
-     * Returns the template name.
-     *
-     * @param string $key
-     *
-     * @return string
-     */
-    public function getTemplateName($key)
-    {
-        if (!isset($this->config['templates'][$key])) {
-            throw new \InvalidArgumentException("Template name '$key' is not defined.");
-        }
-
-        return $this->config['templates'][$key];
     }
 
     /**
@@ -73,13 +52,5 @@ class UserExtension extends \Twig_Extension
         }
 
         return $this->config['account'][$key];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'ekyna_user';
     }
 }

@@ -11,6 +11,7 @@ use Ekyna\Component\Resource\Event\ResourceMessage;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 /**
  * Class UserController
@@ -113,14 +114,10 @@ class UserController extends ResourceController
         // TODO use ResourceManager
         // Update event
         $operator->update($event);
-        if ($event->isPropagationStopped()) {
-            $event->toFlashes($this->getFlashBag());
-
-            return $this->redirect($redirect);
+        if (!$event->isPropagationStopped()) {
+            // Post Generate event
+            $dispatcher->dispatch(UserEvents::POST_GENERATE_PASSWORD, $event);
         }
-
-        // Post Generate event
-        $dispatcher->dispatch(UserEvents::POST_GENERATE_PASSWORD, $event);
 
         // Flashes
         $event->toFlashes($this->getFlashBag());
@@ -158,5 +155,26 @@ class UserController extends ResourceController
         }
 
         return $this->redirect($this->generateResourcePath($resource));
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function useSessionAction(Request $request)
+    {
+        $context = $this->loadContext($request);
+        /** @var \Ekyna\Bundle\UserBundle\Model\UserInterface $user */
+        $user = $context->getResource();
+
+        $this->isGranted('VIEW', $user); // TODO custom permission ('IMPERSONATE' ?)
+
+        $token = new UsernamePasswordToken($user, null, 'front', $user->getRoles());
+        $this->get('session')->set('_security_front', serialize($token));
+
+        return $this->redirect(
+            $this->getParameter('kernel.debug') ? '/app_dev.php/' : '/'
+        );
     }
 }
