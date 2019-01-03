@@ -33,12 +33,6 @@ class Configuration implements ConfigurationInterface
                         ->booleanNode('profile')->defaultFalse()->end()
                     ->end()
                 ->end()
-                ->arrayNode('notification')
-                    ->addDefaultsIfNotSet()
-                    ->children()
-                        ->booleanNode('admin_login')->defaultTrue()->end()
-                    ->end()
-                ->end()
             ->end()
         ;
 
