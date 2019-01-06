@@ -19,17 +19,13 @@ class UserNormalizer extends AbstractResourceNormalizer
      */
     public function normalize($user, $format = null, array $context = [])
     {
-        $groups = isset($context['groups']) ? (array)$context['groups'] : [];
-
-        if ($format === 'csv' && in_array('TableExport', $groups)) {
+        if ($format === 'csv' && $this->contextHasGroup('TableExport', $context)) {
             return (string)$user;
         }
 
         $data = parent::normalize($user, $format, $context);
 
-        /** @var Model\UserInterface $user */
-
-        if (in_array('Default', $groups) || in_array('Search', $groups)) {
+        if ($this->contextHasGroup(['Default', 'User', 'Search'], $context)) {
             $data = array_replace([
                 'username' => $user->getUsername(),
                 'email'    => $user->getEmail(),
