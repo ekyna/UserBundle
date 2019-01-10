@@ -6,6 +6,6 @@ hwi_oauth_redirect:
     resource: "routing/oauth.yml"
     prefix:   /oauth
 
-ekyna_user_account:
+ekyna_user_account_loader:
     resource: .
-    type: account
+    type: user_account

@@ -22,6 +22,7 @@ class AccountLoader extends Loader
      */
     private $config;
 
+
     /**
      * Constructor.
      *
@@ -45,21 +46,23 @@ class AccountLoader extends Loader
 
         // Base account
         if ($this->config['account']['enable']) {
-
-            $prefix = '/my-account';
-
             $resource = '@EkynaUserBundle/Resources/config/routing/account.yml';
             $type     = 'yaml';
+            $prefix   = '/my-account';
+
             $routes = $this->import($resource, $type);
             $routes->addPrefix($prefix);
+
             $collection->addCollection($routes);
 
             foreach (['register', 'resetting', 'profile'] as $name) {
                 if ($this->config['account'][$name]) {
                     $resource = '@EkynaUserBundle/Resources/config/routing/account/'.$name.'.yml';
                     $type     = 'yaml';
+
                     $routes = $this->import($resource, $type);
                     $routes->addPrefix($prefix.'/'. $name);
+
                     $collection->addCollection($routes);
                 }
             }
@@ -75,6 +78,6 @@ class AccountLoader extends Loader
      */
     public function supports($resource, $type = null)
     {
-        return 'account' === $type;
+        return 'user_account' === $type;
     }
 }

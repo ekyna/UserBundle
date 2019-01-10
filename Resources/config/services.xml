@@ -108,7 +108,7 @@
         </service>
 
         <!-- Routing loader -->
-        <service id="ekyna_user.routing_loader"
+        <service id="ekyna_user.routing.account_loader"
                  class="Ekyna\Bundle\UserBundle\Routing\AccountLoader">
             <argument>%ekyna_user.config%</argument>
             <tag name="routing.loader"/>
