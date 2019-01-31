@@ -37,7 +37,7 @@ class WidgetRenderer
      */
     public function render(UserInterface $user = null)
     {
-        return $this->templating->render('EkynaUserBundle::widget.xml.twig', [
+        return $this->templating->render('@EkynaUser/widget.xml.twig', [
             'user' => $user,
         ]);
     }

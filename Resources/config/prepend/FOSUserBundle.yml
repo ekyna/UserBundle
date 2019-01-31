@@ -13,7 +13,7 @@ fos_user:
         form:
             type: Ekyna\Bundle\UserBundle\Form\Type\RegistrationType
         confirmation:
-            template: FOSUserBundle:Registration:email.html.twig
+            template: '@FOSUser/Registration/email.html.twig'
     resetting:
         email:
-            template: FOSUserBundle:Resetting:email.html.twig
+            template: '@FOSUser/Resetting/email.html.twig'
