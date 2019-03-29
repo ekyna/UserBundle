@@ -2,10 +2,9 @@
 
 namespace Ekyna\Bundle\UserBundle\Service\Security;
 
-use Ekyna\Bundle\UserBundle\Service\Account\WidgetRenderer;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Ekyna\Bundle\UserBundle\Event\AuthenticationEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessHandler;
 
@@ -14,21 +13,22 @@ use Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessH
  * @package Ekyna\Bundle\UserBundle\Service\Security
  * @author  Étienne Dauvergne <contact@ekyna.com>
  */
-final class AuthenticationSuccessHandler extends DefaultAuthenticationSuccessHandler
+class AuthenticationSuccessHandler extends DefaultAuthenticationSuccessHandler
 {
     /**
-     * @var WidgetRenderer
+     * @var EventDispatcherInterface
      */
-    private $widgetRenderer;
+    private $eventDispatcher;
+
 
     /**
-     * Sets the widgetRenderer.
+     * Sets the event dispatcher.
      *
-     * @param WidgetRenderer $widgetRenderer
+     * @param EventDispatcherInterface $dispatcher
      */
-    public function setWidgetRenderer(WidgetRenderer $widgetRenderer)
+    public function setEventDispatcher(EventDispatcherInterface $dispatcher)
     {
-        $this->widgetRenderer = $widgetRenderer;
+        $this->eventDispatcher = $dispatcher;
     }
 
     /**
@@ -36,17 +36,11 @@ final class AuthenticationSuccessHandler extends DefaultAuthenticationSuccessHan
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token)
     {
-        if ($request->isXmlHttpRequest()) {
-            if (in_array('application/json', $request->getAcceptableContentTypes())) {
-                return new JsonResponse([
-                    'success'  => true,
-                    'username' => $token->getUsername(),
-                ]);
-            }
+        $event = new AuthenticationEvent($request, $token);
 
-            // Widget XHR response
-            $response = new Response($this->widgetRenderer->render($token->getUser()));
-            $response->headers->set('Content-Type', 'application/xml');
+        $this->eventDispatcher->dispatch(AuthenticationEvent::SUCCESS, $event);
+
+        if ($response = $event->getResponse()) {
             return $response;
         }
 

@@ -32,13 +32,15 @@ class WidgetRenderer
      * Renders the XHR response content.
      *
      * @param UserInterface $user
+     * @param string        $redirect
      *
      * @return string
      */
-    public function render(UserInterface $user = null)
+    public function render(UserInterface $user = null, string $redirect = null)
     {
         return $this->templating->render('@EkynaUser/widget.xml.twig', [
-            'user' => $user,
+            'user'     => $user,
+            'redirect' => $redirect,
         ]);
     }
 }

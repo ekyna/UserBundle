@@ -96,6 +96,13 @@ class User {
     parseResponse(xml:XMLDocument):string {
         let widgetNode:Element = xml.querySelector('user-widget');
         if (widgetNode) {
+            let redirect = widgetNode.getAttribute('redirect');
+            if (redirect) {
+                window.location.href = redirect;
+
+                return null;
+            }
+
             this.setAuthenticated(1 === parseInt(widgetNode.getAttribute('status')));
 
             return widgetNode.textContent;

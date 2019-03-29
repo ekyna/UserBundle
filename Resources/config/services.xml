@@ -21,14 +21,18 @@
                  class="Ekyna\Bundle\UserBundle\Service\Security\AuthenticationSuccessHandler"
                  parent="security.authentication.success_handler"
                  public="false">
-            <call method="setWidgetRenderer">
-                <argument type="service" id="ekyna_user.account.widget_renderer"/>
+            <call method="setEventDispatcher">
+                <argument type="service" id="event_dispatcher"/>
             </call>
         </service>
         <service id="ekyna_user.security.authentication_failure_handler"
                  class="Ekyna\Bundle\UserBundle\Service\Security\AuthenticationFailureHandler"
                  parent="security.authentication.failure_handler"
-                 public="false"/>
+                 public="false">
+            <call method="setEventDispatcher">
+                <argument type="service" id="event_dispatcher"/>
+            </call>
+        </service>
 
         <!-- OAuth FOS bridge -->
         <service id="ekyna_user.oauth.token_manager"
@@ -47,6 +51,7 @@
         <service id="ekyna_user.security.event_subscriber"
                  class="Ekyna\Bundle\UserBundle\EventListener\SecurityEventSubscriber">
             <argument type="service" id="ekyna_user.user.provider"/>
+            <argument type="service" id="ekyna_user.account.widget_renderer"/>
             <argument type="service" id="ekyna_core.flash_helper"/>
             <tag name="kernel.event_subscriber"/>
         </service>

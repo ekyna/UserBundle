@@ -2,7 +2,8 @@
 
 namespace Ekyna\Bundle\UserBundle\Service\Security;
 
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Ekyna\Bundle\UserBundle\Event\AuthenticationEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Http\Authentication\DefaultAuthenticationFailureHandler;
@@ -15,15 +16,32 @@ use Symfony\Component\Security\Http\Authentication\DefaultAuthenticationFailureH
 class AuthenticationFailureHandler extends DefaultAuthenticationFailureHandler
 {
     /**
+     * @var EventDispatcherInterface
+     */
+    private $eventDispatcher;
+
+
+    /**
+     * Sets the eventDispatcher.
+     *
+     * @param EventDispatcherInterface $dispatcher
+     */
+    public function setEventDispatcher(EventDispatcherInterface $dispatcher)
+    {
+        $this->eventDispatcher = $dispatcher;
+    }
+
+    /**
      * @inheritdoc
      */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
-        if ($request->isXmlHttpRequest() && in_array('application/json', $request->getAcceptableContentTypes())) {
-            return new JsonResponse([
-                'success' => false,
-                'message' => $exception->getMessageKey(),
-            ], 401);
+        $event = new AuthenticationEvent($request, null, $exception);
+
+        $this->eventDispatcher->dispatch(AuthenticationEvent::FAILURE, $event);
+
+        if ($response = $event->getResponse()) {
+            return $response;
         }
 
         return parent::onAuthenticationFailure($request, $exception);

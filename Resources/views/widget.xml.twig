@@ -1,7 +1,8 @@
 {% spaceless %}
 <?xml version="1.0" encoding="utf-8"?>
 <response>
-    <user-widget status="{{ user is same as (null) ? "0" : "1" }}"><![CDATA[
+    <user-widget status="{{ user is same as (null) ? "0" : "1" }}"
+        {%- if redirect is not empty %} redirect="{{ redirect }}"{% endif %}><![CDATA[
     {% if user is not same as(null) %}
         <div class="user-widget-menu">
         {{ knp_menu_render('user_widget', {
