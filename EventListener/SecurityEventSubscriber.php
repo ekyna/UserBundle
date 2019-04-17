@@ -148,6 +148,10 @@ class SecurityEventSubscriber implements EventSubscriberInterface
      */
     private function getResponseRedirection(Response $response = null)
     {
+        if (!$response) {
+            return null;
+        }
+
         if ($response instanceof RedirectResponse) {
             return $response->getTargetUrl();
         }
