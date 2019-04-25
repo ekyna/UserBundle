@@ -154,6 +154,12 @@
             <argument type="service" id="security.token_storage"/>
         </service>
 
+        <!-- User provider -->
+        <service id="ekyna_user.user.security_provider"
+                 class="Ekyna\Bundle\UserBundle\Service\Security\UserProvider">
+            <argument type="service" id="ekyna_user.user.repository"/>
+        </service>
+
         <!-- Account widget renderer -->
         <service id="ekyna_user.account.widget_renderer"
                  class="Ekyna\Bundle\UserBundle\Service\Account\WidgetRenderer"

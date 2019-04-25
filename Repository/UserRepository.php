@@ -2,6 +2,7 @@
 
 namespace Ekyna\Bundle\UserBundle\Repository;
 
+use Ekyna\Bundle\UserBundle\Model\UserInterface;
 use Ekyna\Component\Resource\Doctrine\ORM\ResourceRepository;
 
 /**
@@ -12,9 +13,43 @@ use Ekyna\Component\Resource\Doctrine\ORM\ResourceRepository;
 class UserRepository extends ResourceRepository implements UserRepositoryInterface
 {
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
-    public function findByRole($role)
+    public function findById(int $id): ?UserInterface
+    {
+        $qb = $this->createQueryBuilder('u');
+
+        return $qb
+            ->select(['u', 'g'])
+            ->join('u.group', 'g')
+            ->andWhere($qb->expr()->eq('u.id', ':id'))
+            ->setMaxResults(1)
+            ->getQuery()
+            ->setParameter('id', $id)
+            ->getOneOrNullResult();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function findByEmail(string $email): ?UserInterface
+    {
+        $qb = $this->createQueryBuilder('u');
+
+        return $qb
+            ->select(['u', 'g'])
+            ->join('u.group', 'g')
+            ->andWhere($qb->expr()->eq('u.email', ':email'))
+            ->setMaxResults(1)
+            ->getQuery()
+            ->setParameter('email', $email)
+            ->getOneOrNullResult();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function findByRole(string $role): array
     {
         $this->validateRole($role);
 
@@ -28,9 +63,9 @@ class UserRepository extends ResourceRepository implements UserRepositoryInterfa
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
-    public function findByRoles(array $roles)
+    public function findByRoles(array $roles): array
     {
         if (empty($roles)) {
             return [];
@@ -58,7 +93,7 @@ class UserRepository extends ResourceRepository implements UserRepositoryInterfa
      *
      * @throws \InvalidArgumentException
      */
-    private function validateRole($role)
+    private function validateRole(string $role): void
     {
         if (!preg_match('~^ROLE_([A-Z_]+)~', $role)) {
             throw new \InvalidArgumentException("Role must start with 'ROLE_'.");
