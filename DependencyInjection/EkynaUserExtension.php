@@ -2,8 +2,10 @@
 
 namespace Ekyna\Bundle\UserBundle\DependencyInjection;
 
+use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Ekyna\Bundle\ResourceBundle\DependencyInjection\AbstractExtension;
+use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 
 /**
  * Class EkynaUserExtension
@@ -22,5 +24,10 @@ class EkynaUserExtension extends AbstractExtension
         $container->setParameter('ekyna_user.config', [
             'account' => $config['account']
         ]);
+
+        if (in_array($container->getParameter('kernel.environment'), ['dev', 'test'], true)) {
+            $loader = new XmlFileLoader($container, new FileLocator($this->getConfigurationDirectory()));
+            $loader->load('services_dev_test.xml');
+        }
     }
 }

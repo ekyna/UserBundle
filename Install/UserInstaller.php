@@ -23,7 +23,7 @@ class UserInstaller extends AbstractInstaller implements OrderedInstallerInterfa
      * Default groups
      */
     protected $groups = [
-        'Utilisateur' => ['ROLE_USER'],
+        'Utilisateur' => [['ROLE_USER'], true],
     ];
 
 
@@ -47,7 +47,7 @@ class UserInstaller extends AbstractInstaller implements OrderedInstallerInterfa
         $em = $this->container->get('ekyna_user.group.manager');
         $repository = $this->container->get('ekyna_user.group.repository');
 
-        foreach ($this->groups as $name => $roles) {
+        foreach ($this->groups as $name => $data) {
             $output->write(sprintf(
                 '- <comment>%s</comment> %s ',
                 $name,
@@ -64,8 +64,9 @@ class UserInstaller extends AbstractInstaller implements OrderedInstallerInterfa
             /** @var \Ekyna\Bundle\UserBundle\Model\GroupInterface $group */
             $group = $repository->createNew();
             $group
+                ->setDefault($data[1])
                 ->setName($name)
-                ->setRoles($roles);
+                ->setRoles($data[0]);
 
             $em->persist($group);
 

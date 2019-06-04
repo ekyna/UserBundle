@@ -55,7 +55,7 @@ class Group extends BaseGroup implements GroupInterface
     /**
      * {@inheritdoc}
      */
-    public function getDefault()
+    public function isDefault()
     {
         return $this->default;
     }
