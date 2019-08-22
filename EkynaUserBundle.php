@@ -3,13 +3,15 @@
 namespace Ekyna\Bundle\UserBundle;
 
 use Ekyna\Bundle\ResourceBundle\AbstractBundle;
+use Ekyna\Bundle\UserBundle\DependencyInjection\Compiler;
+use Ekyna\Bundle\UserBundle\Model\UserInterface;
+use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Ekyna\Bundle\UserBundle\DependencyInjection\Compiler\AdminMenuPass;
 
 /**
  * Class EkynaUserBundle
  * @package Ekyna\Bundle\UserBundle
- * @author Étienne Dauvergne <contact@ekyna.com>
+ * @author  Étienne Dauvergne <contact@ekyna.com>
  */
 class EkynaUserBundle extends AbstractBundle
 {
@@ -20,7 +22,8 @@ class EkynaUserBundle extends AbstractBundle
     {
         parent::build($container);
 
-        $container->addCompilerPass(new AdminMenuPass());
+        $container->addCompilerPass(new Compiler\AdminMenuPass());
+        $container->addCompilerPass(new Compiler\SecurityPass(), PassConfig::TYPE_BEFORE_OPTIMIZATION, 64);
     }
 
     /**
@@ -29,7 +32,7 @@ class EkynaUserBundle extends AbstractBundle
     protected function getModelInterfaces()
     {
         return [
-            'Ekyna\Bundle\UserBundle\Model\UserInterface' => 'ekyna_user.user.class',
+            UserInterface::class => 'ekyna_user.user.class',
         ];
     }
 }

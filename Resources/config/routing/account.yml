@@ -1,4 +1,4 @@
-ekyna_user_account_redirect:
+ekyna_user_account:
     path: ""
     defaults:
         _controller: FrameworkBundle:Redirect:redirect

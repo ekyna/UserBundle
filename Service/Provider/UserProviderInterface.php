@@ -27,4 +27,9 @@ interface UserProviderInterface
      * Resets the user provider.
      */
     public function reset();
+
+    /**
+     * Clears the user provider.
+     */
+    public function clear();
 }

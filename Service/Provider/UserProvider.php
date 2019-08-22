@@ -67,6 +67,12 @@ class UserProvider implements UserProviderInterface
         $this->initialized = false;
     }
 
+    public function clear()
+    {
+        $this->user = null;
+        $this->initialized = true;
+    }
+
     /**
      * Loads the user once.
      */

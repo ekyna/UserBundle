@@ -33,6 +33,9 @@
                 <argument type="service" id="event_dispatcher"/>
             </call>
         </service>
+        <service id="Ekyna\Bundle\UserBundle\Service\Security\LogoutHandler">
+            <argument type="service" id="ekyna_user.user.provider"/>
+        </service>
 
         <!-- OAuth FOS bridge -->
         <service id="ekyna_user.oauth.token_manager"
