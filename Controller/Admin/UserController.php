@@ -24,55 +24,13 @@ class UserController extends ResourceController
 
 
     /**
-     * {@inheritdoc}
-     */
-    protected function createNew(Context $context)
-    {
-        return $this->get('fos_user.user_manager')->createUser();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function searchAction(Request $request)
-    {
-        //$callback = $request->query->get('callback');
-        $limit = intval($request->query->get('limit'));
-        $query = trim($request->query->get('query'));
-        $roles = $request->query->get('roles');
-
-        $repository = $this->get('fos_elastica.manager')->getRepository($this->config->getResourceClass());
-        if (!$repository instanceOf UserRepository) {
-            throw new \RuntimeException('Expected instance of ' . UserRepository::class);
-        }
-
-        if (!empty($roles)) {
-            $groups = $this->get('ekyna_user.group.repository')->findByRoles((array)$roles);
-
-            $results = $repository->searchByGroups($query, $groups, $limit);
-        } else {
-            $results = $repository->defaultSearch($query, $limit);
-        }
-
-        $data = $this->container->get('serializer')->serialize([
-            'results'     => $results,
-            'total_count' => count($results),
-        ], 'json', ['groups' => ['Search']]);
-
-        $response = new Response($data);
-        $response->headers->set('Content-Type', 'text/javascript');
-
-        return $response;
-    }
-
-    /**
      * Generates a new password for the user.
      *
      * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return Response
      */
-    public function generatePasswordAction(Request $request)
+    public function generatePasswordAction(Request $request): Response
     {
         $context = $this->loadContext($request);
         $resourceName = $this->config->getResourceName();
@@ -130,9 +88,9 @@ class UserController extends ResourceController
      *
      * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return Response
      */
-    public function clearPasswordRequestAction(Request $request)
+    public function clearPasswordRequestAction(Request $request): Response
     {
         $context = $this->loadContext($request);
         $resourceName = $this->config->getResourceName();
@@ -160,9 +118,9 @@ class UserController extends ResourceController
     /**
      * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return Response
      */
-    public function useSessionAction(Request $request)
+    public function useSessionAction(Request $request): Response
     {
         $context = $this->loadContext($request);
         /** @var \Ekyna\Bundle\UserBundle\Model\UserInterface $user */
@@ -176,5 +134,32 @@ class UserController extends ResourceController
         return $this->redirect(
             $this->getParameter('kernel.debug') ? '/app_dev.php/' : '/'
         );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function createNew(Context $context)
+    {
+        return $this->get('fos_user.user_manager')->createUser();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function createSearchQuery(Request $request): \Elastica\Query
+    {
+        $repository = $this->get('fos_elastica.manager')->getRepository($this->config->getResourceClass());
+        if (!$repository instanceOf UserRepository) {
+            throw new \RuntimeException('Expected instance of ' . UserRepository::class);
+        }
+
+        $query = trim($request->query->get('query'));
+
+        $groups = $this
+            ->get('ekyna_user.group.repository')
+            ->findByRoles((array)$request->query->get('roles'));
+
+        return $repository->createSearchQuery($query, $groups);
     }
 }
