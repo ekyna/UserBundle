@@ -1,8 +1,7 @@
 fos_user_resetting_request:
     path: ""
-    defaults:
-        _controller: FOSUserBundle:Resetting:request
-    methods: [GET]
+    controller: fos_user.resetting.controller:requestAction
+    methods: GET
     options:
         _cms:
             name: "Réinitialisez votre mot de passe"
@@ -13,15 +12,13 @@ fos_user_resetting_request:
 
 fos_user_resetting_send_email:
     path: /send-email
-    defaults:
-        _controller: FOSUserBundle:Resetting:sendEmail
-    methods: [POST]
+    controller: fos_user.resetting.controller:sendEmailAction
+    methods: POST
 
 fos_user_resetting_check_email:
     path: /check-email
-    defaults:
-        _controller: FOSUserBundle:Resetting:checkEmail
-    methods: [GET]
+    controller: fos_user.resetting.controller:checkEmailAction
+    methods: GET
     options:
         _cms:
             name: "Consultez votre boite mail"
@@ -32,9 +29,8 @@ fos_user_resetting_check_email:
 
 fos_user_resetting_reset:
     path: /reset/{token}
-    defaults:
-        _controller: FOSUserBundle:Resetting:reset
-    methods: [GET|POST]
+    controller: fos_user.resetting.controller:resetAction
+    methods: GET|POST
     requirements:
         token: "[a-zA-Z0-9-_]+"
     options:

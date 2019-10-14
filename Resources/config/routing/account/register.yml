@@ -1,8 +1,7 @@
 fos_user_registration_register:
     path: ""
-    defaults:
-        _controller: FOSUserBundle:Registration:register
-    methods: [GET|POST]
+    controller: fos_user.registration.controller:registerAction
+    methods: GET|POST
     options:
         _cms:
             name: "Créer un compte client"
@@ -13,9 +12,8 @@ fos_user_registration_register:
 
 fos_user_registration_check_email:
     path: /check-email
-    defaults:
-        _controller: FOSUserBundle:Registration:checkEmail
-    methods: [GET]
+    controller: fos_user.registration.controller:checkEmailAction
+    methods: GET
     options:
         _cms:
             name: "Consultez votre boite mail"
@@ -26,15 +24,13 @@ fos_user_registration_check_email:
 
 fos_user_registration_confirm:
     path: /confirm/{token}
-    defaults:
-        _controller: FOSUserBundle:Registration:confirm
-    methods: [GET]
+    controller: fos_user.registration.controller:confirmAction
+    methods: GET
 
 fos_user_registration_confirmed:
     path: /confirmed
-    defaults:
-        _controller: FOSUserBundle:Registration:confirmed
-    methods: [GET]
+    controller: fos_user.registration.controller:confirmedAction
+    methods: GET
     options:
         _cms:
             name: "Confirmation"

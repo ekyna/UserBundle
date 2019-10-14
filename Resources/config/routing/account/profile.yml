@@ -1,8 +1,7 @@
 fos_user_profile_show:
     path: ""
-    defaults:
-        _controller: FOSUserBundle:Profile:show
-    methods: [GET]
+    controller: fos_user.profile.controller:showAction
+    methods: GET
     options:
         _cms:
             name: "Mon profil"
@@ -13,9 +12,8 @@ fos_user_profile_show:
 
 fos_user_profile_edit:
     path: /edit
-    defaults:
-        _controller: FOSUserBundle:Profile:edit
-    methods: [GET|POST]
+    controller: fos_user.profile.controller:editAction
+    methods: GET|POST
     options:
         _cms:
             name: "Modifiez vos informations"

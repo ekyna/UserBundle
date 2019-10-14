@@ -1,15 +1,14 @@
 ekyna_user_account:
     path: ""
+    controller: FrameworkBundle:Redirect:redirect
     defaults:
-        _controller: FrameworkBundle:Redirect:redirect
         route: ekyna_user_account_index
         permanent: true
 
 ekyna_user_account_index:
     path: /dashboard
-    defaults:
-        _controller: EkynaUserBundle:Account:index
-    methods: [GET]
+    controller: EkynaUserBundle:Account:index
+    methods: GET
     options:
         _cms:
             name: Espace client
@@ -21,18 +20,16 @@ ekyna_user_account_index:
 
 ekyna_user_account_widget:
     path: /widget
-    defaults:
-        _controller: EkynaUserBundle:Account:widget
-    methods: [GET]
+    controller: EkynaUserBundle:Account:widget
+    methods: GET
 
 fos_user_security:
     resource: "account/security.yml"
 
 fos_user_change_password:
     path: /change-password
-    defaults:
-        _controller: FOSUserBundle:ChangePassword:changePassword
-    methods: [GET|POST]
+    controller: fos_user.change_password.controller:changePasswordAction
+    methods: GET|POST
     options:
         _cms:
             name: "Modifiez votre mot de passe"

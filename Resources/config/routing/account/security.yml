@@ -1,8 +1,7 @@
 fos_user_security_login:
     path: /login
-    defaults:
-        _controller: EkynaUserBundle:Security:login
-    methods: [GET]
+    controller: EkynaUserBundle:Security:login
+    methods: GET
     options:
         expose: true
         _cms:
@@ -14,11 +13,9 @@ fos_user_security_login:
 
 fos_user_security_check:
     path: /login-check
-    defaults:
-        _controller: FOSUserBundle:Security:check
-    methods: [POST]
+    controller: fos_user.security.controller:checkAction
+    methods: POST
 
 fos_user_security_logout:
     path: /logout
-    defaults:
-        _controller: FOSUserBundle:Security:logout
+    controller: fos_user.security.controller:logoutAction
