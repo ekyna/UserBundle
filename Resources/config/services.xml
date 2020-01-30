@@ -50,6 +50,17 @@
             <argument type="service" id="ekyna_user.oauth.token_manager"/>
         </service>
 
+        <!-- Search repository -->
+        <service id="ekyna_user.user.search"
+                 class="Ekyna\Bundle\UserBundle\Service\Search\UserRepository">
+            <argument type="service" id="fos_elastica.index.ekyna_user_user.doc"/>
+            <argument type="service" id="fos_elastica.elastica_to_model_transformer.ekyna_user_user.doc"/>
+            <call method="setGroupRepository">
+                <argument type="service" id="ekyna_user.group.repository"/>
+            </call>
+            <!--<tag name="ekyna_resource.search" resource="ekyna_user.user"/>-->
+        </service>
+
         <!-- Events listeners -->
         <service id="ekyna_user.security.event_subscriber"
                  class="Ekyna\Bundle\UserBundle\EventListener\SecurityEventSubscriber">
@@ -157,7 +168,7 @@
             <argument type="service" id="security.token_storage"/>
         </service>
 
-        <!-- User provider -->
+        <!-- User security provider -->
         <service id="ekyna_user.user.security_provider"
                  class="Ekyna\Bundle\UserBundle\Service\Security\UserProvider">
             <argument type="service" id="ekyna_user.user.repository"/>

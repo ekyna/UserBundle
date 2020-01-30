@@ -6,8 +6,8 @@ use Ekyna\Bundle\AdminBundle\Controller\Context;
 use Ekyna\Bundle\AdminBundle\Controller\Resource\ToggleableTrait;
 use Ekyna\Bundle\AdminBundle\Controller\ResourceController;
 use Ekyna\Bundle\UserBundle\Event\UserEvents;
-use Ekyna\Bundle\UserBundle\Service\Search\UserRepository;
 use Ekyna\Component\Resource\Event\ResourceMessage;
+use Ekyna\Component\Resource\Search\Request as SearchRequest;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -32,7 +32,7 @@ class UserController extends ResourceController
      */
     public function generatePasswordAction(Request $request): Response
     {
-        $context = $this->loadContext($request);
+        $context      = $this->loadContext($request);
         $resourceName = $this->config->getResourceName();
         /** @var \Ekyna\Bundle\UserBundle\Model\UserInterface $resource */
         $resource = $context->getResource($resourceName);
@@ -47,7 +47,7 @@ class UserController extends ResourceController
         $redirect = $this->generateResourcePath($resource);
 
         $operator = $this->getOperator();
-        $event = $operator->createResourceEvent($resource);
+        $event    = $operator->createResourceEvent($resource);
 
         $dispatcher = $this->get('ekyna_resource.event_dispatcher');
 
@@ -92,7 +92,7 @@ class UserController extends ResourceController
      */
     public function clearPasswordRequestAction(Request $request): Response
     {
-        $context = $this->loadContext($request);
+        $context      = $this->loadContext($request);
         $resourceName = $this->config->getResourceName();
         /** @var \Ekyna\Bundle\UserBundle\Model\UserInterface $resource */
         $resource = $context->getResource($resourceName);
@@ -147,19 +147,12 @@ class UserController extends ResourceController
     /**
      * @inheritDoc
      */
-    protected function createSearchQuery(Request $request): \Elastica\Query
+    protected function createSearchRequest(Request $request): SearchRequest
     {
-        $repository = $this->get('fos_elastica.manager')->getRepository($this->config->getResourceClass());
-        if (!$repository instanceOf UserRepository) {
-            throw new \RuntimeException('Expected instance of ' . UserRepository::class);
-        }
+        $searchRequest = parent::createSearchRequest($request);
 
-        $query = trim($request->query->get('query'));
+        $searchRequest->setParameter('roles', (array)$request->query->get('roles'));
 
-        $groups = $this
-            ->get('ekyna_user.group.repository')
-            ->findByRoles((array)$request->query->get('roles'));
-
-        return $repository->createSearchQuery($query, $groups);
+        return $searchRequest;
     }
 }
