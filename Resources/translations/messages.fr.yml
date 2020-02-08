@@ -100,7 +100,7 @@ ekyna_user:
                 <p>Vous recevez cet email suite à la création de votre compte client sur %sitename%.</p>
                 <p>Vous pouvez dès à présent <a href="%login_url%">vous connecter</a> en utilisant vos identifiants :<br>
                 Nom d'utilisateur : <strong>%login%</strong><br>
-                Mot de passe : <strong>%password%</strong>.</p>
+                Mot de passe : <strong>%password%</strong></p>
         new_password:
             subject: "[%sitename%] Nouveaux identifiants"
             title : Nouveaux identifiants
@@ -109,7 +109,7 @@ ekyna_user:
                 <p>Vous recevez cet email suite à la modification de votre mot de passe sur %sitename%.</p>
                 <p>Vous pouvez dès à présent <a href="%login_url%">vous connecter</a> en utilisant vos nouveaux identifiants :<br>
                 Nom d'utilisateur : <strong>%login%</strong><br>
-                Mot de passe : <strong>%password%</strong>.</p>
+                Mot de passe : <strong>%password%</strong></p>
         registration:
             subject: "[%sitename%] Création de votre compte client"
             title: Création de votre compte utilisateur

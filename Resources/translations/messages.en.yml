@@ -100,7 +100,7 @@ ekyna_user:
                 <p>This email concerns your %sitename% account.</p>
                 <p>Now you can <a href="%login_url%">sign in</a> using your credentials:</p>
                 Username : <strong>%login%</strong><br>
-                Password : <strong>%password%</strong>.</p>
+                Password : <strong>%password%</strong></p>
         new_password:
             subject: "[%sitename%] New credentials"
             title : New credentials
@@ -109,7 +109,7 @@ ekyna_user:
                 <p>This email concerns your %sitename% password change.</p>
                 <p>Now you can <a href="%login_url%">sign in</a> using your new credentials:</p>
                 Username : <strong>%login%</strong><br>
-                Password : <strong>%password%</strong>.</p>
+                Password : <strong>%password%</strong></p>
         registration:
             subject: "[%sitename%] Your user account creation"
             title: Your user account creation
