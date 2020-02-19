@@ -24,7 +24,7 @@
             <a href="#user-user-general" data-toggle="tab">{{ 'ekyna_core.field.general'|trans }}</a>
         </li>
         <li>
-            <a href="#user-user-informations" data-toggle="tab">{{ 'ekyna_core.field.informations'|trans }}</a>
+            <a href="#user-user-information" data-toggle="tab">{{ 'ekyna_core.field.information'|trans }}</a>
         </li>
     </ul>
     <div class="show-body">
@@ -63,7 +63,7 @@
                     </div>
                 </div>
             </div>
-            <div class="tab-pane" id="user-user-informations">
+            <div class="tab-pane" id="user-user-information">
                 {% if admin_resource_access(user, 'EDIT') %}
                 <div class="actions">
                     {{ ui_button(
