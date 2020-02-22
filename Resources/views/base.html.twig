@@ -1,19 +1,41 @@
 {% spaceless %}
-<!DOCTYPE hmtl>
-<html>
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}"{% if app.debug %} data-debug="1"{% endif %}>
 <head>
-    <title>User account</title>
-    {% block stylesheets %}
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-    {% endblock stylesheets %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico">
+
+    {% block metas %}
+        <title>EkynaUserBundle</title>
+    {% endblock metas %}
+
+    {{ ui_content_stylesheets() }}
+
+    {% block stylesheets -%}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <link href="{{ asset('bundles/ekynacore/css/fontawesome.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('bundles/ekynacore/css/glyphicons.css') }}" rel="stylesheet" type="text/css" />
+    {%- endblock stylesheets %}
+
+    {{ ui_fonts_stylesheets() }}
+    {{ ui_forms_stylesheets() }}
+
+    {% include '@EkynaCore/Ui/ie-fix.html.twig' %}
+
+    {{ require_js(not app.debug) }}
 </head>
 <body>
-    {# Flashes ? #}
+{% block body %}
+
+    {%- include '@EkynaCore/Ui/flashes.html.twig' -%}
+
     {% block content %}{% endblock content %}
-    {% block javascripts %}
-    <script src="//code.jquery.com/jquery-1.12.4.min.js"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-    {% endblock javascripts %}
+
+{% endblock body %}
+
+{% block javascripts -%}{%- endblock javascripts %}
 </body>
 </html>
 {% endspaceless %}
