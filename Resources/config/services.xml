@@ -169,8 +169,7 @@
         </service>
 
         <!-- User security provider -->
-        <service id="ekyna_user.user.security_provider"
-                 class="Ekyna\Bundle\UserBundle\Service\Security\UserProvider">
+        <service id="Ekyna\Bundle\UserBundle\Service\Security\UserProvider">
             <argument type="service" id="ekyna_user.user.repository"/>
         </service>
 
