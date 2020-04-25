@@ -116,13 +116,8 @@
         <!-- Table types -->
         <service id="ekyna_user.user.table_type"
                  class="Ekyna\Bundle\UserBundle\Table\Type\UserType">
+            <argument type="service" id="Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface"/>
             <argument>%ekyna_user.user.class%</argument>
-            <call method="setTokenStorage">
-                <argument type="service" id="security.token_storage"/>
-            </call>
-            <call method="setGroupClass">
-                <argument>%ekyna_user.group.class%</argument>
-            </call>
             <tag name="table.type"/>
         </service>
 
