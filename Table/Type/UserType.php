@@ -2,18 +2,11 @@
 
 namespace Ekyna\Bundle\UserBundle\Table\Type;
 
-use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\QueryBuilder;
 use Ekyna\Bundle\AdminBundle\Table\Type\ResourceTableType;
 use Ekyna\Bundle\ResourceBundle\Table\Filter\ResourceType;
 use Ekyna\Bundle\TableBundle\Extension\Type as BType;
-use Ekyna\Bundle\UserBundle\Model\GroupInterface;
-use Ekyna\Component\Table\Bridge\Doctrine\ORM\Source\EntitySource;
 use Ekyna\Component\Table\Extension\Core\Type as CType;
 use Ekyna\Component\Table\TableBuilderInterface;
-use Symfony\Component\OptionsResolver\Options;
-use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
  * Class UserType
@@ -23,48 +16,10 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 class UserType extends ResourceTableType
 {
     /**
-     * @var TokenStorageInterface
-     */
-    protected $tokenStorage;
-
-
-    /**
-     * Constructor.
-     *
-     * @param TokenStorageInterface $tokenStorage
-     * @param string                $userClass
-     */
-    public function __construct(TokenStorageInterface $tokenStorage, string $userClass)
-    {
-        parent::__construct($userClass);
-
-        $this->tokenStorage = $tokenStorage;
-    }
-
-    /**
-     * Returns the current user's group.
-     *
-     * @return GroupInterface|null
-     */
-    private function getUserGroup(): ?GroupInterface
-    {
-        if (null !== $token = $this->tokenStorage->getToken()) {
-            /** @var \Ekyna\Bundle\UserBundle\Model\UserInterface $user */
-            if (null !== $user = $token->getUser()) {
-                return $user->getGroup();
-            }
-        }
-
-        return null;
-    }
-
-    /**
      * @inheritDoc
      */
     public function buildTable(TableBuilderInterface $builder, array $options)
     {
-        $group = $this->getUserGroup();
-
         $builder
             ->addColumn('email', BType\Column\AnchorType::class, [
                 'label'                => 'ekyna_user.user.label.singular',
@@ -75,19 +30,14 @@ class UserType extends ResourceTableType
             ->addColumn('username', CType\Column\TextType::class, [
                 'label'    => 'ekyna_core.field.username',
                 'position' => 20,
-            ]);
-
-        if (null !== $group) {
-            $builder->addColumn('group', BType\Column\AnchorType::class, [
+            ])
+            ->addColumn('group', BType\Column\AnchorType::class, [
                 'label'                => 'ekyna_core.field.group',
                 'property_path'        => 'group.name',
                 'route_name'           => 'ekyna_user_group_admin_show',
                 'route_parameters_map' => ['groupId' => 'group.id'],
                 'position'             => 30,
-            ]);
-        }
-
-        $builder
+            ])
             ->addColumn('enabled', CType\Column\BooleanType::class, [
                 'label'                => 'ekyna_core.field.enabled',
                 'sortable'             => true,
@@ -153,20 +103,11 @@ class UserType extends ResourceTableType
                 'position' => 20,
             ]);
 
-        if (null !== $group) {
-            $builder
-                ->addFilter('group', ResourceType::class, [
-                    'resource'      => 'ekyna_user.group',
-                    'query_builder' => function (EntityRepository $er) use ($group) {
-                        $qb = $er->createQueryBuilder('g');
-
-                        return $qb->andWhere($qb->expr()->gte('g.position', $group->getPosition()));
-                    },
-                    'position'      => 30,
-                ]);
-        }
-
         $builder
+            ->addFilter('group', ResourceType::class, [
+                'resource' => 'ekyna_user.group',
+                'position' => 30,
+            ])
             ->addFilter('enabled', CType\Filter\BooleanType::class, [
                 'label'    => 'ekyna_core.field.enabled',
                 'position' => 40,
@@ -191,9 +132,8 @@ class UserType extends ResourceTableType
 
     /**
      * @inheritDoc
-     * @noinspection PhpUnusedParameterInspection
      */
-    public function configureOptions(OptionsResolver $resolver)
+    /*public function configureOptions(OptionsResolver $resolver)
     {
         parent::configureOptions($resolver);
 
@@ -210,5 +150,5 @@ class UserType extends ResourceTableType
 
             return $value;
         });
-    }
+    }*/
 }

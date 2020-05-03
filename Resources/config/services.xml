@@ -113,14 +113,6 @@
             <tag name="form.type"/>
         </service>
 
-        <!-- Table types -->
-        <service id="ekyna_user.user.table_type"
-                 class="Ekyna\Bundle\UserBundle\Table\Type\UserType">
-            <argument type="service" id="Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface"/>
-            <argument>%ekyna_user.user.class%</argument>
-            <tag name="table.type"/>
-        </service>
-
         <!-- Routing loader -->
         <service id="ekyna_user.routing.account_loader"
                  class="Ekyna\Bundle\UserBundle\Routing\AccountLoader">
