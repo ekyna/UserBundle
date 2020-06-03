@@ -1,4 +1,4 @@
-{% spaceless %}
+{% apply spaceless %}
 <?xml version="1.0" encoding="utf-8"?>
 <response>
     <user-widget status="{{ user is same as (null) ? "0" : "1" }}"
@@ -22,4 +22,4 @@
     {% endif %}
     ]]></user-widget>
 </response>
-{% endspaceless %}
+{% endapply %}

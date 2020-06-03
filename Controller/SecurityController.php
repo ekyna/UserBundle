@@ -5,9 +5,12 @@ namespace Ekyna\Bundle\UserBundle\Controller;
 use Ekyna\Bundle\CoreBundle\Controller\Controller;
 use Ekyna\Bundle\CoreBundle\Modal\Modal;
 use Ekyna\Bundle\UserBundle\Form\Type\LoginType;
+use Ekyna\Bundle\UserBundle\Service\Security\LoginTokenManager;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
 /**
  * Class SecurityController
@@ -17,13 +20,13 @@ use Symfony\Component\HttpFoundation\Request;
 class SecurityController extends Controller
 {
     /**
-     * Login action.
+     * Form login action.
      *
      * @param Request $request
      *
-     * @return mixed
+     * @return Response
      */
-    public function loginAction(Request $request)
+    public function loginAction(Request $request): Response
     {
         $form = $this->createLoginForm();
 
@@ -41,11 +44,29 @@ class SecurityController extends Controller
     }
 
     /**
+     * Token login action.
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function tokenAction(Request $request): Response
+    {
+        try {
+            $url = $this->get(LoginTokenManager::class)->login($request);
+        } catch (AuthenticationException $e) {
+            return $this->redirectToRoute('ekyna_user_account_index');
+        }
+
+        return $this->redirect($url);
+    }
+
+    /**
      * Creates the login form.
      *
      * @return FormInterface
      */
-    protected function createLoginForm()
+    protected function createLoginForm(): FormInterface
     {
         $form = $this->get('form.factory')->createNamed('', LoginType::class);
 
@@ -71,7 +92,7 @@ class SecurityController extends Controller
      *
      * @return Modal
      */
-    protected function createLoginModal(FormInterface $form)
+    protected function createLoginModal(FormInterface $form): Modal
     {
         $modal = new Modal('ekyna_user.account.login.title');
         $modal
@@ -88,12 +109,12 @@ class SecurityController extends Controller
                     'cssClass' => 'btn-primary',
                     'autospin' => true,
                 ],
-                'close' => [
+                'close'  => [
                     'id'       => 'close',
                     'label'    => 'ekyna_core.button.close',
                     'icon'     => 'glyphicon glyphicon-remove',
                     'cssClass' => 'btn-default',
-                ]
+                ],
             ]);
 
         return $modal;

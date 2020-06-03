@@ -2,7 +2,7 @@
 
 namespace Ekyna\Bundle\UserBundle\Command;
 
-use Doctrine\ORM\EntityRepository;
+use Ekyna\Bundle\UserBundle\Repository\UserRepositoryInterface;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -16,7 +16,7 @@ use Symfony\Component\Console\Question\Question;
 class UserInputInteract
 {
     /**
-     * @var EntityRepository
+     * @var UserRepositoryInterface
      */
     private $userRepository;
 
@@ -24,9 +24,9 @@ class UserInputInteract
     /**
      * Constructor.
      *
-     * @param EntityRepository $userRepository
+     * @param UserRepositoryInterface $userRepository
      */
-    public function __construct(EntityRepository $userRepository)
+    public function __construct(UserRepositoryInterface $userRepository)
     {
         $this->userRepository = $userRepository;
     }

@@ -53,20 +53,6 @@ class OAuthToken
     }
 
     /**
-     * Sets the id.
-     *
-     * @param int $id
-     *
-     * @return OAuthToken
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
      * Returns the user.
      *
      * @return UserInterface

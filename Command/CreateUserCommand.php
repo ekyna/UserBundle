@@ -2,20 +2,49 @@
 
 namespace Ekyna\Bundle\UserBundle\Command;
 
+use Ekyna\Bundle\UserBundle\Model\UserManagerInterface;
+use Ekyna\Bundle\UserBundle\Repository\UserRepositoryInterface;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 
 /**
  * Class CreateUserCommand
  * @package Ekyna\Bundle\UserBundle\Command
  * @author  Étienne Dauvergne <contact@ekyna.com>
  */
-class CreateUserCommand extends ContainerAwareCommand
+class CreateUserCommand extends Command
 {
+    protected static $defaultName = 'ekyna:user:create';
+
     /**
-     * {@inheritdoc}
+     * @var UserRepositoryInterface
+     */
+    private $userRepository;
+
+    /**
+     * @var UserManagerInterface
+     */
+    private $userManager;
+
+
+    /**
+     * Constructor.
+     *
+     * @param UserRepositoryInterface $userRepository
+     * @param UserManagerInterface    $userManager
+     */
+    public function __construct(UserRepositoryInterface $userRepository, UserManagerInterface $userManager)
+    {
+        parent::__construct();
+
+        $this->userRepository = $userRepository;
+        $this->userManager    = $userManager;
+    }
+
+    /**
+     * @inheritdoc
      */
     protected function configure()
     {
@@ -37,11 +66,11 @@ EOT
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     protected function interact(InputInterface $input, OutputInterface $output)
     {
-        $userInput = new UserInputInteract($this->getContainer()->get('ekyna_user.user.repository'));
+        $userInput = new UserInputInteract($this->userRepository);
 
         /** @var \Symfony\Component\Console\Helper\QuestionHelper $helper */
         $helper = $this->getHelperSet()->get('question');
@@ -50,19 +79,18 @@ EOT
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $userManager = $this->getContainer()->get('fos_user.user_manager');
         /** @var \Ekyna\Bundle\UserBundle\Model\UserInterface $user */
-        $user = $userManager->createUser();
+        $user = $this->userManager->createUser();
         $user
             ->setPlainPassword($input->getArgument('password'))
             ->setEmail($input->getArgument('email'))
             ->setEnabled(true);
 
-        $userManager->updateUser($user);
+        $this->userManager->updateUser($user);
 
         $output->writeln('User has been successfully created.');
     }

@@ -19,3 +19,8 @@ fos_user_security_check:
 fos_user_security_logout:
     path: /logout
     controller: fos_user.security.controller:logoutAction
+
+ekyna_user_security_token_login:
+    path: /login/token/{token}
+    controller: EkynaUserBundle:Security:token
+    methods: GET

@@ -1,4 +1,4 @@
-{% spaceless %}
+{% apply spaceless %}
 {%- set owners = hwi_oauth_resource_owners() -%}
 {%- if owners is not empty -%}
     {%- for owner in hwi_oauth_resource_owners() -%}
@@ -35,4 +35,4 @@
     {%- endif %}
 
 {{ form_end(form) }}
-{% endspaceless %}
+{% endapply %}

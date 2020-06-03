@@ -1,4 +1,4 @@
-{% spaceless %}
+{% apply spaceless %}
 <!DOCTYPE html>
 <html lang="{{ app.request.locale }}"{% if app.debug %} data-debug="1"{% endif %}>
 <head>
@@ -38,4 +38,4 @@
 {% block javascripts -%}{%- endblock javascripts %}
 </body>
 </html>
-{% endspaceless %}
+{% endapply %}

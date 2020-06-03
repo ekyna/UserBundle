@@ -91,7 +91,7 @@ class Mailer extends BaseMailer
         ]);
 
         $subject = $this->translator->trans('ekyna_user.email.creation.subject', [
-            '%sitename%' => $siteName
+            '%sitename%' => $siteName,
         ]);
 
         return $this->sendEmail($rendered, $user->getEmail(), $subject);
@@ -127,7 +127,7 @@ class Mailer extends BaseMailer
         ]);
 
         $subject = $this->translator->trans('ekyna_user.email.new_password.subject', [
-            '%sitename%' => $siteName
+            '%sitename%' => $siteName,
         ]);
 
         return $this->sendEmail($rendered, $user->getEmail(), $subject);
@@ -153,7 +153,7 @@ class Mailer extends BaseMailer
         ]);
 
         $subject = $this->translator->trans('ekyna_user.email.registration.subject', [
-            '%sitename%' => $siteName
+            '%sitename%' => $siteName,
         ]);
 
         $this->sendEmail($rendered, $user->getEmail(), $subject);
@@ -179,7 +179,7 @@ class Mailer extends BaseMailer
         ]);
 
         $subject = $this->translator->trans('ekyna_user.email.resetting.subject', [
-            '%sitename%' => $siteName
+            '%sitename%' => $siteName,
         ]);
 
         $this->sendEmail($rendered, $user->getEmail(), $subject);

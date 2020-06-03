@@ -1,4 +1,4 @@
-{% spaceless %}
+{% apply spaceless %}
 {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
     {{ bootstrap_set_style('horizontal') }}
     {{ bootstrap_set_col_size('md') }}
@@ -50,4 +50,4 @@
         </div>
     </div>
 {{ form_end(form) }}
-{% endspaceless %}
+{% endapply %}

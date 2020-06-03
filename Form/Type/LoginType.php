@@ -124,7 +124,7 @@ class LoginType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'target_path' => null,
+                'target_path' => 'ekyna_user_account_index',
                 'remember_me' => true,
                 'method'      => 'POST',
                 'action'      => function (Options $options) {

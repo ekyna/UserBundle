@@ -19,3 +19,4 @@ fos_user_resetting_reset: /mon-compte/reinitialisation/reinitialiser/{token}
 fos_user_security_login: /mon-compte/connexion
 fos_user_security_check: /mon-compte/connexion-verification
 fos_user_security_logout: /mon-compte/deconnection
+ekyna_user_security_token_login: /mon-compte/connexion/jeton/{token}

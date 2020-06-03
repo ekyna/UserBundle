@@ -2,12 +2,15 @@
 
 namespace Ekyna\Bundle\UserBundle\Twig;
 
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
+
 /**
  * Class UserExtension
  * @package Ekyna\Bundle\UserBundle\Twig
  * @author  Étienne Dauvergne <contact@ekyna.com>
  */
-class UserExtension extends \Twig_Extension
+class UserExtension extends AbstractExtension
 {
     /**
      * @var array
@@ -18,7 +21,7 @@ class UserExtension extends \Twig_Extension
     /**
      * Constructor.
      *
-     * @param array          $config
+     * @param array $config
      */
     public function __construct(array $config)
     {
@@ -31,7 +34,7 @@ class UserExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction(
+            new TwigFunction(
                 'ekyna_user_account_var',
                 [$this, 'getAccountVar']
             ),

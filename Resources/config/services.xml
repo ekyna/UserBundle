@@ -16,6 +16,13 @@
     </parameters>
 
     <services>
+
+        <!-- Repositories -->
+        <service id="Ekyna\Bundle\UserBundle\Repository\LoginTokenRepository">
+            <argument type="service" id="Symfony\Bridge\Doctrine\RegistryInterface"/>
+            <tag name="doctrine.repository_service"/>
+        </service>
+
         <!-- Authentication handlers -->
         <service id="ekyna_user.security.authentication_success_handler"
                  class="Ekyna\Bundle\UserBundle\Service\Security\AuthenticationSuccessHandler"
@@ -160,6 +167,15 @@
             <argument type="service" id="ekyna_user.user.repository"/>
         </service>
 
+        <!-- User security provider -->
+        <service id="Ekyna\Bundle\UserBundle\Service\Security\LoginTokenManager">
+            <argument type="service" id="Ekyna\Bundle\UserBundle\Repository\LoginTokenRepository"/>
+            <argument type="service" id="Doctrine\ORM\EntityManagerInterface"/>
+            <argument type="service" id="Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface"/>
+            <argument type="service" id="Symfony\Component\EventDispatcher\EventDispatcherInterface"/>
+            <argument type="service" id="Symfony\Component\Routing\Generator\UrlGeneratorInterface"/>
+        </service>
+
         <!-- Account widget renderer -->
         <service id="ekyna_user.account.widget_renderer"
                  class="Ekyna\Bundle\UserBundle\Service\Account\WidgetRenderer"
@@ -217,6 +233,17 @@
                  parent="ekyna_resource.serializer.resource_normalizer">
             <tag name="serializer.normalizer"/>
             <tag name="serializer.denormalizer"/>
+        </service>
+
+        <!-- Commands -->
+        <service id="Ekyna\Bundle\UserBundle\Command\CreateUserCommand">
+            <argument type="service" id="ekyna_user.user.repository"/>
+            <argument type="service" id="ekyna_user.user_manager.default"/>
+            <tag name="console.command"/>
+        </service>
+        <service id="Ekyna\Bundle\UserBundle\Command\PurgeTokenCommand">
+            <argument type="service" id="Ekyna\Bundle\UserBundle\Repository\LoginTokenRepository"/>
+            <tag name="console.command"/>
         </service>
 
     </services>
