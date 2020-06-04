@@ -25,6 +25,7 @@ class LoginTokenManager
 {
     public const TOKEN_PARAMETER = 'token';
     public const AFTER_PARAMETER = 'after';
+    public const TOKEN_EXPIRES = '+5 days';
 
     /**
      * @var LoginTokenRepository
@@ -84,7 +85,7 @@ class LoginTokenManager
     }
 
     /**
-     * Creates a ne w login token.
+     * Creates a new login token.
      *
      * @param UserInterface $user
      *
@@ -96,10 +97,9 @@ class LoginTokenManager
             $token = new LoginToken();
             $token
                 ->setUser($user)
-                ->setToken(bin2hex(random_bytes(16)));
+                ->setToken(bin2hex(random_bytes(16)))
+                ->setExpiresAt(new DateTime(self::TOKEN_EXPIRES));
         }
-
-        $token->setExpiresAt(new DateTime('+7 days'));
 
         $this->manager->persist($token);
         $this->manager->flush();

@@ -28,10 +28,23 @@ class LoginToken
     private $token;
 
     /**
-     * @var \DateTime
+     * @var DateTime
+     */
+    private $createdAt;
+
+    /**
+     * @var DateTime
      */
     private $expiresAt;
 
+
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->createdAt = new DateTime();
+    }
 
     /**
      * Returns the id.
@@ -87,6 +100,30 @@ class LoginToken
     public function setToken(string $token): LoginToken
     {
         $this->token = $token;
+
+        return $this;
+    }
+
+    /**
+     * Returns the "created at" date.
+     *
+     * @return DateTime
+     */
+    public function getCreatedAt(): DateTime
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Sets the "created at" date.
+     *
+     * @param DateTime $date
+     *
+     * @return LoginToken
+     */
+    public function setCreatedAt(DateTime $date): LoginToken
+    {
+        $this->createdAt = $date;
 
         return $this;
     }

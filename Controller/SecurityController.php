@@ -55,6 +55,10 @@ class SecurityController extends Controller
         try {
             $url = $this->get(LoginTokenManager::class)->login($request);
         } catch (AuthenticationException $e) {
+            if (!empty($url = $request->query->get(LoginTokenManager::AFTER_PARAMETER))) {
+                return $this->redirect($url);
+            }
+
             return $this->redirectToRoute('ekyna_user_account_index');
         }
 

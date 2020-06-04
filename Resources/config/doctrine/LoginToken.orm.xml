@@ -13,6 +13,7 @@
         </id>
 
         <field name="token" column="token" type="string" length="32" nullable="false"/>
+        <field name="createdAt" type="datetime" column="created_at" nullable="false"/>
         <field name="expiresAt" type="datetime" column="expires_at" nullable="false"/>
 
         <many-to-one field="user" target-entity="Ekyna\Bundle\UserBundle\Model\UserInterface">

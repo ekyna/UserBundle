@@ -9,6 +9,7 @@ use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 use Ekyna\Bundle\UserBundle\Entity\LoginToken;
 use Ekyna\Bundle\UserBundle\Model\UserInterface;
+use Ekyna\Bundle\UserBundle\Service\Security\LoginTokenManager;
 
 /**
  * Class LoginTokenRepository
@@ -39,11 +40,13 @@ class LoginTokenRepository extends ServiceEntityRepository
         return $qb
             ->andWhere($qb->expr()->eq('t.user', ':user'))
             ->andWhere($qb->expr()->gte('t.expiresAt', ':expires'))
+            ->andWhere($qb->expr()->eq('DATE(t.createdAt)', 'DATE(:today)'))
             ->setMaxResults(1)
             ->getQuery()
             ->useQueryCache(true)
             ->setParameter('user', $user)
-            ->setParameter('expires', new DateTime('+7 days'), Types::DATE_MUTABLE)
+            ->setParameter('expires', new DateTime(LoginTokenManager::TOKEN_EXPIRES), Types::DATETIME_MUTABLE)
+            ->setParameter('today', new DateTime(), Types::DATETIME_MUTABLE)
             ->getOneOrNullResult();
     }
 
@@ -65,7 +68,7 @@ class LoginTokenRepository extends ServiceEntityRepository
             ->getQuery()
             ->useQueryCache(true)
             ->setParameter('token', $hash)
-            ->setParameter('expires', new DateTime('+7 days'), Types::DATE_MUTABLE)
+            ->setParameter('expires', new DateTime(LoginTokenManager::TOKEN_EXPIRES), Types::DATETIME_MUTABLE)
             ->getOneOrNullResult();
     }
 
@@ -83,6 +86,6 @@ class LoginTokenRepository extends ServiceEntityRepository
             ->where($qb->expr()->lt('t.expiresAt', ':now'))
             ->getQuery()
             ->useQueryCache(true)
-            ->setParameter('now', new DateTime(), Types::DATE_MUTABLE);
+            ->setParameter('now', new DateTime(), Types::DATETIME_MUTABLE);
     }
 }
