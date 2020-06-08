@@ -93,16 +93,17 @@ class LoginTokenManager
      */
     public function createToken(UserInterface $user): LoginToken
     {
-        if (null === $token = $this->repository->findOneByUser($user)) {
-            $token = new LoginToken();
-            $token
-                ->setUser($user)
-                ->setToken(bin2hex(random_bytes(16)))
-                ->setExpiresAt(new DateTime(self::TOKEN_EXPIRES));
+        if (null !== $token = $this->repository->findOneByUser($user)) {
+            return $token;
         }
 
+        $token = new LoginToken();
+        $token
+            ->setUser($user)
+            ->setToken(bin2hex(random_bytes(16)))
+            ->setExpiresAt(new DateTime(self::TOKEN_EXPIRES));
+
         $this->manager->persist($token);
-        $this->manager->flush();
 
         return $token;
     }

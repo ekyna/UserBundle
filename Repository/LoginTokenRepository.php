@@ -9,7 +9,6 @@ use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 use Ekyna\Bundle\UserBundle\Entity\LoginToken;
 use Ekyna\Bundle\UserBundle\Model\UserInterface;
-use Ekyna\Bundle\UserBundle\Service\Security\LoginTokenManager;
 
 /**
  * Class LoginTokenRepository
@@ -27,7 +26,7 @@ class LoginTokenRepository extends ServiceEntityRepository
     }
 
     /**
-     * Finds the login token by user.
+     * Finds a valid login token (regarding 'expires at' date) by user.
      *
      * @param UserInterface $user
      *
@@ -39,19 +38,18 @@ class LoginTokenRepository extends ServiceEntityRepository
 
         return $qb
             ->andWhere($qb->expr()->eq('t.user', ':user'))
-            ->andWhere($qb->expr()->gte('t.expiresAt', ':expires'))
-            ->andWhere($qb->expr()->eq('DATE(t.createdAt)', 'DATE(:today)'))
+            ->andWhere($qb->expr()->gte('t.expiresAt', ':now'))
+            ->andWhere($qb->expr()->eq('DATE(t.createdAt)', 'DATE(:now)'))
             ->setMaxResults(1)
             ->getQuery()
             ->useQueryCache(true)
             ->setParameter('user', $user)
-            ->setParameter('expires', new DateTime(LoginTokenManager::TOKEN_EXPIRES), Types::DATETIME_MUTABLE)
-            ->setParameter('today', new DateTime(), Types::DATETIME_MUTABLE)
+            ->setParameter('now', new DateTime(), Types::DATETIME_MUTABLE)
             ->getOneOrNullResult();
     }
 
     /**
-     * Finds the login token by its hash.
+     * Finds a valid login token (regarding 'expires at' date) by its hash.
      *
      * @param string $hash
      *
@@ -63,12 +61,12 @@ class LoginTokenRepository extends ServiceEntityRepository
 
         return $qb
             ->andWhere($qb->expr()->eq('t.token', ':token'))
-            ->andWhere($qb->expr()->gte('t.expiresAt', ':expires'))
+            ->andWhere($qb->expr()->gte('t.expiresAt', ':now'))
             ->setMaxResults(1)
             ->getQuery()
             ->useQueryCache(true)
             ->setParameter('token', $hash)
-            ->setParameter('expires', new DateTime(LoginTokenManager::TOKEN_EXPIRES), Types::DATETIME_MUTABLE)
+            ->setParameter('now', new DateTime(), Types::DATETIME_MUTABLE)
             ->getOneOrNullResult();
     }
 
