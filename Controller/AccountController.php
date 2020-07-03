@@ -18,9 +18,9 @@ class AccountController extends Controller
     /**
      * Account index action.
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function indexAction()
+    public function indexAction(): Response
     {
         $user = $this->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
@@ -43,9 +43,9 @@ class AccountController extends Controller
      *
      * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function widgetAction(Request $request)
+    public function widgetAction(Request $request): Response
     {
         if (!$request->isXmlHttpRequest()) {
             return $this->redirectToRoute('ekyna_user_account_index');
@@ -62,7 +62,7 @@ class AccountController extends Controller
     /**
      * @return UserInterface|null
      */
-    public function getUser()
+    public function getUser(): ?UserInterface
     {
         return $this->get('ekyna_user.user.provider')->getUser();
     }

@@ -1,18 +1,23 @@
 {% extends '@EkynaUser/layout.html.twig' %}
 
-{% block metas %}
+{%- block metas -%}
     {{ cms_metas() }}
-{% endblock metas %}
+{%- endblock metas -%}
 
-{% block account %}
+{%- block account -%}
     <h3>{{ 'ekyna_user.account.dashboard.title'|trans }}</h3>
     <hr>
-    {% for widget in widgets %}
+    {% for widget in widgets -%}
+    {% if widget.panel -%}
     <div class="panel panel-{{ widget.theme }}">
         <div class="panel-heading">
             {{ widget.title|trans }}
         </div>
-        {%- include widget.template with widget.parameters -%}
+    {%- endif %}
+
+    {%- include widget.template with widget.parameters -%}
+
+    {% if widget.panel -%}
         {% if widget.buttons is not empty -%}
         <div class="panel-footer text-right">
         {% for button in widget.buttons -%}
@@ -24,5 +29,6 @@
         </div>
         {%- endif %}
     </div>
-    {% endfor %}
-{% endblock account %}
+    {%- endif %}
+    {%- endfor %}
+{%- endblock account -%}

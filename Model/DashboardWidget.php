@@ -39,6 +39,11 @@ class DashboardWidget
      */
     private $buttons;
 
+    /**
+     * @var bool
+     */
+    private $panel;
+
 
     /**
      * Constructor.
@@ -47,7 +52,7 @@ class DashboardWidget
      * @param string $template
      * @param string $theme
      */
-    public function __construct($title, $template, $theme = 'default')
+    public function __construct(string $title, string $template, string $theme = 'default')
     {
         $this->title = $title;
         $this->template = $template;
@@ -55,6 +60,7 @@ class DashboardWidget
         $this->parameters = [];
         $this->priority = 0;
         $this->buttons = [];
+        $this->panel = true;
     }
 
     /**
@@ -72,9 +78,9 @@ class DashboardWidget
      *
      * @param string $title
      *
-     * @return $this
+     * @return DashboardWidget
      */
-    public function setTitle($title)
+    public function setTitle(string $title): DashboardWidget
     {
         $this->title = $title;
 
@@ -86,7 +92,7 @@ class DashboardWidget
      *
      * @return string
      */
-    public function getTemplate()
+    public function getTemplate(): string
     {
         return $this->template;
     }
@@ -96,9 +102,9 @@ class DashboardWidget
      *
      * @param string $template
      *
-     * @return $this
+     * @return DashboardWidget
      */
-    public function setTemplate($template)
+    public function setTemplate(string $template): DashboardWidget
     {
         $this->template = $template;
 
@@ -110,7 +116,7 @@ class DashboardWidget
      *
      * @return string
      */
-    public function getTheme()
+    public function getTheme(): string
     {
         return $this->theme;
     }
@@ -122,7 +128,7 @@ class DashboardWidget
      *
      * @return DashboardWidget
      */
-    public function setTheme($theme)
+    public function setTheme(string $theme): DashboardWidget
     {
         $this->theme = $theme;
 
@@ -134,7 +140,7 @@ class DashboardWidget
      *
      * @return array
      */
-    public function getParameters()
+    public function getParameters(): array
     {
         return $this->parameters;
     }
@@ -144,9 +150,9 @@ class DashboardWidget
      *
      * @param array $parameters
      *
-     * @return $this
+     * @return DashboardWidget
      */
-    public function setParameters(array $parameters)
+    public function setParameters(array $parameters): DashboardWidget
     {
         $this->parameters = $parameters;
 
@@ -158,7 +164,7 @@ class DashboardWidget
      *
      * @return int
      */
-    public function getPriority()
+    public function getPriority(): int
     {
         return $this->priority;
     }
@@ -168,25 +174,11 @@ class DashboardWidget
      *
      * @param int $priority
      *
-     * @return $this
+     * @return DashboardWidget
      */
-    public function setPriority($priority)
+    public function setPriority(int $priority): DashboardWidget
     {
-        $this->priority = intval($priority);
-
-        return $this;
-    }
-
-    /**
-     * Returns the buttons.
-     *
-     * @param DashboardWidgetButton $button
-     *
-     * @return $this
-     */
-    public function addButton(DashboardWidgetButton $button)
-    {
-        $this->buttons[] = $button;
+        $this->priority = $priority;
 
         return $this;
     }
@@ -196,8 +188,46 @@ class DashboardWidget
      *
      * @return DashboardWidgetButton[]
      */
-    public function getButtons()
+    public function getButtons(): array
     {
         return $this->buttons;
+    }
+
+    /**
+     * Returns the buttons.
+     *
+     * @param DashboardWidgetButton $button
+     *
+     * @return DashboardWidget
+     */
+    public function addButton(DashboardWidgetButton $button): DashboardWidget
+    {
+        $this->buttons[] = $button;
+
+        return $this;
+    }
+
+    /**
+     * Returns the panel.
+     *
+     * @return bool
+     */
+    public function isPanel(): bool
+    {
+        return $this->panel;
+    }
+
+    /**
+     * Sets the panel.
+     *
+     * @param bool $panel
+     *
+     * @return DashboardWidget
+     */
+    public function setPanel(bool $panel): DashboardWidget
+    {
+        $this->panel = $panel;
+
+        return $this;
     }
 }
