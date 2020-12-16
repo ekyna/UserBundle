@@ -33,13 +33,13 @@ class Group extends BaseGroup implements GroupInterface
     }
 
     /**
-     * Returns a string representation.
+     * Returns the string representation.
      *
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
-        return (string)$this->getName();
+        return $this->name ?: 'New group';
     }
 
     /**

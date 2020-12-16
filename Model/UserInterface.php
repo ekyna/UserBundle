@@ -9,22 +9,16 @@ use FOS\UserBundle\Model\UserInterface as BaseUserInterface;
 /**
  * Interface UserInterface
  * @package Ekyna\Bundle\UserBundle\Model
- * @author Étienne Dauvergne <contact@ekyna.com>
+ * @author  Étienne Dauvergne <contact@ekyna.com>
  */
 interface UserInterface extends BaseUserInterface, ResourceInterface, TimestampableInterface
 {
     /**
-     * Returns the identifier.
-     *
-     * @return integer
-     */
-    public function getId();
-
-    /**
      * Set group
      *
-     * @param GroupInterface $group
-     * @return UserInterface|$this
+     * @param GroupInterface|null $group
+     *
+     * @return $this|UserInterface
      */
     public function setGroup(GroupInterface $group = null);
 
@@ -33,12 +27,13 @@ interface UserInterface extends BaseUserInterface, ResourceInterface, Timestampa
      *
      * @return GroupInterface
      */
-    public function getGroup();
+    public function getGroup(): ?GroupInterface;
 
     /**
      * Sets whether to send the creation email or not.
      *
      * @param bool $send
+     *
      * @return UserInterface|$this
      */
     public function setSendCreationEmail($send);

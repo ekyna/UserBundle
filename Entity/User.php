@@ -32,13 +32,13 @@ class User extends BaseUser implements UserInterface
      *
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         if ($this->username !== $this->email) {
             return sprintf('%s (%s)', $this->username, $this->email);
         }
 
-        return $this->getEmail();
+        return $this->getEmail() ?: 'New user';
     }
 
     /**
@@ -74,7 +74,7 @@ class User extends BaseUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function getGroup()
+    public function getGroup(): ?GroupInterface
     {
         return $this->group;
     }
