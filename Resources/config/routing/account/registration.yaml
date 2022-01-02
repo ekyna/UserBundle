@@ -24,7 +24,7 @@ ekyna_user_account_registration_email:
     options:
         ekyna_i18n: ~
         _cms:
-            name: Confirmez votre adresse email
+            name: "Inscription : Confirmez votre adresse email"
             parent: ekyna_user_account_registration
             seo:
                 follow: false
@@ -42,7 +42,7 @@ ekyna_user_account_registration_check:
     options:
         ekyna_i18n: ~
         _cms:
-            name: Consultez votre boite mail
+            name: "Inscription : Consultez votre boite mail"
             parent: ekyna_user_account_registration
             seo:
                 follow: false
@@ -60,7 +60,7 @@ ekyna_user_account_registration_register:
     options:
         ekyna_i18n: ~
         _cms:
-            name: Créer un compte client
+            name: "Inscription : Créer un compte client"
             parent: ekyna_user_account_registration
             seo:
                 follow: false
@@ -78,7 +78,7 @@ ekyna_user_account_registration_confirmed:
     options:
         ekyna_i18n: ~
         _cms:
-            name: Confirmation
+            name: "Inscription : Confirmation"
             parent: ekyna_user_account_registration
             seo:
                 follow: false

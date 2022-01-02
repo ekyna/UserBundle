@@ -14,7 +14,7 @@ ekyna_user_account_resetting:
                 follow: false
                 index: false
 
-ekyna_user_account_resetting_sent:
+ekyna_user_account_resetting_check:
     path:
         en: /email-sent
         fr: /email-envoye
@@ -24,7 +24,7 @@ ekyna_user_account_resetting_sent:
     options:
         ekyna_i18n: ~
         _cms:
-            name: Consultez votre boite mail
+            name: "Réinitialisation : Consultez votre boite mail"
             parent: ekyna_user_account_resetting
             seo:
                 follow: false
@@ -42,7 +42,7 @@ ekyna_user_account_resetting_reset:
     options:
         ekyna_i18n: ~
         _cms:
-            name: Changez votre mot de passe
+            name: "Réinitialisation : Changez votre mot de passe"
             parent: ekyna_user_account_resetting
             seo:
                 follow: false
@@ -60,7 +60,7 @@ ekyna_user_account_resetting_confirmed:
     options:
         ekyna_i18n: ~
         _cms:
-            name: Confirmation du changement de mot de passe
+            name: "Réinitialisation : Confirmation du changement de mot de passe"
             parent: ekyna_user_account_resetting
             seo:
                 follow: false

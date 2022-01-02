@@ -85,7 +85,7 @@ class ResettingController
             }
 
             return new RedirectResponse(
-                $this->urlGenerator->generate('ekyna_user_account_resetting_sent')
+                $this->urlGenerator->generate('ekyna_user_account_resetting_check')
             );
         }
 
