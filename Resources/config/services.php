@@ -12,10 +12,18 @@ use Ekyna\Bundle\UserBundle\Service\Account\WidgetRenderer;
 use Ekyna\Bundle\UserBundle\Service\Mailer\UserMailer;
 use Ekyna\Bundle\UserBundle\Service\Routing\AccountLoader;
 use Ekyna\Bundle\UserBundle\Twig\UserExtension;
+use Ekyna\Component\User\Service\UserProvider;
 
 return static function (ContainerConfigurator $container) {
     $container
         ->services()
+
+        // User provider
+        ->set('ekyna_user.provider.user', UserProvider::class)
+            ->args([
+                service('security.token_storage'),
+                param('ekyna_user.class.user'),
+            ])
 
         // User generate password action
         ->set('ekyna_user.action.user.generate_password', GeneratePasswordAction::class)
@@ -34,18 +42,6 @@ return static function (ContainerConfigurator $container) {
         // User use session action
         ->set('ekyna_user.action.user.use_session', UseSessionAction::class)
             ->tag('ekyna_resource.action')
-
-        // Authentication success handler
-        // TODO ->set('ekyna_user.security.authentication_success_handler')
-
-        // Authentication failure handler
-        // TODO ->set('ekyna_user.security.authentication_failure_handler')
-
-        // Logout handler
-        // TODO ->set('ekyna_user.security.logout_handler')
-
-        // Security event listener
-        // TODO ->set('ekyna_user.listener.security')
 
         // User event listener
         ->set('ekyna_user.listener.user', UserEventSubscriber::class)

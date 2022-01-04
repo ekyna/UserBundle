@@ -7,7 +7,7 @@ namespace Ekyna\Bundle\UserBundle\Controller;
 use Ekyna\Bundle\UserBundle\Event\DashboardEvent;
 use Ekyna\Bundle\UserBundle\Model\UserInterface;
 use Ekyna\Bundle\UserBundle\Service\Account\WidgetRenderer;
-use Ekyna\Component\User\Service\UserProvider;
+use Ekyna\Component\User\Service\UserProviderInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,28 +23,18 @@ use Twig\Environment;
  */
 class AccountController
 {
-    private Environment $twig;
-    private UrlGeneratorInterface $urlGenerator;
+    private Environment              $twig;
+    private UrlGeneratorInterface    $urlGenerator;
     private EventDispatcherInterface $eventDispatcher;
-    private WidgetRenderer $widgetRenderer;
-    private UserProvider $userProvider;
+    private WidgetRenderer           $widgetRenderer;
+    private UserProviderInterface    $userProvider;
 
-
-    /**
-     * Constructor.
-     *
-     * @param Environment              $twig
-     * @param UrlGeneratorInterface    $urlGenerator
-     * @param EventDispatcherInterface $eventDispatcher
-     * @param WidgetRenderer           $widgetRenderer
-     * @param UserProvider             $userProvider
-     */
     public function __construct(
-        Environment $twig,
-        UrlGeneratorInterface $urlGenerator,
+        Environment              $twig,
+        UrlGeneratorInterface    $urlGenerator,
         EventDispatcherInterface $eventDispatcher,
-        WidgetRenderer $widgetRenderer,
-        UserProvider $userProvider
+        WidgetRenderer           $widgetRenderer,
+        UserProviderInterface    $userProvider
     ) {
         $this->twig = $twig;
         $this->urlGenerator = $urlGenerator;

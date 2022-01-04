@@ -15,7 +15,7 @@ use Ekyna\Bundle\UserBundle\Model\UserInterface;
 use Ekyna\Component\Resource\Action\Permission;
 use Ekyna\Component\Resource\Event\ResourceMessage;
 use Ekyna\Component\Resource\Exception\UnexpectedTypeException;
-use Ekyna\Component\User\Service\SecurityUtil;
+use Ekyna\Component\User\Service\Security\SecurityUtil;
 use Symfony\Component\HttpFoundation\Response;
 
 /**

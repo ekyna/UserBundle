@@ -9,7 +9,7 @@ use Ekyna\Bundle\UserBundle\Entity\Token;
 use Ekyna\Bundle\UserBundle\Model\TokenTrait;
 use Ekyna\Bundle\UserBundle\Model\UserInterface;
 use Ekyna\Bundle\UserBundle\Repository\TokenRepository;
-use Ekyna\Component\User\Service\SecurityUtil;
+use Ekyna\Component\User\Service\Security\SecurityUtil;
 
 use function bin2hex;
 use function random_bytes;

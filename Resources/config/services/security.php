@@ -8,10 +8,10 @@ use Ekyna\Bundle\UserBundle\EventListener\SecurityEventListener;
 use Ekyna\Bundle\UserBundle\Manager\TokenManager;
 use Ekyna\Bundle\UserBundle\Repository\OAuthTokenRepository;
 use Ekyna\Bundle\UserBundle\Repository\TokenRepository;
-use Ekyna\Component\User\Service\LoginFormAuthenticator;
 use Ekyna\Component\User\Service\OAuth\OAuthPassportGenerator;
 use Ekyna\Component\User\Service\OAuth\RoutingLoader;
-use Ekyna\Component\User\Service\UserProvider;
+use Ekyna\Component\User\Service\Security\LoginFormAuthenticator;
+use Ekyna\Component\User\Service\Security\UserProvider;
 use Symfony\Component\Security\Http\Event\LoginFailureEvent;
 use Symfony\Component\Security\Http\Event\LoginSuccessEvent;
 use Symfony\Component\Security\Http\Event\LogoutEvent;
@@ -36,11 +36,10 @@ return static function (ContainerConfigurator $container) {
             ])
 
         // User provider
-        ->set('ekyna_user.provider.user', UserProvider::class)
+        ->set('ekyna_user.security.user_provider', UserProvider::class)
             ->args([
                 service('ekyna_user.repository.user'),
-                service('security.token_storage'),
-                param('ekyna_user.class.user'),
+                service('ekyna_user.manager.user'),
             ])
 
         // Form login authenticator

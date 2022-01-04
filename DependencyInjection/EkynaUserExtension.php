@@ -7,7 +7,7 @@ namespace Ekyna\Bundle\UserBundle\DependencyInjection;
 use Ekyna\Bundle\ResourceBundle\DependencyInjection\PrependBundleConfigTrait;
 use Ekyna\Bundle\UserBundle\Model\UserInterface;
 use Ekyna\Component\User\Service\OAuth\OAuthConfigurator;
-use Ekyna\Component\User\Service\SecurityConfigurator;
+use Ekyna\Component\User\Service\Security\SecurityConfigurator;
 use KnpU\OAuth2ClientBundle\DependencyInjection\Configuration as KnpuConfiguration;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -141,12 +141,12 @@ class EkynaUserExtension extends Extension implements PrependExtensionInterface
         $configurator->configure($container, [
             'providers'        => [
                 'ekyna_user' => [
-                    'id' => 'ekyna_user.provider.user',
+                    'id' => 'ekyna_user.security.user_provider',
                 ],
             ],
             'password_hashers' => [
                 UserInterface::class => [
-                    'algorithm' => 'argon2i',
+                    'algorithm' => 'auto',
                 ],
             ],
             'firewalls'        => [
