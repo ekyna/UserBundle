@@ -59,6 +59,8 @@ class EkynaUserExtension extends Extension implements PrependExtensionInterface
 
     private function configureAccount(array $config, ContainerBuilder $container): void
     {
+        $container->setParameter('ekyna_user.account_routing_prefix', $config['routing_prefix']);
+
         // Routing loader
         $container
             ->getDefinition('ekyna_user.routing.account_loader')

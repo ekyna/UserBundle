@@ -46,6 +46,15 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('account')
                     ->canBeDisabled()
                     ->children()
+                        ->arrayNode('routing_prefix')
+                            ->defaultValue([
+                                'en' => '/my-account',
+                                'fr' => '/mon-compte',
+                                'es' => '/mi-cuenta',
+                            ])
+                            ->useAttributeAsKey('locale')
+                            ->scalarPrototype()->end()
+                        ->end()
                         ->arrayNode('registration')
                             ->canBeDisabled()
                             ->children()

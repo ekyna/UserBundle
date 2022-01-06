@@ -84,11 +84,7 @@ class AccountLoader extends Loader
             $collection->addCollection($routes);
         }
 
-        $this->addPrefixes($collection, [
-            'en' => '/my-account',
-            'fr' => '/mon-compte',
-            'es' => '/mi-cuenta',
-        ]);
+        $this->addPrefixes($collection, $this->config['routing_prefix']);
 
         return $collection;
     }
