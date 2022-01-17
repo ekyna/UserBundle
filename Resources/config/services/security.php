@@ -81,6 +81,7 @@ return static function (ContainerConfigurator $container) {
         ->set('ekyna_user.listener.security', SecurityEventListener::class)
             ->args([
                 service('ekyna_user.provider.user'),
+                service('ekyna_user.manager.user'),
                 service('ekyna_user.account.widget_renderer'),
             ])
             ->tag('kernel.event_listener', [

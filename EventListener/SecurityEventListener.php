@@ -6,6 +6,7 @@ namespace Ekyna\Bundle\UserBundle\EventListener;
 
 use Ekyna\Bundle\UserBUndle\Model\UserInterface;
 use Ekyna\Bundle\UserBundle\Service\Account\WidgetRenderer;
+use Ekyna\Component\Resource\Manager\ResourceManagerInterface;
 use Ekyna\Component\User\EventListener\SecurityEventListener as BaseListener;
 use Ekyna\Component\User\Service\UserProviderInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -26,10 +27,11 @@ class SecurityEventListener extends BaseListener
     private WidgetRenderer $widgetRenderer;
 
     public function __construct(
-        UserProviderInterface $userUserProvider,
-        WidgetRenderer        $widgetRenderer
+        UserProviderInterface    $userUserProvider,
+        ResourceManagerInterface $userManager,
+        WidgetRenderer           $widgetRenderer
     ) {
-        parent::__construct($userUserProvider);
+        parent::__construct($userUserProvider, $userManager);
 
         $this->widgetRenderer = $widgetRenderer;
     }
@@ -37,12 +39,13 @@ class SecurityEventListener extends BaseListener
     public function onAuthenticationSuccess(LoginSuccessEvent $event): void
     {
         $request = $event->getRequest();
-        if (!$request->isXmlHttpRequest()) {
-            return;
-        }
 
         /** @var UserInterface $user */
         $user = $this->userProvider->getUser();
+
+        if (!$request->isXmlHttpRequest()) {
+            return;
+        }
 
         $redirect = $this->getResponseRedirection($event->getResponse());
 
