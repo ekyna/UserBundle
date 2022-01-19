@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Ekyna\Bundle\UserBundle\Action\User;
 
+use DateTime;
 use Ekyna\Bundle\AdminBundle\Action\AdminActionInterface;
 use Ekyna\Bundle\ResourceBundle\Action\AbstractAction;
 use Ekyna\Bundle\ResourceBundle\Action\HelperTrait;
@@ -64,7 +65,9 @@ class GeneratePasswordAction extends AbstractAction implements AdminActionInterf
         // New password
         $password = $this->securityUtil->generatePassword();
 
-        $resource->setPlainPassword($password);
+        $resource
+            ->setPlainPassword($password)
+            ->setUpdatedAt(new DateTime()); // trigger persistence
 
         $event
             ->addMessage(new ResourceMessage(

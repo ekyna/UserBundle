@@ -72,7 +72,7 @@ class RegistrationController
 
     protected function redirectIfLoggedIn(): ?Response
     {
-        if (!$user = $this->userProvider->getUser()) {
+        if (null === $this->userProvider->getUser()) {
             return null;
         }
 
@@ -208,7 +208,10 @@ class RegistrationController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user->setEnabled(true);
+            $user
+                ->setSendCreationEmail(true)
+                ->setEnabled(true);
+
             $event = $this->userManager->create($user);
 
             if (!$event->hasErrors()) {
@@ -230,7 +233,6 @@ class RegistrationController
             }
         }
 
-        /** @noinspection PhpUnhandledExceptionInspection */
         $content = $this->twig->render($this->config['template']['register'], [
             'form' => $form->createView(),
         ]);
@@ -255,7 +257,6 @@ class RegistrationController
             return new Response('Invalid token', Response::HTTP_FORBIDDEN);
         }
 
-        /** @noinspection PhpUnhandledExceptionInspection */
         $content = $this->twig->render($this->config['template']['confirmed'], [
             'user' => $token->getUser(),
         ]);

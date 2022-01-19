@@ -10,7 +10,9 @@ use Ekyna\Bundle\ResourceBundle\Action\SessionTrait;
 use Ekyna\Bundle\UserBundle\Model\UserInterface;
 use Ekyna\Component\Resource\Action\Permission;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Http\Authenticator\Token\PostAuthenticationToken;
+
+use function serialize;
 
 /**
  * Class UseSessionAction
@@ -28,16 +30,17 @@ class UseSessionAction extends AbstractAction implements AdminActionInterface
 
         //$this->isGranted('VIEW', $user); // TODO custom permission ('IMPERSONATE' ?)
 
-        $token = new UsernamePasswordToken($user, null, 'front', $user->getRoles());
+        if ($user->isEnabled()) {
+            $token = new PostAuthenticationToken($user, 'main', $user->getRoles());
 
-        $this->getSession()->set('_security_front', serialize($token));
+            $this->getSession()->set('_security_main', serialize($token));
+        } else {
+            // TODO Flash message
+        }
 
         return $this->redirect('/');
     }
 
-    /**
-     * @inheritDoc
-     */
     public static function configureAction(): array
     {
         return [

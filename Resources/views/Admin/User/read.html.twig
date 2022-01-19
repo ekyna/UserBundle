@@ -16,13 +16,13 @@
 {% block main_tabs %}
     {{ parent() }}
     <li>
-        <a href="#user-user-information" data-toggle="tab">{{ 'field.information'|trans({}, 'EkynaUi') }}</a>
+        <a href="#{{ resource_name }}-information" data-toggle="tab">{{ 'field.information'|trans({}, 'EkynaUi') }}</a>
     </li>
 {% endblock main_tabs %}
 
 
 {% block main_contents %}
-    <div class="tab-pane active" id="user-user-general">
+    <div class="tab-pane active" id="{{ resource_name }}-general">
         <div class="row">
             <div class="col-md-6">
                 {{ show_row(user.email, 'text', {
@@ -41,7 +41,7 @@
             </div>
         </div>
     </div>
-    <div class="tab-pane" id="user-user-information">
+    <div class="tab-pane" id="{{ resource_name }}-information">
         {# {% if admin_resource_access(user, constant('Ekyna\\Component\\Resource\\Action\\Permission::UPDATE')) -%} #}
         <div class="actions">
             {{- admin_resource_btn(user, 'Ekyna\\Bundle\\UserBundle\\Action\\User\\GeneratePasswordAction', {'size': 'sm'}) -}}

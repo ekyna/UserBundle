@@ -15,7 +15,7 @@ use Ekyna\Component\User\Model\AbstractUser;
 class User extends AbstractUser implements UserInterface
 {
     /** ------------ (non mapped) ------------ */
-    protected bool $sendCreationEmail = true;
+    protected bool $sendCreationEmail = false;
 
 
     /**
