@@ -36,7 +36,8 @@ user:
 account:
     title: Espace client
     login:
-        title: Connexion à l'espace client
+        title: Connexion
+        register: Création de compte
     dashboard:
         title: Tableau de bord
     menu:

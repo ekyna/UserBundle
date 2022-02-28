@@ -16,6 +16,7 @@ use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
 
 use function array_keys;
+use function array_map;
 use function in_array;
 
 /**
@@ -139,6 +140,8 @@ class EkynaUserExtension extends Extension implements PrependExtensionInterface
             }
         }
 
+        $pattern = '^/' . implode('|', array_map(fn ($val) => trim($val, '/'), $config['account']['routing_prefix']));
+
         $configurator = new SecurityConfigurator();
         $configurator->configure($container, [
             'providers'        => [
@@ -176,6 +179,16 @@ class EkynaUserExtension extends Extension implements PrependExtensionInterface
                         'invalidate_session' => false,
                     ],
                     'lazy'                  => true,
+                ],
+            ],
+            'access_control'   => [
+                [
+                    'path' => $pattern . '/login',
+                    'role' => 'PUBLIC_ACCESS',
+                ],
+                [
+                    'path' => $pattern,
+                    'role' => 'ROLE_USER',
                 ],
             ],
         ]);

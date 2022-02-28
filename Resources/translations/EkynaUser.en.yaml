@@ -36,7 +36,8 @@ user:
 account:
     title: Customer area
     login:
-        title: Customer area sign in
+        title: Sign in
+        register: Sign up
     dashboard:
         title: Dashboard
     menu:

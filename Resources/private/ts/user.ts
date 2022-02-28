@@ -15,7 +15,7 @@ let ui = Ui;
 class User {
     private authenticated:boolean;
 
-    private readonly modalLinkClickHandler:(e:JQueryEventObject) => boolean;
+    private readonly modalLinkClickHandler:(e:JQuery.ClickEvent) => boolean;
     private readonly xhrErrorHandler:() => void;
 
     constructor() {
@@ -39,14 +39,14 @@ class User {
     }
 
     // noinspection JSUnusedLocalSymbols
-    onXhrError(event: JQueryEventObject, jqXHR: JQueryXHR):void {
+    onXhrError(event: JQuery.TriggeredEvent, jqXHR: JQueryXHR):void {
         if (403 === jqXHR.status) {
             this.setAuthenticated(false);
             this.openModal(Router.generate('ekyna_user_security_login'));
         }
     }
 
-    onModalLinkClick(clickEvent?:JQueryEventObject):boolean {
+    onModalLinkClick(clickEvent?:JQuery.ClickEvent):boolean {
         clickEvent.preventDefault();
 
         this.openModal($(clickEvent.target).attr('href'));
@@ -94,6 +94,7 @@ class User {
     }
 
     parseResponse(xml:XMLDocument):string {
+        // noinspection CssInvalidHtmlTagReference
         let widgetNode:Element = xml.querySelector('user-widget');
         if (widgetNode) {
             let redirect = widgetNode.getAttribute('redirect');

@@ -16,7 +16,7 @@ ekyna_user_security_login:
                 index: false
 
 ekyna_user_security_check:
-    path: /check
+    path: /login/check
     controller: Ekyna\Bundle\UserBundle\Controller\SecurityController::check
 
 ekyna_user_security_logout:
