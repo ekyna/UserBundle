@@ -48,7 +48,7 @@ return static function (ContainerConfigurator $container) {
             ->args([
                 service('ekyna_user.mailer'),
             ])
-            ->call('setPasswordHasher', [service('security.password_encoder')]) // TODO (Sf 6) security.user_password_hasher
+            ->call('setPasswordHasher', [service('security.user_password_hasher')])
             ->call('setSecurityUtil', [service('ekyna_admin.security_util')])
             ->tag('resource.event_subscriber')
 
