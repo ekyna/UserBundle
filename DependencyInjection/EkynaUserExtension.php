@@ -140,7 +140,7 @@ class EkynaUserExtension extends Extension implements PrependExtensionInterface
             }
         }
 
-        $pattern = '^/' . implode('|', array_map(fn ($val) => trim($val, '/'), $config['account']['routing_prefix']));
+        $pattern = '^/' . implode('|', array_map(fn($val) => trim($val, '/'), $config['account']['routing_prefix']));
 
         $configurator = new SecurityConfigurator();
         $configurator->configure($container, [
@@ -165,7 +165,10 @@ class EkynaUserExtension extends Extension implements PrependExtensionInterface
                     // https://symfony.com/doc/current/security/login_link.html
                     'login_link'            => [
                         'check_route'          => 'ekyna_user_security_login_link_check',
-                        'signature_properties' => ['id'],
+                        'signature_properties' => ['id', 'email', 'enabled'],
+                        'lifetime'             => 60 * 60 * 6,
+                        'success_handler'      => 'ekyna_user.security.authentication.login_link_success',
+                        'failure_handler'      => 'ekyna_user.security.authentication.login_link_failure',
                     ],
                     'remember_me'           => [
                         'secret'                => '%kernel.secret%',

@@ -8,6 +8,8 @@ use Ekyna\Bundle\UserBundle\EventListener\SecurityEventListener;
 use Ekyna\Bundle\UserBundle\Manager\TokenManager;
 use Ekyna\Bundle\UserBundle\Repository\OAuthTokenRepository;
 use Ekyna\Bundle\UserBundle\Repository\TokenRepository;
+use Ekyna\Bundle\UserBundle\Service\Security\Authentication\LoginLinkFailureHandler;
+use Ekyna\Bundle\UserBundle\Service\Security\Authentication\LoginLinkSuccessHandler;
 use Ekyna\Component\User\Service\OAuth\OAuthPassportGenerator;
 use Ekyna\Component\User\Service\OAuth\RoutingLoader;
 use Ekyna\Component\User\Service\Security\LoginFormAuthenticator;
@@ -40,6 +42,18 @@ return static function (ContainerConfigurator $container) {
             ->args([
                 service('ekyna_user.repository.user'),
                 service('ekyna_user.manager.user'),
+            ])
+
+        // Login link success handler
+        ->set('ekyna_user.security.authentication.login_link_success', LoginLinkSuccessHandler::class)
+            ->args([
+                service('router'),
+            ])
+
+        // Login link failure handler
+        ->set('ekyna_user.security.authentication.login_link_failure', LoginLinkFailureHandler::class)
+            ->args([
+                service('router'),
             ])
 
         // Form login authenticator
