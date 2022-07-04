@@ -6,7 +6,6 @@ ekyna_user_account_resetting:
     controller: Ekyna\Bundle\UserBundle\Controller\Account\ResettingController::index
     methods: GET|POST
     options:
-        ekyna_i18n: ~
         _cms:
             name: Réinitialisez votre mot de passe
             parent: ekyna_user_account_index
@@ -22,7 +21,6 @@ ekyna_user_account_resetting_check:
     controller: Ekyna\Bundle\UserBundle\Controller\Account\ResettingController::sent
     methods: GET
     options:
-        ekyna_i18n: ~
         _cms:
             name: "Réinitialisation : Consultez votre boite mail"
             parent: ekyna_user_account_resetting
@@ -40,7 +38,6 @@ ekyna_user_account_resetting_reset:
     requirements:
         token: '[a-zA-Z0-9-_]+'
     options:
-        ekyna_i18n: ~
         _cms:
             name: "Réinitialisation : Changez votre mot de passe"
             parent: ekyna_user_account_resetting
@@ -58,7 +55,6 @@ ekyna_user_account_resetting_confirmed:
     requirements:
         token: '[a-zA-Z0-9-_]+'
     options:
-        ekyna_i18n: ~
         _cms:
             name: "Réinitialisation : Confirmation du changement de mot de passe"
             parent: ekyna_user_account_resetting

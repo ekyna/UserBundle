@@ -6,7 +6,6 @@ ekyna_user_account_profile:
     controller: Ekyna\Bundle\UserBundle\Controller\Account\ProfileController::index
     methods: GET
     options:
-        ekyna_i18n: ~
         _cms:
             name: Mon profil
             parent: ekyna_user_account_index
@@ -22,7 +21,6 @@ ekyna_user_account_profile_edit:
     controller: Ekyna\Bundle\UserBundle\Controller\Account\ProfileController::edit
     methods: GET|POST
     options:
-        ekyna_i18n: ~
         _cms:
             name: Modifiez vos informations
             parent: ekyna_user_account_profile

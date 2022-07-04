@@ -7,7 +7,6 @@ ekyna_user_security_login:
     methods: GET|POST
     options:
         expose: true
-        ekyna_i18n: ~
         _cms:
             name: Connexion
             parent: ekyna_user_account_index
@@ -25,8 +24,6 @@ ekyna_user_security_logout:
         fr: /deconnection
         es: /cerrar-la-sesion
     controller: Ekyna\Bundle\UserBundle\Controller\SecurityController::logout
-    options:
-        ekyna_i18n: ~
 
 ekyna_user_security_login_link_check:
     path:
@@ -34,5 +31,4 @@ ekyna_user_security_login_link_check:
         fr: /connexion/jeton
         es: /iniciar-sesion/senal
     methods: GET
-    options:
-        ekyna_i18n: ~
+

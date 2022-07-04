@@ -17,10 +17,6 @@ class User extends AbstractUser implements UserInterface
     /** ------------ (non mapped) ------------ */
     protected bool $sendCreationEmail = false;
 
-
-    /**
-     * @inheritDoc
-     */
     public function setSendCreationEmail(bool $send): UserInterface
     {
         $this->sendCreationEmail = $send;
@@ -28,9 +24,6 @@ class User extends AbstractUser implements UserInterface
         return $this;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getSendCreationEmail(): bool
     {
         return $this->sendCreationEmail;

@@ -1,6 +1,8 @@
 ekyna_user_account_loader:
     resource: .
     type: ekyna_user_account
+    options:
+        ekyna_i18n: ~
 
 ekyna_user_oauth:
     resource: .

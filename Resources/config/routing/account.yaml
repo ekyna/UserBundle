@@ -7,8 +7,6 @@ ekyna_user_account:
     defaults:
         route: ekyna_user_account_index
         permanent: true
-    options:
-        ekyna_i18n: ~
 
 ekyna_user_account_index:
     path:
@@ -18,7 +16,6 @@ ekyna_user_account_index:
     controller: Ekyna\Bundle\UserBundle\Controller\AccountController::index
     methods: GET
     options:
-        ekyna_i18n: ~
         _cms:
             name: Espace client
             menus: [footer]
@@ -31,8 +28,6 @@ ekyna_user_account_widget:
     path: /widget
     controller: Ekyna\Bundle\UserBundle\Controller\AccountController::widget
     methods: GET
-    options:
-        ekyna_i18n: ~
 
 ekyna_user_security:
     resource: "account/security.yaml"
@@ -45,7 +40,6 @@ ekyna_user_account_change_password:
     controller: Ekyna\Bundle\UserBundle\Controller\Account\ChangePasswordController::index
     methods: GET|POST
     options:
-        ekyna_i18n: ~
         _cms:
             name: "Modifiez votre mot de passe"
             parent: ekyna_user_account_index

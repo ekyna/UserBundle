@@ -6,7 +6,6 @@ ekyna_user_account_registration:
     controller: Ekyna\Bundle\UserBundle\Controller\Account\RegistrationController::index
     methods: GET|POST
     options:
-        ekyna_i18n: ~
         _cms:
             name: Inscription
             parent: ekyna_user_account_index
@@ -22,7 +21,6 @@ ekyna_user_account_registration_email:
     controller: Ekyna\Bundle\UserBundle\Controller\Account\RegistrationController::email
     methods: GET|POST
     options:
-        ekyna_i18n: ~
         _cms:
             name: "Inscription : Confirmez votre adresse email"
             parent: ekyna_user_account_registration
@@ -40,7 +38,6 @@ ekyna_user_account_registration_check:
     requirements:
         token: '[a-zA-Z0-9]{64}'
     options:
-        ekyna_i18n: ~
         _cms:
             name: "Inscription : Consultez votre boite mail"
             parent: ekyna_user_account_registration
@@ -58,7 +55,6 @@ ekyna_user_account_registration_register:
     requirements:
         token: '[a-zA-Z0-9]{64}'
     options:
-        ekyna_i18n: ~
         _cms:
             name: "Inscription : Créer un compte client"
             parent: ekyna_user_account_registration
@@ -76,7 +72,6 @@ ekyna_user_account_registration_confirmed:
     requirements:
         token: '[a-zA-Z0-9]{64}'
     options:
-        ekyna_i18n: ~
         _cms:
             name: "Inscription : Confirmation"
             parent: ekyna_user_account_registration
