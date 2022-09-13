@@ -50,6 +50,7 @@ return static function (ContainerConfigurator $container) {
             ])
             ->call('setPasswordHasher', [service('security.user_password_hasher')])
             ->call('setSecurityUtil', [service('ekyna_admin.security_util')])
+            ->call('setPersistenceHelper', [service('ekyna_resource.orm.persistence_helper')])
             ->tag('resource.event_subscriber')
 
         // Routing (account) load

@@ -29,11 +29,6 @@ class UserEventSubscriber extends BaseListener implements EventSubscriberInterfa
 
     public function onPostCreate(ResourceEventInterface $event): void
     {
-        $user = $this->getUserFromEvent($event);
-        if (!$user->getSendCreationEmail()) {
-            return;
-        }
-
         $this->sendCredentials($event);
     }
 
@@ -56,6 +51,10 @@ class UserEventSubscriber extends BaseListener implements EventSubscriberInterfa
         }
 
         $user = $this->getUserFromEvent($event);
+
+        if (!$user->getSendCreationEmail()) {
+            return;
+        }
 
         $this->mailer->sendCreation($user, $password);
 
