@@ -140,7 +140,7 @@ class EkynaUserExtension extends Extension implements PrependExtensionInterface
             }
         }
 
-        $pattern = '^/' . implode('|', array_map(fn($val) => trim($val, '/'), $config['account']['routing_prefix']));
+        $pattern = '^/(' . implode('|', array_map(fn($val) => trim($val, '/'), $config['account']['routing_prefix'])) . ')';
 
         $configurator = new SecurityConfigurator();
         $configurator->configure($container, [
@@ -185,8 +185,9 @@ class EkynaUserExtension extends Extension implements PrependExtensionInterface
                 ],
             ],
             'access_control'   => [
+                /** @see src/Ekyna/Bundle/UserBundle/Resources/config/routing/account/security.yaml */
                 [
-                    'path' => $pattern . '/login',
+                    'path' => $pattern . '/(login|connexion|iniciar-sesion)',
                     'role' => 'PUBLIC_ACCESS',
                 ],
                 [
