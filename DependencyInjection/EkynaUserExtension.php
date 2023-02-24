@@ -190,6 +190,15 @@ class EkynaUserExtension extends Extension implements PrependExtensionInterface
                     'path' => $pattern . '/(login|connexion|iniciar-sesion)',
                     'role' => 'PUBLIC_ACCESS',
                 ],
+                /** @see \Ekyna\Bundle\UserBundle\Service\Routing\AccountLoader::load */
+                [
+                    'path' => $pattern . '/(registration|inscription|registro)',
+                    'role' => 'PUBLIC_ACCESS',
+                ],
+                [
+                    'path' => $pattern . '/(resetting|reinitialisation|reiniciar)',
+                    'role' => 'PUBLIC_ACCESS',
+                ],
                 [
                     'path' => $pattern,
                     'role' => 'ROLE_USER',
