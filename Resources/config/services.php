@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
+use Doctrine\ORM\Events;
 use Ekyna\Bundle\UserBundle\Action\User\ClearPasswordRequestAction;
 use Ekyna\Bundle\UserBundle\Action\User\GeneratePasswordAction;
 use Ekyna\Bundle\UserBundle\Action\User\UseSessionAction;
@@ -15,74 +16,85 @@ use Ekyna\Bundle\UserBundle\Twig\UserExtension;
 use Ekyna\Component\User\Service\UserProvider;
 
 return static function (ContainerConfigurator $container) {
-    $container
-        ->services()
+    $services = $container->services();
 
-        // User provider
+    // User provider
+    $services
         ->set('ekyna_user.provider.user', UserProvider::class)
-            ->args([
-                service('security.token_storage'),
-                param('ekyna_user.class.user'),
-            ])
+        ->args([
+            service('security.token_storage'),
+            param('ekyna_user.class.user'),
+        ])
+        ->tag('doctrine.event_listener', [
+            'event'      => Events::onClear,
+            'connection' => 'default',
+        ]);
 
-        // User generate password action
+    // User generate password action
+    $services
         ->set('ekyna_user.action.user.generate_password', GeneratePasswordAction::class)
-            ->args([
-                service('ekyna_admin.security_util'),
-            ])
-            ->tag('ekyna_resource.action')
+        ->args([
+            service('ekyna_admin.security_util'),
+        ])
+        ->tag('ekyna_resource.action');
 
-        // User clear password request action
+    // User clear password request action
+    $services
         ->set('ekyna_user.action.user.clear_password_request', ClearPasswordRequestAction::class)
-            ->args([
-                3600, // TODO Make configurable
-            ])
-            ->tag('ekyna_resource.action')
+        ->args([
+            3600, // TODO Make configurable
+        ])
+        ->tag('ekyna_resource.action');
 
-        // User use session action
+    // User use session action
+    $services
         ->set('ekyna_user.action.user.use_session', UseSessionAction::class)
-            ->tag('ekyna_resource.action')
+        ->tag('ekyna_resource.action');
 
-        // User event listener
+    // User event listener
+    $services
         ->set('ekyna_user.listener.user', UserEventSubscriber::class)
-            ->args([
-                service('ekyna_user.mailer'),
-            ])
-            ->call('setPasswordHasher', [service('security.user_password_hasher')])
-            ->call('setSecurityUtil', [service('ekyna_admin.security_util')])
-            ->call('setPersistenceHelper', [service('ekyna_resource.orm.persistence_helper')])
-            ->tag('resource.event_subscriber')
+        ->args([
+            service('ekyna_user.mailer'),
+        ])
+        ->call('setPasswordHasher', [service('security.user_password_hasher')])
+        ->call('setSecurityUtil', [service('ekyna_admin.security_util')])
+        ->call('setPersistenceHelper', [service('ekyna_resource.orm.persistence_helper')])
+        ->tag('resource.event_subscriber');
 
-        // Routing (account) load
+    // Routing (account) load
+    $services
         ->set('ekyna_user.routing.account_loader', AccountLoader::class)
-            ->args([
-                abstract_arg('Configuration'),
-                param('kernel.environment'),
-            ])
-            ->tag('routing.loader')
+        ->args([
+            abstract_arg('Configuration'),
+            param('kernel.environment'),
+        ])
+        ->tag('routing.loader');
 
-        // Widget renderer
+    // Widget renderer
+    $services
         ->set('ekyna_user.account.widget_renderer', WidgetRenderer::class)
-            ->args([
-                service('twig'),
-            ])
+        ->args([
+            service('twig'),
+        ]);
 
-        // Twig extension
+    // Twig extension
+    $services
         ->set('ekyna_user.twig.extension', UserExtension::class)
-            ->args([
-                abstract_arg('Configuration'),
-            ])
-            ->tag('twig.extension')
+        ->args([
+            abstract_arg('Configuration'),
+        ])
+        ->tag('twig.extension');
 
-        // Mailer
+    // Mailer
+    $services
         ->set('ekyna_user.mailer', UserMailer::class)
-            ->args([
-                service('ekyna_setting.manager'),
-                service('translator'),
-                service('twig'),
-                service('router'),
-                service('mailer'),
-                abstract_arg('Configuration'),
-            ])
-    ;
+        ->args([
+            service('ekyna_setting.manager'),
+            service('translator'),
+            service('twig'),
+            service('router'),
+            service('mailer'),
+            abstract_arg('Configuration'),
+        ]);
 };
