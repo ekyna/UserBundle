@@ -120,3 +120,4 @@ email:
             <p>Bonjour,</p>
             <p>Pour réinitialiser votre mot de passe, merci de vous rendre sur <a href="%reset_url%">cette page</a>.</p>
             <p>Cordialement,<br>L'équipe %sitename%.</p>
+login_link_expires_at: Ce lien de connexion automatique à votre compte client expirera le {date}.

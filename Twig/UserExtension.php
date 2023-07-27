@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Ekyna\Bundle\UserBundle\Twig;
 
-use Exception;
+use Ekyna\Bundle\UserBundle\Service\Security\LoginLinkHelper;
 use InvalidArgumentException;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -16,17 +16,9 @@ use Twig\TwigFunction;
  */
 class UserExtension extends AbstractExtension
 {
-    protected array $accountConfig;
-
-
-    /**
-     * Constructor.
-     *
-     * @param array $config
-     */
-    public function __construct(array $config)
-    {
-        $this->accountConfig = $config;
+    public function __construct(
+        private readonly array $accountConfig
+    ) {
     }
 
     /**
@@ -35,6 +27,10 @@ class UserExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
+            new TwigFunction(
+                'ekyna_user_login_link',
+                [LoginLinkHelper::class, 'createLoginLink']
+            ),
             new TwigFunction(
                 'ekyna_user_account_var',
                 [$this, 'getAccountVar']
@@ -49,9 +45,10 @@ class UserExtension extends AbstractExtension
      *
      * @return mixed
      */
-    public function getAccountVar(string $key)
+    public function getAccountVar(string $key): mixed
     {
         $config = $this->accountConfig;
+
         $keys = explode('.', $key);
 
         foreach ($keys as $key) {

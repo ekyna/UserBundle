@@ -120,3 +120,4 @@ email:
             <p>Hello,</p>
             <p>To reset your password, please go to <a href="%reset_url%">this page</a>.</p>
             <p>Regards,<br>The %sitename% team.</p>
+login_link_expires_at: This automatic link to your customer account will expire on {date}.
