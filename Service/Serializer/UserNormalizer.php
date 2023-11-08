@@ -21,13 +21,13 @@ class UserNormalizer extends ResourceNormalizer
      */
     public function normalize($object, string $format = null, array $context = [])
     {
-        if ($format === 'csv' && $this->contextHasGroup('TableExport', $context)) {
+        if ($format === 'csv' && self::contextHasGroup('TableExport', $context)) {
             return (string)$object;
         }
 
         $data = parent::normalize($object, $format, $context);
 
-        if ($this->contextHasGroup(['Default', 'User', 'Search'], $context)) {
+        if (self::contextHasGroup(['Default', 'User', 'Search'], $context)) {
             $data = array_replace([
                 'email' => $object->getEmail(),
             ], $data);
